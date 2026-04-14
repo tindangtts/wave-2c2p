@@ -49,7 +49,7 @@ Base unit: 4px (8-point grid with 4px sub-steps for icon gaps)
 | 3xl | 64px | `--space-16` | Bottom nav height / clearance |
 
 **Exceptions (enforced at component level):**
-- Touch targets: minimum 44x44px on all interactive elements. Icon-only buttons use `padding: 10px` with `icon-size: 24px` to reach the 44px target without inflating visual size.
+- Touch targets: minimum 44x44px on all interactive elements. Icon-only buttons use `padding: 12px` with `icon-size: 24px` — results in 48px touch target (exceeds 44px minimum, aligns to 4px grid).
 - Card internal gutters: 12px — density requirement for compact transaction list rows. Justified exception: standard 8px is too tight for multi-line card content; 16px wastes mobile real estate.
 - Bottom nav FAB (Add Money): 56x56px (14rem) to be visually prominent — elevated above bar with `-mt-5` offset.
 - OTP digit boxes: minimum 48x48px per box with 8px gap between boxes.
@@ -453,6 +453,8 @@ These rules are enforced at component level and apply to all phases:
 | Bottom nav | `role="navigation" aria-label="Main"` + `aria-current="page"` | UI-UX-REVIEW 4.1 |
 | Wallet balance | `aria-label="Wallet balance: {amount} Thai Baht"` | UI-UX-REVIEW 4.1 |
 | Step indicators | `aria-label="Step {n} of {total}: {name}"` + `aria-current="step"` | UI-UX-REVIEW 4.1 |
+| Bell icon (TopHeader) | `aria-label="Notifications"` | UI checker FLAG fix |
+| Back arrow (BackHeader) | `aria-label="Go back"` | UI checker FLAG fix |
 | Lang attribute | `lang` on `<html>` must reflect active locale | FOUN-05, Pitfall 7 |
 | Format detection | `<meta name="format-detection" content="telephone=no,date=no,address=no,email=no">` | Pitfall 12 — prevents iOS Safari auto-link hydration mismatch |
 
