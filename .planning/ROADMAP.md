@@ -92,7 +92,12 @@ Plans:
   3. Recent History section lists up to 5 transactions with type icon, amount, date, and status badge
   4. Promotions carousel is horizontally scrollable with at least one banner card rendered
   5. Bottom navigation shows 4 tabs (Home, Scan, Add Money, Profile) with a yellow FAB for Add Money; wallet balance updates without a full page reload after a transaction
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 04-01-PLAN.md — Data infrastructure: i18n messages, wallet/transactions API routes, SWR hooks, BottomNav enhancement
+- [ ] 04-02-PLAN.md — Dashboard components: WalletCard, QuickActions, RecentHistory, PromoCarousel, placeholder pages, home page wiring
+
 **UI hint**: yes
 
 ### Phase 5: Transfer & Recipients
@@ -144,7 +149,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 1. Foundation | 4/4 | Complete   | 2026-04-14 |
 | 2. Authentication | 4/4 | Complete   | 2026-04-14 |
 | 3. eKYC Onboarding | 4/4 | Complete   | 2026-04-14 |
-| 4. Home & Wallet | 0/TBD | Not started | - |
+| 4. Home & Wallet | 0/2 | In progress | - |
 | 5. Transfer & Recipients | 0/TBD | Not started | - |
 | 6. Wallet Operations | 0/TBD | Not started | - |
 | 7. Profile, Card & System States | 0/TBD | Not started | - |
