@@ -9,17 +9,13 @@ export default function HomePage() {
     <>
       <TopHeader />
       <div className="flex-1 flex flex-col">
-        {/* Profile & Balance Section */}
-        <div className="wave-header-gradient px-4 pb-6">
-          <WalletCard
-            name="Lalita Tungtrakul..."
-            balance={10000.0}
-            walletId="89898989000009998400"
-          />
+        {/* Yellow header content area */}
+        <div className="bg-[#FFE600] px-4 pt-2 pb-8">
+          <WalletCard />
         </div>
 
-        {/* Quick Actions */}
-        <div className="px-4 -mt-2">
+        {/* Quick Actions — overlaps yellow/white boundary */}
+        <div className="px-4 -mt-4">
           <QuickActions />
         </div>
 
