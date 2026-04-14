@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 04-home-wallet-01-PLAN.md
-last_updated: "2026-04-14T11:26:33.404Z"
+status: verifying
+stopped_at: Completed 04-home-wallet-02-PLAN.md
+last_updated: "2026-04-14T11:35:20.892Z"
 last_activity: 2026-04-14
 progress:
   total_phases: 7
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 14
-  completed_plans: 13
+  completed_plans: 14
   percent: 0
 ---
 
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-04-14)
 
 Phase: 04 (home-wallet) — EXECUTING
 Plan: 2 of 2
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-04-14
 
 Progress: [░░░░░░░░░░] 0%
@@ -65,6 +65,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 03-ekyc-onboarding P02 | 8 | 2 tasks | 6 files |
 | Phase 03-ekyc-onboarding P04 | 15 | 2 tasks | 3 files |
 | Phase 04-home-wallet P01 | 8 | 2 tasks | 9 files |
+| Phase 04-home-wallet P02 | 8 | 2 tasks | 9 files |
 
 ## Accumulated Context
 
@@ -106,6 +107,8 @@ Recent decisions affecting current work:
 - [Phase 03-ekyc-onboarding]: retakeMode null|front|back|selfie drives inline CameraOverlay per field — avoids extra routes and iOS PWA camera permission re-prompts
 - [Phase 03-ekyc-onboarding]: KYCExpiredModal AlertDialog uses controlled mode (open prop only) — parent component owns open/close lifecycle
 - [Phase 04-home-wallet]: SWR dedupingInterval 30s per D-10; missing wallet returns null not 500; stroke-[2.5] vs stroke-[1.5] for active/inactive icon differentiation in BottomNav
+- [Phase 04-home-wallet]: Embla carousel used directly (not shadcn wrapper) for precise dot indicator sync via onSelect callback
+- [Phase 04-home-wallet]: localStorage hydration uses useState(true) + useEffect pattern to prevent SSR mismatch in WalletCard balance visibility
 
 ### Pending Todos
 
@@ -117,6 +120,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-14T11:26:33.402Z
-Stopped at: Completed 04-home-wallet-01-PLAN.md
+Last session: 2026-04-14T11:35:20.890Z
+Stopped at: Completed 04-home-wallet-02-PLAN.md
 Resume file: None
