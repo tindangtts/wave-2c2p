@@ -110,7 +110,14 @@ Plans:
   3. User can select from four receiving channels (Wave Agent, Wave App, Bank Transfer, Cash Pickup) with per-channel fee breakdown shown before selection
   4. Confirmation screen summarizes amount, converted amount, exchange rate, fees, and total; user confirms with passcode
   5. Transfer receipt with reference number, amounts, rate, and timestamp is displayed after a successful mock submission; status progresses from pending through processing to completed
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 05-01-PLAN.md — Data infrastructure: types, Zod schemas, Zustand transfer store, i18n, recipient CRUD API, mock payment endpoints
+- [ ] 05-02-PLAN.md — Recipient management UI: list with search/favorites, new recipient form, edit form, delete
+- [ ] 05-03-PLAN.md — Amount entry with live MMK conversion and receiving channel selection with fee breakdown
+- [ ] 05-04-PLAN.md — Confirmation with passcode entry and receipt with status polling
+
 **UI hint**: yes
 
 ### Phase 6: Wallet Operations
@@ -150,6 +157,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 2. Authentication | 4/4 | Complete   | 2026-04-14 |
 | 3. eKYC Onboarding | 4/4 | Complete   | 2026-04-14 |
 | 4. Home & Wallet | 2/2 | Complete   | 2026-04-14 |
-| 5. Transfer & Recipients | 0/TBD | Not started | - |
+| 5. Transfer & Recipients | 0/4 | In progress | - |
 | 6. Wallet Operations | 0/TBD | Not started | - |
 | 7. Profile, Card & System States | 0/TBD | Not started | - |
