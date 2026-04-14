@@ -1,6 +1,13 @@
 -- 2C2P Wave Database Schema
 -- Run this in Supabase SQL Editor
 
+-- MONETARY CONVENTION (D-07):
+-- All monetary amounts are stored as bigint in smallest currency unit:
+--   THB: satang (1 THB = 100 satang)
+--   MMK: pya (1 MMK = 100 pya)
+-- Exchange rates remain as numeric(10,4) — they are ratios, not currency amounts.
+-- Use src/lib/currency.ts for display formatting.
+
 -- Enable UUID extension
 create extension if not exists "uuid-ossp";
 
@@ -22,9 +29,9 @@ create table public.user_profiles (
 create table public.wallets (
   id uuid primary key default uuid_generate_v4(),
   user_id uuid references public.user_profiles(id) on delete cascade not null unique,
-  balance numeric(12, 2) not null default 0.00 check (balance >= 0),
+  balance bigint not null default 0 check (balance >= 0),
   currency text not null default 'THB',
-  max_topup numeric(12, 2) not null default 25000.00,
+  max_topup bigint not null default 2500000,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -67,12 +74,12 @@ create table public.transactions (
   id uuid primary key default uuid_generate_v4(),
   user_id uuid references public.user_profiles(id) on delete cascade not null,
   type text not null check (type in ('add_money', 'send_money', 'withdraw', 'receive', 'bill_payment')),
-  amount numeric(12, 2) not null,
+  amount bigint not null,
   currency text not null default 'THB',
-  converted_amount numeric(12, 2),
+  converted_amount bigint,
   converted_currency text,
   exchange_rate numeric(10, 4),
-  fee numeric(8, 2) default 0.00,
+  fee bigint default 0,
   status text not null default 'pending' check (status in ('pending', 'processing', 'success', 'rejected', 'failed')),
   recipient_id uuid references public.recipients(id),
   channel text check (channel in ('wave_agent', 'wave_app', 'bank_transfer', 'cash_pickup')),
@@ -92,7 +99,7 @@ create table public.cards (
   cvv_encrypted text,
   expiry_month int not null,
   expiry_year int not null,
-  balance numeric(12, 2) not null default 0.00,
+  balance bigint not null default 0,
   is_frozen boolean not null default false,
   status text not null default 'active' check (status in ('active', 'inactive', 'ordered', 'delivered')),
   created_at timestamptz not null default now()
@@ -105,7 +112,7 @@ create table public.referrals (
   referee_id uuid references public.user_profiles(id),
   code text not null unique,
   status text not null default 'pending' check (status in ('pending', 'completed')),
-  reward_amount numeric(8, 2),
+  reward_amount bigint,
   created_at timestamptz not null default now()
 );
 
@@ -124,9 +131,18 @@ create policy "Users can view own profile" on public.user_profiles
 create policy "Users can update own profile" on public.user_profiles
   for update using (auth.uid() = id);
 
+-- Users can insert own profile (needed for registration)
+create policy "Users can insert own profile" on public.user_profiles
+  for insert with check (auth.uid() = id);
+
 -- Wallet: users see only their own
 create policy "Users can view own wallet" on public.wallets
   for select using (auth.uid() = user_id);
+
+-- Server-side wallet balance updates (service role bypasses RLS by default,
+-- but explicit policy is safer for edge cases)
+create policy "Users can update own wallet" on public.wallets
+  for update using (auth.uid() = user_id);
 
 -- KYC: users see only their own
 create policy "Users can view own KYC" on public.kyc_documents
