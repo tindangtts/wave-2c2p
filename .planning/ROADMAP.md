@@ -72,7 +72,14 @@ Plans:
   3. User can complete face verification using the circular liveness frame and receive a mock approval or rejection with reasons
   4. KYC status page correctly shows pending, approved, rejected, or expired states with clear next-step instructions
   5. Rejected user can return to submission, see which specific fields failed, correct them, and resubmit
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 03-01-PLAN.md — KYC infrastructure: Zod schemas, Zustand store, i18n messages, StepIndicator adaptation, mock submission API
+- [ ] 03-02-PLAN.md — Document type selection and camera capture flow (front/back/selfie with guide overlays)
+- [ ] 03-03-PLAN.md — Processing animation and KYC status page (4 states with CTAs)
+- [ ] 03-04-PLAN.md — Re-submission flow and KYC expired modal
+
 **UI hint**: yes
 
 ### Phase 4: Home & Wallet
@@ -136,7 +143,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 |-------|----------------|--------|-----------|
 | 1. Foundation | 4/4 | Complete   | 2026-04-14 |
 | 2. Authentication | 4/4 | Complete   | 2026-04-14 |
-| 3. eKYC Onboarding | 0/TBD | Not started | - |
+| 3. eKYC Onboarding | 0/4 | Not started | - |
 | 4. Home & Wallet | 0/TBD | Not started | - |
 | 5. Transfer & Recipients | 0/TBD | Not started | - |
 | 6. Wallet Operations | 0/TBD | Not started | - |
