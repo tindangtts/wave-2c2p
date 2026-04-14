@@ -130,7 +130,14 @@ Plans:
   3. QR scanner page displays a camera view with scan frame overlay; falls back to file picker on iOS PWA standalone mode
   4. Transaction history displays an infinite-scrollable chronological list with date-range picker (handling Thai Buddhist calendar years) and type/status filters
   5. Transaction detail view shows full receipt breakdown matching the transfer receipt format
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 06-01-PLAN.md — Data infrastructure: schemas, store, SWR hooks, i18n, mock topup/withdraw/transactions APIs
+- [ ] 06-02-PLAN.md — Add Money flow: amount entry with bank/convenience channel grid, QR display with expiry timer
+- [ ] 06-03-PLAN.md — Transaction history: infinite scroll, filter chips, date range picker, transaction detail
+- [ ] 06-04-PLAN.md — QR scanner with camera overlay and file fallback, withdrawal flow with passcode
+
 **UI hint**: yes
 
 ### Phase 7: Profile, Card & System States
@@ -158,5 +165,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 3. eKYC Onboarding | 4/4 | Complete   | 2026-04-14 |
 | 4. Home & Wallet | 2/2 | Complete   | 2026-04-14 |
 | 5. Transfer & Recipients | 4/4 | Complete   | 2026-04-14 |
-| 6. Wallet Operations | 0/TBD | Not started | - |
+| 6. Wallet Operations | 0/4 | Not started | - |
 | 7. Profile, Card & System States | 0/TBD | Not started | - |
