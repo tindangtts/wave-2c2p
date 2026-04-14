@@ -1,26 +1,34 @@
 import { NextResponse } from "next/server";
 
+const REJECTION_REASONS = [
+  "Document is blurry or unreadable.",
+  "Document is expired.",
+  "Name on document does not match registration.",
+  "Document type not accepted.",
+  "Photo unclear or face not visible.",
+] as const;
+
 export async function POST(request: Request) {
   const body = await request.json();
-  const { document_type, front_image, back_image } = body;
+  const { document_type } = body;
 
-  // Mock delay to simulate processing
-  await new Promise((resolve) => setTimeout(resolve, 1500));
+  // Read env vars at request time (per D-04)
+  const autoApprove = process.env.MOCK_KYC_AUTO_APPROVE !== 'false'; // default: true
+  const delayMs = parseInt(process.env.MOCK_KYC_DELAY_MS ?? '1500', 10);
 
-  // Mock configurable pass/fail (default: pass)
-  const shouldFail = body.mock_fail === true;
+  await new Promise((resolve) => setTimeout(resolve, delayMs));
 
-  if (shouldFail) {
+  if (!autoApprove) {
+    const reason = REJECTION_REASONS[Math.floor(Math.random() * REJECTION_REASONS.length)];
     return NextResponse.json({
       success: false,
       status: "rejected",
-      rejection_reason: "Document is blurry or unreadable. Please retake the photo.",
+      rejection_reason: reason,
       document_type,
       extracted_data: null,
     });
   }
 
-  // Mock extracted data from OCR
   return NextResponse.json({
     success: true,
     status: "approved",

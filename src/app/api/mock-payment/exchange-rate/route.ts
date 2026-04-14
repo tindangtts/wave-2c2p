@@ -1,20 +1,18 @@
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  // Mock exchange rates matching the prototype
+  // Read exchange rate from env var at request time (per D-06)
+  const rate = parseFloat(process.env.MOCK_EXCHANGE_RATE_THB_MMK ?? '58.148');
+
   return NextResponse.json({
     rates: [
       {
         from: "THB",
         to: "MMK",
-        rate: 58.148,
-        inverse_rate: 0.0172,
+        rate,
+        inverse_rate: Math.round((1 / rate) * 10000) / 10000,
         updated_at: new Date().toISOString(),
       },
     ],
-    info: {
-      description: "1 THB = 133.0 MMK (promotional rate shown in prototype)",
-      max_transfer: "100,000 MMK = 751.88 THB",
-    },
   });
 }

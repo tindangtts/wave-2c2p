@@ -1,14 +1,15 @@
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
-  const body = await request.json();
+  await request.json(); // consume body
 
-  // Mock delay for face verification
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+  // Read env vars at request time (per D-04)
+  const autoApprove = process.env.MOCK_KYC_AUTO_APPROVE !== 'false'; // default: true
+  const delayMs = parseInt(process.env.MOCK_KYC_DELAY_MS ?? '2000', 10);
 
-  const shouldFail = body.mock_fail === true;
+  await new Promise((resolve) => setTimeout(resolve, delayMs));
 
-  if (shouldFail) {
+  if (!autoApprove) {
     return NextResponse.json({
       success: false,
       status: "rejected",

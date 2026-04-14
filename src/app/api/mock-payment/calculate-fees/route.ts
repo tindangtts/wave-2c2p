@@ -15,7 +15,8 @@ export async function POST(request: Request) {
     cash_pickup: 20.0,
   };
 
-  const exchangeRate = 58.148;
+  // Read exchange rate from env var at request time (per D-06)
+  const exchangeRate = parseFloat(process.env.MOCK_EXCHANGE_RATE_THB_MMK ?? '58.148');
 
   const fees = (channels ?? Object.keys(feeTable)).map(
     (channel: TransferChannel) => ({

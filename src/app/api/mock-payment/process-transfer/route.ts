@@ -10,18 +10,16 @@ const channelFees: Record<TransferChannel, number> = {
 
 export async function POST(request: Request) {
   const body = await request.json();
-  const {
-    amount,
-    currency = "THB",
-    recipient_id,
-    channel,
-    mock_fail,
-  } = body;
+  const { amount, currency = "THB", recipient_id, channel } = body;
 
-  // Mock processing delay
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+  // Read env vars at request time (per D-05)
+  const delayMs = parseInt(process.env.MOCK_PAYMENT_DELAY_MS ?? '2000', 10);
+  const shouldFail = process.env.MOCK_PAYMENT_FAIL === 'true';
+  const exchangeRate = parseFloat(process.env.MOCK_EXCHANGE_RATE_THB_MMK ?? '58.148');
 
-  if (mock_fail) {
+  await new Promise((resolve) => setTimeout(resolve, delayMs));
+
+  if (shouldFail) {
     return NextResponse.json({
       success: false,
       status: "failed",
@@ -31,7 +29,6 @@ export async function POST(request: Request) {
   }
 
   const fee = channelFees[channel as TransferChannel] ?? 10.0;
-  const exchangeRate = 58.148; // Mock THB to MMK
   const convertedAmount = amount * exchangeRate;
 
   return NextResponse.json({
