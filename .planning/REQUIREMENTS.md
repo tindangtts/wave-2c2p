@@ -81,8 +81,8 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **HIST-01**: User can view chronological transaction list with infinite scroll
 - [x] **HIST-02**: User can filter by date range using calendar picker
 - [x] **HIST-03**: User can filter by transaction type and status
-- [ ] **HIST-04**: User can view transaction detail/receipt with full breakdown
-- [ ] **HIST-05**: Date picker handles Thai Buddhist calendar year correctly
+- [x] **HIST-04**: User can view transaction detail/receipt with full breakdown
+- [x] **HIST-05**: Date picker handles Thai Buddhist calendar year correctly
 
 ### Profile & Settings
 
@@ -206,8 +206,8 @@ Deferred to future release. Tracked but not in current roadmap.
 | HIST-01 | Phase 6 | Complete |
 | HIST-02 | Phase 6 | Complete |
 | HIST-03 | Phase 6 | Complete |
-| HIST-04 | Phase 6 | Pending |
-| HIST-05 | Phase 6 | Pending |
+| HIST-04 | Phase 6 | Complete |
+| HIST-05 | Phase 6 | Complete |
 | SCAN-01 | Phase 6 | Complete |
 | SCAN-02 | Phase 6 | Complete |
 | WTHD-01 | Phase 6 | Complete |

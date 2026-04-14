@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: verifying
-stopped_at: Completed 06-04-PLAN.md
-last_updated: "2026-04-14T13:07:44.869Z"
+stopped_at: Completed 06-03-PLAN.md
+last_updated: "2026-04-14T13:07:56.252Z"
 last_activity: 2026-04-14
 progress:
   total_phases: 7
@@ -73,6 +73,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 06-wallet-operations P01 | 81 | 2 tasks | 11 files |
 | Phase 06-wallet-operations P02 | 4 | 2 tasks | 7 files |
 | Phase 06 P04 | 4 | 2 tasks | 6 files |
+| Phase 06 P03 | 4 | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -131,6 +132,8 @@ Recent decisions affecting current work:
 - [Phase 06-wallet-operations]: Channel tap with invalid amount shows toast error; hasFetched ref prevents double-POST in React Strict Mode; amount from topup API is baht not satang
 - [Phase 06]: box-shadow 9999px spread used for ScannerFrame dark mask — single element, no 4-div clip-path complexity
 - [Phase 06]: withdraw/receipt passes transaction data via searchParams — store reset after successful withdrawal, searchParams are URL-stable
+- [Phase 06]: DateRangePicker uses formatters.formatCaption on shadcn Calendar to inject Buddhist year (+543) for th locale
+- [Phase 06]: Transactions API extended with id= param returning single object — minimal API change enabling detail page SWR fetch
 
 ### Pending Todos
 
@@ -142,6 +145,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-14T13:07:34.236Z
-Stopped at: Completed 06-04-PLAN.md
+Last session: 2026-04-14T13:07:56.250Z
+Stopped at: Completed 06-03-PLAN.md
 Resume file: None
