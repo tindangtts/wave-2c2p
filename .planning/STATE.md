@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-01-PLAN.md
-last_updated: "2026-04-14T08:05:28.933Z"
+stopped_at: Completed 02-02-PLAN.md
+last_updated: "2026-04-14T08:11:16.950Z"
 last_activity: 2026-04-14
 progress:
   total_phases: 7
   completed_phases: 1
   total_plans: 8
-  completed_plans: 5
+  completed_plans: 7
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-14)
 ## Current Position
 
 Phase: 02 (Authentication) — EXECUTING
-Plan: 2 of 4
+Plan: 4 of 4
 Status: Ready to execute
 Last activity: 2026-04-14
 
@@ -57,6 +57,8 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01-foundation P01 | 15 | 3 tasks | 4 files |
 | Phase 01-foundation P02 | 5 | 2 tasks | 8 files |
 | Phase 02-authentication P01 | 4 | 2 tasks | 11 files |
+| Phase 02-authentication P02 | 15 | 2 tasks | 6 files |
+| Phase 02-authentication P03 | 3 | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -80,6 +82,8 @@ Recent decisions affecting current work:
 - [Phase 02-authentication]: Zod superRefine for phone validation: cross-field digit-stripping + country-specific length rules in one pass
 - [Phase 02-authentication]: PBKDF2 310k iterations (OWASP 2023 sha256 recommendation) + timingSafeEqual for passcode — Node.js built-in crypto, no extra package
 - [Phase 02-authentication]: i18n: auth.json merged via spread under 'auth' namespace in request.ts — parallel load with common.json
+- [Phase 02-authentication]: admin.auth.admin.getUserByPhone does not exist — use listUsers with .find() for phone lookup
+- [Phase 02-authentication]: isLoginOnlyPage split from isAuthPage — /passcode excluded from auth redirect (needed for lock screen)
 
 ### Pending Todos
 
@@ -91,6 +95,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-14T08:05:28.931Z
-Stopped at: Completed 02-01-PLAN.md
+Last session: 2026-04-14T08:11:04.145Z
+Stopped at: Completed 02-02-PLAN.md
 Resume file: None

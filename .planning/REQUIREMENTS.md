@@ -21,12 +21,12 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Authentication
 
 - [x] **AUTH-01**: User can enter phone number with country code selector (+66 TH, +95 MM)
-- [ ] **AUTH-02**: User receives 6-digit OTP and can verify within time limit
+- [x] **AUTH-02**: User receives 6-digit OTP and can verify within time limit
 - [ ] **AUTH-03**: User can complete multi-step registration (personal info, ID details)
 - [x] **AUTH-04**: Registration progress is checkpointed server-side so returning users resume where they left off
 - [x] **AUTH-05**: User can set up 6-digit passcode for quick login
-- [ ] **AUTH-06**: Authenticated routes redirect unauthenticated users to login via proxy.ts
-- [ ] **AUTH-07**: User session persists across browser refresh with automatic token refresh
+- [x] **AUTH-06**: Authenticated routes redirect unauthenticated users to login via proxy.ts
+- [x] **AUTH-07**: User session persists across browser refresh with automatic token refresh
 
 ### eKYC
 
@@ -164,12 +164,12 @@ Deferred to future release. Tracked but not in current roadmap.
 | FOUN-07 | Phase 1 | Complete |
 | FOUN-08 | Phase 1 | Complete |
 | AUTH-01 | Phase 2 | Complete |
-| AUTH-02 | Phase 2 | Pending |
+| AUTH-02 | Phase 2 | Complete |
 | AUTH-03 | Phase 2 | Pending |
 | AUTH-04 | Phase 2 | Complete |
 | AUTH-05 | Phase 2 | Complete |
-| AUTH-06 | Phase 2 | Pending |
-| AUTH-07 | Phase 2 | Pending |
+| AUTH-06 | Phase 2 | Complete |
+| AUTH-07 | Phase 2 | Complete |
 | EKYC-01 | Phase 3 | Pending |
 | EKYC-02 | Phase 3 | Pending |
 | EKYC-03 | Phase 3 | Pending |
