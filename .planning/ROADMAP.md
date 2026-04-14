@@ -12,7 +12,7 @@ This roadmap builds a mobile-first PWA for cross-border money transfers (THB→M
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation** - Design system, DB schema, mock services, and i18n are production-ready
+- [x] **Phase 1: Foundation** - Design system, DB schema, mock services, and i18n are production-ready (completed 2026-04-14)
 - [ ] **Phase 2: Authentication** - Users can register, verify OTP, set passcode, and stay logged in
 - [ ] **Phase 3: eKYC Onboarding** - Users can complete identity verification with mock approval/rejection
 - [ ] **Phase 4: Home & Wallet** - Users can view their balance, recent transactions, and navigate the app
@@ -36,7 +36,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 Plans:
 - [x] 01-01-PLAN.md — Design tokens, fonts, layout shell, bottom-nav accessibility, badge variants
-- [ ] 01-02-PLAN.md — i18n infrastructure (next-intl v4, message files, proxy.ts composition, locale-aware layout)
+- [x] 01-02-PLAN.md — i18n infrastructure (next-intl v4, message files, proxy.ts composition, locale-aware layout)
 - [x] 01-03-PLAN.md — Mock services env-var wiring, currency utility module with integer arithmetic
 - [x] 01-04-PLAN.md — Supabase schema fix (numeric to bigint, missing RLS policies)
 
@@ -127,7 +127,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 3/4 | In Progress|  |
+| 1. Foundation | 4/4 | Complete   | 2026-04-14 |
 | 2. Authentication | 0/TBD | Not started | - |
 | 3. eKYC Onboarding | 0/TBD | Not started | - |
 | 4. Home & Wallet | 0/TBD | Not started | - |
