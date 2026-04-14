@@ -8,11 +8,12 @@ export async function POST(request: Request) {
     channels: TransferChannel[];
   };
 
+  // Fee schedule per D-14: wave_agent=10, wave_app=10, bank_transfer=50, cash_pickup=30
   const feeTable: Record<TransferChannel, number> = {
     wave_agent: 10.0,
     wave_app: 10.0,
-    bank_transfer: 15.0,
-    cash_pickup: 20.0,
+    bank_transfer: 50.0,
+    cash_pickup: 30.0,
   };
 
   // Read exchange rate from env var at request time (per D-06)
