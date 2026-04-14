@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 06-01-PLAN.md
-last_updated: "2026-04-14T13:02:14.218Z"
+stopped_at: Completed 06-02-PLAN.md
+last_updated: "2026-04-14T13:06:42.834Z"
 last_activity: 2026-04-14
 progress:
   total_phases: 7
   completed_phases: 5
   total_plans: 22
-  completed_plans: 19
+  completed_plans: 20
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-14)
 ## Current Position
 
 Phase: 06 (wallet-operations) — EXECUTING
-Plan: 2 of 4
+Plan: 3 of 4
 Status: Ready to execute
 Last activity: 2026-04-14
 
@@ -71,6 +71,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 05-transfer-recipients P02 | 5 | 2 tasks | 6 files |
 | Phase 05 P04 | 3 | 2 tasks | 5 files |
 | Phase 06-wallet-operations P01 | 81 | 2 tasks | 11 files |
+| Phase 06-wallet-operations P02 | 4 | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -126,6 +127,7 @@ Recent decisions affecting current work:
 - [Phase 06-wallet-operations]: sessionStorage (not localStorage) for wallet-ops-store — wallet flow state is session-scoped; avoids stale topup/withdraw state across sessions
 - [Phase 06-wallet-operations]: transactions route uses .select('*, recipients(*)') join — single query for enriched data, avoids secondary client fetch
 - [Phase 06-wallet-operations]: withdraw deducts balance immediately before async completion — prevents double-spend with rollback on tx insert failure
+- [Phase 06-wallet-operations]: Channel tap with invalid amount shows toast error; hasFetched ref prevents double-POST in React Strict Mode; amount from topup API is baht not satang
 
 ### Pending Todos
 
@@ -137,6 +139,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-14T13:02:14.215Z
-Stopped at: Completed 06-01-PLAN.md
+Last session: 2026-04-14T13:06:42.832Z
+Stopped at: Completed 06-02-PLAN.md
 Resume file: None

@@ -134,7 +134,7 @@ Plans:
 
 Plans:
 - [x] 06-01-PLAN.md — Data infrastructure: schemas, store, SWR hooks, i18n, mock topup/withdraw/transactions APIs
-- [ ] 06-02-PLAN.md — Add Money flow: amount entry with bank/convenience channel grid, QR display with expiry timer
+- [x] 06-02-PLAN.md — Add Money flow: amount entry with bank/convenience channel grid, QR display with expiry timer
 - [ ] 06-03-PLAN.md — Transaction history: infinite scroll, filter chips, date range picker, transaction detail
 - [ ] 06-04-PLAN.md — QR scanner with camera overlay and file fallback, withdrawal flow with passcode
 
@@ -165,5 +165,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 3. eKYC Onboarding | 4/4 | Complete   | 2026-04-14 |
 | 4. Home & Wallet | 2/2 | Complete   | 2026-04-14 |
 | 5. Transfer & Recipients | 4/4 | Complete   | 2026-04-14 |
-| 6. Wallet Operations | 1/4 | In Progress|  |
+| 6. Wallet Operations | 2/4 | In Progress|  |
 | 7. Profile, Card & System States | 0/TBD | Not started | - |
