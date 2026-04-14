@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 03-02-PLAN.md
-last_updated: "2026-04-14T09:46:43.470Z"
+status: verifying
+stopped_at: Completed 03-04-PLAN.md
+last_updated: "2026-04-14T09:50:31.094Z"
 last_activity: 2026-04-14
 progress:
   total_phases: 7
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 12
-  completed_plans: 11
+  completed_plans: 12
   percent: 0
 ---
 
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-04-14)
 
 Phase: 03 (ekyc-onboarding) — EXECUTING
 Plan: 4 of 4
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-04-14
 
 Progress: [░░░░░░░░░░] 0%
@@ -63,6 +63,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 03-ekyc-onboarding P01 | 8 | 2 tasks | 8 files |
 | Phase 03-ekyc-onboarding P03 | 8 | 2 tasks | 4 files |
 | Phase 03-ekyc-onboarding P02 | 8 | 2 tasks | 6 files |
+| Phase 03-ekyc-onboarding P04 | 15 | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -100,6 +101,9 @@ Recent decisions affecting current work:
 - [Phase 03-ekyc-onboarding]: Auto-redirect on approval uses useEffect with 2s timeout + aria-live=assertive for screen readers
 - [Phase 03-ekyc-onboarding]: Camera capture via native <input capture> attribute — single /kyc/capture route to avoid iOS PWA permission re-prompts
 - [Phase 03-ekyc-onboarding]: router.push paths in Next.js App Router must not include route group names like (auth)
+- [Phase 03-ekyc-onboarding]: Rejection heuristic maps keyword patterns to fields: document/blurry/expired → front+back rejected; face/photo → selfie rejected
+- [Phase 03-ekyc-onboarding]: retakeMode null|front|back|selfie drives inline CameraOverlay per field — avoids extra routes and iOS PWA camera permission re-prompts
+- [Phase 03-ekyc-onboarding]: KYCExpiredModal AlertDialog uses controlled mode (open prop only) — parent component owns open/close lifecycle
 
 ### Pending Todos
 
@@ -111,6 +115,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-14T09:46:43.467Z
-Stopped at: Completed 03-02-PLAN.md
+Last session: 2026-04-14T09:50:31.092Z
+Stopped at: Completed 03-04-PLAN.md
 Resume file: None

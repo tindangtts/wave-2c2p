@@ -36,8 +36,8 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **EKYC-04**: User can complete face verification with circular liveness frame
 - [x] **EKYC-05**: Mock eKYC processes documents and returns configurable approval/rejection with reasons
 - [x] **EKYC-06**: User sees KYC status (pending/approved/rejected/expired) with clear next steps
-- [ ] **EKYC-07**: User can re-submit documents after rejection with specific field guidance
-- [ ] **EKYC-08**: KYC expired modal prompts user to update with consequences explained
+- [x] **EKYC-07**: User can re-submit documents after rejection with specific field guidance
+- [x] **EKYC-08**: KYC expired modal prompts user to update with consequences explained
 
 ### Home & Wallet
 
@@ -176,8 +176,8 @@ Deferred to future release. Tracked but not in current roadmap.
 | EKYC-04 | Phase 3 | Complete |
 | EKYC-05 | Phase 3 | Complete |
 | EKYC-06 | Phase 3 | Complete |
-| EKYC-07 | Phase 3 | Pending |
-| EKYC-08 | Phase 3 | Pending |
+| EKYC-07 | Phase 3 | Complete |
+| EKYC-08 | Phase 3 | Complete |
 | HOME-01 | Phase 4 | Pending |
 | HOME-02 | Phase 4 | Pending |
 | HOME-03 | Phase 4 | Pending |

@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation** - Design system, DB schema, mock services, and i18n are production-ready (completed 2026-04-14)
 - [x] **Phase 2: Authentication** - Users can register, verify OTP, set passcode, and stay logged in (completed 2026-04-14)
-- [ ] **Phase 3: eKYC Onboarding** - Users can complete identity verification with mock approval/rejection
+- [x] **Phase 3: eKYC Onboarding** - Users can complete identity verification with mock approval/rejection (completed 2026-04-14)
 - [ ] **Phase 4: Home & Wallet** - Users can view their balance, recent transactions, and navigate the app
 - [ ] **Phase 5: Transfer & Recipients** - Users can send money to Myanmar with full confirmation flow
 - [ ] **Phase 6: Wallet Operations** - Users can top up, withdraw, scan QR, and review transaction history
@@ -78,7 +78,7 @@ Plans:
 - [x] 03-01-PLAN.md — KYC infrastructure: Zod schemas, Zustand store, i18n messages, StepIndicator adaptation, mock submission API
 - [x] 03-02-PLAN.md — Document type selection and camera capture flow (front/back/selfie with guide overlays)
 - [x] 03-03-PLAN.md — Processing animation and KYC status page (4 states with CTAs)
-- [ ] 03-04-PLAN.md — Re-submission flow and KYC expired modal
+- [x] 03-04-PLAN.md — Re-submission flow and KYC expired modal
 
 **UI hint**: yes
 
@@ -143,7 +143,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 |-------|----------------|--------|-----------|
 | 1. Foundation | 4/4 | Complete   | 2026-04-14 |
 | 2. Authentication | 4/4 | Complete   | 2026-04-14 |
-| 3. eKYC Onboarding | 3/4 | In Progress|  |
+| 3. eKYC Onboarding | 4/4 | Complete   | 2026-04-14 |
 | 4. Home & Wallet | 0/TBD | Not started | - |
 | 5. Transfer & Recipients | 0/TBD | Not started | - |
 | 6. Wallet Operations | 0/TBD | Not started | - |
