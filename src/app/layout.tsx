@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Noto_Sans_Thai, Noto_Sans_Myanmar } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
 import "./globals.css";
 
 const notoSansThai = Noto_Sans_Thai({
@@ -43,21 +45,26 @@ export const viewport: Viewport = {
   themeColor: "#0091EA",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
     <html
-      lang="en"
+      lang={locale}
       className={`${notoSansThai.variable} ${notoSansMyanmar.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-muted">
-        <div className="mx-auto w-full max-w-[430px] min-h-dvh flex flex-col bg-background relative overflow-hidden shadow-xl">
-          {children}
-        </div>
-        <Toaster position="top-center" />
+        <NextIntlClientProvider messages={messages}>
+          <div className="mx-auto w-full max-w-[430px] min-h-dvh flex flex-col bg-background relative overflow-hidden shadow-xl">
+            {children}
+          </div>
+          <Toaster position="top-center" />
+        </NextIntlClientProvider>
       </body>
     </html>
   );
