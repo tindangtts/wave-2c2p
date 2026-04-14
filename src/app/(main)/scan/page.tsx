@@ -1,25 +1,161 @@
-"use client";
+'use client'
 
-import { BackHeader } from "@/components/layout/back-header";
-import { ScanLine } from "lucide-react";
+import { useEffect, useRef, useState, useCallback } from 'react'
+import { useRouter } from 'next/navigation'
+import { X } from 'lucide-react'
+import { toast } from 'sonner'
+import { ScannerFrame } from '@/components/features/scanner-frame'
+
+type CameraState = 'requesting' | 'active' | 'denied' | 'unavailable'
 
 export default function ScanPage() {
+  const router = useRouter()
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const streamRef = useRef<MediaStream | null>(null)
+  const galleryInputRef = useRef<HTMLInputElement>(null)
+  const [cameraState, setCameraState] = useState<CameraState>('requesting')
+
+  const stopCamera = useCallback(() => {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach((track) => track.stop())
+      streamRef.current = null
+    }
+  }, [])
+
+  useEffect(() => {
+    async function startCamera() {
+      if (
+        typeof navigator === 'undefined' ||
+        !navigator.mediaDevices ||
+        !navigator.mediaDevices.getUserMedia
+      ) {
+        setCameraState('unavailable')
+        return
+      }
+
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: 'environment' },
+        })
+        streamRef.current = stream
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream
+        }
+        setCameraState('active')
+      } catch {
+        setCameraState('denied')
+      }
+    }
+
+    startCamera()
+
+    return () => {
+      stopCamera()
+    }
+  }, [stopCamera])
+
+  function handleGallerySelect(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    // Mock behavior: no actual QR decoding in Phase 6
+    toast.success('QR code scanned (mock)')
+    // Reset input so same file can be re-selected
+    e.target.value = ''
+  }
+
+  function handleClose() {
+    stopCamera()
+    router.push('/home')
+  }
+
+  function handleReceiveMoney() {
+    router.push('/scan/receive-qr')
+  }
+
   return (
-    <>
-      <BackHeader title="Scan QR" />
-      <div className="flex-1 flex flex-col items-center justify-center bg-black/90 px-8">
-        <div className="w-64 h-64 border-2 border-white/50 rounded-2xl flex items-center justify-center relative">
-          {/* Corner markers */}
-          <div className="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-wave-yellow rounded-tl-lg" />
-          <div className="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 border-wave-yellow rounded-tr-lg" />
-          <div className="absolute bottom-0 left-0 w-8 h-8 border-b-4 border-l-4 border-wave-yellow rounded-bl-lg" />
-          <div className="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-wave-yellow rounded-br-lg" />
-          <ScanLine className="w-16 h-16 text-white/30" />
-        </div>
-        <p className="text-white/70 text-sm mt-6 text-center">
-          Point your camera at a QR code to scan
-        </p>
+    <div className="fixed inset-0 flex flex-col bg-black">
+      {/* Header */}
+      <div className="relative z-10 pt-11 px-4 h-14 flex items-center justify-between bg-[#FFE600]">
+        <div className="w-6" />
+        <h1 className="text-[20px] font-bold text-[#0091EA]">Scan QR Code</h1>
+        <button
+          type="button"
+          onClick={handleClose}
+          aria-label="Close scanner"
+          className="p-1 rounded-full hover:bg-black/10 transition-colors"
+        >
+          <X className="w-6 h-6 text-[#212121]" />
+        </button>
       </div>
-    </>
-  );
+
+      {/* Camera area */}
+      <div className="relative flex-1 overflow-hidden">
+        {/* Video feed */}
+        {cameraState === 'active' && (
+          <video
+            ref={videoRef}
+            autoPlay
+            playsInline
+            muted
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        )}
+
+        {/* Dark background when no camera */}
+        {(cameraState === 'denied' || cameraState === 'unavailable' || cameraState === 'requesting') && (
+          <div className="absolute inset-0 bg-black" />
+        )}
+
+        {/* Scanner frame overlay (only when camera active) */}
+        {cameraState === 'active' && <ScannerFrame size={240} />}
+
+        {/* Permission denied message */}
+        {(cameraState === 'denied' || cameraState === 'unavailable') && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center px-8">
+            <p className="text-[14px] text-[#757575] text-center">
+              Camera access denied. Use gallery to scan.
+            </p>
+          </div>
+        )}
+
+        {/* Requesting state */}
+        {cameraState === 'requesting' && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-6 h-6 rounded-full border-2 border-white border-t-transparent animate-spin" />
+          </div>
+        )}
+      </div>
+
+      {/* Bottom controls */}
+      <div className="relative z-10 px-4 pb-8 pt-4 flex flex-col items-center gap-3 safe-bottom">
+        {/* Hidden file input for gallery (no capture — gallery only) */}
+        <input
+          ref={galleryInputRef}
+          type="file"
+          accept="image/*"
+          className="hidden"
+          onChange={handleGallerySelect}
+          aria-label="Upload QR from gallery"
+        />
+
+        {/* Upload from Gallery */}
+        <button
+          type="button"
+          onClick={() => galleryInputRef.current?.click()}
+          className="w-full h-12 rounded-full border border-white text-white text-[16px] font-medium hover:bg-white/10 transition-colors"
+        >
+          Upload from Gallery
+        </button>
+
+        {/* Receive Money with QR */}
+        <button
+          type="button"
+          onClick={handleReceiveMoney}
+          className="w-full h-12 rounded-full bg-[#FFE600] text-[#212121] text-[16px] font-bold active:scale-[0.98] transition-transform"
+        >
+          Receive Money with QR
+        </button>
+      </div>
+    </div>
+  )
 }
