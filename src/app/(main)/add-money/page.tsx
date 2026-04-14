@@ -1,109 +1,121 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { BackHeader } from "@/components/layout/back-header";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import Image from "next/image";
+import { useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
+import { BackHeader } from '@/components/layout/back-header'
+import { AmountInput } from '@/components/features/amount-input'
+import { BankChannelGrid } from '@/components/features/bank-channel-grid'
+import { ConvenienceChannelList } from '@/components/features/convenience-channel-list'
+import { useWallet } from '@/hooks/use-wallet'
+import { useWalletOpsStore } from '@/stores/wallet-ops-store'
+import { formatCurrency } from '@/lib/currency'
+import { toast } from 'sonner'
 
-const topUpChannels = [
-  { id: "scb", name: "SCB", logo: "/images/banks/scb.png" },
-  { id: "kbank", name: "KBank", logo: "/images/banks/kbank.png" },
-  { id: "bbl", name: "Bangkok Bank", logo: "/images/banks/bbl.png" },
-  { id: "ktb", name: "Krungthai", logo: "/images/banks/ktb.png" },
-  { id: "bay", name: "Krungsri", logo: "/images/banks/bay.png" },
-  { id: "tmb", name: "TTB", logo: "/images/banks/tmb.png" },
-  { id: "7eleven", name: "7-Eleven", logo: "/images/banks/7eleven.png" },
-  { id: "cashpay", name: "CashPay", logo: "/images/banks/cashpay.png" },
-];
+const MIN_TOPUP_THB = 150
+const MAX_TOPUP_THB = 25000
+const MIN_TOPUP_SATANG = MIN_TOPUP_THB * 100
+const MAX_TOPUP_SATANG = MAX_TOPUP_THB * 100
+
+function parseAmountSatang(amountStr: string): number {
+  const parsed = parseFloat(amountStr)
+  if (isNaN(parsed)) return 0
+  return Math.round(parsed * 100)
+}
 
 export default function AddMoneyPage() {
-  const [amount, setAmount] = useState("");
-  const walletBalance = 10000.0;
-  const maxTopUp = 25000.0;
+  const router = useRouter()
+  const t = useTranslations('wallet')
+  const { data } = useWallet()
+  const { topupAmount, setTopupAmount, setTopupChannel } = useWalletOpsStore()
+
+  const walletBalanceSatang = data?.wallet?.balance ?? 0
+  const amountSatang = parseAmountSatang(topupAmount)
+
+  const isBelowMin = amountSatang > 0 && amountSatang < MIN_TOPUP_SATANG
+  const isAboveMax = amountSatang > MAX_TOPUP_SATANG
+  const isAmountValid = amountSatang >= MIN_TOPUP_SATANG && amountSatang <= MAX_TOPUP_SATANG
+
+  function handleChannelSelect(channel: string) {
+    if (!isAmountValid) {
+      if (amountSatang === 0) {
+        toast.error('Please enter an amount first.')
+      } else if (isBelowMin) {
+        toast.error(t('errors.belowMinimum'))
+      } else if (isAboveMax) {
+        toast.error(t('errors.aboveMaximum'))
+      }
+      return
+    }
+    setTopupChannel(channel)
+    router.push(`/add-money/qr?channel=${channel}&amount=${amountSatang}`)
+  }
 
   return (
-    <>
-      <BackHeader title="Add Money" />
-      <div className="flex-1 px-4 py-4">
-        {/* Balance info */}
-        <div className="wave-header-gradient rounded-xl p-4 mb-4">
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-xs text-foreground/70">Wallet Balance</p>
-              <p className="text-xl font-bold">
-                {walletBalance.toLocaleString("en-US", {
-                  minimumFractionDigits: 2,
-                })}{" "}
-              </p>
-            </div>
-            <div>
-              <p className="text-xs text-foreground/70">Max Top-up</p>
-              <p className="text-xl font-bold">
-                {maxTopUp.toLocaleString("en-US", {
-                  minimumFractionDigits: 2,
-                })}
-              </p>
-            </div>
-          </div>
+    <div className="flex flex-col min-h-full">
+      <BackHeader title={t('screenTitles.addMoney')} />
+
+      <div className="flex-1 px-4 py-4 space-y-6 pb-8">
+        {/* Balance info block */}
+        <div className="flex items-center justify-between">
+          <p className="text-[12px] font-normal text-[#757575]">
+            {t('labels.walletBalance')}:{' '}
+            <span className="font-medium text-[#212121]">
+              {formatCurrency(walletBalanceSatang, 'THB')}
+            </span>
+          </p>
+          <p className="text-[12px] font-normal text-[#757575]">
+            {t('labels.maxTopup', { amount: '25,000.00' })}
+          </p>
         </div>
 
-        {/* Amount input */}
-        <div className="mb-6">
-          <label className="text-sm font-medium text-foreground mb-2 block">
-            Top-up Amount (THB)
-          </label>
-          <div className="flex items-center gap-2">
-            <Input
-              type="number"
-              placeholder="0.00"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              className="text-2xl font-bold h-14 text-center"
-            />
-            <span className="text-lg font-semibold text-muted-foreground">
-              THB
+        {/* Amount display */}
+        <div className="text-center">
+          <div className="flex items-baseline justify-center gap-2 mb-1">
+            <span className="text-[16px] font-normal text-[#757575]">THB</span>
+            <span className="text-[48px] font-bold text-[#212121] leading-none tabular-nums">
+              {topupAmount === '' ? '0' : topupAmount}
             </span>
           </div>
+
+          {/* Validation captions */}
+          {isBelowMin && (
+            <p className="text-[12px] text-[#F44336] mt-1">
+              {t('labels.minTopup', { amount: MIN_TOPUP_THB.toLocaleString() })}
+            </p>
+          )}
+          {isAboveMax && (
+            <p className="text-[12px] text-[#F44336] mt-1">
+              {t('errors.aboveMaximum')}
+            </p>
+          )}
         </div>
+
+        {/* Numpad amount input */}
+        <AmountInput value={topupAmount} onChange={setTopupAmount} />
 
         {/* Top-up Channels */}
-        <div>
-          <h3 className="text-base font-bold text-foreground mb-3">
-            Top-up Channels
-          </h3>
-          <p className="text-sm text-muted-foreground mb-3">
-            Generate QR to top-up
-          </p>
-          <div className="grid grid-cols-4 gap-3">
-            {topUpChannels.map((channel) => (
-              <button
-                key={channel.id}
-                className="flex flex-col items-center gap-1 p-2 rounded-xl border border-border hover:border-wave-yellow hover:bg-wave-yellow-light transition-colors"
-              >
-                <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center">
-                  <span className="text-xs font-medium text-muted-foreground">
-                    {channel.name.substring(0, 3)}
-                  </span>
-                </div>
-                <span className="text-[10px] text-muted-foreground text-center leading-tight">
-                  {channel.name}
-                </span>
-              </button>
-            ))}
+        <div className="space-y-4">
+          <h2 className="text-[16px] font-bold text-[#212121]">
+            {t('sections.topupChannels')}
+          </h2>
+
+          {/* Banking services */}
+          <div className="space-y-2">
+            <p className="text-[12px] font-normal text-[#757575]">
+              {t('sections.bankingServices')}
+            </p>
+            <BankChannelGrid onSelect={handleChannelSelect} />
+          </div>
+
+          {/* Convenience store */}
+          <div className="space-y-2">
+            <p className="text-[12px] font-normal text-[#757575]">
+              {t('sections.convenienceService')}
+            </p>
+            <ConvenienceChannelList onSelect={handleChannelSelect} />
           </div>
         </div>
-
-        {/* Submit button */}
-        <div className="mt-8 space-y-3">
-          <Button
-            disabled={!amount || parseFloat(amount) <= 0}
-            className="w-full h-12 rounded-full bg-wave-yellow text-foreground font-semibold text-base hover:bg-wave-yellow-dark"
-          >
-            Generate QR Code
-          </Button>
-        </div>
       </div>
-    </>
-  );
+    </div>
+  )
 }
