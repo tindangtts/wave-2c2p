@@ -3,6 +3,7 @@ import { Noto_Sans_Thai, Noto_Sans_Myanmar } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
+import { SystemStateChecker } from "@/components/features/system-state-checker";
 import "./globals.css";
 
 const notoSansThai = Noto_Sans_Thai({
@@ -64,6 +65,7 @@ export default async function RootLayout({
             {children}
           </div>
           <Toaster position="top-center" />
+          <SystemStateChecker />
         </NextIntlClientProvider>
       </body>
     </html>
