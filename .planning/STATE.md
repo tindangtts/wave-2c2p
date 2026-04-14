@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: verifying
-stopped_at: Completed 04-home-wallet-02-PLAN.md
-last_updated: "2026-04-14T11:40:14.893Z"
+status: executing
+stopped_at: Completed 05-01-PLAN.md
+last_updated: "2026-04-14T12:08:33.173Z"
 last_activity: 2026-04-14
 progress:
   total_phases: 7
   completed_phases: 4
-  total_plans: 14
-  completed_plans: 14
+  total_plans: 18
+  completed_plans: 15
   percent: 0
 ---
 
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-14)
 
 **Core value:** Users can send money from Thailand to Myanmar quickly, affordably, and with full regulatory compliance
-**Current focus:** Phase 04 — home-wallet
+**Current focus:** Phase 05 — transfer-recipients
 
 ## Current Position
 
-Phase: 5
-Plan: Not started
-Status: Phase complete — ready for verification
+Phase: 05 (transfer-recipients) — EXECUTING
+Plan: 2 of 4
+Status: Ready to execute
 Last activity: 2026-04-14
 
 Progress: [░░░░░░░░░░] 0%
@@ -66,6 +66,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 03-ekyc-onboarding P04 | 15 | 2 tasks | 3 files |
 | Phase 04-home-wallet P01 | 8 | 2 tasks | 9 files |
 | Phase 04-home-wallet P02 | 8 | 2 tasks | 9 files |
+| Phase 05-transfer-recipients P01 | 12 | 2 tasks | 12 files |
 
 ## Accumulated Context
 
@@ -109,6 +110,8 @@ Recent decisions affecting current work:
 - [Phase 04-home-wallet]: SWR dedupingInterval 30s per D-10; missing wallet returns null not 500; stroke-[2.5] vs stroke-[1.5] for active/inactive icon differentiation in BottomNav
 - [Phase 04-home-wallet]: Embla carousel used directly (not shadcn wrapper) for precise dot indicator sync via onSelect callback
 - [Phase 04-home-wallet]: localStorage hydration uses useState(true) + useEffect pattern to prevent SSR mismatch in WalletCard balance visibility
+- [Phase 05-transfer-recipients]: Recipient extended fields (first_name, last_name, transfer_type, bank fields) enriched in API response — DB schema uses legacy columns pending migration
+- [Phase 05-transfer-recipients]: Transfer store partialize excludes transactionId and status (ephemeral); MOCK_EXCHANGE_RATE (default 133.0) used for new /rate endpoint separate from existing exchange-rate endpoint
 
 ### Pending Todos
 
@@ -120,6 +123,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-14T11:35:20.890Z
-Stopped at: Completed 04-home-wallet-02-PLAN.md
+Last session: 2026-04-14T12:08:33.171Z
+Stopped at: Completed 05-01-PLAN.md
 Resume file: None
