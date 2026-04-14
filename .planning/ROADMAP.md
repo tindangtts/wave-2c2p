@@ -52,7 +52,14 @@ Plans:
   3. User who partially completed registration can close the browser, reopen, and resume exactly where they left off
   4. User can set a 6-digit passcode at the end of registration and use it for subsequent logins
   5. Unauthenticated users visiting protected routes are redirected to login via proxy.ts
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Auth foundation: schema migration, Zod schemas, PBKDF2 passcode utils, admin client, registration store, i18n
+- [ ] 02-02-PLAN.md — Mock OTP API routes, login page rewrite, OTP verification page, middleware guards
+- [ ] 02-03-PLAN.md — Registration 3-step flow: step indicator, personal info page, ID details page, step save API
+- [ ] 02-04-PLAN.md — Passcode creation, passcode login, visibility hook, end-to-end verification
+
 **UI hint**: yes
 
 ### Phase 3: eKYC Onboarding
@@ -128,7 +135,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 4/4 | Complete   | 2026-04-14 |
-| 2. Authentication | 0/TBD | Not started | - |
+| 2. Authentication | 0/4 | Planning complete | - |
 | 3. eKYC Onboarding | 0/TBD | Not started | - |
 | 4. Home & Wallet | 0/TBD | Not started | - |
 | 5. Transfer & Recipients | 0/TBD | Not started | - |
