@@ -111,9 +111,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Card & Scan
 
-- [ ] **CARD-01**: Virtual Visa card displays with masked number, holder name, expiry
-- [ ] **CARD-02**: User can reveal/hide card details (number, CVV, expiry)
-- [ ] **CARD-03**: User can freeze/unfreeze virtual card
+- [x] **CARD-01**: Virtual Visa card displays with masked number, holder name, expiry
+- [x] **CARD-02**: User can reveal/hide card details (number, CVV, expiry)
+- [x] **CARD-03**: User can freeze/unfreeze virtual card
 - [x] **SCAN-01**: QR scanner page displays camera view with scan frame overlay
 - [x] **SCAN-02**: QR scanner falls back to file input on iOS PWA standalone mode
 
@@ -221,9 +221,9 @@ Deferred to future release. Tracked but not in current roadmap.
 | PROF-06 | Phase 7 | Complete |
 | PROF-07 | Phase 7 | Complete |
 | PROF-08 | Phase 7 | Complete |
-| CARD-01 | Phase 7 | Pending |
-| CARD-02 | Phase 7 | Pending |
-| CARD-03 | Phase 7 | Pending |
+| CARD-01 | Phase 7 | Complete |
+| CARD-02 | Phase 7 | Complete |
+| CARD-03 | Phase 7 | Complete |
 | SYST-01 | Phase 7 | Complete |
 | SYST-02 | Phase 7 | Complete |
 | SYST-03 | Phase 7 | Complete |

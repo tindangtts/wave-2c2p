@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 07-01-PLAN.md
-last_updated: "2026-04-14T13:38:51.286Z"
+stopped_at: Completed 07-04-PLAN.md
+last_updated: "2026-04-14T13:42:49.667Z"
 last_activity: 2026-04-14
 progress:
   total_phases: 7
   completed_phases: 6
   total_plans: 26
-  completed_plans: 24
+  completed_plans: 25
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-14)
 ## Current Position
 
 Phase: 07 (profile-card-system-states) — EXECUTING
-Plan: 3 of 4
+Plan: 4 of 4
 Status: Ready to execute
 Last activity: 2026-04-14
 
@@ -76,6 +76,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 06 P03 | 4 | 2 tasks | 7 files |
 | Phase 07-profile-card-system-states P02 | 189 | 2 tasks | 11 files |
 | Phase 07-profile-card-system-states P01 | 6 | 2 tasks | 14 files |
+| Phase 07-profile-card-system-states P04 | 2 | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -138,6 +139,8 @@ Recent decisions affecting current work:
 - [Phase 06]: Transactions API extended with id= param returning single object — minimal API change enabling detail page SWR fetch
 - [Phase 07-profile-card-system-states]: Base UI AlertDialog uses initialFocus prop (not onOpenAutoFocus) to suppress auto-focus on modal open
 - [Phase 07-profile-card-system-states]: Profile page uses useEffect + Supabase browser client for user data fetch; logout calls clearAll/reset explicitly per store; language badge derived from useLocale(); ProfileMenuItem uses border-b divider pattern
+- [Phase 07-profile-card-system-states]: FreezeCardToggle uses controlled AlertDialog (open state managed internally) — onCheckedChange triggers dialog open rather than immediate state change
+- [Phase 07-profile-card-system-states]: Auto-hide timer managed in page with useRef for cleanup; freeze while revealed auto-hides number
 
 ### Pending Todos
 
@@ -149,6 +152,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-14T13:38:51.283Z
-Stopped at: Completed 07-01-PLAN.md
+Last session: 2026-04-14T13:42:49.665Z
+Stopped at: Completed 07-04-PLAN.md
 Resume file: None
