@@ -101,14 +101,14 @@ export default function ResubmitPage() {
 
   const handleResubmit = () => {
     setCaptureStep('processing')
-    router.push('/(auth)/kyc/processing')
+    router.push('/kyc/processing')
   }
 
   return (
     <div className="flex flex-col min-h-screen">
       <BackHeader
         title={t('resubmit.title')}
-        onBack={() => router.push('/(auth)/kyc/status')}
+        onBack={() => router.push('/kyc/status')}
       />
 
       <div className="flex flex-col flex-1 px-4 pt-6 pb-8">
