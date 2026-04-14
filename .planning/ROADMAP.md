@@ -154,7 +154,7 @@ Plans:
 
 Plans:
 - [ ] 07-01-PLAN.md — Profile menu page, i18n messages, logout, static sub-pages (Information, Contact Us, Limits & Fees, Terms, Privacy, FAQ)
-- [ ] 07-02-PLAN.md — System states: maintenance modal, update modal, error boundary, loading skeletons
+- [x] 07-02-PLAN.md — System states: maintenance modal, update modal, error boundary, loading skeletons
 - [ ] 07-03-PLAN.md — Phone change flow, passcode change flow, language selector, referral page, notification settings
 - [ ] 07-04-PLAN.md — Virtual Visa card: display, reveal/hide toggle, freeze/unfreeze with confirmation
 

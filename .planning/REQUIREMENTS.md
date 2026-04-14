@@ -97,11 +97,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### System States
 
-- [ ] **SYST-01**: Maintenance mode screen displays when server is unavailable
-- [ ] **SYST-02**: App update required screen displays when version is outdated
-- [ ] **SYST-03**: Profile/registration rejected screens display with specific reasons
-- [ ] **SYST-04**: Loading skeletons display during data fetching on all list screens
-- [ ] **SYST-05**: Error boundaries catch and display user-friendly error messages
+- [x] **SYST-01**: Maintenance mode screen displays when server is unavailable
+- [x] **SYST-02**: App update required screen displays when version is outdated
+- [x] **SYST-03**: Profile/registration rejected screens display with specific reasons
+- [x] **SYST-04**: Loading skeletons display during data fetching on all list screens
+- [x] **SYST-05**: Error boundaries catch and display user-friendly error messages
 
 ### Withdrawal
 
@@ -224,11 +224,11 @@ Deferred to future release. Tracked but not in current roadmap.
 | CARD-01 | Phase 7 | Pending |
 | CARD-02 | Phase 7 | Pending |
 | CARD-03 | Phase 7 | Pending |
-| SYST-01 | Phase 7 | Pending |
-| SYST-02 | Phase 7 | Pending |
-| SYST-03 | Phase 7 | Pending |
-| SYST-04 | Phase 7 | Pending |
-| SYST-05 | Phase 7 | Pending |
+| SYST-01 | Phase 7 | Complete |
+| SYST-02 | Phase 7 | Complete |
+| SYST-03 | Phase 7 | Complete |
+| SYST-04 | Phase 7 | Complete |
+| SYST-05 | Phase 7 | Complete |
 
 **Coverage:**
 - v1 requirements: 63 total
