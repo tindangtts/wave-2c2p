@@ -43,7 +43,7 @@ export default function PasscodePage() {
         const { data: profile } = await supabase
           .from('user_profiles')
           .select('first_name')
-          .eq('user_id', user.id)
+          .eq('id', user.id)
           .single()
 
         if (profile?.first_name) {

@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
     const { data: profile, error: profileError } = await supabase
       .from('user_profiles')
       .select('passcode_hash, passcode_attempts, passcode_locked_at')
-      .eq('user_id', user.id)
+      .eq('id', user.id)
       .single()
 
     if (profileError || !profile) {
@@ -66,7 +66,7 @@ export async function POST(request: NextRequest) {
         await supabase
           .from('user_profiles')
           .update({ passcode_attempts: 0, passcode_locked_at: null })
-          .eq('user_id', user.id)
+          .eq('id', user.id)
 
         profile.passcode_attempts = 0
         profile.passcode_locked_at = null
@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
       await supabase
         .from('user_profiles')
         .update({ passcode_attempts: 0 })
-        .eq('user_id', user.id)
+        .eq('id', user.id)
 
       return NextResponse.json({ success: true })
     }
@@ -96,7 +96,7 @@ export async function POST(request: NextRequest) {
         passcode_attempts: newAttempts,
         ...(shouldLock ? { passcode_locked_at: new Date().toISOString() } : {}),
       })
-      .eq('user_id', user.id)
+      .eq('id', user.id)
 
     return NextResponse.json(
       {

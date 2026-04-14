@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
         registration_step: 3,
         passcode_attempts: 0,
       })
-      .eq('user_id', user.id)
+      .eq('id', user.id)
 
     if (updateError) {
       console.error('[passcode/setup] DB update error:', updateError)
