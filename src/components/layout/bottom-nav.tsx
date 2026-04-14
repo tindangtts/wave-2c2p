@@ -46,11 +46,18 @@ export function BottomNav() {
               href={item.href}
               aria-current={isActive ? "page" : undefined}
               className={cn(
-                "flex flex-col items-center gap-0.5 py-2 px-3 min-w-[64px] min-h-[44px] justify-center",
-                isActive ? "text-wave-blue" : "text-muted-foreground"
+                "flex flex-col items-center gap-0.5 py-2 px-3 min-w-[64px] min-h-[44px] justify-center border-b-2",
+                isActive
+                  ? "text-wave-blue border-wave-yellow"
+                  : "text-muted-foreground border-transparent"
               )}
             >
-              <Icon className="w-6 h-6" />
+              <Icon
+                className={cn(
+                  "w-6 h-6",
+                  isActive ? "stroke-[2.5]" : "stroke-[1.5]"
+                )}
+              />
               <span className="text-xs font-medium">{item.label}</span>
             </Link>
           );
