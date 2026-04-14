@@ -175,3 +175,25 @@ create index idx_transactions_user_id on public.transactions(user_id);
 create index idx_transactions_created_at on public.transactions(created_at desc);
 create index idx_recipients_user_id on public.recipients(user_id);
 create index idx_kyc_user_id on public.kyc_documents(user_id);
+
+-- =============================================================================
+-- Phase 02 Authentication Migration
+-- Add auth-related columns to user_profiles
+-- All columns use ADD COLUMN IF NOT EXISTS for idempotency
+-- References: D-03, D-04, D-09, D-10 in 02-CONTEXT.md
+-- =============================================================================
+ALTER TABLE public.user_profiles
+  ADD COLUMN IF NOT EXISTS first_name text,
+  ADD COLUMN IF NOT EXISTS last_name text,
+  ADD COLUMN IF NOT EXISTS date_of_birth text,
+  ADD COLUMN IF NOT EXISTS nationality text,
+  ADD COLUMN IF NOT EXISTS id_type text,
+  ADD COLUMN IF NOT EXISTS id_number text,
+  ADD COLUMN IF NOT EXISTS id_expiry text,
+  ADD COLUMN IF NOT EXISTS passcode_hash text,
+  ADD COLUMN IF NOT EXISTS registration_complete boolean NOT NULL DEFAULT false,
+  ADD COLUMN IF NOT EXISTS registration_step integer NOT NULL DEFAULT 1,
+  ADD COLUMN IF NOT EXISTS passcode_attempts integer NOT NULL DEFAULT 0,
+  ADD COLUMN IF NOT EXISTS passcode_locked_at timestamptz;
+
+-- Note: full_name column is retained for backward compatibility
