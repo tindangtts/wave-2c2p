@@ -1,218 +1,129 @@
-# 2C2P Wave - Implementation Roadmap
+# Roadmap: 2C2P Wave
 
-## Milestone 1: MVP - Core Banking Features
+## Overview
 
-### Phase 1: Project Foundation & Design System
-**Goal**: Scaffold Next.js project, configure Supabase, establish design system with shadcn/ui matching prototype aesthetics
+This roadmap builds a mobile-first PWA for cross-border money transfers (THB→MMK) across 7 phases. The project scaffold already exists with 16 routes compiling — work starts from hardening the foundation (design system, DB schema, mock services, i18n) through authentication, eKYC onboarding, the home dashboard, the core transfer and recipient flow, wallet operations, and finally profile/settings/card polish. Every phase delivers a coherent, verifiable capability that can be demoed independently.
 
-**Requirements**:
-- [R1.1] Next.js 15+ App Router with TypeScript strict mode
-- [R1.2] Supabase project configuration (auth, database, storage)
-- [R1.3] shadcn/ui initialization with custom 2C2P Wave theme
-- [R1.4] CSS design tokens extracted from prototype (colors, typography, spacing, radius)
-- [R1.5] Base layout components (MobileLayout, AuthLayout, BottomNavigation)
-- [R1.6] PWA manifest and service worker setup
-- [R1.7] i18n configuration (EN/TH/MM) with next-intl
-- [R1.8] Tailwind CSS custom configuration matching design system
+## Phases
 
-**Success Criteria**:
-- Project builds and runs on localhost
-- Design tokens render correctly matching prototype colors/fonts
-- Bottom navigation component matches prototype layout
-- Mobile viewport (375px) renders correctly
+**Phase Numbering:**
+- Integer phases (1, 2, 3): Planned milestone work
+- Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
 
----
+Decimal phases appear between their surrounding integers in numeric order.
 
-### Phase 2: UI Design System Components
-**Goal**: Build all reusable UI components from prototype as shadcn/ui variants, ensuring pixel-consistent design system
+- [ ] **Phase 1: Foundation** - Design system, DB schema, mock services, and i18n are production-ready
+- [ ] **Phase 2: Authentication** - Users can register, verify OTP, set passcode, and stay logged in
+- [ ] **Phase 3: eKYC Onboarding** - Users can complete identity verification with mock approval/rejection
+- [ ] **Phase 4: Home & Wallet** - Users can view their balance, recent transactions, and navigate the app
+- [ ] **Phase 5: Transfer & Recipients** - Users can send money to Myanmar with full confirmation flow
+- [ ] **Phase 6: Wallet Operations** - Users can top up, withdraw, scan QR, and review transaction history
+- [ ] **Phase 7: Profile, Card & System States** - Users can manage settings, view virtual card, and see system state screens
 
-**Requirements**:
-- [R2.1] Custom Button variants (primary yellow, outline, secondary blue, danger)
-- [R2.2] Form components (PhoneInput with country code, AmountInput with currency, OTPInput 6-digit)
-- [R2.3] Card components (TransactionCard, WalletCard, RecipientCard, PromoCard)
-- [R2.4] Navigation components (TopHeader with branding, BottomNav, BackHeader)
-- [R2.5] Modal/Dialog components (ConfirmDialog, StatusModal, KYCExpiredModal)
-- [R2.6] Currency display component (THB/MMK with flags and conversion)
-- [R2.7] Status components (TransactionStatus badge, KYC status, loading skeletons)
-- [R2.8] Camera overlay components (document scan frame, face verification circle)
-- [R2.9] QR code display/scanner placeholder components
-- [R2.10] Empty states, error states, maintenance mode screens
+## Phase Details
 
-**Success Criteria**:
-- All components render matching prototype screenshots
-- Components support all variants visible in prototype
-- Responsive at 375px mobile viewport
-- Touch targets meet 44x44px minimum
+### Phase 1: Foundation
+**Goal**: The app shell, design tokens, Supabase schema, mock API services, and i18n infrastructure are all in place — every downstream phase builds on a stable, branded base
+**Depends on**: Nothing (first phase — scaffold already exists)
+**Requirements**: FOUN-01, FOUN-02, FOUN-03, FOUN-04, FOUN-05, FOUN-06, FOUN-07, FOUN-08
+**Success Criteria** (what must be TRUE):
+  1. App renders correctly in a 375-430px viewport with iOS safe area insets respected at top and bottom
+  2. All shadcn/ui components display in the yellow (#FFE600) and blue (#0091EA) brand palette with WCAG AA contrast
+  3. The Supabase schema (users, wallets, transactions, recipients, kyc_submissions) is deployed with RLS policies enabled and rejecting unauthorized reads
+  4. Mock eKYC and payment API routes return configurable pass/fail/delay responses driven by environment variables
+  5. Language switcher cycles through English, Thai, and Myanmar (Burmese) with Noto Sans Myanmar UI loading correctly for the MM locale
+**Plans**: TBD
+**UI hint**: yes
 
----
+### Phase 2: Authentication
+**Goal**: Users can create an account, verify their phone number via OTP, set a passcode, and maintain a persistent session across browser refreshes
+**Depends on**: Phase 1
+**Requirements**: AUTH-01, AUTH-02, AUTH-03, AUTH-04, AUTH-05, AUTH-06, AUTH-07
+**Success Criteria** (what must be TRUE):
+  1. User can enter a phone number with +66 (TH) or +95 (MM) country code selector and proceed to OTP entry
+  2. User can enter a 6-digit OTP and is redirected to registration on first login (existing session restored on repeat visits)
+  3. User who partially completed registration can close the browser, reopen, and resume exactly where they left off
+  4. User can set a 6-digit passcode at the end of registration and use it for subsequent logins
+  5. Unauthenticated users visiting protected routes are redirected to login via proxy.ts
+**Plans**: TBD
+**UI hint**: yes
 
-### Phase 3: Authentication & Onboarding
-**Goal**: Complete auth flow from login through registration to passcode setup
+### Phase 3: eKYC Onboarding
+**Goal**: Users can submit identity documents and selfie through the mock verification flow, see their KYC status, and re-submit after rejection
+**Depends on**: Phase 2
+**Requirements**: EKYC-01, EKYC-02, EKYC-03, EKYC-04, EKYC-05, EKYC-06, EKYC-07, EKYC-08
+**Success Criteria** (what must be TRUE):
+  1. User can select a document type (ID card, work permit, pink card, OWIC, visa) and photograph front and back with a camera guide overlay
+  2. Camera capture falls back to file picker on iOS PWA standalone mode without any error
+  3. User can complete face verification using the circular liveness frame and receive a mock approval or rejection with reasons
+  4. KYC status page correctly shows pending, approved, rejected, or expired states with clear next-step instructions
+  5. Rejected user can return to submission, see which specific fields failed, correct them, and resubmit
+**Plans**: TBD
+**UI hint**: yes
 
-**Requirements**:
-- [R3.1] Login page with phone number + country code selector
-- [R3.2] OTP verification screen with 6-digit input and resend timer
-- [R3.3] Supabase Phone Auth integration
-- [R3.4] Multi-step registration form (personal info, ID details)
-- [R3.5] Passcode setup and entry screens
-- [R3.6] Registration pending/success/rejected status screens
-- [R3.7] Session management (auto-logout, protected routes)
-- [R3.8] Auth middleware for route protection
+### Phase 4: Home & Wallet
+**Goal**: Authenticated, KYC-approved users can see their wallet balance, recent transactions, quick actions, and navigate the app through the bottom tab bar
+**Depends on**: Phase 3
+**Requirements**: HOME-01, HOME-02, HOME-03, HOME-04, HOME-05, HOME-06
+**Success Criteria** (what must be TRUE):
+  1. Dashboard shows the user's name, wallet balance with show/hide toggle, and wallet ID on load
+  2. Quick actions grid is tappable and routes to Bills (placeholder), Referral, Withdrawal, and History
+  3. Recent History section lists up to 5 transactions with type icon, amount, date, and status badge
+  4. Promotions carousel is horizontally scrollable with at least one banner card rendered
+  5. Bottom navigation shows 4 tabs (Home, Scan, Add Money, Profile) with a yellow FAB for Add Money; wallet balance updates without a full page reload after a transaction
+**Plans**: TBD
+**UI hint**: yes
 
-**Success Criteria**:
-- User can register with phone number → OTP → profile → passcode
-- Protected routes redirect to login
-- Registration states (pending/approved/rejected) display correctly
+### Phase 5: Transfer & Recipients
+**Goal**: Users can select or create a recipient, enter an amount in THB with live MMK conversion, choose a receiving channel, confirm with passcode, and receive a receipt
+**Depends on**: Phase 4
+**Requirements**: XFER-01, XFER-02, XFER-03, XFER-04, XFER-05, XFER-06, XFER-07, XFER-08, XFER-09, RCPT-01, RCPT-02, RCPT-03, RCPT-04, RCPT-05
+**Success Criteria** (what must be TRUE):
+  1. Recipient list shows favorites first, then recents, supports search, and allows adding a new recipient with all AML/EDD fields (NRC, occupation, purpose, relationship)
+  2. Amount entry screen displays real-time MMK conversion and a rate lock timer countdown visible at confirmation
+  3. User can select from four receiving channels (Wave Agent, Wave App, Bank Transfer, Cash Pickup) with per-channel fee breakdown shown before selection
+  4. Confirmation screen summarizes amount, converted amount, exchange rate, fees, and total; user confirms with passcode
+  5. Transfer receipt with reference number, amounts, rate, and timestamp is displayed after a successful mock submission; status progresses from pending through processing to completed
+**Plans**: TBD
+**UI hint**: yes
 
----
+### Phase 6: Wallet Operations
+**Goal**: Users can add money via bank or convenience store QR, withdraw to a recipient, scan QR codes, and review their full transaction history with filters
+**Depends on**: Phase 5
+**Requirements**: ADDM-01, ADDM-02, ADDM-03, ADDM-04, ADDM-05, HIST-01, HIST-02, HIST-03, HIST-04, HIST-05, SCAN-01, SCAN-02, WTHD-01, WTHD-02, WTHD-03
+**Success Criteria** (what must be TRUE):
+  1. User can enter a top-up amount, select a bank or convenience store channel, and see a QR code with payment details and an expiration countdown
+  2. Withdrawal flow lets user select a recipient, enter an amount (validated against balance), and confirm with passcode
+  3. QR scanner page displays a camera view with scan frame overlay; falls back to file picker on iOS PWA standalone mode
+  4. Transaction history displays an infinite-scrollable chronological list with date-range picker (handling Thai Buddhist calendar years) and type/status filters
+  5. Transaction detail view shows full receipt breakdown matching the transfer receipt format
+**Plans**: TBD
+**UI hint**: yes
 
-### Phase 4: Mock eKYC Service & Verification Flow
-**Goal**: Build eKYC document scanning and face verification UI with mock backend service
+### Phase 7: Profile, Card & System States
+**Goal**: Users can manage account settings, view and interact with their virtual Visa card, switch language, share their referral, and the app handles maintenance, update, and error states gracefully
+**Depends on**: Phase 6
+**Requirements**: PROF-01, PROF-02, PROF-03, PROF-04, PROF-05, PROF-06, PROF-07, PROF-08, CARD-01, CARD-02, CARD-03, SYST-01, SYST-02, SYST-03, SYST-04, SYST-05
+**Success Criteria** (what must be TRUE):
+  1. Profile menu matches the prototype layout and links to all sub-pages (phone change, passcode change, limits & fees, terms, privacy, FAQ, contact us)
+  2. User can change phone number through multi-step OTP verification and change passcode via current→new flow
+  3. Language switcher (EN/TH/MM) on the profile page updates the entire UI immediately without a full page reload
+  4. Virtual Visa card displays masked number, holder name, and expiry; user can reveal/hide card details and freeze/unfreeze the card
+  5. Maintenance screen, update-required screen, profile-rejected screen, loading skeletons, and error boundary messages all render correctly under their respective trigger conditions
+**Plans**: TBD
+**UI hint**: yes
 
-**Requirements**:
-- [R4.1] Document type selection screen (ID, Work Permit, Pink Card, Visa)
-- [R4.2] Camera-based document capture UI (front/back) with frame overlay
-- [R4.3] Face verification UI with circular liveness frame
-- [R4.4] Mock eKYC API endpoints (document verify, face match, status)
-- [R4.5] KYC status management (pending, approved, expired, rejected)
-- [R4.6] KYC expired modal with re-verification prompt
-- [R4.7] Rejection flow with specific reasons and re-upload guidance
-- [R4.8] Work permit update / 2nd document verification flow
-- [R4.9] Supabase tables for KYC records and document storage
+## Progress
 
-**Success Criteria**:
-- Full eKYC flow works end-to-end with mock service
-- Document capture UI matches prototype camera overlays
-- All KYC states render correctly (pending/approved/rejected/expired)
-- Mock service configurable for pass/fail scenarios
+**Execution Order:**
+Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
----
-
-### Phase 5: Home Dashboard & Wallet
-**Goal**: Build main dashboard and wallet management screens
-
-**Requirements**:
-- [R5.1] Home dashboard with profile card, balance, quick actions
-- [R5.2] Wallet balance display with show/hide toggle
-- [R5.3] Quick action grid (Bills, Referral, Withdrawal, History)
-- [R5.4] Recent transaction history list (last 5)
-- [R5.5] Promotion/information carousel banner
-- [R5.6] Add Money screen with amount input and channel grid
-- [R5.7] QR code generation for top-up payments
-- [R5.8] Payment receipt/confirmation display
-- [R5.9] Supabase wallet and transaction tables with RLS
-
-**Success Criteria**:
-- Dashboard renders with user data from Supabase
-- Balance updates in real-time after transactions
-- Add Money flow generates QR and shows confirmation
-- Promo carousel scrolls and displays banners
-
----
-
-### Phase 6: Money Transfer & Mock Payment Service
-**Goal**: Build P2P transfer and remittance flow with mock payment processing
-
-**Requirements**:
-- [R6.1] Transfer initiation screen with recipient selection
-- [R6.2] Amount entry with real-time THB→MMK currency conversion
-- [R6.3] Receiving channel selection (Wave Agent, Wave App, Bank, Cash Pickup)
-- [R6.4] Fee calculation and display per channel
-- [R6.5] Transfer confirmation screen with full summary
-- [R6.6] Recipient management (add new, list, edit, delete)
-- [R6.7] New recipient form (name, NRC, phone, occupation, purpose, relationship)
-- [R6.8] Mock payment API (exchange rates, fees, transfer processing, status)
-- [R6.9] Transfer status tracking (pending → processing → completed/failed)
-- [R6.10] Withdrawal flow (select recipient, amount, bank, confirm)
-
-**Success Criteria**:
-- Full send money flow works with mock backend
-- Currency conversion updates in real-time
-- Fees display correctly per channel
-- Transfer status updates via polling/realtime
-
----
-
-### Phase 7: Transaction History & Receipts
-**Goal**: Build transaction history with filtering, detail views, and receipt generation
-
-**Requirements**:
-- [R7.1] Transaction history list with infinite scroll
-- [R7.2] Date range filter with calendar picker
-- [R7.3] Transaction type and status filters
-- [R7.4] Transaction detail/receipt screen
-- [R7.5] Receipt sharing/download functionality
-- [R7.6] Transaction status indicator (Success/Pending/Rejected badges)
-
-**Success Criteria**:
-- History loads and scrolls with proper pagination
-- Filters work correctly
-- Receipt detail shows all transaction info matching prototype
-
----
-
-### Phase 8: Profile, Settings & Support
-**Goal**: Build profile management, settings, referral, and support screens
-
-**Requirements**:
-- [R8.1] Profile settings page with menu items matching prototype
-- [R8.2] Phone number change multi-step flow
-- [R8.3] Passcode change flow
-- [R8.4] Personal information management
-- [R8.5] Notification settings toggles
-- [R8.6] Language switcher (EN/TH/MM)
-- [R8.7] Refer friends screen with QR code and share link
-- [R8.8] Contact us page (call center, social channels, resources)
-- [R8.9] Limits & Fees information page
-- [R8.10] Terms, Privacy Policy, FAQ pages
-- [R8.11] Logout functionality
-- [R8.12] App version display
-
-**Success Criteria**:
-- All settings pages render matching prototype
-- Phone change and passcode change flows work end-to-end
-- Referral QR generates and share works
-- Language switching persists preference
-
----
-
-### Phase 9: Visa Card & Advanced Features
-**Goal**: Build virtual card management and remaining features
-
-**Requirements**:
-- [R9.1] Virtual card display with card design matching prototype
-- [R9.2] Card detail reveal (number, CVV, expiry)
-- [R9.3] Card balance chart visualization
-- [R9.4] Card delivery address form
-- [R9.5] Card activation/freeze functionality
-- [R9.6] System state screens (maintenance, update required)
-- [R9.7] QR scanner page placeholder
-- [R9.8] Bills payment placeholder
-
-**Success Criteria**:
-- Card renders matching prototype yellow gradient design
-- Card details toggle show/hide correctly
-- System state screens display appropriately
-
----
-
-### Phase 10: Polish, Testing & PWA
-**Goal**: Final polish, comprehensive testing, PWA optimization
-
-**Requirements**:
-- [R10.1] End-to-end testing of all critical flows
-- [R10.2] Performance optimization (LCP < 2.5s on 3G)
-- [R10.3] Accessibility audit and fixes (WCAG 2.1 AA)
-- [R10.4] PWA manifest, icons, splash screens
-- [R10.5] Offline fallback pages
-- [R10.6] Error boundary components
-- [R10.7] Loading states and skeleton screens
-- [R10.8] Cross-browser testing (Chrome, Safari mobile)
-- [R10.9] Security hardening (CSP, rate limiting, input sanitization)
-- [R10.10] Final UI polish pass matching prototype pixel-perfect
-
-**Success Criteria**:
-- All critical flows pass E2E tests
-- Lighthouse score > 90 on mobile
-- No critical accessibility issues
-- PWA installable on mobile devices
+| Phase | Plans Complete | Status | Completed |
+|-------|----------------|--------|-----------|
+| 1. Foundation | 0/TBD | Not started | - |
+| 2. Authentication | 0/TBD | Not started | - |
+| 3. eKYC Onboarding | 0/TBD | Not started | - |
+| 4. Home & Wallet | 0/TBD | Not started | - |
+| 5. Transfer & Recipients | 0/TBD | Not started | - |
+| 6. Wallet Operations | 0/TBD | Not started | - |
+| 7. Profile, Card & System States | 0/TBD | Not started | - |
