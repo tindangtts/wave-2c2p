@@ -60,7 +60,7 @@ export default function CreatePasscodePage() {
       // Clear registration store per D-06
       useRegistrationStore.getState().clearAll()
 
-      router.push('/home')
+      router.push('/kyc/document-type')
     } catch {
       setError(t('errors.generic'))
       setIsLoading(false)

@@ -5,10 +5,10 @@ import { ArrowUpRight, Receipt, Users, ArrowDownLeft } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 const actions = [
-  { href: "/transfer", labelKey: "quickActions.transfer" as const, icon: ArrowUpRight },
+  { href: "/transfer/recipient", labelKey: "quickActions.transfer" as const, icon: ArrowUpRight },
   { href: "/bills", labelKey: "quickActions.bills" as const, icon: Receipt },
   { href: "/referral", labelKey: "quickActions.referral" as const, icon: Users },
-  { href: "/withdrawal", labelKey: "quickActions.withdrawal" as const, icon: ArrowDownLeft },
+  { href: "/withdraw", labelKey: "quickActions.withdrawal" as const, icon: ArrowDownLeft },
 ];
 
 export function QuickActions() {
