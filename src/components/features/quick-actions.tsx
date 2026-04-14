@@ -1,57 +1,38 @@
 "use client";
 
 import Link from "next/link";
-import {
-  Receipt,
-  Users,
-  Wallet,
-  Clock,
-  CreditCard,
-  ChevronDown,
-} from "lucide-react";
-import { useState } from "react";
+import { ArrowUpRight, Receipt, Users, ArrowDownLeft } from "lucide-react";
+import { useTranslations } from "next-intl";
 
-const primaryActions = [
-  { href: "/bills", label: "Bills", icon: Receipt, color: "bg-blue-100 text-blue-600" },
-  { href: "/profile/refer", label: "Referral", icon: Users, color: "bg-green-100 text-green-600" },
-  { href: "/withdraw", label: "Withdrawal", icon: Wallet, color: "bg-purple-100 text-purple-600" },
-  { href: "/history", label: "History", icon: Clock, color: "bg-orange-100 text-orange-600" },
-  { href: "/card", label: "Visa Card", icon: CreditCard, color: "bg-cyan-100 text-cyan-600" },
+const actions = [
+  { href: "/transfer", labelKey: "quickActions.transfer" as const, icon: ArrowUpRight },
+  { href: "/bills", labelKey: "quickActions.bills" as const, icon: Receipt },
+  { href: "/referral", labelKey: "quickActions.referral" as const, icon: Users },
+  { href: "/withdrawal", labelKey: "quickActions.withdrawal" as const, icon: ArrowDownLeft },
 ];
 
 export function QuickActions() {
-  const [showMore, setShowMore] = useState(false);
+  const t = useTranslations("home");
 
   return (
-    <div className="bg-white rounded-2xl p-4 wave-card-shadow">
-      <div className="grid grid-cols-5 gap-2">
-        {primaryActions.map((action) => (
+    <div className="bg-white rounded-xl shadow-sm px-4 py-4">
+      <div className="grid grid-cols-2 gap-4">
+        {actions.map((action) => (
           <Link
             key={action.href}
             href={action.href}
-            className="flex flex-col items-center gap-1.5"
+            aria-label={t(action.labelKey)}
+            className="flex flex-col items-center gap-2 min-w-[72px] min-h-[72px] active:scale-95 transition-transform justify-center"
           >
-            <div
-              className={`w-11 h-11 rounded-xl flex items-center justify-center ${action.color}`}
-            >
-              <action.icon className="w-5 h-5" />
+            <div className="w-12 h-12 rounded-full bg-[#0091EA] flex items-center justify-center">
+              <action.icon className="w-6 h-6 text-white" />
             </div>
-            <span className="text-xs font-medium text-foreground text-center">
-              {action.label}
+            <span className="text-xs text-[#212121] text-center truncate w-full text-center">
+              {t(action.labelKey)}
             </span>
           </Link>
         ))}
       </div>
-
-      <button
-        onClick={() => setShowMore(!showMore)}
-        className="w-full flex items-center justify-center gap-1 mt-3 text-sm text-muted-foreground"
-      >
-        <span>More Features</span>
-        <ChevronDown
-          className={`w-4 h-4 transition-transform ${showMore ? "rotate-180" : ""}`}
-        />
-      </button>
     </div>
   );
 }

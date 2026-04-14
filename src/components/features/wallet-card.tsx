@@ -1,67 +1,103 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Eye, EyeOff, Copy } from "lucide-react";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useTranslations } from "next-intl";
+import { toast } from "sonner";
+import { useWallet } from "@/hooks/use-wallet";
+import { formatCurrency } from "@/lib/currency";
+import { Skeleton } from "@/components/ui/skeleton";
 
-interface WalletCardProps {
-  name: string;
-  balance: number;
-  walletId: string;
-}
+export function WalletCard() {
+  const t = useTranslations("home");
+  const { data, error, isLoading } = useWallet();
 
-export function WalletCard({ name, balance, walletId }: WalletCardProps) {
+  // Start with true to avoid SSR mismatch, then hydrate from localStorage
   const [showBalance, setShowBalance] = useState(true);
+  const [hydrated, setHydrated] = useState(false);
 
-  const formattedBalance = new Intl.NumberFormat("en-US", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }).format(balance);
+  useEffect(() => {
+    const stored = localStorage.getItem("wave_balance_visible");
+    if (stored !== null) {
+      setShowBalance(stored !== "false");
+    }
+    setHydrated(true);
+  }, []);
+
+  const handleToggleBalance = () => {
+    const next = !showBalance;
+    setShowBalance(next);
+    localStorage.setItem("wave_balance_visible", String(next));
+  };
+
+  const wallet = data?.wallet ?? null;
+  const profile = data?.profile ?? null;
+  const firstName = profile?.first_name ?? "";
+
+  // Masked wallet ID: WAVE-XXXX-XXXX from last 8 chars
+  const rawWalletId = profile?.wallet_id ?? "";
+  const last8 = rawWalletId.replace(/-/g, "").slice(-8);
+  const maskedWalletId =
+    last8.length >= 8
+      ? `WAVE-${last8.slice(0, 4)}-${last8.slice(4)}`
+      : rawWalletId;
+
+  const handleCopyWalletId = async () => {
+    try {
+      await navigator.clipboard.writeText(rawWalletId);
+      toast(t("walletIdCopied"), { duration: 2000, position: "bottom-center" });
+    } catch {
+      // Silent fail if clipboard API is unavailable
+    }
+  };
 
   return (
-    <div className="flex flex-col gap-3">
-      {/* User info row */}
-      <div className="flex items-center gap-3">
-        <Avatar className="w-12 h-12 border-2 border-white">
-          <AvatarFallback className="bg-wave-blue text-white text-lg font-semibold">
-            {name.charAt(0)}
-          </AvatarFallback>
-        </Avatar>
-        <div className="flex-1 min-w-0">
-          <h2 className="text-lg font-bold text-foreground truncate">{name}</h2>
-        </div>
-      </div>
+    <div className="flex flex-col gap-2">
+      {/* User greeting */}
+      <p className="text-base font-bold text-[#212121] mb-1">
+        {t("greeting", { firstName })}
+      </p>
 
       {/* Balance row */}
       <div className="flex items-center gap-2">
-        <div className="w-8 h-8 rounded-full bg-wave-blue flex items-center justify-center">
-          <span className="text-white text-xs font-bold">$</span>
-        </div>
-        <span className="text-2xl font-bold text-foreground">
-          {showBalance ? formattedBalance : "••••••"} THB
-        </span>
+        <span className="text-xl text-[#212121]">฿</span>
+        {isLoading || !hydrated ? (
+          <Skeleton className="h-6 w-[120px] bg-[#FDD835]" />
+        ) : error ? (
+          <span className="text-sm text-[#757575]">{t("errors.balanceFetch")}</span>
+        ) : (
+          <span className="text-xl font-bold text-[#212121]">
+            {showBalance
+              ? wallet
+                ? formatCurrency(wallet.balance, "THB")
+                : "฿ 0.00"
+              : t("balanceHidden")}
+          </span>
+        )}
         <button
-          onClick={() => setShowBalance(!showBalance)}
-          className="p-1 rounded-full hover:bg-black/5"
-          aria-label={showBalance ? "Hide balance" : "Show balance"}
+          onClick={handleToggleBalance}
+          className="min-w-[44px] min-h-[44px] flex items-center justify-center"
+          aria-label={showBalance ? t("hideBalance") : t("showBalance")}
         >
           {showBalance ? (
-            <Eye className="w-5 h-5 text-muted-foreground" />
+            <Eye className="w-5 h-5 text-[#212121]" />
           ) : (
-            <EyeOff className="w-5 h-5 text-muted-foreground" />
+            <EyeOff className="w-5 h-5 text-[#212121]" />
           )}
         </button>
       </div>
 
-      {/* Wallet ID */}
-      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-        <span>Wallet ID:{walletId}</span>
+      {/* Wallet ID row */}
+      <div className="flex items-center gap-1">
+        <span className="text-xs text-[#212121]">
+          {t("walletIdLabel")} {maskedWalletId}
+        </span>
         <button
-          onClick={() => navigator.clipboard.writeText(walletId)}
-          className="p-0.5 rounded hover:bg-black/5"
-          aria-label="Copy wallet ID"
+          onClick={handleCopyWalletId}
+          className="min-w-[44px] min-h-[44px] flex items-center justify-center"
+          aria-label={t("copyWalletId")}
         >
-          <Copy className="w-3.5 h-3.5" />
+          <Copy className="w-4 h-4 text-[#212121]" />
         </button>
       </div>
     </div>
