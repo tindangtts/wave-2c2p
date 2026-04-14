@@ -49,16 +49,25 @@ export interface Transaction {
 export interface Recipient {
   id: string;
   user_id: string;
-  full_name: string;
+  first_name: string;
+  last_name: string;
+  full_name: string; // computed: first_name + ' ' + last_name
   phone: string;
   country_code: string;
+  transfer_type: TransferChannel; // which channel this recipient uses
   nrc?: string;
   occupation?: string;
   transfer_purpose?: string;
   relationship?: string;
   address?: string;
+  address_line_2?: string;
+  city?: string;
+  state_region?: string;
+  bank_name?: string; // only for bank_transfer type
+  account_no?: string; // only for bank_transfer type
   is_favorite: boolean;
   created_at: string;
+  updated_at: string;
 }
 
 // KYC

@@ -1,0 +1,104 @@
+{
+  "title_recipient": "လက်ခံသူ",
+  "title_new_recipient": "လက်ခံသူအသစ်",
+  "title_transfer": "ငွေလွှဲ",
+  "title_channels": "ငွေလက်ခံမည့်ချန်နယ်",
+  "title_confirmation": "အတည်ပြုခြင်း",
+  "title_receipt": "ငွေပေးငွေယူအသေးစိတ်",
+
+  "create_new_recipient": "လက်ခံသူအသစ်ဖန်တီးရန်",
+  "search_placeholder": "လက်ခံသူရှာဖွေရန်...",
+  "favorites_label": "နှစ်သက်သောများ",
+  "all_label": "လက်ခံသူအားလုံး",
+
+  "cta_next": "ဆက်လက်",
+  "cta_confirm": "အတည်ပြုရန်",
+  "cta_create_new": "အသစ်ဖန်တီးရန်",
+  "cta_close": "ပိတ်ရန်",
+  "cta_share": "မျှဝေရန်",
+
+  "amount_min_error": "အနည်းဆုံးလွှဲနိုင်သောငွေပမာဏမှာ THB 100 ဖြစ်သည်",
+  "amount_max_error": "အများဆုံးလွှဲနိုင်သောငွေပမာဏမှာ THB 25,000 ဖြစ်သည်",
+  "amount_balance_error": "ငွေပမာဏသည် သင်၏ပိုက်ဆံအိတ်ထဲမှ လက်ကျန်ငွေထက် များနေသည်",
+
+  "rate_expires": "နှုန်းသည် {time} တွင် သက်တမ်းကုန်သည်",
+  "rate_expires_soon": "နှုန်းသက်တမ်းကုန်တော့မည်!",
+  "rate_expired_toast": "ငွေလဲနှုန်းသက်တမ်းကုန်သွားပြီ။ ပြန်လည်ဆွဲယူနေသည်...",
+
+  "passcode_title": "လျှို့ဝှက်နံပါတ်ထည့်ရန်",
+  "passcode_subtitle": "ငွေလွှဲမှုကို အတည်ပြုရန် သင်၏ ဂဏန်း 6 လုံးလျှို့ဝှက်နံပါတ်ထည့်ပါ",
+  "passcode_incorrect": "လျှို့ဝှက်နံပါတ်မှားနေသည်။ ထပ်မံကြိုးစားပါ။",
+  "passcode_locked": "ကြိုးပမ်းမှုများလွန်းသည်။ မိနစ် 30 ကြာပြီးနောက် ထပ်မံကြိုးစားပါ။",
+
+  "receipt_success": "အောင်မြင်သည်!",
+  "receipt_brand": "2c2p WAVE",
+  "receipt_ref": "ကိုးကားနံပါတ်: {reference}",
+
+  "empty_heading": "လက်ခံသူမရှိသေးပါ",
+  "empty_body": "ငွေပို့ရန် သင်၏ပထမဆုံးလက်ခံသူကို ထည့်သွင်းပါ။",
+  "search_no_results": "သင်ရှာဖွေမှုနှင့် ကိုက်ညီသောလက်ခံသူ မတွေ့ပါ။",
+
+  "delete_confirm": "{name} ကို ဖျက်လိုသည်မှာ သေချာပါသလား?",
+  "delete_cta": "ဖျက်ရန်",
+  "delete_cancel": "မလုပ်ပါ",
+
+  "status_pending": "စောင့်ဆိုင်းနေသည်",
+  "status_processing": "လုပ်ဆောင်နေသည်",
+  "status_completed": "ပြီးဆုံးသည်",
+  "status_failed": "မအောင်မြင်ပါ",
+
+  "channel_hint": "လက်ခံသူ ငွေလက်ခံမည့်နည်းလမ်းကို ရွေးပါ",
+  "network_error": "ချိတ်ဆက်မှုအမှားရှိသည်။ သင်၏အင်တာနက်စစ်ဆေးပြီး ထပ်ကြိုးစားပါ။",
+
+  "label_transfer_type": "လွှဲမှုအမျိုးအစား",
+  "label_bank_name": "ဘဏ်အမည်",
+  "label_account_no": "အကောင့်နံပါတ်",
+  "label_first_name": "နာမည်",
+  "label_last_name": "မျိုးနွယ်အမည်",
+  "label_nrc": "NRC နံပါတ် (မဖြစ်မနေမဟုတ်)",
+  "label_phone": "ဖုန်းနံပါတ်",
+  "label_occupation": "အလုပ်အကိုင် (မဖြစ်မနေမဟုတ်)",
+  "label_purpose": "ငွေလွှဲမှုရည်ရွယ်ချက်",
+  "label_relationship": "ဆက်ဆံရေး",
+  "label_address1": "လိပ်စာ ၁",
+  "label_address2": "လိပ်စာ ၂ (မဖြစ်မနေမဟုတ်)",
+  "label_city": "မြို့ / မြို့နယ်",
+  "label_state": "ပြည်နယ် / တိုင်းဒေသကြီး",
+
+  "required_field": "ဤအကွက်ကို ဖြည့်ရမည်",
+  "nrc_format_error": "NRC ပုံစံမမှန်ပါ။ ဥပမာ: 12/ABCDE(N)123456",
+  "phone_myanmar_error": "+959 ဖြင့်စတင်သော မြန်မာဖုန်းနံပါတ် ထည့်ပါ",
+
+  "label_amount": "ငွေပမာဏ",
+  "label_fee": "ကြေးနှုန်း",
+  "label_total": "စုစုပေါင်း",
+  "label_converted": "ပြောင်းလဲပြီးငွေပမာဏ",
+  "label_from": "ပေးပို့သူ",
+  "label_to": "လက်ခံသူ",
+  "label_note": "မှတ်ချက် (မဖြစ်မနေမဟုတ်)",
+
+  "channel_wave_agent": "Wave Agent",
+  "channel_wave_app": "Wave App",
+  "channel_bank_transfer": "ဘဏ်လွှဲ",
+  "channel_cash_pickup": "ငွေသားထုတ်ယူ",
+
+  "occupation_employed": "လုပ်ငန်းခွင်ဝင်ရောက်သူ",
+  "occupation_self_employed": "ကိုယ်ပိုင်လုပ်ငန်း",
+  "occupation_student": "ကျောင်းသား/သူ",
+  "occupation_retired": "အငြိမ်းစားယူသူ",
+  "occupation_unemployed": "အလုပ်လက်မဲ့",
+  "occupation_other": "အခြား",
+
+  "purpose_family_support": "မိသားစုထောက်ပံ့ခြင်း",
+  "purpose_education": "ပညာရေး",
+  "purpose_medical": "ကျန်းမာရေးစောင့်ရှောက်မှု",
+  "purpose_business": "စီးပွားရေး",
+  "purpose_savings": "စုဆောင်းငွေ",
+  "purpose_other": "အခြား",
+
+  "relationship_family": "မိသားစု",
+  "relationship_friend": "သူငယ်ချင်း",
+  "relationship_business_partner": "စီးပွားရေးဖက်ဆောင်",
+  "relationship_employer": "အလုပ်ရှင်",
+  "relationship_other": "အခြား"
+}
