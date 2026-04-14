@@ -1,7 +1,7 @@
 ---
 phase: 7
 slug: profile-card-system-states
-status: draft
+status: approved
 shadcn_initialized: true
 preset: base-nova
 created: 2026-04-14
@@ -128,7 +128,7 @@ Two weights only: 700 (bold) for headings and emphasis, 400 (regular) for body a
 - Info page field values: 16px weight 400 `#212121` — read-only display
 - Limits & Fees page section heading: 16px weight 700 `#212121`
 - Maintenance modal title: 20px weight 700 `#212121` — "System Under Maintenance"
-- Maintenance modal body: 14px weight 400 `#757575` — descriptor text (single exception: 14px instead of 16px for modal body secondary text, as per standard dialog pattern)
+- Maintenance modal body: 12px weight 400 `#757575` — descriptor text (single exception: 12px instead of 16px for modal body secondary text, as per standard dialog pattern)
 - Update modal title: 20px weight 700 `#212121` — "Software Update"
 - Error boundary heading: 20px weight 700 `#212121` — "Something went wrong"
 - Error boundary body: 16px weight 400 `#757575`
@@ -451,16 +451,16 @@ Note: No hard-delete actions exist in this phase. Phone/passcode changes use OTP
 
   [Card action row — mt-6, gap-3, flex items-center justify-between]
     [CardRevealButton — Button variant="outline", rounded-full, h-10, px-4]
-      [Eye / EyeOff icon 16px + label "Show Card Details" / "Hide Card Details" — 14px 400]
+      [Eye / EyeOff icon 16px + label "Show Card Details" / "Hide Card Details" — 12px 400]
       [Border: #E0E0E0; bg-#FFFFFF; text-#212121]
     [FreezeCardToggle — flex items-center gap-2]
-      ["Freeze Card" — 14px 400 #212121]
+      ["Freeze Card" — 12px 400 #212121]
       [Switch — bg-#0091EA when frozen — 44×24px]
 
   [Card info section — mt-6, bg-#FFFFFF, rounded-xl, p-4, shadow-sm]
-    [Row: "Card Number" 12px 400 #9E9E9E left — masked/revealed value 14px 400 #212121 right]
+    [Row: "Card Number" 12px 400 #9E9E9E left — masked/revealed value 12px 400 #212121 right]
     [Divider 1px #E0E0E0, my-3]
-    [Row: "Expiry Date" 12px 400 #9E9E9E left — "MM/YY" 14px 400 #212121 right]
+    [Row: "Expiry Date" 12px 400 #9E9E9E left — "MM/YY" 12px 400 #212121 right]
     [Divider 1px #E0E0E0, my-3]
     [Row: "Card Status" 12px 400 #9E9E9E left — Badge right]
       [Active: "Active" — #00C853 text on #E8F5E9 bg]
@@ -495,7 +495,7 @@ Note: No hard-delete actions exist in this phase. Phone/passcode changes use OTP
     [StepIndicator — 2 steps, current=2]
     [Instruction — 16px 400 #212121, mb-2: "Enter the OTP sent to {phone}"]
     [OTP input — 6-digit — reuses Phase 2 OTP input component]
-    [Resend link — 14px 400 #0091EA or disabled #9E9E9E with countdown]
+    [Resend link — 12px 400 #0091EA or disabled #9E9E9E with countdown]
 
 [Sticky bottom CTA — fixed bottom-0, bg-#FFFFFF, px-4, py-4]
   [Step 1 CTA: "Send OTP" — rounded-full, bg-#FFE600, text-#212121, h-14, full-width]
@@ -519,8 +519,8 @@ Note: No hard-delete actions exist in this phase. Phone/passcode changes use OTP
     [Step 3: "Confirm New Passcode"]
   [Instruction — 16px 400 #757575, text-center, mt-2]
   [6-dot indicator row — centered, gap-4, mt-8]
-    [Empty dot: 14px circle, border-2px #212121]
-    [Filled dot: 14px circle, bg-#212121]
+    [Empty dot: 12px circle, border-2px #212121]
+    [Filled dot: 12px circle, bg-#212121]
     [Error state: bg-#F44336 all 6 dots + shake animation]
   [Numeric keypad — same as Phase 2 passcode keypad]
     [3×4 grid, each key h-16 w-16, rounded-full]
@@ -593,7 +593,7 @@ Note: No hard-delete actions exist in this phase. Phone/passcode changes use OTP
     [AlertDialogContent — bg-#FFFFFF, rounded-2xl, max-w-sm, mx-4, p-6, text-center]
       [Wrench icon — 48×48px, color #FF9800, mb-4, mx-auto]
       [Title — "System Under Maintenance" — 20px 700 #212121, mb-2]
-      [Body — "Currently system is under maintenance. We will be back soon." — 14px 400 #757575, mb-6]
+      [Body — "Currently system is under maintenance. We will be back soon." — 12px 400 #757575, mb-6]
       [AlertDialogAction — "Ok" — rounded-full, bg-#FFE600, text-#212121, h-12, full-width]
 
 [Update Required Modal — SYSTEM_UPDATE_REQUIRED=true]
@@ -601,7 +601,7 @@ Note: No hard-delete actions exist in this phase. Phone/passcode changes use OTP
     [AlertDialogContent — same container style]
       [Download icon — 48×48px, color #0091EA, mb-4, mx-auto]
       [Title — "Software Update" — 20px 700 #212121, mb-2]
-      [Body — "A software update is required to continue using the app." — 14px 400 #757575, mb-6]
+      [Body — "A software update is required to continue using the app." — 12px 400 #757575, mb-6]
       [Button row — gap-3, flex]
         [AlertDialogCancel — "Quit" — variant="outline", rounded-full, h-12, flex-1, border-#E0E0E0, text-#212121]
         [AlertDialogAction — "Now" — rounded-full, bg-#FFE600, text-#212121, h-12, flex-1]
