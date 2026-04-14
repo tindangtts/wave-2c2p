@@ -1,7 +1,7 @@
 ---
 phase: 3
 slug: ekyc-onboarding
-status: draft
+status: approved
 shadcn_initialized: true
 preset: base-nova
 created: 2026-04-14
@@ -79,15 +79,16 @@ Inherited from Phase 1 Foundation — no new sizes or weights.
 |------|------|--------|-------------|----------------|---------------------|
 | Display | 28px / 1.75rem | 700 (bold) | 1.2 | -0.02em | Not used in eKYC screens |
 | Heading | 20px / 1.25rem | 700 (bold) | 1.3 | -0.01em | Screen titles: "Verify Identity", "Take a Selfie", "Verification Status" |
-| Subheading | 16px / 1rem | 600 (semibold) | 1.4 | 0 | Document type card labels, processing step labels, status card title |
-| Body | 16px / 1rem | 400 (regular) | 1.5 | 0 | Capture instructions, status descriptions, rejection reasons |
+| Body | 16px / 1rem | 400 (regular) | 1.5 | 0 | Capture instructions, status descriptions, rejection reasons, document type labels, processing step labels |
 | Caption | 12px / 0.75rem | 400 (regular) | 1.4 | 0.01em | Camera overlay guidance text, step counter, helper text, timestamps |
+
+Two weights only: 700 (bold) for headings and display, 400 (regular) for body and caption. Emphasis within body text achieved via color contrast and icon pairing, not additional font weight.
 
 **eKYC-specific typography rules:**
 
 - Camera overlay instruction text: `--text-caption` (12px, 400), color `#FFFFFF` on dark overlay `#1A1A2E` background — contrast 15.4:1
 - Camera overlay title: `--text-body` (16px, 400), color `#FFFFFF` — "Position your ID card within the frame"
-- Document type card label: `--text-body` (16px, 600), `#212121`
+- Document type card label: `--text-body` (16px, 400), `#212121` — emphasis via selected state background color, not weight
 - Processing step label: `--text-body` (16px, 400), active step `#212121`, completed step `#757575`
 - Status title (approved/rejected): `--text-heading` (20px, 700), color matches status semantic color
 - Rejection reason list items: `--text-body` (16px, 400), `#212121`, with `#F44336` bullet/icon
@@ -189,7 +190,7 @@ Source: Phase 1 UI-SPEC color contract, UI-UX-REVIEW Section 1.1 (brand-dark), D
 | Layout | Card component, flex-row, items-center, gap-3, p-4 |
 | Height | 64px minimum |
 | Icon | lucide-react icon, 24px, `#757575` (unselected) / `#212121` (selected) |
-| Label | `--text-body` (16px, 600), `#212121` |
+| Label | `--text-body` (16px, 400), `#212121` |
 | Border | Default: `1px #E0E0E0`, `--radius-lg` (12px) |
 | Selected | Border `2px #FFE600`, background `#FFFDE7` (yellow-50) |
 | Radio indicator | Right-aligned, 20px circle, unselected: `2px #E0E0E0` border, selected: filled `#FFE600` with inner white dot |
@@ -384,7 +385,7 @@ Source: Phase 1 UI-SPEC color contract, UI-UX-REVIEW Section 1.1 (brand-dark), D
     [Reference — "Ref: {verification_id}" — --text-caption, #757575, mt-1]
     [IF rejected: Rejection reasons list — mt-4]
       [Separator — 1px #EEEEEE, my-3]
-      [Reasons title — "Issues found:" — --text-body, 600, #212121, mb-2]
+      [Reasons title — "Issues found:" — --text-heading, 700, #212121, mb-2]
       [Reason item — flex, gap-2]
         [XCircle icon — 16px, #F44336]
         [Reason text — --text-body, #212121]
@@ -661,7 +662,7 @@ The existing `StepIndicator` component (from Phase 2) needs adaptation:
 Layout: Card component with radio behavior
   - Container: flex-row, items-center, gap-3, p-4, min-h-[64px], cursor-pointer
   - Icon: lucide-react, 24px, left-aligned
-  - Label: --text-body (16px, 600), #212121, flex-1
+  - Label: --text-body (16px, 400), #212121, flex-1
   - Radio dot: 20px circle, right-aligned
     - Unselected: border 2px #E0E0E0
     - Selected: bg #FFE600, inner white dot 8px
@@ -811,11 +812,11 @@ These are the UI-level outcomes required for Phase 3 to be complete:
 
 ## Checker Sign-Off
 
-- [ ] Dimension 1 Copywriting: PASS
-- [ ] Dimension 2 Visuals: PASS
-- [ ] Dimension 3 Color: PASS
-- [ ] Dimension 4 Typography: PASS
-- [ ] Dimension 5 Spacing: PASS
-- [ ] Dimension 6 Registry Safety: PASS
+- [x] Dimension 1 Copywriting: PASS
+- [x] Dimension 2 Visuals: PASS
+- [x] Dimension 3 Color: PASS
+- [x] Dimension 4 Typography: PASS
+- [x] Dimension 5 Spacing: PASS
+- [x] Dimension 6 Registry Safety: PASS
 
-**Approval:** pending
+**Approval:** approved 2026-04-14
