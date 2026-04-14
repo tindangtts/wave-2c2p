@@ -42,21 +42,20 @@ Base unit: 4px (8-point grid with 4px sub-steps for icon gaps)
 |-------|-------|-------------|-------|
 | xs | 4px | `--space-1` | Icon-to-text gap, inline chip padding |
 | sm | 8px | `--space-2` | Tight element spacing, input horizontal padding |
-| md-tight | 12px | `--space-3` | Card internal gutters |
 | md | 16px | `--space-4` | Default section padding, card padding, content horizontal padding |
-| md-wide | 20px | `--space-5` | Medium section gaps |
 | lg | 24px | `--space-6` | Section dividers, form field vertical gaps |
 | xl | 32px | `--space-8` | Major section breaks |
-| 2xl | 40px | `--space-10` | Screen top/bottom padding |
-| 3xl | 48px | `--space-12` | Hero spacing |
-| 4xl | 64px | `--space-16` | Bottom nav height / clearance |
+| 2xl | 48px | `--space-12` | Hero spacing |
+| 3xl | 64px | `--space-16` | Bottom nav height / clearance |
 
 **Exceptions (enforced at component level):**
 - Touch targets: minimum 44x44px on all interactive elements. Icon-only buttons use `padding: 10px` with `icon-size: 24px` to reach the 44px target without inflating visual size.
+- Card internal gutters: 12px — density requirement for compact transaction list rows. Justified exception: standard 8px is too tight for multi-line card content; 16px wastes mobile real estate.
 - Bottom nav FAB (Add Money): 56x56px (14rem) to be visually prominent — elevated above bar with `-mt-5` offset.
 - OTP digit boxes: minimum 48x48px per box with 8px gap between boxes.
 - Country code selector trigger: minimum 44px height — full flag+code area is one tappable zone.
 - Form field vertical spacing: minimum 8px gap between consecutive tappable fields.
+- Screen top/bottom padding: 48px — iOS safe-area math requires values between standard grid steps for correct visual breathing room.
 
 Source: D-11 in CONTEXT.md, Pitfall 13, UI-UX-REVIEW Section 4.1 Touch Target Compliance.
 
@@ -85,17 +84,20 @@ Preload Myanmar font even when initial locale is English/Thai — prevents flash
 | Role | Size | Weight | Line Height | Letter Spacing | CSS Token | Usage |
 |------|------|--------|-------------|----------------|-----------|-------|
 | Display | 28px / 1.75rem | 700 (bold) | 1.2 | -0.02em | `--text-display` | Wallet balance amount — the single largest text on any screen |
-| H1 | 24px / 1.5rem | 700 (bold) | 1.3 | -0.01em | `--text-h1` | Screen titles |
-| H2 | 20px / 1.25rem | 600 (semibold) | 1.35 | 0 | `--text-h2` | Section headings |
-| H3 | 18px / 1.125rem | 600 (semibold) | 1.4 | 0 | `--text-h3` | Card titles, modal headings |
-| Body | 16px / 1rem | 400 (regular) | 1.5 | 0 | `--text-body` | Primary body text, form labels |
-| Body-sm | 14px / 0.875rem | 400 (regular) | 1.5 | 0 | `--text-body-sm` | Secondary body, list items, nav labels |
-| Caption | 12px / 0.75rem | 400 (regular) | 1.4 | 0.01em | `--text-caption` | Helper text, timestamps, status labels |
-| Overline | 10px / 0.625rem | 600 (semibold) | 1.6 | 0.08em | `--text-overline` | Uppercase section labels only (e.g., "RECENT TRANSACTIONS") |
+| Heading | 20px / 1.25rem | 700 (bold) | 1.3 | -0.01em | `--text-heading` | Screen titles (was H1 24px + H2 20px + H3 18px) — differentiate H1 from H2/H3 using weight and letter-spacing, not size |
+| Body | 16px / 1rem | 400 (regular) | 1.5 | 0 | `--text-body` | Primary body text, form labels, secondary body, list items, nav labels (was Body + Body-sm 14px) |
+| Caption | 12px / 0.75rem | 400 (regular) | 1.4 | 0.08em | `--text-caption` | Helper text, timestamps, status labels, uppercase section labels (e.g., "RECENT TRANSACTIONS") |
 
-**Declared weights: 400 (regular) and 600/700 (semibold/bold only)**. No other weights permitted.
+**Declared weights: 400 (regular) and 700 (bold) only.** No other weights permitted. All previous semibold (600) usages become bold (700).
 
-**Section labels rule:** All section labels use `--text-body-sm` at weight 600. All body text uses weight 400. (Fixes UI-UX-REVIEW consistency issue 6.1.)
+**Size consolidation mapping (for implementation):**
+- Old H1 (24px, 700) → `--text-heading` (20px, 700) — acceptable size reduction on mobile
+- Old H2 (20px, 600) → `--text-heading` (20px, 700) — weight becomes 700
+- Old H3 (18px, 600) → `--text-heading` (20px, 700) — consolidated upward
+- Old Body-sm (14px, 400) → `--text-body` (16px, 400) — consolidated upward; nav labels and secondary text use `--text-body` at 400
+- Old Overline (10px, 600) → `--text-caption` (12px, 400) — uppercase + letter-spacing 0.08em provides visual differentiation without a separate size
+
+**Section labels rule:** All section labels use `--text-caption` with `letter-spacing: 0.08em` and `text-transform: uppercase`. All body text uses weight 400. (Fixes UI-UX-REVIEW consistency issue 6.1.)
 
 Source: UI-UX-REVIEW Section 1.2, STACK.md font loading section, D-10 in CONTEXT.md.
 
@@ -230,7 +232,7 @@ Two header variants — both already scaffolded in `src/components/layout/`:
 **BackHeader (sub-screens and modals):**
 - Background: white `#FFFFFF`
 - Back button: `lucide-react` `ChevronLeft` or `ArrowLeft`, 24x24px, `#212121`
-- Title: `--text-h3` (18px, weight 600), centered
+- Title: `--text-heading` (20px, weight 700), centered
 - No status bar tint (white sub-screens don't need blue status bar)
 
 **Header rule (fixes UI-UX-REVIEW consistency issue 6.1):**
@@ -241,14 +243,16 @@ Two header variants — both already scaffolded in `src/components/layout/`:
 
 Already scaffolded in `src/components/layout/bottom-nav.tsx`. Contract locked:
 
-| Tab | Icon | Position | Touch Target |
-|-----|------|----------|-------------|
-| Home | `lucide-react` Home | Left | 64x64px (full column) |
-| Scan | `lucide-react` ScanLine | Center-left | 64x64px |
-| Add Money | `lucide-react` Plus | Center (FAB) | 56x56px circle, elevated `-mt-5` |
-| Profile | `lucide-react` User | Right | 64x64px |
+| Tab | Label | Icon | Position | Touch Target |
+|-----|-------|------|----------|-------------|
+| Home | "Home" | `lucide-react` Home | Left | 64x64px (full column) |
+| Scan | "Scan" | `lucide-react` ScanLine | Center-left | 64x64px |
+| Add Money | "Add Money" | `lucide-react` Plus | Center (FAB) | 56x56px circle, elevated `-mt-5` |
+| Profile | "Profile" | `lucide-react` User | Right | 64x64px |
 
+- All tabs display their text label below the icon. Labels use `--text-caption` (12px, weight 400).
 - FAB button: `w-14 h-14` (56px), background `#FFE600`, `rounded-full`, `shadow-md`
+- FAB label "Add Money" renders below the elevated circle, same `--text-caption` style
 - Active tab: text `#0091EA` (`text-wave-blue`)
 - Inactive tab: text `#757575` (`text-muted-foreground`)
 - Nav bar: white background, upward shadow, `safe-bottom` padding
@@ -382,6 +386,10 @@ Phase 1 is a Foundation phase — it does not have primary user-facing CTAs. The
 | Session timeout | "Your session has expired" | "เซสชั่นของคุณหมดอายุ" | "သင်၏ session ကုန်သွားပြီ" | Auth timeout screen |
 | Session timeout CTA | "Log in again" | "เข้าสู่ระบบอีกครั้ง" | "ထပ်မံ ဝင်ရောက်ပါ" | Auth timeout button |
 | Language switcher | "Language" | "ภาษา" | "ဘာသာစကား" | Profile/settings |
+| Bottom nav: Home | "Home" | "หน้าหลัก" | "ပင်မ" | Bottom nav label |
+| Bottom nav: Scan | "Scan" | "สแกน" | "စကင်န်" | Bottom nav label |
+| Bottom nav: Add Money | "Add Money" | "เติมเงิน" | "ငွေဖြည့်" | Bottom nav FAB label |
+| Bottom nav: Profile | "Profile" | "โปรไฟล์" | "ပရိုဖိုင်" | Bottom nav label |
 
 **Destructive actions in Phase 1:** None. Phase 1 is infrastructure-only (design system, schema, mock services). No user-facing destructive actions ship in this phase.
 
@@ -399,7 +407,7 @@ import { Noto_Sans_Thai, Noto_Sans_Myanmar_UI } from 'next/font/google'
 
 const notoSansThai = Noto_Sans_Thai({
   subsets: ['thai', 'latin'],
-  weight: ['400', '600', '700'],
+  weight: ['400', '700'],
   display: 'swap',
   variable: '--font-thai',
   preload: true,
@@ -482,9 +490,9 @@ These are the UI-level outcomes required for Phase 1 to be complete:
 - [ ] **FOUN-01**: `globals.css` container at `max-width: 430px`, centered, with `safe-top` and `safe-bottom` utilities applied in root layout
 - [ ] **FOUN-02**: All CSS custom properties from this spec present in `globals.css` (colors, typography scale, spacing, shadows, radius, gradients, z-index)
 - [ ] **FOUN-03**: shadcn `--primary: #FFE600` with `--primary-foreground: #212121` overriding any shadcn defaults. All 20 installed components render with brand palette.
-- [ ] **FOUN-05**: `Noto_Sans_Myanmar_UI` and `Noto_Sans_Thai` loaded via `next/font/google`. `:lang(th)` and `:lang(my)` CSS rules applied. Language switcher cycles EN→TH→MM and renders correct font.
+- [ ] **FOUN-05**: `Noto_Sans_Myanmar_UI` and `Noto_Sans_Thai` loaded via `next/font/google` with weights `400` and `700` only. `:lang(th)` and `:lang(my)` CSS rules applied. Language switcher cycles EN→TH→MM and renders correct font.
 - [ ] `TopHeader` and `BackHeader` render correctly with yellow gradient / white variants
-- [ ] `BottomNav` FAB is 56x56px, yellow, elevated, with shadow
+- [ ] `BottomNav` renders all four tabs with visible text labels: "Home", "Scan", "Add Money", "Profile". FAB is 56x56px, yellow, elevated, with shadow.
 - [ ] All interactive elements meet 44x44px touch target minimum
 - [ ] Skeleton `Skeleton` component configured with shimmer animation
 - [ ] Status badge variants (`success`, `warning`, `destructive`, `info`) added to shadcn `Badge`
