@@ -1,0 +1,28 @@
+{
+  "appName": "2C2P Wave",
+  "loading": "Loading...",
+  "error": {
+    "heading": "Something went wrong",
+    "body": "Please try again or contact support if the problem continues.",
+    "retry": "Try Again"
+  },
+  "empty": {
+    "heading": "Nothing here yet",
+    "body": "Check back later."
+  },
+  "maintenance": {
+    "title": "We'll be right back",
+    "body": "The app is undergoing scheduled maintenance. Please try again in a few minutes."
+  },
+  "session": {
+    "expired": "Your session has expired",
+    "loginAgain": "Log in again"
+  },
+  "language": "Language",
+  "nav": {
+    "home": "Home",
+    "scan": "Scan",
+    "addMoney": "Add Money",
+    "profile": "Profile"
+  }
+}
