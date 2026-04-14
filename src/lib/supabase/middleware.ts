@@ -33,21 +33,32 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // Redirect unauthenticated users to login (except auth pages and API)
-  const isAuthPage = request.nextUrl.pathname.startsWith("/login") ||
+  // Auth pages: unauthenticated users are allowed here
+  const isAuthPage =
+    request.nextUrl.pathname.startsWith("/login") ||
+    request.nextUrl.pathname.startsWith("/otp") ||
     request.nextUrl.pathname.startsWith("/register") ||
     request.nextUrl.pathname.startsWith("/kyc") ||
     request.nextUrl.pathname.startsWith("/passcode");
+
   const isApiRoute = request.nextUrl.pathname.startsWith("/api");
 
+  // Redirect unauthenticated users to login (except auth pages and API routes)
   if (!user && !isAuthPage && !isApiRoute) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
     return NextResponse.redirect(url);
   }
 
-  // Redirect authenticated users away from login
-  if (user && isAuthPage) {
+  // Redirect authenticated users away from login/otp/register pages only.
+  // /passcode is intentionally excluded — authenticated users need /passcode
+  // for the lock screen (re-authentication after inactivity).
+  const isLoginOnlyPage =
+    request.nextUrl.pathname.startsWith("/login") ||
+    request.nextUrl.pathname.startsWith("/otp") ||
+    request.nextUrl.pathname.startsWith("/register");
+
+  if (user && isLoginOnlyPage) {
     const url = request.nextUrl.clone();
     url.pathname = "/home";
     return NextResponse.redirect(url);
