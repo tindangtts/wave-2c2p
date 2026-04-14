@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: verifying
-stopped_at: Completed 05-04-PLAN.md
-last_updated: "2026-04-14T12:26:34.181Z"
+status: executing
+stopped_at: Completed 06-01-PLAN.md
+last_updated: "2026-04-14T13:02:14.218Z"
 last_activity: 2026-04-14
 progress:
   total_phases: 7
   completed_phases: 5
-  total_plans: 18
-  completed_plans: 18
+  total_plans: 22
+  completed_plans: 19
   percent: 0
 ---
 
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-14)
 
 **Core value:** Users can send money from Thailand to Myanmar quickly, affordably, and with full regulatory compliance
-**Current focus:** Phase 05 — transfer-recipients
+**Current focus:** Phase 06 — wallet-operations
 
 ## Current Position
 
-Phase: 6
-Plan: Not started
-Status: Phase complete — ready for verification
+Phase: 06 (wallet-operations) — EXECUTING
+Plan: 2 of 4
+Status: Ready to execute
 Last activity: 2026-04-14
 
 Progress: [░░░░░░░░░░] 0%
@@ -70,6 +70,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 05 P03 | 145 | 2 tasks | 5 files |
 | Phase 05-transfer-recipients P02 | 5 | 2 tasks | 6 files |
 | Phase 05 P04 | 3 | 2 tasks | 5 files |
+| Phase 06-wallet-operations P01 | 81 | 2 tasks | 11 files |
 
 ## Accumulated Context
 
@@ -122,6 +123,9 @@ Recent decisions affecting current work:
 - [Phase 05-transfer-recipients]: Edit recipient form loads from SWR cache by ID via form.reset() — avoids redundant GET request
 - [Phase 05]: PasscodeSheet uses /api/auth/passcode/verify for server-side PBKDF2 — no client hash exposure
 - [Phase 05]: ReceiptPage uses custom header with X close button (not BackHeader) — terminal screen has no back navigation
+- [Phase 06-wallet-operations]: sessionStorage (not localStorage) for wallet-ops-store — wallet flow state is session-scoped; avoids stale topup/withdraw state across sessions
+- [Phase 06-wallet-operations]: transactions route uses .select('*, recipients(*)') join — single query for enriched data, avoids secondary client fetch
+- [Phase 06-wallet-operations]: withdraw deducts balance immediately before async completion — prevents double-spend with rollback on tx insert failure
 
 ### Pending Todos
 
@@ -133,6 +137,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-14T12:21:18.633Z
-Stopped at: Completed 05-04-PLAN.md
+Last session: 2026-04-14T13:02:14.215Z
+Stopped at: Completed 06-01-PLAN.md
 Resume file: None
