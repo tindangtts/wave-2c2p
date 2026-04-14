@@ -28,7 +28,7 @@ Deliver the complete authentication flow: phone number entry with country code s
 ### Passcode & Route Protection
 - **D-09:** 6-digit passcode hashed in Supabase `user_profiles.passcode_hash` — bcrypt hash stored server-side, verified via API route. Never stored in plaintext or client-side.
 - **D-10:** Passcode required on app launch when session exists but app was backgrounded >5 minutes — fresh login uses OTP, passcode is "quick unlock" for returning users.
-- **D-11:** Passcode input: 6 separate digit circles with dot masking — standard banking PIN entry using input-otp component (already installed). Each digit shows briefly then masks.
+- **D-11:** Passcode input: 6 separate digit circles with immediate dot masking — standard banking PIN entry with numeric keypad (custom component). Digits never show plaintext (security best practice per UI-SPEC).
 - **D-12:** Route protection in proxy.ts: check Supabase session, redirect unauthenticated users from `(main)/*` routes to `/login`. Extend existing `updateSession` logic.
 
 ### Claude's Discretion
