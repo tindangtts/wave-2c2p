@@ -88,7 +88,7 @@ Plans:
 **Requirements**: HOME-01, HOME-02, HOME-03, HOME-04, HOME-05, HOME-06
 **Success Criteria** (what must be TRUE):
   1. Dashboard shows the user's name, wallet balance with show/hide toggle, and wallet ID on load
-  2. Quick actions grid is tappable and routes to Bills (placeholder), Referral, Withdrawal, and History
+  2. Quick actions grid is tappable and routes to Transfer, Bills (placeholder), Referral, and Withdrawal (D-05: Transfer replaced History)
   3. Recent History section lists up to 5 transactions with type icon, amount, date, and status badge
   4. Promotions carousel is horizontally scrollable with at least one banner card rendered
   5. Bottom navigation shows 4 tabs (Home, Scan, Add Money, Profile) with a yellow FAB for Add Money; wallet balance updates without a full page reload after a transaction

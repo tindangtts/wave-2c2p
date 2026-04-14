@@ -41,12 +41,12 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Home & Wallet
 
-- [ ] **HOME-01**: Dashboard displays user name, wallet balance with show/hide toggle, wallet ID
-- [ ] **HOME-02**: Quick actions grid shows Bills, Referral, Withdrawal, History with correct icons
-- [ ] **HOME-03**: Recent History section shows last 5 transactions with status badges
-- [ ] **HOME-04**: Promotion carousel displays scrollable banner cards
+- [x] **HOME-01**: Dashboard displays user name, wallet balance with show/hide toggle, wallet ID
+- [x] **HOME-02**: Quick actions grid shows Transfer, Bills, Referral, Withdrawal with correct icons (D-05: Transfer replaced History)
+- [x] **HOME-03**: Recent History section shows last 5 transactions with status badges
+- [x] **HOME-04**: Promotion carousel displays scrollable banner cards
 - [x] **HOME-05**: Bottom navigation renders 4 tabs (Home, Scan, Add Money, Profile) with yellow FAB for Add Money
-- [x] **HOME-06**: Wallet balance updates in real-time after transactions via Supabase Realtime
+- [x] **HOME-06**: Wallet balance updates without full page reload via SWR revalidation (D-10: SWR chosen over Supabase Realtime)
 
 ### Transfer & Remittance
 
@@ -178,10 +178,10 @@ Deferred to future release. Tracked but not in current roadmap.
 | EKYC-06 | Phase 3 | Complete |
 | EKYC-07 | Phase 3 | Complete |
 | EKYC-08 | Phase 3 | Complete |
-| HOME-01 | Phase 4 | Pending |
-| HOME-02 | Phase 4 | Pending |
-| HOME-03 | Phase 4 | Pending |
-| HOME-04 | Phase 4 | Pending |
+| HOME-01 | Phase 4 | Complete |
+| HOME-02 | Phase 4 | Complete |
+| HOME-03 | Phase 4 | Complete |
+| HOME-04 | Phase 4 | Complete |
 | HOME-05 | Phase 4 | Complete |
 | HOME-06 | Phase 4 | Complete |
 | XFER-01 | Phase 5 | Pending |
