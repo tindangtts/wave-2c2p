@@ -13,7 +13,7 @@ This roadmap builds a mobile-first PWA for cross-border money transfers (THB→M
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation** - Design system, DB schema, mock services, and i18n are production-ready (completed 2026-04-14)
-- [ ] **Phase 2: Authentication** - Users can register, verify OTP, set passcode, and stay logged in
+- [x] **Phase 2: Authentication** - Users can register, verify OTP, set passcode, and stay logged in (completed 2026-04-14)
 - [ ] **Phase 3: eKYC Onboarding** - Users can complete identity verification with mock approval/rejection
 - [ ] **Phase 4: Home & Wallet** - Users can view their balance, recent transactions, and navigate the app
 - [ ] **Phase 5: Transfer & Recipients** - Users can send money to Myanmar with full confirmation flow
@@ -58,7 +58,7 @@ Plans:
 - [x] 02-01-PLAN.md — Auth foundation: schema migration, Zod schemas, PBKDF2 passcode utils, admin client, registration store, i18n
 - [x] 02-02-PLAN.md — Mock OTP API routes, login page rewrite, OTP verification page, middleware guards
 - [x] 02-03-PLAN.md — Registration 3-step flow: step indicator, personal info page, ID details page, step save API
-- [ ] 02-04-PLAN.md — Passcode creation, passcode login, visibility hook, end-to-end verification
+- [x] 02-04-PLAN.md — Passcode creation, passcode login, visibility hook, end-to-end verification
 
 **UI hint**: yes
 
@@ -135,7 +135,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 4/4 | Complete   | 2026-04-14 |
-| 2. Authentication | 0/4 | Planning complete | - |
+| 2. Authentication | 4/4 | Complete   | 2026-04-14 |
 | 3. eKYC Onboarding | 0/TBD | Not started | - |
 | 4. Home & Wallet | 0/TBD | Not started | - |
 | 5. Transfer & Recipients | 0/TBD | Not started | - |
