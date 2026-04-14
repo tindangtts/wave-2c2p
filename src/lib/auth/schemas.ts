@@ -35,11 +35,14 @@ export type PhoneInput = z.infer<typeof phoneSchema>
 
 // Personal information schema — step 1 of registration
 export const personalInfoSchema = z.object({
+  title: z.enum(['ms', 'mr', 'mrs']),
   firstName: z.string().min(1, 'First name is required.'),
   lastName: z.string().min(1, 'Last name is required.'),
+  gender: z.enum(['male', 'female']),
   dateOfBirth: z
     .string()
     .regex(/^\d{2}\/\d{2}\/\d{4}$/, 'Enter a valid date (DD/MM/YYYY).'),
+  email: z.string().email('Enter a valid email address.').or(z.literal('')),
   nationality: z.enum(['thai', 'myanmar', 'other']),
 })
 

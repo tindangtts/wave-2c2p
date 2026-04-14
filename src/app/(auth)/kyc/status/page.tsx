@@ -45,14 +45,18 @@ export default function KYCStatusPage() {
     }
   }
 
-  return (
-    <div className="flex flex-col min-h-screen">
-      <BackHeader
-        title={t(`status.${statusKey}.title`)}
-        onBack={handleBack}
-      />
+  const isModalState = statusKey === 'rejected' || statusKey === 'expired'
 
-      <div className="flex flex-col flex-1 items-center px-4 pt-8 pb-8">
+  return (
+    <div className={`flex flex-col min-h-screen ${isModalState ? 'bg-gradient-to-b from-[#FFE600]/30 to-white' : ''}`}>
+      {!isModalState && (
+        <BackHeader
+          title={t(`status.${statusKey}.title`)}
+          onBack={handleBack}
+        />
+      )}
+
+      <div className={`flex flex-col flex-1 items-center px-4 pb-8 ${isModalState ? 'justify-center' : 'pt-8'}`}>
         <KYCStatusCard
           status={statusKey as 'pending' | 'approved' | 'rejected' | 'expired'}
           submittedAt={submittedDate}
@@ -108,12 +112,22 @@ export default function KYCStatusPage() {
           )}
 
           {kycStatus === 'expired' && (
-            <Button
-              onClick={() => router.push('/(auth)/kyc/document-type')}
-              className="w-full h-12 rounded-full bg-[#FFE600] text-[#212121] hover:bg-[#FFE600]/90"
-            >
-              {t('status.expired.cta')}
-            </Button>
+            <div className="flex gap-4 w-full max-w-[320px] mx-auto">
+              <Button
+                variant="ghost"
+                onClick={() => router.push('/home')}
+                className="flex-1 h-12 text-[#212121] font-semibold"
+              >
+                {t('status.expired.later')}
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => router.push('/(auth)/kyc/document-type')}
+                className="flex-1 h-12 text-[#212121] font-semibold"
+              >
+                {t('status.expired.now')}
+              </Button>
+            </div>
           )}
         </div>
       </div>

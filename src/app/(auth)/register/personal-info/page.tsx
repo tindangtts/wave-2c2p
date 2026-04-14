@@ -40,16 +40,19 @@ export default function PersonalInfoPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [showSaveDialog, setShowSaveDialog] = useState(false)
 
-  const { firstName, lastName, dateOfBirth, nationality, setPersonalInfo, setStep } =
+  const { firstName, lastName, dateOfBirth, nationality, phone, countryCode, setPersonalInfo, setStep } =
     useRegistrationStore()
 
   const form = useForm<PersonalInfoInput>({
     resolver: zodResolver(personalInfoSchema),
     mode: 'onSubmit',
     defaultValues: {
+      title: 'ms',
       firstName: '',
       lastName: '',
+      gender: 'male',
       dateOfBirth: '',
+      email: '',
       nationality: 'thai',
     },
   })
@@ -62,9 +65,12 @@ export default function PersonalInfoPage() {
   useEffect(() => {
     if (mounted) {
       form.reset({
+        title: 'ms',
         firstName: firstName || '',
         lastName: lastName || '',
+        gender: 'male',
         dateOfBirth: dateOfBirth || '',
+        email: '',
         nationality: (nationality as PersonalInfoInput['nationality']) || 'thai',
       })
     }
@@ -131,14 +137,34 @@ export default function PersonalInfoPage() {
         <p className="text-base text-[#757575] mb-6">{t('register.step1Subtitle')}</p>
 
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col flex-1" noValidate>
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-5">
+            {/* Title (Salutation) */}
+            <div>
+              <Label htmlFor="title" className="text-xs text-[#757575] mb-1 block">
+                {t('fields.title')} <span className="text-[#F44336]">*</span>
+              </Label>
+              <Select
+                onValueChange={(value) => {
+                  if (value)
+                    form.setValue('title', value as PersonalInfoInput['title'], { shouldValidate: false })
+                }}
+                value={form.watch('title')}
+              >
+                <SelectTrigger id="title" className="h-12">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="ms">{t('fields.titleMs')}</SelectItem>
+                  <SelectItem value="mr">{t('fields.titleMr')}</SelectItem>
+                  <SelectItem value="mrs">{t('fields.titleMrs')}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
             {/* First Name */}
             <div>
-              <Label
-                htmlFor="firstName"
-                className="text-base text-[#212121] font-normal mb-2 block"
-              >
-                {t('fields.firstName')}
+              <Label htmlFor="firstName" className="text-xs text-[#757575] mb-1 block">
+                {t('fields.firstName')} <span className="text-[#F44336]">*</span>
               </Label>
               <Input
                 id="firstName"
@@ -149,11 +175,7 @@ export default function PersonalInfoPage() {
                 autoComplete="given-name"
               />
               {errors.firstName && (
-                <p
-                  id="firstName-error"
-                  role="alert"
-                  className="text-xs text-[#F44336] mt-1"
-                >
+                <p id="firstName-error" role="alert" className="text-xs text-[#F44336] mt-1">
                   {errors.firstName.message}
                 </p>
               )}
@@ -161,11 +183,8 @@ export default function PersonalInfoPage() {
 
             {/* Last Name */}
             <div>
-              <Label
-                htmlFor="lastName"
-                className="text-base text-[#212121] font-normal mb-2 block"
-              >
-                {t('fields.lastName')}
+              <Label htmlFor="lastName" className="text-xs text-[#757575] mb-1 block">
+                {t('fields.lastName')} <span className="text-[#F44336]">*</span>
               </Label>
               <Input
                 id="lastName"
@@ -176,23 +195,38 @@ export default function PersonalInfoPage() {
                 autoComplete="family-name"
               />
               {errors.lastName && (
-                <p
-                  id="lastName-error"
-                  role="alert"
-                  className="text-xs text-[#F44336] mt-1"
-                >
+                <p id="lastName-error" role="alert" className="text-xs text-[#F44336] mt-1">
                   {errors.lastName.message}
                 </p>
               )}
             </div>
 
+            {/* Gender */}
+            <div>
+              <Label htmlFor="gender" className="text-xs text-[#757575] mb-1 block">
+                {t('fields.gender')} <span className="text-[#F44336]">*</span>
+              </Label>
+              <Select
+                onValueChange={(value) => {
+                  if (value)
+                    form.setValue('gender', value as PersonalInfoInput['gender'], { shouldValidate: false })
+                }}
+                value={form.watch('gender')}
+              >
+                <SelectTrigger id="gender" className="h-12">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="male">{t('fields.genderMale')}</SelectItem>
+                  <SelectItem value="female">{t('fields.genderFemale')}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
             {/* Date of Birth */}
             <div>
-              <Label
-                htmlFor="dateOfBirth"
-                className="text-base text-[#212121] font-normal mb-2 block"
-              >
-                {t('fields.dateOfBirth')}
+              <Label htmlFor="dateOfBirth" className="text-xs text-[#757575] mb-1 block">
+                {t('fields.dateOfBirth')} <span className="text-[#F44336]">*</span>
               </Label>
               <Input
                 id="dateOfBirth"
@@ -205,58 +239,51 @@ export default function PersonalInfoPage() {
                 inputMode="numeric"
               />
               {errors.dateOfBirth && (
-                <p
-                  id="dateOfBirth-error"
-                  role="alert"
-                  className="text-xs text-[#F44336] mt-1"
-                >
+                <p id="dateOfBirth-error" role="alert" className="text-xs text-[#F44336] mt-1">
                   {errors.dateOfBirth.message}
                 </p>
               )}
             </div>
 
-            {/* Nationality */}
+            {/* Mobile No. (read-only, from registration store) */}
             <div>
-              <Label
-                htmlFor="nationality"
-                className="text-base text-[#212121] font-normal mb-2 block"
-              >
-                {t('fields.nationality')}
+              <Label className="text-xs text-[#757575] mb-1 block">
+                {t('fields.mobileNo')}
               </Label>
-              <Select
-                onValueChange={(value) => {
-                  if (value)
-                    form.setValue('nationality', value as PersonalInfoInput['nationality'], {
-                      shouldValidate: false,
-                    })
-                }}
-                value={form.watch('nationality')}
-              >
-                <SelectTrigger
-                  id="nationality"
-                  className="h-12"
-                  aria-invalid={!!errors.nationality}
-                  aria-describedby={errors.nationality ? 'nationality-error' : undefined}
-                >
-                  <SelectValue placeholder={t('fields.nationality')} />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="thai">{t('fields.nationalityThai')}</SelectItem>
-                  <SelectItem value="myanmar">{t('fields.nationalityMyanmar')}</SelectItem>
-                  <SelectItem value="other">{t('fields.nationalityOther')}</SelectItem>
-                </SelectContent>
-              </Select>
-              {errors.nationality && (
-                <p
-                  id="nationality-error"
-                  role="alert"
-                  className="text-xs text-[#F44336] mt-1"
-                >
-                  {errors.nationality.message}
+              <div className="h-12 border rounded-md px-3 flex items-center bg-[#F5F5F5] text-[#212121]">
+                <span className="text-base">
+                  {countryCode ? `${countryCode === '+66' ? '🇹🇭 TH(+66)' : '🇲🇲 MM(+95)'} ▼ ${phone || ''}` : ''}
+                </span>
+              </div>
+            </div>
+
+            {/* Email Address */}
+            <div>
+              <Label htmlFor="email" className="text-xs text-[#757575] mb-1 block">
+                {t('fields.email')} <span className="text-[#F44336]">*</span>
+              </Label>
+              <Input
+                id="email"
+                type="email"
+                {...form.register('email')}
+                placeholder={t('fields.emailPlaceholder')}
+                className="h-12"
+                aria-invalid={!!errors.email}
+                aria-describedby={errors.email ? 'email-error' : undefined}
+                autoComplete="email"
+              />
+              {errors.email && (
+                <p id="email-error" role="alert" className="text-xs text-[#F44336] mt-1">
+                  {errors.email.message}
                 </p>
               )}
             </div>
           </div>
+
+          {/* Disclaimer text — per Pencil design */}
+          <p className="text-xs text-[#757575] text-center mt-6 mb-4">
+            {t('fields.checkInfoDisclaimer')}
+          </p>
 
           <div className="flex-1" />
 

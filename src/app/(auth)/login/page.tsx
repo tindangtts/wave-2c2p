@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { Loader2 } from 'lucide-react'
+import { Loader2, ChevronLeft } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -107,39 +107,48 @@ export default function LoginPage() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Status bar */}
-      <div className="wave-status-bar h-11 safe-top" />
+      <div className="h-11 safe-top" />
 
-      <div className="flex-1 flex flex-col px-4 pt-12 pb-8">
+      <div className="flex-1 flex flex-col px-4 pt-4 pb-8">
+        {/* Back arrow */}
+        <button
+          onClick={() => router.back()}
+          className="p-1 -ml-1 mb-4 self-start rounded-full hover:bg-black/5 transition-colors"
+          aria-label="Go back"
+        >
+          <ChevronLeft className="w-6 h-6 text-[#212121]" />
+        </button>
+
         {/* Heading */}
         <h1 className="text-xl font-bold text-[#212121]">{t('login.title')}</h1>
         <p className="text-base text-[#757575] mt-2">{t('login.subtitle')}</p>
 
-        {/* Phone Number field group */}
-        <div className="mt-8">
+        {/* Phone Number field group — card wrapper per design */}
+        <div className="mt-8 bg-[#F5F5F5] rounded-2xl p-4">
           <Label
             htmlFor="phone-input"
-            className="text-base text-[#212121] mb-2 block"
+            className="text-xs text-[#757575] mb-2 block"
           >
             {t('login.phoneLabel')}
           </Label>
 
-          <div className="flex gap-2">
+          <div className="flex items-center gap-2">
             <Select
               value={countryCode}
               onValueChange={handleCountryChange}
             >
               <SelectTrigger
-                className="w-[110px] h-12"
+                className="w-[120px] h-10 bg-transparent border-none shadow-none text-base font-medium"
                 aria-label={t('login.phoneLabel')}
               >
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="+66" aria-label="Thailand +66">
-                  🇹🇭 +66
+                  🇹🇭 TH(+66)
                 </SelectItem>
                 <SelectItem value="+95" aria-label="Myanmar +95">
-                  🇲🇲 +95
+                  🇲🇲 MM(+95)
                 </SelectItem>
               </SelectContent>
             </Select>
@@ -156,20 +165,25 @@ export default function LoginPage() {
               aria-label={t('login.phoneLabel')}
               aria-invalid={error ? true : undefined}
               aria-describedby={error ? 'phone-error' : undefined}
-              className="flex-1 h-12"
+              className="flex-1 h-10 bg-transparent border-none shadow-none text-base"
             />
           </div>
-
-          {error && (
-            <p
-              id="phone-error"
-              role="alert"
-              className="text-xs text-[#F44336] mt-1"
-            >
-              {error}
-            </p>
-          )}
         </div>
+
+        {/* Hint text */}
+        <p className="text-xs text-[#9E9E9E] text-center mt-2">
+          {countryCode === '+66' ? 'Example +66 9xxx' : 'Example +95 9xxx'}
+        </p>
+
+        {error && (
+          <p
+            id="phone-error"
+            role="alert"
+            className="text-xs text-[#F44336] mt-1 text-center"
+          >
+            {error}
+          </p>
+        )}
 
         {/* Push CTA to bottom */}
         <div className="flex-1" />
@@ -187,7 +201,7 @@ export default function LoginPage() {
               {t('cta.sendingOtp')}
             </>
           ) : (
-            t('cta.continue')
+            t('login.submitButton')
           )}
         </Button>
 

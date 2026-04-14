@@ -43,6 +43,52 @@ export function KYCStatusCard({
   const config = STATUS_CONFIG[status]
   const Icon = config.icon
 
+  // Failed/rejected/expired states render as floating modal card per Pencil design
+  const isModalStyle = status === 'rejected' || status === 'expired'
+
+  if (isModalStyle) {
+    return (
+      <div className="flex flex-col items-center w-full">
+        {/* Modal-style card — per Pencil design (floating card with shadow) */}
+        <Card className="w-full max-w-[320px] p-6 rounded-2xl shadow-lg flex flex-col items-center">
+          {/* Status icon */}
+          <div
+            className={`w-12 h-12 rounded-full ${config.bgColor} flex items-center justify-center mb-4`}
+            aria-label={`Status: ${status}`}
+          >
+            <Icon className="w-5 h-5 text-white" />
+          </div>
+
+          {/* Status title */}
+          <h2 className="text-lg font-bold text-[#212121] text-center mb-2">
+            {t(`status.${status}.title`)}
+          </h2>
+
+          {/* Status description */}
+          <p className="text-sm text-[#757575] text-center mb-4">
+            {t(`status.${status}.description`)}
+          </p>
+
+          {/* Rejection reasons */}
+          {status === 'rejected' && rejectionReasons && rejectionReasons.length > 0 && (
+            <>
+              <Separator className="my-3 w-full" />
+              <ul role="list" className="space-y-2 w-full">
+                {rejectionReasons.map((reason, index) => (
+                  <li key={index} className="flex items-start gap-2">
+                    <XCircle className="w-4 h-4 text-[#F44336] mt-0.5 shrink-0" />
+                    <span className="text-sm text-[#212121]">{reason}</span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </Card>
+      </div>
+    )
+  }
+
+  // Normal card layout for pending/approved
   return (
     <div className="flex flex-col items-center w-full">
       {/* Status icon */}
@@ -75,24 +121,6 @@ export function KYCStatusCard({
         )}
         {verificationId && (
           <p className="text-xs text-[#757575] mt-1">Ref: {verificationId}</p>
-        )}
-
-        {/* Rejection reasons */}
-        {status === 'rejected' && rejectionReasons && rejectionReasons.length > 0 && (
-          <>
-            <Separator className="my-3" />
-            <h3 className="text-xl font-bold text-[#212121] mb-2">
-              {t('status.rejected.issuesTitle')}
-            </h3>
-            <ul role="list" className="space-y-2">
-              {rejectionReasons.map((reason, index) => (
-                <li key={index} className="flex items-start gap-2">
-                  <XCircle className="w-4 h-4 text-[#F44336] mt-0.5 shrink-0" />
-                  <span className="text-base text-[#212121]">{reason}</span>
-                </li>
-              ))}
-            </ul>
-          </>
         )}
       </Card>
     </div>

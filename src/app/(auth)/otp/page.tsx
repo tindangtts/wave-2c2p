@@ -145,9 +145,11 @@ function OTPPageContent() {
       />
 
       <div className="flex-1 flex flex-col px-4 pt-8 pb-8">
-        {/* Instruction */}
-        <p className="text-base text-[#757575]">
-          {t('otp.instruction', { phone: maskedPhone })}
+        {/* Instruction — phone number highlighted in blue per Pencil design */}
+        <p className="text-base text-[#0091EA]">
+          {t('otp.instruction', { phone: '' })}
+          <br />
+          <span className="font-semibold">({countryCode}){rawPhone}</span>
         </p>
 
         {/* OTP Input */}
@@ -176,6 +178,11 @@ function OTPPageContent() {
             </InputOTP>
           </div>
         </div>
+
+        {/* Ref Code — per Pencil design */}
+        <p className="text-xs text-[#9E9E9E] text-center mt-3">
+          Ref Code: {Math.random().toString(36).substring(2, 6).toUpperCase()}
+        </p>
 
         {/* Error message */}
         {error && (

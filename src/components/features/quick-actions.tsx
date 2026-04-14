@@ -6,6 +6,7 @@ import {
   Users,
   Wallet,
   Clock,
+  CreditCard,
   ChevronDown,
 } from "lucide-react";
 import { useState } from "react";
@@ -15,6 +16,7 @@ const primaryActions = [
   { href: "/profile/refer", label: "Referral", icon: Users, color: "bg-green-100 text-green-600" },
   { href: "/withdraw", label: "Withdrawal", icon: Wallet, color: "bg-purple-100 text-purple-600" },
   { href: "/history", label: "History", icon: Clock, color: "bg-orange-100 text-orange-600" },
+  { href: "/card", label: "Visa Card", icon: CreditCard, color: "bg-cyan-100 text-cyan-600" },
 ];
 
 export function QuickActions() {
@@ -22,7 +24,7 @@ export function QuickActions() {
 
   return (
     <div className="bg-white rounded-2xl p-4 wave-card-shadow">
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid grid-cols-5 gap-2">
         {primaryActions.map((action) => (
           <Link
             key={action.href}
@@ -30,9 +32,9 @@ export function QuickActions() {
             className="flex flex-col items-center gap-1.5"
           >
             <div
-              className={`w-12 h-12 rounded-xl flex items-center justify-center ${action.color}`}
+              className={`w-11 h-11 rounded-xl flex items-center justify-center ${action.color}`}
             >
-              <action.icon className="w-6 h-6" />
+              <action.icon className="w-5 h-5" />
             </div>
             <span className="text-xs font-medium text-foreground text-center">
               {action.label}

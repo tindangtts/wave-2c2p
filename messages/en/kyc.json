@@ -12,9 +12,9 @@
     "visa": "Visa"
   },
   "capture": {
-    "frontInstruction": "Position the FRONT of your document",
-    "backInstruction": "Position the BACK of your document",
-    "helper": "Align edges with the frame",
+    "frontInstruction": "Place passport into the box",
+    "backInstruction": "Place the back of document into the box",
+    "helper": "Your information will be kept confidential in accordance with the company's privacy policy.",
     "gallery": "Choose from gallery"
   },
   "review": {
@@ -25,8 +25,8 @@
   },
   "face": {
     "title": "Take a Selfie",
-    "instruction": "Position your face in the circle",
-    "helper": "Hold steady and look straight ahead"
+    "instruction": "Take a Selfie",
+    "helper": "Please hold that your face is in the frame and clearly visible."
   },
   "processing": {
     "title": "Verifying your identity",
@@ -51,15 +51,17 @@
       "redirect": "Redirecting to home..."
     },
     "rejected": {
-      "title": "Verification Failed",
-      "description": "We couldn't verify your identity. Please review the issues below and resubmit.",
+      "title": "Failed to Verify",
+      "description": "Your profile have not passed the validation process. Please contact call center for more information.",
       "cta": "Resubmit Documents",
       "issuesTitle": "Issues found:"
     },
     "expired": {
-      "title": "Verification Expired",
-      "description": "Your verification has expired. Please submit updated documents to continue.",
-      "cta": "Update Documents"
+      "title": "KYC Expired",
+      "description": "Your KYC is expired. Update your KYC.",
+      "cta": "Update Documents",
+      "later": "Later",
+      "now": "Now"
     }
   },
   "resubmit": {
