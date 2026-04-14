@@ -44,7 +44,7 @@ export default function DocumentTypePage() {
     if (!selectedType) return
     setDocumentType(selectedType as DocumentType)
     setCaptureStep('capture-front')
-    router.push('/(auth)/kyc/capture')
+    router.push('/kyc/capture')
   }
 
   if (!mounted) {
