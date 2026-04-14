@@ -1,0 +1,106 @@
+{
+  "title": "Verify Identity",
+  "selectDocType": {
+    "title": "Select Document Type",
+    "subtitle": "Choose the document you'd like to verify with"
+  },
+  "docTypes": {
+    "national_id": "National ID",
+    "work_permit": "Work Permit",
+    "pink_card": "Pink Card",
+    "owic": "OWIC",
+    "visa": "Visa"
+  },
+  "capture": {
+    "frontInstruction": "Position the FRONT of your document",
+    "backInstruction": "Position the BACK of your document",
+    "helper": "Align edges with the frame",
+    "gallery": "Choose from gallery"
+  },
+  "review": {
+    "title": "Review Photo",
+    "hint": "Make sure text is clear and all edges are visible",
+    "retake": "Retake",
+    "usePhoto": "Use Photo"
+  },
+  "face": {
+    "title": "Take a Selfie",
+    "instruction": "Position your face in the circle",
+    "helper": "Hold steady and look straight ahead"
+  },
+  "processing": {
+    "title": "Verifying your identity",
+    "subtitle": "This usually takes a few seconds",
+    "steps": {
+      "document": "Checking document quality",
+      "identity": "Verifying identity",
+      "face": "Matching face to document"
+    }
+  },
+  "status": {
+    "pending": {
+      "title": "Verification In Progress",
+      "description": "We're reviewing your documents. This usually takes a few minutes.",
+      "cta": "Check Status",
+      "note": "We'll notify you when verification is complete"
+    },
+    "approved": {
+      "title": "Identity Verified",
+      "description": "Your identity has been verified. You can now use all features.",
+      "cta": "Continue to Home",
+      "redirect": "Redirecting to home..."
+    },
+    "rejected": {
+      "title": "Verification Failed",
+      "description": "We couldn't verify your identity. Please review the issues below and resubmit.",
+      "cta": "Resubmit Documents",
+      "issuesTitle": "Issues found:"
+    },
+    "expired": {
+      "title": "Verification Expired",
+      "description": "Your verification has expired. Please submit updated documents to continue.",
+      "cta": "Update Documents"
+    }
+  },
+  "resubmit": {
+    "title": "Resubmit Documents",
+    "subtitle": "Only re-capture the items marked below",
+    "sectionTitle": "Fix the following issues",
+    "cta": "Resubmit for Verification",
+    "accepted": "Accepted",
+    "retake": "Retake"
+  },
+  "expiredModal": {
+    "title": "Documents Expired",
+    "description": "Your identity documents have expired. To continue using transfers and deposits, please update your documents.",
+    "consequences": "Without updating, you won't be able to:",
+    "transfers": "Send money transfers",
+    "deposits": "Add funds to your wallet",
+    "withdrawals": "Make withdrawals",
+    "updateNow": "Update Now",
+    "updateLater": "Update Later"
+  },
+  "cancelDialog": {
+    "title": "Cancel verification?",
+    "description": "Your progress will be saved. You can resume verification later.",
+    "cancel": "Cancel",
+    "continue": "Continue Verification"
+  },
+  "errors": {
+    "cameraPermission": "Camera access is needed to capture your document. Please allow camera access in your browser settings.",
+    "captureFailed": "Could not capture photo. Please try again or choose from gallery.",
+    "uploadTooLarge": "Image is too large. Please try again with a smaller photo.",
+    "unsupportedFormat": "Image format not supported. Please use JPG or PNG.",
+    "verificationFailed": "Verification could not be completed. Please try again.",
+    "networkError": "Connection lost. Your photos are saved. Please try again when connected."
+  },
+  "stepLabel": "Step {current} of {total}",
+  "cta": {
+    "continue": "Continue"
+  },
+  "fields": {
+    "documentFront": "Document Front",
+    "documentBack": "Document Back",
+    "selfie": "Selfie"
+  }
+}
