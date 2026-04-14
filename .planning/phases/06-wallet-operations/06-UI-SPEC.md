@@ -1,7 +1,7 @@
 ---
 phase: 6
 slug: wallet-operations
-status: draft
+status: approved
 shadcn_initialized: true
 preset: base-nova
 created: 2026-04-14
@@ -111,13 +111,13 @@ Two weights only: 700 (bold) for headings and emphasis, 400 (regular) for body a
 **Wallet operations-specific typography rules:**
 
 - Amount entry display: 48px weight 700 `#212121` on `#FFFFFF` — matches Phase 5 amount keypad; "THB" suffix in 16px 400
-- Balance display line: 14px weight 400 `#757575` — "Wallet Balance: 10,000.00" below amount input
-- Max top-up line: 14px weight 400 `#757575` — "Max Top-up: 25,000.00" below balance
+- Balance display line: 12px weight 400 `#757575` — "Wallet Balance: 10,000.00" below amount input
+- Max top-up line: 12px weight 400 `#757575` — "Max Top-up: 25,000.00" below balance
 - QR payment code: 16px weight 700 `#212121` — "Payment Code: 9300596914"
 - QR amount: 20px weight 700 `#212121` — "Amount (THB): 250.00" — financial value needs prominence
-- QR merchant name: 14px weight 400 `#757575` — "2C2P PLUS (THAILAND) CO., LTD."
+- QR merchant name: 12px weight 400 `#757575` — "2C2P PLUS (THAILAND) CO., LTD."
 - QR expiry timer: 12px weight 700 `#F44336` when < 60s, `#FF9800` when 1–5 min, `#212121` when > 5 min — "Expires in MM:SS"
-- Filter chip label: 14px weight 400 `#212121` (active chip) / `#757575` (inactive chip)
+- Filter chip label: 12px weight 400 `#212121` (active chip) / `#757575` (inactive chip)
 - Transaction date group header: 12px weight 400 `#9E9E9E` — sticky date separator ("Today", "Yesterday", "April 12")
 - Transaction amount debit: 16px weight 700 `#F44336` — debit amounts (top-up fees, withdrawals)
 - Transaction amount credit: 16px weight 700 `#00C853` — credit amounts (successful top-ups)
@@ -190,7 +190,7 @@ Full color token set inherited from Phase 1 `globals.css`. Wallet operations-spe
 | `#0091EA` on `#FFE600` header | 3.6:1 | AA PASS for large text (20px bold) |
 | `#212121` on `#FFFFFF` body | 16.1:1 | AAA PASS — all body content |
 | `#757575` on `#FFFFFF` | 4.6:1 | AA PASS — secondary text |
-| `#00C853` on `#E8F5E9` badge | 3.1:1 | Large text badge (14px bold) passes at 3:1 |
+| `#00C853` on `#E8F5E9` badge | 3.1:1 | Large text badge (12px bold) passes at 3:1 |
 | `#F44336` on `#FFFFFF` error | 5.1:1 | AA PASS — error text |
 | `#212121` on `#FFE600` chip | 14.7:1 | AAA PASS — active filter chip |
 
@@ -268,8 +268,8 @@ No hard-delete destructive actions exist in this phase. Passcode confirmation (v
 [White content area — bg-#FFFFFF, flex-1, overflow-y-auto]
 
   [Balance info block — px-4, pt-6, pb-4]
-    ["Wallet Balance: 10,000.00 THB" — 14px 400 #757575]
-    ["Max Top-up: 25,000.00 THB" — 14px 400 #757575]
+    ["Wallet Balance: 10,000.00 THB" — 12px 400 #757575]
+    ["Max Top-up: 25,000.00 THB" — 12px 400 #757575]
 
   [Amount display — px-4, pt-2, pb-2, text-center]
     [Large digit display — 48px 700 #212121 — "0.00"]
@@ -280,7 +280,7 @@ No hard-delete destructive actions exist in this phase. Passcode confirmation (v
     ["Top-up Channels" — 16px 700 #212121, mb-3]
 
     [Section: Banking Services — mb-4]
-      ["Top-up via Banking Services" — 14px 400 #757575, mb-3]
+      ["Top-up via Banking Services" — 12px 400 #757575, mb-3]
       [3x2 bank icon grid — gap-3]
         [BankIconButton x6: SCB, KTB, Bay, BBL, KBANK, GSB]
           [88px wide x 72px tall, bg-#FFFFFF, border-1px #E0E0E0, rounded-xl]
@@ -289,7 +289,7 @@ No hard-delete destructive actions exist in this phase. Passcode confirmation (v
     [Divider — 1px #E0E0E0, mx-0, my-4]
 
     [Section: Convenience Store — mb-4]
-      ["Top-up via 123 Service" — 14px 400 #757575, mb-3]
+      ["Top-up via 123 Service" — 12px 400 #757575, mb-3]
       [ConvenienceRow: "123 Service" — logo left, "123 Service" 16px 400 #212121, ChevronRight right]
         [h-14 (56px), px-4, border-b #E0E0E0]
       [ConvenienceRow: "CenPay" — logo left, "CenPay" 16px 400 #212121, ChevronRight + ExternalLink icon]
@@ -321,7 +321,7 @@ No hard-delete destructive actions exist in this phase. Passcode confirmation (v
 
   [QR Card — bg-#FFFFFF, rounded-2xl, shadow-md, p-6, mx-0]
     [2c2p logo — h-8, mb-2, centered]
-    ["2C2P PLUS (THAILAND) CO., LTD." — 14px 400 #757575, text-center, mb-4]
+    ["2C2P PLUS (THAILAND) CO., LTD." — 12px 400 #757575, text-center, mb-4]
 
     [QR Code SVG — 200x200px, centered, mb-4]
       [react-qr-code, value={paymentCode}, size=200, bgColor="#FFFFFF", fgColor="#212121"]
@@ -363,7 +363,7 @@ No hard-delete destructive actions exist in this phase. Passcode confirmation (v
   [Scan overlay — absolute inset-0]
     [Dark mask — rgba(0,0,0,0.6), covers area outside scan frame]
     [Scan frame — 240x240px centered, transparent, white corner markers (24px L-shape, 3px width)]
-    ["Point your camera at a QR code" — 14px 400 #FFFFFF, text-center, below scan frame, mt-4]
+    ["Point your camera at a QR code" — 12px 400 #FFFFFF, text-center, below scan frame, mt-4]
 
   [Bottom controls bar — absolute bottom-safe, w-full, px-4, pb-6]
     ["Upload from Gallery" — Button outline, border-#FFFFFF, text-#FFFFFF, rounded-full, h-12]
@@ -414,13 +414,13 @@ No hard-delete destructive actions exist in this phase. Passcode confirmation (v
 [Filter bar — bg-#FFFFFF, px-4, pt-3, pb-3, border-b #E0E0E0]
   [Row 1: Date range picker trigger — full-width]
     [Button outline, rounded-xl, h-11, px-3 — Calendar icon left, date range text right]
-    ["Select date range" placeholder — 14px 400 #757575]
-    [Selected: "Apr 1 – Apr 14" — 14px 400 #212121]
+    ["Select date range" placeholder — 12px 400 #757575]
+    [Selected: "Apr 1 – Apr 14" — 12px 400 #212121]
 
   [Row 2: Type filter chips — horizontal scroll, gap-2, mt-2, pb-1, no-scrollbar]
     [Chip: "All" | "Transfer" | "Top-up" | "Withdrawal"]
     [Active chip: bg-#FFE600, text-#212121; Inactive: bg-#F5F5F5, text-#757575]
-    [Each chip: rounded-full, h-8, px-3, 14px 400, min-w-fit]
+    [Each chip: rounded-full, h-8, px-3, 12px 400, min-w-fit]
 
   [Row 3: Status filter chips — horizontal scroll, gap-2, mt-2, pb-1, no-scrollbar]
     [Chip: "All" | "Success" | "Pending" | "Failed"]
@@ -448,7 +448,7 @@ No hard-delete destructive actions exist in this phase. Passcode confirmation (v
 
 [Empty state — centered in list area, py-16]
   ["No transactions found" — 16px 700 #212121]
-  ["Try adjusting your filters or date range." — 14px 400 #757575, mt-2]
+  ["Try adjusting your filters or date range." — 12px 400 #757575, mt-2]
 ```
 
 ---
@@ -521,7 +521,7 @@ No hard-delete destructive actions exist in this phase. Passcode confirmation (v
   [Amount display — text-center]
     [Large digit display — 48px 700 #212121 — matches Phase 5 amount keypad pattern]
     ["THB" suffix — 16px 400 #757575]
-    ["Available: {amount} THB" — 14px 400 #757575, mt-1, text-center]
+    ["Available: {amount} THB" — 12px 400 #757575, mt-1, text-center]
     [Error: "Insufficient balance. Enter an amount up to {available} THB." — 12px 400 #F44336, mt-1]
 
   [Numeric keypad — same layout as Phase 5 amount entry keypad]
