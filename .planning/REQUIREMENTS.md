@@ -55,10 +55,10 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **XFER-03**: Exchange rate is displayed with lock timer countdown at confirmation
 - [x] **XFER-04**: User can select receiving channel (Wave Agent, Wave App, Bank Transfer, Cash Pickup)
 - [x] **XFER-05**: Fee breakdown shows per-channel fees before channel selection
-- [ ] **XFER-06**: Transfer confirmation shows full summary (amount, converted, rate, fees, total)
-- [ ] **XFER-07**: User confirms transfer with passcode entry
+- [x] **XFER-06**: Transfer confirmation shows full summary (amount, converted, rate, fees, total)
+- [x] **XFER-07**: User confirms transfer with passcode entry
 - [x] **XFER-08**: Transfer status updates from pending → processing → completed/failed
-- [ ] **XFER-09**: User receives receipt with reference number, amounts, rate, and timestamp
+- [x] **XFER-09**: User receives receipt with reference number, amounts, rate, and timestamp
 
 ### Recipient Management
 
@@ -189,10 +189,10 @@ Deferred to future release. Tracked but not in current roadmap.
 | XFER-03 | Phase 5 | Complete |
 | XFER-04 | Phase 5 | Complete |
 | XFER-05 | Phase 5 | Complete |
-| XFER-06 | Phase 5 | Pending |
-| XFER-07 | Phase 5 | Pending |
+| XFER-06 | Phase 5 | Complete |
+| XFER-07 | Phase 5 | Complete |
 | XFER-08 | Phase 5 | Complete |
-| XFER-09 | Phase 5 | Pending |
+| XFER-09 | Phase 5 | Complete |
 | RCPT-01 | Phase 5 | Complete |
 | RCPT-02 | Phase 5 | Complete |
 | RCPT-03 | Phase 5 | Complete |
