@@ -32,7 +32,14 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. The Supabase schema (users, wallets, transactions, recipients, kyc_submissions) is deployed with RLS policies enabled and rejecting unauthorized reads
   4. Mock eKYC and payment API routes return configurable pass/fail/delay responses driven by environment variables
   5. Language switcher cycles through English, Thai, and Myanmar (Burmese) with Noto Sans Myanmar UI loading correctly for the MM locale
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Design tokens, fonts, layout shell, bottom-nav accessibility, badge variants
+- [ ] 01-02-PLAN.md — i18n infrastructure (next-intl v4, message files, proxy.ts composition, locale-aware layout)
+- [ ] 01-03-PLAN.md — Mock services env-var wiring, currency utility module with integer arithmetic
+- [ ] 01-04-PLAN.md — Supabase schema fix (numeric to bigint, missing RLS policies)
+
 **UI hint**: yes
 
 ### Phase 2: Authentication
@@ -120,7 +127,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/TBD | Not started | - |
+| 1. Foundation | 0/4 | Planning complete | - |
 | 2. Authentication | 0/TBD | Not started | - |
 | 3. eKYC Onboarding | 0/TBD | Not started | - |
 | 4. Home & Wallet | 0/TBD | Not started | - |
