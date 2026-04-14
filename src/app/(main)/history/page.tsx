@@ -1,126 +1,174 @@
-"use client";
+'use client'
 
-import { BackHeader } from "@/components/layout/back-header";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Calendar, Filter } from "lucide-react";
-import Link from "next/link";
-import type { TransactionStatus } from "@/types";
+import * as React from 'react'
+import { useRouter } from 'next/navigation'
+import { isToday, isYesterday, format } from 'date-fns'
+import { useTranslations } from 'next-intl'
+import { BackHeader } from '@/components/layout/back-header'
+import { Skeleton } from '@/components/ui/skeleton'
+import { HistoryFilterBar } from '@/components/features/history-filter-bar'
+import { TransactionRow } from '@/components/features/transaction-row'
+import { useTransactions } from '@/hooks/use-transactions'
+import type { Transaction } from '@/types'
+import type { DateRangeValue } from '@/components/features/date-range-picker'
 
-const mockHistory = [
-  {
-    id: "1",
-    date: "January 2025",
-    transactions: [
-      {
-        id: "t1",
-        type: "Add Money",
-        amount: "+ 5,000.00 THB",
-        date: "15/01/2025, 10:30",
-        status: "success" as TransactionStatus,
-      },
-      {
-        id: "t2",
-        type: "Send Money : Wallet Transfer",
-        amount: "- 1,200.00 THB",
-        date: "14/01/2025, 09:10",
-        status: "success" as TransactionStatus,
-      },
-      {
-        id: "t3",
-        type: "Send Money : Wave Agent",
-        amount: "- 3,000.00 THB",
-        date: "12/01/2025, 14:22",
-        status: "pending" as TransactionStatus,
-      },
-      {
-        id: "t4",
-        type: "Withdraw",
-        amount: "- 500.00 THB",
-        date: "10/01/2025, 08:45",
-        status: "rejected" as TransactionStatus,
-      },
-    ],
-  },
-];
+function formatGroupHeader(dateStr: string): string {
+  const date = new Date(dateStr)
+  if (isToday(date)) return 'Today'
+  if (isYesterday(date)) return 'Yesterday'
+  return format(date, 'MMMM d, yyyy')
+}
 
-const statusStyles: Record<TransactionStatus, string> = {
-  success: "bg-green-100 text-green-700",
-  pending: "bg-yellow-100 text-yellow-700",
-  rejected: "bg-red-100 text-red-700",
-  processing: "bg-blue-100 text-blue-700",
-  failed: "bg-red-100 text-red-700",
-};
+function groupByDate(transactions: Transaction[]): { date: string; items: Transaction[] }[] {
+  const map = new Map<string, Transaction[]>()
+  for (const tx of transactions) {
+    const dayKey = format(new Date(tx.created_at), 'yyyy-MM-dd')
+    const existing = map.get(dayKey)
+    if (existing) {
+      existing.push(tx)
+    } else {
+      map.set(dayKey, [tx])
+    }
+  }
+  return Array.from(map.entries()).map(([date, items]) => ({ date, items }))
+}
+
+function SkeletonRow() {
+  return (
+    <div className="flex items-center gap-3 px-4 py-3 min-h-[60px] border-b border-[#F5F5F5]">
+      <Skeleton className="w-10 h-10 rounded-full flex-shrink-0 bg-[#F5F5F5]" />
+      <div className="flex-1 flex flex-col gap-1.5">
+        <Skeleton className="h-4 w-40 rounded bg-[#F5F5F5]" />
+        <Skeleton className="h-3 w-24 rounded bg-[#F5F5F5]" />
+      </div>
+      <div className="flex flex-col items-end gap-1.5">
+        <Skeleton className="h-4 w-20 rounded bg-[#F5F5F5]" />
+        <Skeleton className="h-4 w-14 rounded-full bg-[#F5F5F5]" />
+      </div>
+    </div>
+  )
+}
 
 export default function HistoryPage() {
-  return (
-    <>
-      <BackHeader title="Transaction History" />
-      <div className="flex-1 px-4 py-4">
-        {/* Filter bar */}
-        <div className="flex items-center gap-2 mb-4">
-          <Button
-            variant="outline"
-            size="sm"
-            className="flex items-center gap-1.5 rounded-full"
-          >
-            <Calendar className="w-4 h-4" />
-            Date Range
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            className="flex items-center gap-1.5 rounded-full"
-          >
-            <Filter className="w-4 h-4" />
-            Filter
-          </Button>
-        </div>
+  const router = useRouter()
+  const t = useTranslations('wallet')
 
-        {/* Transaction groups */}
-        {mockHistory.map((group) => (
-          <div key={group.date} className="mb-6">
-            <h3 className="text-sm font-semibold text-muted-foreground mb-3">
-              {group.date}
-            </h3>
-            <div className="space-y-1">
-              {group.transactions.map((tx) => (
-                <Link
-                  key={tx.id}
-                  href={`/history/${tx.id}`}
-                  className="flex items-center justify-between py-3 border-b border-border last:border-0"
-                >
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-foreground">
-                      {tx.type}
-                    </p>
-                    <p className="text-xs text-muted-foreground mt-0.5">
-                      {tx.date}
-                    </p>
-                  </div>
-                  <div className="flex flex-col items-end gap-1">
-                    <span
-                      className={`text-sm font-semibold ${
-                        tx.amount.startsWith("+")
-                          ? "text-green-600"
-                          : "text-foreground"
-                      }`}
-                    >
-                      {tx.amount}
-                    </span>
-                    <Badge
-                      variant="secondary"
-                      className={`text-[10px] px-2 py-0 ${statusStyles[tx.status]}`}
-                    >
-                      {tx.status.charAt(0).toUpperCase() + tx.status.slice(1)}
-                    </Badge>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        ))}
+  const [typeFilter, setTypeFilter] = React.useState('all')
+  const [statusFilter, setStatusFilter] = React.useState('all')
+  const [dateRange, setDateRange] = React.useState<DateRangeValue>({})
+
+  const sentinelRef = React.useRef<HTMLDivElement>(null)
+
+  const filters = React.useMemo(() => ({
+    type: typeFilter !== 'all' ? typeFilter : undefined,
+    status: statusFilter !== 'all' ? statusFilter : undefined,
+    dateFrom: dateRange.from ? format(dateRange.from, 'yyyy-MM-dd') : undefined,
+    dateTo: dateRange.to ? format(dateRange.to, 'yyyy-MM-dd') : undefined,
+  }), [typeFilter, statusFilter, dateRange])
+
+  const { transactions, isLoading, isLoadingMore, isEmpty, isReachingEnd, size, setSize } =
+    useTransactions(filters)
+
+  // IntersectionObserver — trigger next page when sentinel is visible
+  React.useEffect(() => {
+    const sentinel = sentinelRef.current
+    if (!sentinel) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0]
+        if (entry?.isIntersecting && !isReachingEnd && !isLoadingMore) {
+          setSize(size + 1)
+        }
+      },
+      { rootMargin: '100px' }
+    )
+
+    observer.observe(sentinel)
+    return () => observer.disconnect()
+  }, [isReachingEnd, isLoadingMore, size, setSize])
+
+  const hasActiveFilters =
+    typeFilter !== 'all' ||
+    statusFilter !== 'all' ||
+    Boolean(dateRange.from)
+
+  const groups = groupByDate(transactions)
+
+  return (
+    <div className="flex flex-col min-h-screen bg-[#FAFAFA]">
+      <BackHeader title={t('screenTitles.transactionHistory')} />
+
+      {/* Filter bar */}
+      <div className="bg-white border-b border-[#E0E0E0]">
+        <HistoryFilterBar
+          typeFilter={typeFilter}
+          statusFilter={statusFilter}
+          dateRange={dateRange}
+          onTypeChange={setTypeFilter}
+          onStatusChange={setStatusFilter}
+          onDateRangeChange={setDateRange}
+        />
       </div>
-    </>
-  );
+
+      {/* Transaction list */}
+      <div className="flex-1 bg-white">
+        {isLoading ? (
+          /* Initial loading: 5 skeleton rows */
+          <div>
+            {Array.from({ length: 5 }).map((_, i) => (
+              <SkeletonRow key={i} />
+            ))}
+          </div>
+        ) : isEmpty ? (
+          /* Empty state */
+          <div className="flex flex-col items-center justify-center py-16 px-6 gap-2">
+            <p className="text-base font-bold text-[#212121] text-center">
+              {hasActiveFilters ? t('empty.noTransactions') : t('empty.noTransactionsYet')}
+            </p>
+            <p className="text-sm text-[#757575] text-center">
+              {hasActiveFilters
+                ? t('empty.noTransactionsBody')
+                : t('empty.noTransactionsYetBody')}
+            </p>
+          </div>
+        ) : (
+          /* Grouped transaction list */
+          <div>
+            {groups.map(({ date, items }) => (
+              <div key={date}>
+                {/* Date group header — sticky */}
+                <div className="sticky top-[88px] z-10 mx-4 py-2 bg-white">
+                  <span className="text-xs text-[#9E9E9E]">
+                    {formatGroupHeader(items[0]?.created_at ?? date)}
+                  </span>
+                </div>
+
+                {/* Rows in this date group */}
+                {items.map((tx) => (
+                  <TransactionRow
+                    key={tx.id}
+                    transaction={tx}
+                    onClick={(id) => router.push(`/history/${id}`)}
+                  />
+                ))}
+              </div>
+            ))}
+
+            {/* Next page loading: 3 skeleton rows */}
+            {isLoadingMore && (
+              <div>
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <SkeletonRow key={`loading-more-${i}`} />
+                ))}
+              </div>
+            )}
+
+            {/* End of list sentinel — IntersectionObserver target */}
+            <div ref={sentinelRef} className="h-5" aria-hidden="true" />
+          </div>
+        )}
+      </div>
+    </div>
+  )
 }

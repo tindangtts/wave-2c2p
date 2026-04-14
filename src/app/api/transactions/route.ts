@@ -15,6 +15,27 @@ export async function GET(request: Request) {
     }
 
     const { searchParams } = new URL(request.url)
+    const id = searchParams.get('id')
+
+    // Single transaction fetch by ID
+    if (id) {
+      const { data: transaction, error } = await supabase
+        .from('transactions')
+        .select('*, recipients(*)')
+        .eq('id', id)
+        .eq('user_id', user.id)
+        .single()
+
+      if (error) {
+        return NextResponse.json(
+          { error: 'Transaction not found' },
+          { status: 404 }
+        )
+      }
+
+      return NextResponse.json(transaction)
+    }
+
     const page = parseInt(searchParams.get('page') ?? '0', 10)
     const limit = Math.min(parseInt(searchParams.get('limit') ?? '20', 10), 100)
     const type = searchParams.get('type')
