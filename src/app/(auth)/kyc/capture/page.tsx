@@ -72,7 +72,7 @@ export default function CapturePage() {
   const handleBack = () => {
     const backStep = getBackStep(captureStep)
     if (backStep === 'document-type') {
-      router.push('/(auth)/kyc/document-type')
+      router.push('/kyc/document-type')
     } else {
       setCaptureStep(backStep)
       setTempImage('')
@@ -107,7 +107,7 @@ export default function CapturePage() {
       setSelfieImage(tempImage)
       setTempImage('')
       setCaptureStep('processing')
-      router.push('/(auth)/kyc/processing')
+      router.push('/kyc/processing')
     }
   }
 
