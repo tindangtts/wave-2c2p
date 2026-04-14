@@ -1,0 +1,12 @@
+<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="25" cy="25" r="25" fill="#F0F0F0"/>
+  <!-- Card/document with dollar arrow down - matches Pencil withdraw icon -->
+  <rect x="14" y="17" width="16" height="12" rx="2" stroke="#0091EA" stroke-width="1.8" fill="none"/>
+  <line x1="14" y1="21" x2="30" y2="21" stroke="#0091EA" stroke-width="1.8"/>
+  <!-- Dollar circle -->
+  <circle cx="30" cy="28" r="8" stroke="#0091EA" stroke-width="1.8" fill="white"/>
+  <text x="30" y="32" text-anchor="middle" font-family="Arial" font-weight="700" font-size="11" fill="#0091EA">$</text>
+  <!-- Down arrow -->
+  <path d="M30 22v4" stroke="#0091EA" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M28 24.5l2 2 2-2" stroke="#0091EA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

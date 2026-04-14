@@ -1,0 +1,13 @@
+<svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- QR Scanner frame matching Pencil design "Linear / Security / Scanner" -->
+  <!-- Top-left corner -->
+  <path d="M3 10V5a2 2 0 012-2h5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Top-right corner -->
+  <path d="M17 3h5a2 2 0 012 2v5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Bottom-right corner -->
+  <path d="M24 17v5a2 2 0 01-2 2h-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Bottom-left corner -->
+  <path d="M10 24H5a2 2 0 01-2-2v-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Center line -->
+  <line x1="3" y1="13.5" x2="24" y2="13.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>

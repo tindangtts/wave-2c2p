@@ -1,74 +1,47 @@
 "use client";
 
 import Link from "next/link";
-import {
-  ArrowUpRight,
-  ArrowDownLeft,
-  Plus,
-  Minus,
-  CirclePlus,
-  CheckCircle,
-  Clock,
-  XCircle,
-} from "lucide-react";
+/* Custom circle-plus icon matching Pencil design */
+function CirclePlusIcon({ className }: { className?: string }) {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className={className}>
+      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
+      <line x1="12" y1="8" x2="12" y2="16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+      <line x1="8" y1="12" x2="16" y2="12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+    </svg>
+  );
+}
 import { useTranslations } from "next-intl";
 import { useRecentTransactions } from "@/hooks/use-wallet";
 import { formatCurrency } from "@/lib/currency";
 import type { CurrencyCode } from "@/lib/currency";
 import type { TransactionType, TransactionStatus } from "@/types";
-import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 
-type TypeConfig = {
-  icon: React.ElementType;
-  bg: string;
-  color: string;
-};
-
-const typeConfig: Record<TransactionType, TypeConfig> = {
-  send_money: { icon: ArrowUpRight, bg: "#FFEBEE", color: "#F44336" },
-  receive: { icon: ArrowDownLeft, bg: "#E8F5E9", color: "#00C853" },
-  add_money: { icon: Plus, bg: "#E8F5E9", color: "#00C853" },
-  withdraw: { icon: Minus, bg: "#FFEBEE", color: "#F44336" },
-  bill_payment: { icon: ArrowUpRight, bg: "#FFEBEE", color: "#F44336" },
-};
-
 type StatusConfig = {
-  bg: string;
   text: string;
-  icon: React.ElementType;
   label: string;
 };
 
 const statusConfig: Record<TransactionStatus, StatusConfig> = {
   success: {
-    bg: "bg-[#E8F5E9]",
     text: "text-[#00C853]",
-    icon: CheckCircle,
     label: "Success",
   },
   pending: {
-    bg: "bg-[#FFF3E0]",
     text: "text-[#FF9800]",
-    icon: Clock,
     label: "Pending",
   },
   processing: {
-    bg: "bg-[#FFF3E0]",
     text: "text-[#FF9800]",
-    icon: Clock,
     label: "Processing",
   },
   rejected: {
-    bg: "bg-[#FFEBEE]",
     text: "text-[#F44336]",
-    icon: XCircle,
     label: "Rejected",
   },
   failed: {
-    bg: "bg-[#FFEBEE]",
     text: "text-[#F44336]",
-    icon: XCircle,
     label: "Failed",
   },
 };
@@ -96,10 +69,10 @@ export function RecentHistory() {
     return (
       <div>
         <div className="flex items-center justify-between mb-3">
-          <h3 className="text-xl font-bold text-[#212121]">
+          <h3 className="text-base font-bold text-[#000000]">
             {t("recentHistory.title")}
           </h3>
-          <CirclePlus className="w-6 h-6 text-[#0091EA]" />
+          <CirclePlusIcon className="text-[#000000]" />
         </div>
         <div className="flex flex-col gap-0">
           {Array.from({ length: 5 }).map((_, i) => (
@@ -114,7 +87,7 @@ export function RecentHistory() {
     return (
       <div>
         <div className="flex items-center justify-between mb-3">
-          <h3 className="text-xl font-bold text-[#212121]">
+          <h3 className="text-base font-bold text-[#000000]">
             {t("recentHistory.title")}
           </h3>
         </div>
@@ -138,7 +111,7 @@ export function RecentHistory() {
           {t("recentHistory.title")}
         </h3>
         <Link href="/history" aria-label="View all history">
-          <CirclePlus className="w-6 h-6 text-[#0091EA]" />
+          <CirclePlusIcon className="text-[#000000]" />
         </Link>
       </div>
 
@@ -153,15 +126,12 @@ export function RecentHistory() {
           </p>
         </div>
       ) : (
-        /* Transaction list */
-        <div className="flex flex-col divide-y divide-gray-100">
+        /* Transaction list — design: simple text rows with bottom border */
+        <div className="flex flex-col">
           {transactions.slice(0, 5).map((tx) => {
-            const tCfg = typeConfig[tx.type] ?? typeConfig.send_money;
             const sCfg = statusConfig[tx.status] ?? statusConfig.failed;
-            const TypeIcon = tCfg.icon;
             const isCredit = creditTypes.includes(tx.type);
-            const amountPrefix = isCredit ? "+" : "-";
-            const amountColor = isCredit ? "text-[#00C853]" : "text-[#F44336]";
+            const amountPrefix = isCredit ? "+ " : "- ";
             const formattedAmount = formatCurrency(
               tx.amount,
               tx.currency as CurrencyCode
@@ -170,40 +140,25 @@ export function RecentHistory() {
             return (
               <div
                 key={tx.id}
-                className="min-h-[60px] py-3 flex items-center justify-between"
+                className="py-3 flex flex-col gap-1 border-b border-[#cccccc99]"
               >
-                {/* Left: icon + label/date */}
-                <div className="flex items-center gap-3 flex-1 min-w-0">
-                  <div
-                    className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
-                    style={{ backgroundColor: tCfg.bg }}
-                  >
-                    <TypeIcon
-                      className="w-5 h-5"
-                      style={{ color: tCfg.color }}
-                    />
-                  </div>
-                  <div className="flex flex-col min-w-0">
-                    <span className="text-base text-[#212121] truncate">
-                      {tx.description}
-                    </span>
-                    <span className="text-xs text-[#757575]">
-                      {formatDate(tx.created_at)}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Right: amount + status badge */}
-                <div className="flex flex-col items-end gap-1 ml-2">
-                  <span className={`text-base font-bold ${amountColor}`}>
-                    {amountPrefix}
-                    {formattedAmount}
+                {/* Top row: description + amount */}
+                <div className="flex items-center justify-between">
+                  <span className="text-[15px] text-[#000000] truncate flex-1 min-w-0">
+                    {tx.description}
                   </span>
-                  <Badge
-                    className={`rounded-full text-xs px-2 py-0.5 ${sCfg.bg} ${sCfg.text} border-0`}
-                  >
+                  <span className="text-[15px] font-medium text-[#000000] ml-2 whitespace-nowrap">
+                    {amountPrefix}{formattedAmount}
+                  </span>
+                </div>
+                {/* Bottom row: date + status */}
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-[#757575]">
+                    {formatDate(tx.created_at)}
+                  </span>
+                  <span className={`text-xs font-medium ${sCfg.text}`}>
                     {sCfg.label}
-                  </Badge>
+                  </span>
                 </div>
               </div>
             );

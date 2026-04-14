@@ -73,6 +73,7 @@ export default function CreatePasscodePage() {
       <BackHeader
         title={t('register.step3Title')}
         onBack={() => router.push('/register/id-details')}
+        rightContent="Step 3/3"
       />
       <StepIndicator currentStep={3} />
 

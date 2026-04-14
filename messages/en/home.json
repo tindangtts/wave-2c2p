@@ -10,7 +10,9 @@
     "transfer": "Transfer",
     "bills": "Bills",
     "referral": "Referral",
-    "withdrawal": "Withdrawal"
+    "withdrawal": "Withdraw",
+    "history": "History",
+    "visaCard": "Visa Card"
   },
   "recentHistory": {
     "title": "Recent History",
@@ -20,7 +22,7 @@
     }
   },
   "promotions": {
-    "title": "Promotions",
+    "title": "Promotion/Information",
     "promo1": {
       "title": "Refer a Friend",
       "body": "Earn 100 THB for every successful referral"

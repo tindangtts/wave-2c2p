@@ -29,22 +29,31 @@ export function PromoCarousel() {
       key: "promo1",
       title: t("promotions.promo1.title"),
       body: t("promotions.promo1.body"),
+      bg: "from-[#FFE600] to-[#FFD600]",
+      textColor: "text-[#212121]",
+      image: "/icons/promo-referral.svg",
     },
     {
       key: "promo2",
       title: t("promotions.promo2.title"),
       body: t("promotions.promo2.body"),
+      bg: "from-[#0091EA] to-[#01579B]",
+      textColor: "text-white",
+      image: "/icons/promo-transfer.svg",
     },
     {
       key: "promo3",
       title: t("promotions.promo3.title"),
       body: t("promotions.promo3.body"),
+      bg: "from-[#1B5E20] to-[#388E3C]",
+      textColor: "text-white",
+      image: "/icons/promo-visa.svg",
     },
   ];
 
   return (
     <div>
-      <h3 className="text-xl font-bold text-[#212121] mb-3">
+      <h3 className="text-base font-bold text-[#000000] mb-4">
         {t("promotions.title")}
       </h3>
 
@@ -54,13 +63,13 @@ export function PromoCarousel() {
           {promos.map((promo) => (
             <div
               key={promo.key}
-              className="flex-[0_0_80%] max-w-[340px] mr-3"
+              className="flex-[0_0_85%] max-w-[340px] mr-3"
             >
-              <div className="h-40 rounded-xl overflow-hidden bg-gradient-to-r from-[#0091EA] to-[#01579B] px-5 py-4 flex flex-col justify-end">
-                <p className="text-lg font-bold text-white leading-snug">
+              <div className={`h-40 rounded-xl overflow-hidden bg-gradient-to-br ${promo.bg} px-5 py-4 flex flex-col justify-end relative`}>
+                <p className={`text-lg font-bold leading-snug ${promo.textColor}`}>
                   {promo.title}
                 </p>
-                <p className="text-sm text-white/80 mt-1">{promo.body}</p>
+                <p className={`text-sm mt-1 ${promo.textColor} opacity-80`}>{promo.body}</p>
               </div>
             </div>
           ))}

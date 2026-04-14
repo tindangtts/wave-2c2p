@@ -129,7 +129,7 @@ export default function PersonalInfoPage() {
 
   return (
     <div className="flex-1 flex flex-col min-h-screen bg-white">
-      <BackHeader title={t('register.step1Title')} onBack={handleBack} />
+      <BackHeader title={t('register.step1Title')} onBack={handleBack} rightContent="Step 1/3" />
 
       <StepIndicator currentStep={1} />
 

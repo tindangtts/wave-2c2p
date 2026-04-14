@@ -1,0 +1,6 @@
+<svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Thai Baht currency circle matching Pencil design -->
+  <circle cx="13.5" cy="13.5" r="12.5" stroke="#212121" stroke-width="1.5" fill="#FFE512"/>
+  <!-- Baht symbol ฿ -->
+  <text x="13.5" y="18.5" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="15" fill="#212121">฿</text>
+</svg>

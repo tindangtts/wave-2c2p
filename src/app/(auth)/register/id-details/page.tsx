@@ -96,7 +96,7 @@ export default function IdDetailsPage() {
 
   return (
     <div className="flex-1 flex flex-col min-h-screen bg-white">
-      <BackHeader title={t('register.step2Title')} onBack={handleBack} />
+      <BackHeader title={t('register.step2Title')} onBack={handleBack} rightContent="Step 2/3" />
 
       <StepIndicator currentStep={2} />
 

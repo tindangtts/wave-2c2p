@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { Loader2, ChevronLeft } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -17,6 +17,12 @@ import {
 import { phoneSchema } from '@/lib/auth/schemas'
 import { useRegistrationStore } from '@/stores/registration-store'
 
+const LOCALES = [
+  { code: 'en', label: 'English', flag: '🌐' },
+  { code: 'th', label: 'ไทย', flag: '🇹🇭' },
+  { code: 'mm', label: 'မြန်မာ', flag: '🇲🇲' },
+] as const
+
 export default function LoginPage() {
   const router = useRouter()
   const t = useTranslations('auth')
@@ -27,6 +33,20 @@ export default function LoginPage() {
   const [error, setError] = useState('')
   const [touched, setTouched] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+
+  // Read current locale from cookie
+  const [currentLocale, setCurrentLocale] = useState('en')
+  useEffect(() => {
+    const match = document.cookie.match(/(?:^|; )locale=([^;]*)/)
+    if (match?.[1]) setCurrentLocale(match[1])
+  }, [])
+
+  function handleLocaleChange(code: string | null) {
+    if (!code) return
+    setCurrentLocale(code)
+    document.cookie = `locale=${code}; path=/; max-age=${60 * 60 * 24 * 365}; samesite=lax`
+    router.refresh()
+  }
 
   // Minimum digit thresholds per country code
   const minDigits = countryCode === '+66' ? 9 : 7
@@ -110,14 +130,39 @@ export default function LoginPage() {
       <div className="h-11 safe-top" />
 
       <div className="flex-1 flex flex-col px-4 pt-4 pb-8">
-        {/* Back arrow */}
-        <button
-          onClick={() => router.back()}
-          className="p-1 -ml-1 mb-4 self-start rounded-full hover:bg-black/5 transition-colors"
-          aria-label="Go back"
-        >
-          <ChevronLeft className="w-6 h-6 text-[#212121]" />
-        </button>
+        {/* Top row: back arrow + language selector pill */}
+        <div className="flex items-center justify-between mb-4">
+          <button
+            onClick={() => router.back()}
+            className="p-1 -ml-1 rounded-full hover:bg-black/5 transition-colors"
+            aria-label="Go back"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M15 19l-7-7 7-7" stroke="#212121" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+
+          {/* Language selector — design: rounded pill with blue border */}
+          <Select value={currentLocale} onValueChange={handleLocaleChange}>
+            <SelectTrigger className="w-auto h-8 gap-1.5 rounded-full border-[#026fa2] border-[0.5px] bg-white px-3 text-[13px] shadow-none">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="flex-shrink-0">
+                <circle cx="12" cy="12" r="10" stroke="#026fa2" strokeWidth="2"/>
+                <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" stroke="#026fa2" strokeWidth="2"/>
+              </svg>
+              <SelectValue />
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" className="flex-shrink-0">
+                <path d="M6 9l6 6 6-6" stroke="#026fa2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </SelectTrigger>
+            <SelectContent>
+              {LOCALES.map((loc) => (
+                <SelectItem key={loc.code} value={loc.code}>
+                  {loc.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
 
         {/* Heading */}
         <h1 className="text-xl font-bold text-[#212121]">{t('login.title')}</h1>
@@ -188,12 +233,12 @@ export default function LoginPage() {
         {/* Push CTA to bottom */}
         <div className="flex-1" />
 
-        {/* CTA */}
+        {/* CTA — design: gradient shadow rounded button */}
         <Button
           onClick={handleSubmit}
           disabled={!isCtaEnabled}
           aria-busy={isLoading}
-          className="w-full h-12 rounded-full bg-[#FFE600] text-[#212121] font-semibold text-base hover:bg-[#FFD600] disabled:opacity-50"
+          className="w-full h-12 rounded-full bg-gradient-to-b from-[#F5F5F5] to-[#E0E0E0] text-[#0091EA] font-semibold text-base shadow-sm hover:from-[#EEEEEE] hover:to-[#D6D6D6] disabled:opacity-50 border border-[#E0E0E0]"
         >
           {isLoading ? (
             <>
@@ -205,10 +250,13 @@ export default function LoginPage() {
           )}
         </Button>
 
-        {/* Help link */}
-        <p className="text-xs text-[#0091EA] text-center mt-4">
-          {t('login.helpLink')}
-        </p>
+        {/* Need Help link — design: yellow icon + blue text */}
+        <div className="flex items-center justify-center gap-2 mt-4">
+          <span className="text-lg">💬</span>
+          <span className="text-sm font-medium text-[#0091EA]">
+            {t('login.helpLink')}
+          </span>
+        </div>
       </div>
     </div>
   )

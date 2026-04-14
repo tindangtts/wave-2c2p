@@ -55,7 +55,8 @@ export async function updateSession(request: NextRequest) {
     request.nextUrl.pathname.startsWith("/otp") ||
     request.nextUrl.pathname.startsWith("/register") ||
     request.nextUrl.pathname.startsWith("/kyc") ||
-    request.nextUrl.pathname.startsWith("/passcode");
+    request.nextUrl.pathname.startsWith("/passcode") ||
+    request.nextUrl.pathname.startsWith("/welcome");
 
   const isApiRoute = request.nextUrl.pathname.startsWith("/api");
 

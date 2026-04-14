@@ -13,7 +13,9 @@ import type { Transaction } from '@/types'
 import type { DateRangeValue } from '@/components/features/date-range-picker'
 
 function formatGroupHeader(dateStr: string): string {
+  if (dateStr === 'unknown') return 'Unknown Date'
   const date = new Date(dateStr)
+  if (isNaN(date.getTime())) return 'Unknown Date'
   if (isToday(date)) return 'Today'
   if (isYesterday(date)) return 'Yesterday'
   return format(date, 'MMMM d, yyyy')
@@ -22,7 +24,8 @@ function formatGroupHeader(dateStr: string): string {
 function groupByDate(transactions: Transaction[]): { date: string; items: Transaction[] }[] {
   const map = new Map<string, Transaction[]>()
   for (const tx of transactions) {
-    const dayKey = format(new Date(tx.created_at), 'yyyy-MM-dd')
+    const d = new Date(tx.created_at)
+    const dayKey = isNaN(d.getTime()) ? 'unknown' : format(d, 'yyyy-MM-dd')
     const existing = map.get(dayKey)
     if (existing) {
       existing.push(tx)
@@ -145,9 +148,9 @@ export default function HistoryPage() {
                 </div>
 
                 {/* Rows in this date group */}
-                {items.map((tx) => (
+                {items.map((tx, idx) => (
                   <TransactionRow
-                    key={tx.id}
+                    key={tx.id ?? `${date}-${idx}`}
                     transaction={tx}
                     onClick={(id) => router.push(`/history/${id}`)}
                   />

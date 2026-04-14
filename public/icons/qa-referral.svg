@@ -1,0 +1,9 @@
+<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="25" cy="25" r="25" fill="#F0F0F0"/>
+  <!-- Circular arrows - matches Pencil referral icon -->
+  <path d="M32 21a8 8 0 01-1.5 9.5" stroke="#0091EA" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M18 29a8 8 0 011.5-9.5" stroke="#0091EA" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Arrow heads -->
+  <path d="M29 18l3 3-3 3" stroke="#0091EA" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M21 32l-3-3 3-3" stroke="#0091EA" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

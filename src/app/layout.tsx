@@ -61,7 +61,7 @@ export default async function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-muted">
         <NextIntlClientProvider messages={messages}>
-          <div className="mx-auto w-full max-w-[430px] min-h-dvh flex flex-col bg-background relative overflow-hidden shadow-xl">
+          <div className="mx-auto w-full max-w-[430px] h-dvh flex flex-col bg-background relative overflow-x-hidden shadow-xl">
             {children}
           </div>
           <Toaster position="top-center" />

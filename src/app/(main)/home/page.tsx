@@ -9,24 +9,26 @@ export default function HomePage() {
     <>
       <TopHeader />
       <div className="flex-1 flex flex-col">
-        {/* Yellow header content area */}
-        <div className="bg-[#FFE600] px-4 pt-2 pb-8">
+        {/* Yellow header content area — wallet + quick actions (Pencil: y=90..373) */}
+        <div className="bg-[#FFE512] px-4 pt-2 pb-10">
           <WalletCard />
+          {/* Quick Actions — sits on yellow bg per Pencil design */}
+          <div className="mt-5">
+            <QuickActions />
+          </div>
         </div>
 
-        {/* Quick Actions — overlaps yellow/white boundary */}
-        <div className="px-4 -mt-4">
-          <QuickActions />
-        </div>
+        {/* White panel with rounded top overlapping yellow — Pencil: cornerRadius 15, shadow upward */}
+        <div className="bg-white flex-1 -mt-4 rounded-t-[15px] relative z-10 shadow-[0_-1.5px_3.3px_rgba(128,128,128,0.15)]">
+          {/* Recent History */}
+          <div className="px-4 pt-5">
+            <RecentHistory />
+          </div>
 
-        {/* Recent History */}
-        <div className="px-4 mt-6">
-          <RecentHistory />
-        </div>
-
-        {/* Promotions */}
-        <div className="px-4 mt-6 mb-4">
-          <PromoCarousel />
+          {/* Promotions */}
+          <div className="px-4 mt-6 mb-4">
+            <PromoCarousel />
+          </div>
         </div>
       </div>
     </>
