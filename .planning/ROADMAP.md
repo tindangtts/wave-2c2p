@@ -114,7 +114,7 @@ Plans:
 
 Plans:
 - [x] 05-01-PLAN.md — Data infrastructure: types, Zod schemas, Zustand transfer store, i18n, recipient CRUD API, mock payment endpoints
-- [ ] 05-02-PLAN.md — Recipient management UI: list with search/favorites, new recipient form, edit form, delete
+- [x] 05-02-PLAN.md — Recipient management UI: list with search/favorites, new recipient form, edit form, delete
 - [x] 05-03-PLAN.md — Amount entry with live MMK conversion and receiving channel selection with fee breakdown
 - [ ] 05-04-PLAN.md — Confirmation with passcode entry and receipt with status polling
 
@@ -157,6 +157,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 2. Authentication | 4/4 | Complete   | 2026-04-14 |
 | 3. eKYC Onboarding | 4/4 | Complete   | 2026-04-14 |
 | 4. Home & Wallet | 2/2 | Complete   | 2026-04-14 |
-| 5. Transfer & Recipients | 2/4 | In Progress|  |
+| 5. Transfer & Recipients | 3/4 | In Progress|  |
 | 6. Wallet Operations | 0/TBD | Not started | - |
 | 7. Profile, Card & System States | 0/TBD | Not started | - |

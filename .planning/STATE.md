@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 05-03-PLAN.md
-last_updated: "2026-04-14T12:13:37.226Z"
+stopped_at: Completed 05-02-PLAN.md
+last_updated: "2026-04-14T12:16:14.599Z"
 last_activity: 2026-04-14
 progress:
   total_phases: 7
   completed_phases: 4
   total_plans: 18
-  completed_plans: 16
+  completed_plans: 17
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-14)
 ## Current Position
 
 Phase: 05 (transfer-recipients) — EXECUTING
-Plan: 3 of 4
+Plan: 4 of 4
 Status: Ready to execute
 Last activity: 2026-04-14
 
@@ -68,6 +68,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 04-home-wallet P02 | 8 | 2 tasks | 9 files |
 | Phase 05-transfer-recipients P01 | 12 | 2 tasks | 12 files |
 | Phase 05 P03 | 145 | 2 tasks | 5 files |
+| Phase 05-transfer-recipients P02 | 5 | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -116,6 +117,8 @@ Recent decisions affecting current work:
 - [Phase 05]: Long-press backspace (300ms) clears full amount using pointerDown/pointerUp — touch and mouse compatible
 - [Phase 05]: Rate fetch uses plain useEffect + fetch (not SWR) since it runs once on mount and stores in Zustand
 - [Phase 05]: Channel fee schedule defined as const map (D-14 values) — no API call needed
+- [Phase 05-transfer-recipients]: Base UI DropdownMenuTrigger has no asChild prop — trigger rendered directly with className
+- [Phase 05-transfer-recipients]: Edit recipient form loads from SWR cache by ID via form.reset() — avoids redundant GET request
 
 ### Pending Todos
 
@@ -127,6 +130,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-14T12:13:37.223Z
-Stopped at: Completed 05-03-PLAN.md
+Last session: 2026-04-14T12:16:14.597Z
+Stopped at: Completed 05-02-PLAN.md
 Resume file: None
