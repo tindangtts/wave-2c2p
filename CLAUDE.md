@@ -36,6 +36,7 @@ src/
 - **Mock services**: eKYC and payment processing are mock APIs (configurable via env vars)
 - **Design tokens**: Colors/spacing from Pencil prototype UI review in `.planning/UI-UX-REVIEW.md`
 - **Brand colors**: Yellow #FFE600 (primary), Blue #0091EA (secondary), dark text #212121 on yellow backgrounds
+- **Pencil file**: Design in `./pencil-new.pen`
 
 ## Commands
 ```bash
