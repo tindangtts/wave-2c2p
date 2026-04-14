@@ -55,7 +55,7 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Auth foundation: schema migration, Zod schemas, PBKDF2 passcode utils, admin client, registration store, i18n
+- [x] 02-01-PLAN.md — Auth foundation: schema migration, Zod schemas, PBKDF2 passcode utils, admin client, registration store, i18n
 - [ ] 02-02-PLAN.md — Mock OTP API routes, login page rewrite, OTP verification page, middleware guards
 - [ ] 02-03-PLAN.md — Registration 3-step flow: step indicator, personal info page, ID details page, step save API
 - [ ] 02-04-PLAN.md — Passcode creation, passcode login, visibility hook, end-to-end verification
