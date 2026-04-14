@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: planning
-stopped_at: Phase 1 UI-SPEC approved
-last_updated: "2026-04-14T06:21:41.709Z"
-last_activity: 2026-04-14 — Roadmap created, phases defined, ready to begin planning Phase 1
+status: executing
+stopped_at: Completed 01-04-PLAN.md (supabase schema bigint monetary columns and RLS policies)
+last_updated: "2026-04-14T06:55:31.791Z"
+last_activity: 2026-04-14
 progress:
   total_phases: 7
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
+  total_plans: 4
+  completed_plans: 1
   percent: 0
 ---
 
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-14)
 
 **Core value:** Users can send money from Thailand to Myanmar quickly, affordably, and with full regulatory compliance
-**Current focus:** Phase 1 — Foundation
+**Current focus:** Phase 01 — Foundation
 
 ## Current Position
 
-Phase: 1 of 7 (Foundation)
-Plan: 0 of TBD in current phase
-Status: Ready to plan
-Last activity: 2026-04-14 — Roadmap created, phases defined, ready to begin planning Phase 1
+Phase: 01 (Foundation) — EXECUTING
+Plan: 2 of 4
+Status: Ready to execute
+Last activity: 2026-04-14
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -52,6 +52,7 @@ Progress: [░░░░░░░░░░] 0%
 - Trend: —
 
 *Updated after each plan completion*
+| Phase 01-foundation P04 | 5 | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -63,6 +64,8 @@ Recent decisions affecting current work:
 - Project: Scaffold with 16 routes already exists — Phase 1 hardens foundation, does not recreate it
 - Project: eKYC and payment services are mock-only with env-var-configurable behavior
 - Project: proxy.ts used instead of middleware.ts (Next.js 16 convention)
+- [Phase 01-foundation]: All monetary columns use bigint satang/pya per D-07 — prevents 100x display errors from float-to-integer mismatch in financial calculations
+- [Phase 01-foundation]: exchange_rate stays as numeric(10,4) — it is a ratio not a currency amount; INSERT policy added to user_profiles and UPDATE policy to wallets
 
 ### Pending Todos
 
@@ -74,6 +77,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-14T06:21:41.705Z
-Stopped at: Phase 1 UI-SPEC approved
-Resume file: .planning/phases/01-foundation/01-UI-SPEC.md
+Last session: 2026-04-14T06:55:31.789Z
+Stopped at: Completed 01-04-PLAN.md (supabase schema bigint monetary columns and RLS policies)
+Resume file: None

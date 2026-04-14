@@ -38,7 +38,7 @@ Plans:
 - [ ] 01-01-PLAN.md — Design tokens, fonts, layout shell, bottom-nav accessibility, badge variants
 - [ ] 01-02-PLAN.md — i18n infrastructure (next-intl v4, message files, proxy.ts composition, locale-aware layout)
 - [ ] 01-03-PLAN.md — Mock services env-var wiring, currency utility module with integer arithmetic
-- [ ] 01-04-PLAN.md — Supabase schema fix (numeric to bigint, missing RLS policies)
+- [x] 01-04-PLAN.md — Supabase schema fix (numeric to bigint, missing RLS policies)
 
 **UI hint**: yes
 
