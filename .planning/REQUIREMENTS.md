@@ -9,9 +9,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Foundation
 
-- [ ] **FOUN-01**: App renders in mobile-first container (max 430px) with safe area handling
-- [ ] **FOUN-02**: Design system tokens (colors, typography, spacing, shadows) match prototype brand identity
-- [ ] **FOUN-03**: shadcn/ui components themed with 2C2P Wave yellow/blue palette
+- [x] **FOUN-01**: App renders in mobile-first container (max 430px) with safe area handling
+- [x] **FOUN-02**: Design system tokens (colors, typography, spacing, shadows) match prototype brand identity
+- [x] **FOUN-03**: shadcn/ui components themed with 2C2P Wave yellow/blue palette
 - [x] **FOUN-04**: Supabase database schema deployed with RLS enabled on all tables
 - [ ] **FOUN-05**: i18n infrastructure supports English, Thai, and Myanmar with correct font loading (Noto Sans Myanmar UI)
 - [x] **FOUN-06**: Mock eKYC API endpoints respond with configurable pass/fail behavior via env vars
@@ -155,9 +155,9 @@ Deferred to future release. Tracked but not in current roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUN-01 | Phase 1 | Pending |
-| FOUN-02 | Phase 1 | Pending |
-| FOUN-03 | Phase 1 | Pending |
+| FOUN-01 | Phase 1 | Complete |
+| FOUN-02 | Phase 1 | Complete |
+| FOUN-03 | Phase 1 | Complete |
 | FOUN-04 | Phase 1 | Complete |
 | FOUN-05 | Phase 1 | Pending |
 | FOUN-06 | Phase 1 | Complete |

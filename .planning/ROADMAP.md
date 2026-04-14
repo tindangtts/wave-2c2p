@@ -35,7 +35,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 4 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Design tokens, fonts, layout shell, bottom-nav accessibility, badge variants
+- [x] 01-01-PLAN.md — Design tokens, fonts, layout shell, bottom-nav accessibility, badge variants
 - [ ] 01-02-PLAN.md — i18n infrastructure (next-intl v4, message files, proxy.ts composition, locale-aware layout)
 - [x] 01-03-PLAN.md — Mock services env-var wiring, currency utility module with integer arithmetic
 - [x] 01-04-PLAN.md — Supabase schema fix (numeric to bigint, missing RLS policies)
@@ -127,7 +127,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/4 | Planning complete | - |
+| 1. Foundation | 3/4 | In Progress|  |
 | 2. Authentication | 0/TBD | Not started | - |
 | 3. eKYC Onboarding | 0/TBD | Not started | - |
 | 4. Home & Wallet | 0/TBD | Not started | - |
