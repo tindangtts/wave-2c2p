@@ -1,0 +1,151 @@
+{
+  "menu": {
+    "title": "ตั้งค่าโปรไฟล์",
+    "biometrics": "ไบโอเมทริกซ์",
+    "enableBiometrics": "เปิดใช้งาน Touch ID / Face ID",
+    "settings": "การตั้งค่า",
+    "information": "ข้อมูลส่วนตัว",
+    "referFriends": "แนะนำเพื่อน",
+    "changePasscode": "เปลี่ยนรหัสผ่าน",
+    "changePhone": "เปลี่ยนหมายเลขโทรศัพท์",
+    "manageLimit": "จัดการวงเงินส่วนตัว",
+    "notifications": "การตั้งค่าการแจ้งเตือน",
+    "helpSupport": "ความช่วยเหลือ",
+    "contactUs": "ติดต่อเรา",
+    "language": "ภาษา",
+    "limitsFees": "วงเงินและค่าธรรมเนียม",
+    "faq": "คำถามที่พบบ่อย",
+    "terms": "ข้อกำหนดและเงื่อนไข",
+    "privacy": "นโยบายความเป็นส่วนตัว"
+  },
+  "information": {
+    "title": "ข้อมูลส่วนตัว",
+    "fullName": "ชื่อ-นามสกุล",
+    "phone": "หมายเลขโทรศัพท์",
+    "dob": "วันเกิด",
+    "change": "เปลี่ยน"
+  },
+  "changePhone": {
+    "title": "เปลี่ยนหมายเลขโทรศัพท์",
+    "step1Instruction": "กรอกหมายเลขโทรศัพท์ใหม่",
+    "step1Cta": "ส่ง OTP",
+    "step2Instruction": "กรอก OTP ที่ส่งไปยัง {phone}",
+    "step2Cta": "ยืนยัน",
+    "resendCode": "ส่งรหัสอีกครั้ง",
+    "resendIn": "ส่งอีกครั้งใน {n} วินาที",
+    "successHeading": "อัปเดตหมายเลขโทรศัพท์แล้ว",
+    "successBody": "หมายเลขโทรศัพท์ของคุณได้รับการเปลี่ยนแปลงเรียบร้อยแล้ว",
+    "successCta": "กลับสู่โปรไฟล์",
+    "errorOtpInvalid": "OTP ไม่ถูกต้อง กรุณาลองอีกครั้ง",
+    "errorOtpExpired": "OTP หมดอายุแล้ว กรุณาขอใหม่",
+    "errorPhoneInUse": "หมายเลขโทรศัพท์นี้ถูกใช้งานแล้ว"
+  },
+  "changePasscode": {
+    "title": "กรอกรหัสผ่านปัจจุบัน",
+    "titleNew": "กรอกรหัสผ่านใหม่",
+    "titleConfirm": "ยืนยันรหัสผ่านใหม่",
+    "step1Instruction": "กรอกรหัสผ่านปัจจุบันเพื่อดำเนินการต่อ",
+    "step2Instruction": "ตั้งรหัสผ่านใหม่ 6 หลัก",
+    "step3Instruction": "ยืนยันรหัสผ่านใหม่ของคุณ",
+    "successHeading": "เปลี่ยนรหัสผ่านแล้ว",
+    "successBody": "รหัสผ่านของคุณได้รับการอัปเดตเรียบร้อยแล้ว",
+    "successCta": "เสร็จสิ้น",
+    "errorCurrentWrong": "รหัสผ่านไม่ถูกต้อง เหลือ {n} ครั้ง",
+    "errorMismatch": "รหัสผ่านไม่ตรงกัน กรุณาลองอีกครั้ง"
+  },
+  "language": {
+    "title": "ภาษา",
+    "en": "English",
+    "th": "ภาษาไทย",
+    "mm": "မြန်မာဘာသာ"
+  },
+  "referFriends": {
+    "title": "แนะนำเพื่อน",
+    "instruction": "แชร์รหัสแนะนำของคุณและรับรางวัล",
+    "codeLabel": "รหัสแนะนำของคุณ",
+    "shareCta": "แชร์",
+    "monthlyCount": "แนะนำ {n} คนในเดือนนี้",
+    "emptyHeading": "ยังไม่มีการแนะนำ",
+    "emptyBody": "แชร์รหัสของคุณเพื่อเริ่มรับรางวัล"
+  },
+  "notifications": {
+    "title": "การตั้งค่าการแจ้งเตือน",
+    "push": "การแจ้งเตือนแบบพุช",
+    "pushDesc": "รับการแจ้งเตือนสำหรับธุรกรรมและอัปเดต",
+    "email": "การแจ้งเตือนทางอีเมล",
+    "emailDesc": "รับใบเสร็จและอัปเดตบัญชีทางอีเมล",
+    "sms": "การแจ้งเตือนทาง SMS",
+    "smsDesc": "รับ OTP และการแจ้งเตือนความปลอดภัย",
+    "saveCta": "บันทึกการเปลี่ยนแปลง"
+  },
+  "contactUs": {
+    "title": "ติดต่อเรา",
+    "callCenter": "ศูนย์บริการลูกค้า",
+    "callCenterNumber": "1234",
+    "line": "LINE",
+    "lineId": "@2c2pwave",
+    "email": "อีเมล",
+    "emailAddress": "support@2c2pwave.com"
+  },
+  "limitsFees": {
+    "title": "วงเงินและค่าธรรมเนียม",
+    "transferLimits": "วงเงินโอน",
+    "dailyLimit": "วงเงินรายวัน",
+    "dailyLimitValue": "50,000 บาท",
+    "monthlyLimit": "วงเงินรายเดือน",
+    "monthlyLimitValue": "200,000 บาท",
+    "fees": "ค่าธรรมเนียม",
+    "transferFee": "ค่าธรรมเนียมโอน",
+    "transferFeeValue": "99 บาท",
+    "topupFee": "ค่าธรรมเนียมเติมเงิน",
+    "topupFeeValue": "ฟรี",
+    "withdrawalFee": "ค่าธรรมเนียมถอนเงิน",
+    "withdrawalFeeValue": "25 บาท"
+  },
+  "terms": {
+    "title": "ข้อกำหนดและเงื่อนไข"
+  },
+  "privacy": {
+    "title": "นโยบายความเป็นส่วนตัว"
+  },
+  "faq": {
+    "title": "คำถามที่พบบ่อย"
+  },
+  "card": {
+    "title": "บัตร Visa",
+    "maskedNumber": "•••• •••• •••• {last4}",
+    "showDetails": "แสดงรายละเอียดบัตร",
+    "hideDetails": "ซ่อนรายละเอียดบัตร",
+    "autoHideNotice": "ซ่อนรายละเอียดบัตรเพื่อความปลอดภัย",
+    "freezeLabel": "อายัดบัตร",
+    "frozenOverlay": "บัตรถูกอายัด",
+    "freezeDialogTitle": "อายัดบัตร?",
+    "freezeDialogBody": "ธุรกรรมจะถูกปฏิเสธในขณะที่บัตรของคุณถูกอายัด",
+    "freezeCta": "อายัด",
+    "unfreezeDialogTitle": "ยกเลิกการอายัดบัตร?",
+    "unfreezeDialogBody": "บัตรของคุณจะพร้อมใช้งานอีกครั้ง",
+    "unfreezeCta": "ยกเลิกอายัด",
+    "emptyHeading": "กำลังตั้งค่าบัตรเสมือนของคุณ",
+    "emptyBody": "อาจใช้เวลาสักครู่ กรุณาตรวจสอบในภายหลัง"
+  },
+  "system": {
+    "maintenance": {
+      "title": "ระบบอยู่ระหว่างการบำรุงรักษา",
+      "body": "ขณะนี้ระบบอยู่ระหว่างการบำรุงรักษา เราจะกลับมาในไม่ช้า",
+      "cta": "ตกลง"
+    },
+    "update": {
+      "title": "อัปเดตซอฟต์แวร์",
+      "body": "จำเป็นต้องอัปเดตซอฟต์แวร์เพื่อใช้งานแอปต่อไป",
+      "quit": "ออก",
+      "now": "ตอนนี้"
+    },
+    "error": {
+      "heading": "เกิดข้อผิดพลาด",
+      "body": "เกิดข้อผิดพลาดที่ไม่คาดคิด กรุณาลองอีกครั้ง",
+      "cta": "ลองอีกครั้ง"
+    }
+  },
+  "logout": "ออกจากระบบ",
+  "version": "V 1.0"
+}

@@ -1,0 +1,151 @@
+{
+  "menu": {
+    "title": "Profile Setting",
+    "biometrics": "Biometrics",
+    "enableBiometrics": "Enable Touch ID / Face ID",
+    "settings": "Settings",
+    "information": "Information",
+    "referFriends": "Refer Friends",
+    "changePasscode": "Change Passcode",
+    "changePhone": "Change Phone Number",
+    "manageLimit": "Manage Personal Limitation",
+    "notifications": "Notification Settings",
+    "helpSupport": "Help & Support",
+    "contactUs": "Contact Us",
+    "language": "Language",
+    "limitsFees": "Limits and Fees",
+    "faq": "Q&A Session",
+    "terms": "Terms and Conditions",
+    "privacy": "Privacy and Policy"
+  },
+  "information": {
+    "title": "Information",
+    "fullName": "Full Name",
+    "phone": "Phone Number",
+    "dob": "Date of Birth",
+    "change": "Change"
+  },
+  "changePhone": {
+    "title": "Change Phone Number",
+    "step1Instruction": "Enter your new phone number",
+    "step1Cta": "Send OTP",
+    "step2Instruction": "Enter the OTP sent to {phone}",
+    "step2Cta": "Verify",
+    "resendCode": "Resend code",
+    "resendIn": "Resend in {n}s",
+    "successHeading": "Phone Number Updated",
+    "successBody": "Your phone number has been successfully changed.",
+    "successCta": "Back to Profile",
+    "errorOtpInvalid": "Incorrect OTP. Please try again.",
+    "errorOtpExpired": "OTP has expired. Request a new one.",
+    "errorPhoneInUse": "This phone number is already registered."
+  },
+  "changePasscode": {
+    "title": "Enter Current Passcode",
+    "titleNew": "Enter New Passcode",
+    "titleConfirm": "Confirm New Passcode",
+    "step1Instruction": "Enter your current passcode to continue",
+    "step2Instruction": "Set your new 6-digit passcode",
+    "step3Instruction": "Confirm your new passcode",
+    "successHeading": "Passcode Changed",
+    "successBody": "Your passcode has been successfully updated.",
+    "successCta": "Done",
+    "errorCurrentWrong": "Incorrect passcode. {n} attempts remaining.",
+    "errorMismatch": "Passcodes do not match. Please try again."
+  },
+  "language": {
+    "title": "Language",
+    "en": "English",
+    "th": "ภาษาไทย",
+    "mm": "မြန်မာဘာသာ"
+  },
+  "referFriends": {
+    "title": "Refer Friends",
+    "instruction": "Share your referral code and earn rewards.",
+    "codeLabel": "Your Referral Code",
+    "shareCta": "Share",
+    "monthlyCount": "{n} referrals this month",
+    "emptyHeading": "No referrals yet",
+    "emptyBody": "Share your code to start earning."
+  },
+  "notifications": {
+    "title": "Notification Settings",
+    "push": "Push Notifications",
+    "pushDesc": "Receive alerts for transactions and updates",
+    "email": "Email Notifications",
+    "emailDesc": "Get receipts and account updates by email",
+    "sms": "SMS Notifications",
+    "smsDesc": "Receive OTPs and security alerts",
+    "saveCta": "Save Changes"
+  },
+  "contactUs": {
+    "title": "Contact Us",
+    "callCenter": "Call Center",
+    "callCenterNumber": "1234",
+    "line": "LINE",
+    "lineId": "@2c2pwave",
+    "email": "Email",
+    "emailAddress": "support@2c2pwave.com"
+  },
+  "limitsFees": {
+    "title": "Limits and Fees",
+    "transferLimits": "Transfer Limits",
+    "dailyLimit": "Daily Limit",
+    "dailyLimitValue": "50,000 THB",
+    "monthlyLimit": "Monthly Limit",
+    "monthlyLimitValue": "200,000 THB",
+    "fees": "Fees",
+    "transferFee": "Transfer Fee",
+    "transferFeeValue": "99 THB",
+    "topupFee": "Top-Up Fee",
+    "topupFeeValue": "Free",
+    "withdrawalFee": "Withdrawal Fee",
+    "withdrawalFeeValue": "25 THB"
+  },
+  "terms": {
+    "title": "Terms and Conditions"
+  },
+  "privacy": {
+    "title": "Privacy and Policy"
+  },
+  "faq": {
+    "title": "Q&A Session"
+  },
+  "card": {
+    "title": "Visa Card",
+    "maskedNumber": "•••• •••• •••• {last4}",
+    "showDetails": "Show Card Details",
+    "hideDetails": "Hide Card Details",
+    "autoHideNotice": "Card details hidden for security.",
+    "freezeLabel": "Freeze Card",
+    "frozenOverlay": "Card Frozen",
+    "freezeDialogTitle": "Freeze Card?",
+    "freezeDialogBody": "Transactions will be declined while your card is frozen.",
+    "freezeCta": "Freeze",
+    "unfreezeDialogTitle": "Unfreeze Card?",
+    "unfreezeDialogBody": "Your card will be ready to use again.",
+    "unfreezeCta": "Unfreeze",
+    "emptyHeading": "Your virtual card is being set up.",
+    "emptyBody": "This may take a moment. Check back soon."
+  },
+  "system": {
+    "maintenance": {
+      "title": "System Under Maintenance",
+      "body": "Currently system is under maintenance. We will be back soon.",
+      "cta": "Ok"
+    },
+    "update": {
+      "title": "Software Update",
+      "body": "A software update is required to continue using the app.",
+      "quit": "Quit",
+      "now": "Now"
+    },
+    "error": {
+      "heading": "Something went wrong",
+      "body": "An unexpected error occurred. Please try again.",
+      "cta": "Try Again"
+    }
+  },
+  "logout": "Logout",
+  "version": "V 1.0"
+}
