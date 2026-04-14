@@ -59,7 +59,7 @@ Inherited from Phase 1 Foundation — no new tokens introduced.
 | Country code selector trigger height | 48px | Phase 1 — full-height tappable zone requirement |
 | Passcode dot display height | 80px (row of 6 dots) | Sufficient visual weight for PIN status display |
 | Passcode keypad button size | 64x64px per key | 3x4 grid; touch target exceeds 44px minimum, matches banking conventions |
-| Step indicator dot size | 8x8px active dot, 6x6px inactive | Horizontal flex row, centered; provides clear visual focus |
+| Step indicator dot size | 12x12px active dot, 8x8px inactive | Horizontal flex row, centered; provides clear visual focus (all values multiples of 4) |
 | Registration step content top pad | 24px below step indicator | Breathing room between progress and form content |
 | Screen bottom pad (auth — no bottom nav) | 32px | Auth screens have no bottom nav; use 32px floor padding |
 
@@ -230,7 +230,7 @@ Source: Phase 1 UI-SPEC color contract, UI-UX-REVIEW Section 4.1.
 
 **Route:** `/(auth)/register/personal-info`
 **Header:** White BackHeader, back arrow exits with "Save & Exit" dialog, title "Personal Information"
-**Step indicator:** Below header, above form — 3 dots (8px active, 6px inactive), step 1 active (#FFE600), steps 2-3 inactive (#E0E0E0), connected by 1px line
+**Step indicator:** Below header, above form — 3 dots (12px active, 8px inactive), step 1 active (#FFE600), steps 2-3 inactive (#E0E0E0), connected by 1px line
 
 **Layout:**
 
@@ -366,7 +366,7 @@ Used across all registration screens (steps 1-3):
 [StepIndicator row — flex, items-center, justify-center, gap-2]
   [Completed step dot — 8x8px, bg-#0091EA, --radius-full]
   [Connector line — flex-1 max-w-8, h-px, bg-#0091EA]
-  [Active step dot — 10x10px, bg-#FFE600, --radius-full, ring-2 ring-#FFE600/30]
+  [Active step dot — 12x12px, bg-#FFE600, --radius-full, ring-2 ring-#FFE600/30]
   [Connector line — flex-1 max-w-8, h-px, bg-#E0E0E0]
   [Upcoming step dot — 8x8px, bg-#E0E0E0, --radius-full]
 ```
