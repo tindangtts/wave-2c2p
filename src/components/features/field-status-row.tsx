@@ -17,7 +17,7 @@ export function FieldStatusRow({ label, status, onRetake }: FieldStatusRowProps)
     <div
       className={`flex items-center gap-3 h-14 px-4 rounded-lg ${
         isAccepted
-          ? 'bg-[#FAFAFA]'
+          ? 'bg-muted'
           : 'bg-white border border-[#F44336]'
       }`}
       aria-label={`${label}: ${status}`}
@@ -26,13 +26,13 @@ export function FieldStatusRow({ label, status, onRetake }: FieldStatusRowProps)
       {isAccepted ? (
         <CheckCircle className="w-5 h-5 text-[#00C853] shrink-0" />
       ) : (
-        <XCircle className="w-5 h-5 text-[#F44336] shrink-0" />
+        <XCircle className="w-5 h-5 text-destructive shrink-0" />
       )}
 
       {/* Label */}
       <span
         className={`text-base flex-1 ${
-          isAccepted ? 'text-[#757575]' : 'text-[#212121]'
+          isAccepted ? 'text-[#595959]' : 'text-foreground'
         }`}
       >
         {label}

@@ -77,14 +77,14 @@ export default function ScanPage() {
       {/* Header */}
       <div className="relative z-10 pt-11 px-4 h-14 flex items-center justify-between bg-[#FFE600]">
         <div className="w-6" />
-        <h1 className="text-[20px] font-bold text-[#0091EA]">Scan QR Code</h1>
+        <h1 className="text-xl font-bold text-[#0091EA]">Scan QR Code</h1>
         <button
           type="button"
           onClick={handleClose}
           aria-label="Close scanner"
           className="p-1 rounded-full hover:bg-black/10 transition-colors"
         >
-          <X className="w-6 h-6 text-[#212121]" />
+          <X className="w-6 h-6 text-foreground" />
         </button>
       </div>
 
@@ -112,7 +112,7 @@ export default function ScanPage() {
         {/* Permission denied message */}
         {(cameraState === 'denied' || cameraState === 'unavailable') && (
           <div className="absolute inset-0 flex flex-col items-center justify-center px-8">
-            <p className="text-[14px] text-[#757575] text-center">
+            <p className="text-sm text-[#595959] text-center">
               Camera access denied. Use gallery to scan.
             </p>
           </div>
@@ -142,7 +142,7 @@ export default function ScanPage() {
         <button
           type="button"
           onClick={() => galleryInputRef.current?.click()}
-          className="w-full h-12 rounded-full border border-white text-white text-[16px] font-medium hover:bg-white/10 transition-colors"
+          className="w-full h-12 rounded-full border border-white text-white text-base font-medium hover:bg-white/10 transition-colors"
         >
           Upload from Gallery
         </button>
@@ -151,7 +151,7 @@ export default function ScanPage() {
         <button
           type="button"
           onClick={handleReceiveMoney}
-          className="w-full h-12 rounded-full bg-[#FFE600] text-[#212121] text-[16px] font-bold active:scale-[0.98] transition-transform"
+          className="w-full h-12 rounded-full bg-[#FFE600] text-foreground text-base font-bold active:scale-[0.98] transition-transform"
         >
           Receive Money with QR
         </button>

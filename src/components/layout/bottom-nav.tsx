@@ -82,7 +82,7 @@ export function BottomNav() {
                       />
                     </div>
                   </div>
-                  <span className="text-[11px] font-medium text-white">
+                  <span className="text-[0.6875rem] font-medium text-white">
                     {item.label}
                   </span>
                 </Link>
@@ -103,7 +103,7 @@ export function BottomNav() {
               >
                 <IconComp active={isActive} />
                 <span className={cn(
-                  "text-[11px] font-medium",
+                  "text-[0.6875rem] font-medium",
                   isActive ? "text-[#FFE512]" : "text-white"
                 )}>{item.label}</span>
               </Link>

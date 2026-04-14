@@ -55,7 +55,7 @@ export default function CardPage() {
   const cardInfoNumber = revealed ? formattedFull : maskedDisplay;
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAFAFA]">
+    <div className="flex flex-col min-h-screen bg-muted">
       <BackHeader title="Visa Card" />
 
       <div className="flex-1 overflow-y-auto px-4 pt-6 pb-8">
@@ -82,33 +82,33 @@ export default function CardPage() {
         <div className="mt-6 bg-white rounded-xl p-4 shadow-sm">
           {/* Card Number row */}
           <div className="flex items-center justify-between">
-            <span className="text-[12px] font-normal text-[#9E9E9E]">Card Number</span>
-            <span className="text-[12px] font-normal text-[#212121]">{cardInfoNumber}</span>
+            <span className="text-xs font-normal text-[#767676]">Card Number</span>
+            <span className="text-xs font-normal text-foreground">{cardInfoNumber}</span>
           </div>
 
-          <div className="border-t border-[#E0E0E0] my-3" />
+          <div className="border-t border-border my-3" />
 
           {/* Expiry row */}
           <div className="flex items-center justify-between">
-            <span className="text-[12px] font-normal text-[#9E9E9E]">Expiry Date</span>
-            <span className="text-[12px] font-normal text-[#212121]">{MOCK_EXPIRY}</span>
+            <span className="text-xs font-normal text-[#767676]">Expiry Date</span>
+            <span className="text-xs font-normal text-foreground">{MOCK_EXPIRY}</span>
           </div>
 
-          <div className="border-t border-[#E0E0E0] my-3" />
+          <div className="border-t border-border my-3" />
 
           {/* Card Status row */}
           <div className="flex items-center justify-between">
-            <span className="text-[12px] font-normal text-[#9E9E9E]">Card Status</span>
+            <span className="text-xs font-normal text-[#767676]">Card Status</span>
             {frozen ? (
               <span
-                className="inline-flex items-center px-2 py-0.5 rounded-full text-[12px] font-medium"
+                className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium"
                 style={{ color: "#0091EA", backgroundColor: "#E3F2FD" }}
               >
                 Frozen
               </span>
             ) : (
               <span
-                className="inline-flex items-center px-2 py-0.5 rounded-full text-[12px] font-medium"
+                className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium"
                 style={{ color: "#00C853", backgroundColor: "#E8F5E9" }}
               >
                 Active

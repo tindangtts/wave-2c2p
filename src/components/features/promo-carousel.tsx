@@ -30,7 +30,7 @@ export function PromoCarousel() {
       title: t("promotions.promo1.title"),
       body: t("promotions.promo1.body"),
       bg: "from-[#FFE600] to-[#FFD600]",
-      textColor: "text-[#212121]",
+      textColor: "text-foreground",
       image: "/icons/promo-referral.svg",
     },
     {

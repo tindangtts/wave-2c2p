@@ -43,7 +43,7 @@ export function LanguageSelector({ currentLocale }: LanguageSelectorProps) {
             onClick={() => handleSelect(lang.code)}
             className={[
               'h-[52px] flex items-center px-4 rounded-xl w-full text-left transition-colors',
-              isActive ? 'bg-[#FFE600]' : 'bg-transparent hover:bg-[#F5F5F5]',
+              isActive ? 'bg-[#FFE600]' : 'bg-transparent hover:bg-secondary',
             ].join(' ')}
             aria-pressed={isActive}
             aria-label={lang.label}
@@ -52,7 +52,7 @@ export function LanguageSelector({ currentLocale }: LanguageSelectorProps) {
               {lang.flag}
             </span>
             <span
-              className="flex-1 text-base font-normal text-[#212121]"
+              className="flex-1 text-base font-normal text-foreground"
               {...(lang.lang ? { lang: lang.lang } : {})}
             >
               {lang.label}

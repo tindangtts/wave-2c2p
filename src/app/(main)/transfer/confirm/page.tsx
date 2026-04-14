@@ -111,17 +111,17 @@ export default function ConfirmPage() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAFAFA]">
+    <div className="flex flex-col min-h-screen bg-muted">
       <BackHeader title="Confirmation" />
 
       <div className="flex-1 overflow-y-auto px-4 pt-4 pb-32">
         {/* Transfer summary header */}
         <div className="text-center">
-          <p className="text-[12px] text-[#757575]">Transfer</p>
-          <p className="text-[28px] font-bold text-[#212121] mt-1">
+          <p className="text-xs text-[#595959]">Transfer</p>
+          <p className="text-[1.75rem] font-bold text-foreground mt-1">
             {formatCurrency(amountSatang, 'THB')}
           </p>
-          <p className="text-[16px] text-[#757575] mt-1">
+          <p className="text-base text-[#595959] mt-1">
             {formatCurrency(convertedPya, 'MMK')}
           </p>
         </div>
@@ -134,18 +134,18 @@ export default function ConfirmPage() {
         </div>
 
         {/* Sender / Receiver card */}
-        <div className="mt-4 bg-white rounded-xl border border-[#E0E0E0] p-4">
+        <div className="mt-4 bg-white rounded-xl border border-border p-4">
           {/* Sender */}
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-full bg-[#E3F2FD] flex items-center justify-center flex-shrink-0">
-              <span className="text-[16px] font-bold text-[#212121]">
+              <span className="text-base font-bold text-foreground">
                 {getInitials(senderName)}
               </span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-[16px] font-bold text-[#212121] truncate">{senderName}</p>
+              <p className="text-base font-bold text-foreground truncate">{senderName}</p>
               {senderPhone && (
-                <p className="text-[12px] text-[#757575]">{senderPhone}</p>
+                <p className="text-xs text-[#595959]">{senderPhone}</p>
               )}
             </div>
           </div>
@@ -158,15 +158,15 @@ export default function ConfirmPage() {
           {/* Receiver */}
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-full bg-[#FFE600] flex items-center justify-center flex-shrink-0">
-              <span className="text-[16px] font-bold text-[#212121]">
+              <span className="text-base font-bold text-foreground">
                 {getInitials(selectedRecipient.full_name)}
               </span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-[16px] font-bold text-[#212121] truncate">
+              <p className="text-base font-bold text-foreground truncate">
                 {selectedRecipient.full_name}
               </p>
-              <p className="text-[12px] text-[#757575] capitalize">
+              <p className="text-xs text-[#595959] capitalize">
                 {channel.replace(/_/g, ' ')}
               </p>
             </div>
@@ -174,30 +174,30 @@ export default function ConfirmPage() {
         </div>
 
         {/* Fee breakdown card */}
-        <div className="mt-4 bg-white rounded-xl border border-[#E0E0E0] p-4">
+        <div className="mt-4 bg-white rounded-xl border border-border p-4">
           {/* Amount row */}
           <div className="flex items-center justify-between">
-            <span className="text-[16px] text-[#757575]">Amount</span>
-            <span className="text-[16px] font-bold text-[#212121]">
+            <span className="text-base text-[#595959]">Amount</span>
+            <span className="text-base font-bold text-foreground">
               {formatCurrency(amountSatang, 'THB')}
             </span>
           </div>
 
           {/* Fee row */}
           <div className="flex items-center justify-between mt-2">
-            <span className="text-[16px] text-[#757575]">Fee</span>
-            <span className="text-[16px] font-bold text-[#F44336]">
+            <span className="text-base text-[#595959]">Fee</span>
+            <span className="text-base font-bold text-destructive">
               {formatCurrency(feeSatang, 'THB')}
             </span>
           </div>
 
           {/* Separator */}
-          <div className="border-t border-[#E0E0E0] my-3" />
+          <div className="border-t border-border my-3" />
 
           {/* Total row */}
           <div className="flex items-center justify-between">
-            <span className="text-[20px] font-bold text-[#212121]">Total</span>
-            <span className="text-[20px] font-bold text-[#212121]">
+            <span className="text-xl font-bold text-foreground">Total</span>
+            <span className="text-xl font-bold text-foreground">
               {formatCurrency(totalSatang, 'THB')}
             </span>
           </div>
@@ -205,7 +205,7 @@ export default function ConfirmPage() {
 
         {/* Note field */}
         <div className="mt-4">
-          <label htmlFor="transfer-note" className="block text-[16px] text-[#212121] mb-2">
+          <label htmlFor="transfer-note" className="block text-base text-foreground mb-2">
             Note (optional)
           </label>
           <textarea
@@ -214,18 +214,18 @@ export default function ConfirmPage() {
             value={note}
             onChange={(e) => setNote(e.target.value)}
             placeholder="Add a note for your recipient..."
-            className="w-full rounded-xl border border-[#E0E0E0] px-3 py-2 text-[14px] text-[#212121] placeholder:text-[#9E9E9E] focus:border-[#0091EA] focus:outline-none resize-none"
+            className="w-full rounded-xl border border-border px-3 py-2 text-sm text-foreground placeholder:text-[#767676] focus:border-[#0091EA] focus:outline-none resize-none"
           />
         </div>
       </div>
 
       {/* Sticky CTA */}
-      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] bg-[#FAFAFA] px-4 py-4 safe-bottom border-t border-[#F0F0F0]">
+      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] bg-muted px-4 py-4 safe-bottom border-t border-[#F0F0F0]">
         <button
           type="button"
           disabled={isSubmitting}
           onClick={() => setPasscodeOpen(true)}
-          className="w-full h-14 rounded-full bg-[#FFE600] text-[#212121] text-[16px] font-bold active:scale-[0.98] transition-transform disabled:opacity-50"
+          className="w-full h-14 rounded-full bg-[#FFE600] text-foreground text-base font-bold active:scale-[0.98] transition-transform disabled:opacity-50"
         >
           {isSubmitting ? 'Processing...' : 'Confirm'}
         </button>

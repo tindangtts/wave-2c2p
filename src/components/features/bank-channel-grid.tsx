@@ -29,7 +29,7 @@ export function BankChannelGrid({ onSelect }: BankChannelGridProps) {
           key={bank.id}
           type="button"
           onClick={() => onSelect(bank.id)}
-          className="flex flex-col items-center justify-center gap-2 bg-white border border-[#E0E0E0] rounded-xl active:bg-[#F5F5F5] transition-colors"
+          className="flex flex-col items-center justify-center gap-2 bg-white border border-border rounded-xl active:bg-secondary transition-colors"
           style={{ width: '88px', height: '72px' }}
           aria-label={bank.label}
         >
@@ -38,13 +38,13 @@ export function BankChannelGrid({ onSelect }: BankChannelGridProps) {
             style={{ backgroundColor: bank.bgColor }}
           >
             <span
-              className="text-[10px] font-bold leading-none"
+              className="text-[0.625rem] font-bold leading-none"
               style={{ color: bank.textColor }}
             >
               {bank.abbr}
             </span>
           </div>
-          <span className="text-[12px] font-normal text-[#212121] text-center leading-tight">
+          <span className="text-xs font-normal text-foreground text-center leading-tight">
             {bank.label}
           </span>
         </button>

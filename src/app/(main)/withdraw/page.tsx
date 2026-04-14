@@ -42,7 +42,7 @@ export default function WithdrawPage() {
   )
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAFAFA]">
+    <div className="flex flex-col min-h-screen bg-muted">
       <BackHeader title="Withdraw" />
       <div className="flex-1 flex flex-col overflow-hidden">
         <RecipientList

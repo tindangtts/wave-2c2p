@@ -134,14 +134,14 @@ export default function PersonalInfoPage() {
       <StepIndicator currentStep={1} />
 
       <div className="flex-1 flex flex-col px-4 pt-6 pb-8">
-        <p className="text-base text-[#757575] mb-6">{t('register.step1Subtitle')}</p>
+        <p className="text-base text-[#595959] mb-6">{t('register.step1Subtitle')}</p>
 
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col flex-1" noValidate>
           <div className="flex flex-col gap-5">
             {/* Title (Salutation) */}
             <div>
-              <Label htmlFor="title" className="text-xs text-[#757575] mb-1 block">
-                {t('fields.title')} <span className="text-[#F44336]">*</span>
+              <Label htmlFor="title" className="text-xs text-[#595959] mb-1 block">
+                {t('fields.title')} <span className="text-destructive">*</span>
               </Label>
               <Select
                 onValueChange={(value) => {
@@ -163,8 +163,8 @@ export default function PersonalInfoPage() {
 
             {/* First Name */}
             <div>
-              <Label htmlFor="firstName" className="text-xs text-[#757575] mb-1 block">
-                {t('fields.firstName')} <span className="text-[#F44336]">*</span>
+              <Label htmlFor="firstName" className="text-xs text-[#595959] mb-1 block">
+                {t('fields.firstName')} <span className="text-destructive">*</span>
               </Label>
               <Input
                 id="firstName"
@@ -175,7 +175,7 @@ export default function PersonalInfoPage() {
                 autoComplete="given-name"
               />
               {errors.firstName && (
-                <p id="firstName-error" role="alert" className="text-xs text-[#F44336] mt-1">
+                <p id="firstName-error" role="alert" className="text-xs text-destructive mt-1">
                   {errors.firstName.message}
                 </p>
               )}
@@ -183,8 +183,8 @@ export default function PersonalInfoPage() {
 
             {/* Last Name */}
             <div>
-              <Label htmlFor="lastName" className="text-xs text-[#757575] mb-1 block">
-                {t('fields.lastName')} <span className="text-[#F44336]">*</span>
+              <Label htmlFor="lastName" className="text-xs text-[#595959] mb-1 block">
+                {t('fields.lastName')} <span className="text-destructive">*</span>
               </Label>
               <Input
                 id="lastName"
@@ -195,7 +195,7 @@ export default function PersonalInfoPage() {
                 autoComplete="family-name"
               />
               {errors.lastName && (
-                <p id="lastName-error" role="alert" className="text-xs text-[#F44336] mt-1">
+                <p id="lastName-error" role="alert" className="text-xs text-destructive mt-1">
                   {errors.lastName.message}
                 </p>
               )}
@@ -203,8 +203,8 @@ export default function PersonalInfoPage() {
 
             {/* Gender */}
             <div>
-              <Label htmlFor="gender" className="text-xs text-[#757575] mb-1 block">
-                {t('fields.gender')} <span className="text-[#F44336]">*</span>
+              <Label htmlFor="gender" className="text-xs text-[#595959] mb-1 block">
+                {t('fields.gender')} <span className="text-destructive">*</span>
               </Label>
               <Select
                 onValueChange={(value) => {
@@ -225,8 +225,8 @@ export default function PersonalInfoPage() {
 
             {/* Date of Birth */}
             <div>
-              <Label htmlFor="dateOfBirth" className="text-xs text-[#757575] mb-1 block">
-                {t('fields.dateOfBirth')} <span className="text-[#F44336]">*</span>
+              <Label htmlFor="dateOfBirth" className="text-xs text-[#595959] mb-1 block">
+                {t('fields.dateOfBirth')} <span className="text-destructive">*</span>
               </Label>
               <Input
                 id="dateOfBirth"
@@ -239,7 +239,7 @@ export default function PersonalInfoPage() {
                 inputMode="numeric"
               />
               {errors.dateOfBirth && (
-                <p id="dateOfBirth-error" role="alert" className="text-xs text-[#F44336] mt-1">
+                <p id="dateOfBirth-error" role="alert" className="text-xs text-destructive mt-1">
                   {errors.dateOfBirth.message}
                 </p>
               )}
@@ -247,10 +247,10 @@ export default function PersonalInfoPage() {
 
             {/* Mobile No. (read-only, from registration store) */}
             <div>
-              <Label className="text-xs text-[#757575] mb-1 block">
+              <Label className="text-xs text-[#595959] mb-1 block">
                 {t('fields.mobileNo')}
               </Label>
-              <div className="h-12 border rounded-md px-3 flex items-center bg-[#F5F5F5] text-[#212121]">
+              <div className="h-12 border rounded-md px-3 flex items-center bg-secondary text-foreground">
                 <span className="text-base">
                   {countryCode ? `${countryCode === '+66' ? '🇹🇭 TH(+66)' : '🇲🇲 MM(+95)'} ▼ ${phone || ''}` : ''}
                 </span>
@@ -259,8 +259,8 @@ export default function PersonalInfoPage() {
 
             {/* Email Address */}
             <div>
-              <Label htmlFor="email" className="text-xs text-[#757575] mb-1 block">
-                {t('fields.email')} <span className="text-[#F44336]">*</span>
+              <Label htmlFor="email" className="text-xs text-[#595959] mb-1 block">
+                {t('fields.email')} <span className="text-destructive">*</span>
               </Label>
               <Input
                 id="email"
@@ -273,7 +273,7 @@ export default function PersonalInfoPage() {
                 autoComplete="email"
               />
               {errors.email && (
-                <p id="email-error" role="alert" className="text-xs text-[#F44336] mt-1">
+                <p id="email-error" role="alert" className="text-xs text-destructive mt-1">
                   {errors.email.message}
                 </p>
               )}
@@ -281,7 +281,7 @@ export default function PersonalInfoPage() {
           </div>
 
           {/* Disclaimer text — per Pencil design */}
-          <p className="text-xs text-[#757575] text-center mt-6 mb-4">
+          <p className="text-xs text-[#595959] text-center mt-6 mb-4">
             {t('fields.checkInfoDisclaimer')}
           </p>
 
@@ -291,7 +291,7 @@ export default function PersonalInfoPage() {
             type="submit"
             disabled={isLoading}
             aria-busy={isLoading}
-            className="w-full h-12 rounded-full bg-[#FFE600] text-[#212121] font-semibold text-base hover:bg-[#FFE600]/90 disabled:opacity-50"
+            className="w-full h-12 rounded-full bg-[#FFE600] text-foreground font-semibold text-base hover:bg-[#FFE600]/90 disabled:opacity-50"
           >
             {isLoading ? (
               <>
@@ -315,13 +315,13 @@ export default function PersonalInfoPage() {
           <AlertDialogFooter>
             <AlertDialogCancel
               onClick={() => setShowSaveDialog(false)}
-              className="border-[#212121] text-[#212121]"
+              className="border-[#212121] text-foreground"
             >
               {t('register.saveDialogCancel')}
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={handleSaveAndExit}
-              className="bg-[#FFE600] text-[#212121] hover:bg-[#FFE600]/90"
+              className="bg-[#FFE600] text-foreground hover:bg-[#FFE600]/90"
             >
               {t('register.saveDialogConfirm')}
             </AlertDialogAction>

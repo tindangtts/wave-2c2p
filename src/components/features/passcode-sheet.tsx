@@ -96,10 +96,10 @@ export function PasscodeSheet({ open, onOpenChange, onVerified }: PasscodeSheetP
     <Drawer open={open} onOpenChange={handleOpenChange}>
       <DrawerContent className="pb-safe">
         <DrawerHeader className="text-center">
-          <DrawerTitle className="text-[20px] font-bold text-[#212121] text-center">
+          <DrawerTitle className="text-xl font-bold text-foreground text-center">
             Enter Passcode
           </DrawerTitle>
-          <DrawerDescription className="text-[12px] text-[#757575] text-center mt-1">
+          <DrawerDescription className="text-xs text-[#595959] text-center mt-1">
             Confirm your transfer
           </DrawerDescription>
         </DrawerHeader>

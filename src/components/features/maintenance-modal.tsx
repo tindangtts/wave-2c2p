@@ -22,15 +22,15 @@ export function MaintenanceModal({ open, onClose }: MaintenanceModalProps) {
       >
         <div className="flex flex-col items-center">
           <Wrench className="w-12 h-12 mb-4 mx-auto" style={{ color: '#FF9800' }} />
-          <AlertDialogTitle className="text-[20px] font-bold text-[#212121] mb-2">
+          <AlertDialogTitle className="text-xl font-bold text-foreground mb-2">
             System Under Maintenance
           </AlertDialogTitle>
-          <p className="text-[12px] font-normal text-[#757575] mb-6">
+          <p className="text-xs font-normal text-[#595959] mb-6">
             Currently system is under maintenance. We will be back soon.
           </p>
           <AlertDialogAction
             onClick={onClose}
-            className="w-full h-12 rounded-full bg-[#FFE600] text-[#212121] hover:bg-[#FFE600]/90"
+            className="w-full h-12 rounded-full bg-[#FFE600] text-foreground hover:bg-[#FFE600]/90"
           >
             Ok
           </AlertDialogAction>

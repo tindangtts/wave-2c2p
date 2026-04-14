@@ -23,14 +23,14 @@ export function ProcessingSteps({ steps }: ProcessingStepsProps) {
                 ? 'bg-[#00C853]'
                 : step.status === 'active'
                   ? 'bg-[#FFE600]'
-                  : 'bg-[#F5F5F5]'
+                  : 'bg-secondary'
             }`}
           >
             {step.status === 'complete' && (
               <Check className="w-5 h-5 text-white" />
             )}
             {step.status === 'active' && (
-              <Loader2 className="w-5 h-5 text-[#212121] animate-spin" />
+              <Loader2 className="w-5 h-5 text-foreground animate-spin" />
             )}
           </div>
 
@@ -38,10 +38,10 @@ export function ProcessingSteps({ steps }: ProcessingStepsProps) {
           <span
             className={`text-base ${
               step.status === 'complete'
-                ? 'text-[#757575]'
+                ? 'text-[#595959]'
                 : step.status === 'active'
-                  ? 'text-[#212121]'
-                  : 'text-[#9E9E9E]'
+                  ? 'text-foreground'
+                  : 'text-[#767676]'
             }`}
           >
             {step.label}

@@ -9,7 +9,7 @@ export function ProfileMenuSection({ heading, children }: ProfileMenuSectionProp
   return (
     <div>
       <p
-        className="text-[12px] font-normal text-[#9E9E9E] px-4 pt-4 pb-2"
+        className="text-xs font-normal text-[#767676] px-4 pt-4 pb-2"
         style={{ textTransform: "uppercase", letterSpacing: "0.08em" }}
       >
         {heading}

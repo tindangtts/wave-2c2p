@@ -15,12 +15,12 @@ function ContactRow({ icon, label, value, href }: ContactRowProps) {
   return (
     <a
       href={href}
-      className="flex items-center h-16 px-4 border-b border-[#E0E0E0] hover:bg-[#F5F5F5] transition-colors"
+      className="flex items-center h-16 px-4 border-b border-border hover:bg-secondary transition-colors"
     >
-      <span className="text-[#757575] mr-3">{icon}</span>
+      <span className="text-[#595959] mr-3">{icon}</span>
       <div className="flex flex-col">
-        <span className="text-[12px] font-normal text-[#9E9E9E]">{label}</span>
-        <span className="text-[16px] font-normal text-[#0091EA]">{value}</span>
+        <span className="text-xs font-normal text-[#767676]">{label}</span>
+        <span className="text-base font-normal text-[#0091EA]">{value}</span>
       </div>
     </a>
   );

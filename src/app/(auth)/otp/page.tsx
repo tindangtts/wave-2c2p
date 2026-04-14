@@ -180,13 +180,13 @@ function OTPPageContent() {
         </div>
 
         {/* Ref Code — per Pencil design */}
-        <p className="text-xs text-[#9E9E9E] text-center mt-3">
+        <p className="text-xs text-[#767676] text-center mt-3">
           Ref Code: {Math.random().toString(36).substring(2, 6).toUpperCase()}
         </p>
 
         {/* Error message */}
         {error && (
-          <p role="alert" className="text-xs text-[#F44336] mt-2 text-center">
+          <p role="alert" className="text-xs text-destructive mt-2 text-center">
             {error}
           </p>
         )}
@@ -201,7 +201,7 @@ function OTPPageContent() {
               {t('otp.resendLink')}
             </button>
           ) : (
-            <p className="text-xs text-[#757575]">
+            <p className="text-xs text-[#595959]">
               {t('otp.resendTimer', { time: formatTime(timeLeft) })}
             </p>
           )}
@@ -209,7 +209,7 @@ function OTPPageContent() {
 
         {/* Dev bypass notice */}
         {isDev && (
-          <p className="text-xs text-[#9E9E9E] mt-4 text-center">
+          <p className="text-xs text-[#767676] mt-4 text-center">
             {t('otp.devBypass')}
           </p>
         )}
@@ -222,7 +222,7 @@ function OTPPageContent() {
           onClick={() => handleVerify(otp)}
           disabled={otp.length !== 6 || isLoading}
           aria-busy={isLoading}
-          className="w-full h-12 rounded-full bg-[#FFE600] text-[#212121] font-semibold text-base hover:bg-[#FFD600] disabled:opacity-50"
+          className="w-full h-12 rounded-full bg-[#FFE600] text-foreground font-semibold text-base hover:bg-[#FFD600] disabled:opacity-50"
         >
           {isLoading ? (
             <>

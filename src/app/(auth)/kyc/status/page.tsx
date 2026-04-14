@@ -81,7 +81,7 @@ export default function KYCStatusPage() {
           {kycStatus === 'approved' && (
             <Button
               onClick={() => router.push('/home')}
-              className="w-full h-12 rounded-full bg-[#FFE600] text-[#212121] hover:bg-[#FFE600]/90"
+              className="w-full h-12 rounded-full bg-[#FFE600] text-foreground hover:bg-[#FFE600]/90"
             >
               {t('status.approved.cta')}
             </Button>
@@ -90,7 +90,7 @@ export default function KYCStatusPage() {
           {kycStatus === 'rejected' && (
             <Button
               onClick={() => router.push('/kyc/resubmit')}
-              className="w-full h-12 rounded-full bg-[#FFE600] text-[#212121] hover:bg-[#FFE600]/90"
+              className="w-full h-12 rounded-full bg-[#FFE600] text-foreground hover:bg-[#FFE600]/90"
             >
               {t('status.rejected.cta')}
             </Button>
@@ -105,7 +105,7 @@ export default function KYCStatusPage() {
               >
                 {t('status.pending.cta')}
               </Button>
-              <p className="text-xs text-[#757575] mt-2 text-center">
+              <p className="text-xs text-[#595959] mt-2 text-center">
                 {t('status.pending.note')}
               </p>
             </div>
@@ -114,7 +114,7 @@ export default function KYCStatusPage() {
           {kycStatus === 'expired' && (
             <Button
               onClick={() => router.push('/kyc/document-type')}
-              className="w-full h-12 rounded-full bg-[#FFE600] text-[#212121] hover:bg-[#FFE600]/90"
+              className="w-full h-12 rounded-full bg-[#FFE600] text-foreground hover:bg-[#FFE600]/90"
             >
               {t('status.expired.cta')}
             </Button>

@@ -37,7 +37,7 @@ export function FreezeCardToggle({ frozen, onFreezeChange }: FreezeCardTogglePro
   return (
     <>
       <div className="flex items-center gap-2">
-        <span className="text-[12px] font-normal text-[#212121]">Freeze Card</span>
+        <span className="text-xs font-normal text-foreground">Freeze Card</span>
         <Switch
           checked={frozen}
           onCheckedChange={handleSwitchClick}
@@ -64,7 +64,7 @@ export function FreezeCardToggle({ frozen, onFreezeChange }: FreezeCardTogglePro
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={handleConfirm}
-              className="bg-[#FFE600] text-[#212121] hover:bg-[#FFE600]/90"
+              className="bg-[#FFE600] text-foreground hover:bg-[#FFE600]/90"
             >
               {frozen ? "Unfreeze" : "Freeze"}
             </AlertDialogAction>

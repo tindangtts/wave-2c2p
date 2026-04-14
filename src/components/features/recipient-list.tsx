@@ -126,13 +126,13 @@ export function RecipientList({
       {/* Search bar */}
       <div className="px-4 py-3">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9E9E9E]" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#767676]" />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search recipients..."
-            className="w-full h-11 pl-9 pr-9 rounded-xl bg-[#F5F5F5] border-none text-sm text-[#212121] placeholder:text-[#9E9E9E] focus:outline-none focus:ring-2 focus:ring-[#0091EA]"
+            className="w-full h-11 pl-9 pr-9 rounded-xl bg-secondary border-none text-sm text-foreground placeholder:text-[#767676] focus:outline-none focus:ring-2 focus:ring-[#0091EA]"
             aria-label="Search recipients"
           />
           {query && (
@@ -141,7 +141,7 @@ export function RecipientList({
               className="absolute right-3 top-1/2 -translate-y-1/2 p-1"
               aria-label="Clear search"
             >
-              <X className="w-4 h-4 text-[#9E9E9E]" />
+              <X className="w-4 h-4 text-[#767676]" />
             </button>
           )}
         </div>
@@ -174,10 +174,10 @@ export function RecipientList({
           {/* Empty state */}
           {recipients.length === 0 && (
             <div className="flex flex-col items-center justify-center flex-1 px-8 py-12 text-center">
-              <p className="text-base font-bold text-[#212121] mb-2">
+              <p className="text-base font-bold text-foreground mb-2">
                 No recipients yet
               </p>
-              <p className="text-sm text-[#757575]">
+              <p className="text-sm text-[#595959]">
                 Add your first recipient to start sending money.
               </p>
             </div>
@@ -186,7 +186,7 @@ export function RecipientList({
           {/* Search no results */}
           {recipients.length > 0 && filtered.length === 0 && (
             <div className="flex flex-col items-center justify-center flex-1 px-8 py-12 text-center">
-              <p className="text-sm text-[#757575]">
+              <p className="text-sm text-[#595959]">
                 No recipients match &ldquo;{debouncedQuery}&rdquo;
               </p>
             </div>
@@ -195,7 +195,7 @@ export function RecipientList({
           {/* Favorites section */}
           {favorites.length > 0 && (
             <div>
-              <p className="px-4 py-2 text-xs text-[#757575] font-medium uppercase tracking-wide">
+              <p className="px-4 py-2 text-xs text-[#595959] font-medium uppercase tracking-wide">
                 Favorites
               </p>
               {favorites.map((r) => (
@@ -217,7 +217,7 @@ export function RecipientList({
           {/* All recipients section */}
           {all.length > 0 && (
             <div>
-              <p className="px-4 py-2 text-xs text-[#757575] font-medium uppercase tracking-wide">
+              <p className="px-4 py-2 text-xs text-[#595959] font-medium uppercase tracking-wide">
                 All Recipients
               </p>
               {all.map((r) => (

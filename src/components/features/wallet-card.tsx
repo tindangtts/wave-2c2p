@@ -83,7 +83,7 @@ export function WalletCard() {
   return (
     <div className="flex flex-col gap-2.5">
       {/* User greeting — design: Kanit 20px medium */}
-      <p className="text-[20px] font-medium text-[#000000] leading-[1.4]">
+      <p className="text-xl font-medium text-[#000000] leading-[1.4] truncate">
         {t("greeting", { firstName })}
       </p>
 
@@ -97,9 +97,9 @@ export function WalletCard() {
         {isLoading || !hydrated ? (
           <Skeleton className="h-5 w-[120px] bg-[#FDD835]" />
         ) : error ? (
-          <span className="text-sm text-[#757575]">{t("errors.balanceFetch")}</span>
+          <span className="text-sm text-[#595959]">{t("errors.balanceFetch")}</span>
         ) : (
-          <span className="text-[13px] font-normal text-[#000000]">
+          <span className="text-xs font-normal text-[#000000]">
             {showBalance
               ? wallet
                 ? formatCurrency(wallet.balance, "THB")

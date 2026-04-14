@@ -48,31 +48,31 @@ export default function WelcomePage() {
               <div className="flex items-start">
                 {/* THB side */}
                 <div className="flex-1">
-                  <p className="text-[11px] text-[#757575] mb-1.5">Amount</p>
+                  <p className="text-[0.6875rem] text-[#595959] mb-1.5">Amount</p>
                   <div className="flex items-center gap-1.5 mb-1">
                     <span className="text-base" role="img" aria-label="Thailand">🇹🇭</span>
-                    <span className="text-[11px] font-medium text-[#212121]">THB</span>
+                    <span className="text-[0.6875rem] font-medium text-foreground">THB</span>
                   </div>
-                  <p className="text-[22px] font-bold text-[#212121] leading-tight tabular-nums">
+                  <p className="text-[1.375rem] font-bold text-foreground leading-tight tabular-nums">
                     {formatCurrency(amountSatang, 'THB')}
                   </p>
                 </div>
 
                 {/* Transfer arrow icon */}
                 <div className="flex items-center justify-center pt-6">
-                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" className="text-[#9E9E9E]">
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" className="text-[#767676]">
                     <path d="M6 10h16m0 0l-4-4m4 4l-4 4M22 18H6m0 0l4-4m-4 4l4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </div>
 
                 {/* MMK side */}
                 <div className="flex-1 text-right">
-                  <p className="text-[11px] text-[#757575] mb-1.5">Converted Amount</p>
+                  <p className="text-[0.6875rem] text-[#595959] mb-1.5">Converted Amount</p>
                   <div className="flex items-center gap-1.5 justify-end mb-1">
                     <span className="text-base" role="img" aria-label="Myanmar">🇲🇲</span>
-                    <span className="text-[11px] font-medium text-[#212121]">MMK</span>
+                    <span className="text-[0.6875rem] font-medium text-foreground">MMK</span>
                   </div>
-                  <p className="text-[22px] font-bold text-[#212121] leading-tight tabular-nums">
+                  <p className="text-[1.375rem] font-bold text-foreground leading-tight tabular-nums">
                     {formatCurrency(convertedPya, 'MMK')}
                   </p>
                 </div>
@@ -98,7 +98,7 @@ export default function WelcomePage() {
         <div className="flex-1 bg-white -mt-10 rounded-t-[15px] px-4 pt-5 pb-6 relative z-10 shadow-[0_-1.5px_3.3px_rgba(128,128,128,0.15)]">
           {/* Section header */}
           <div className="flex items-center justify-between mb-5">
-            <h2 className="text-xl font-semibold text-[#212121]">
+            <h2 className="text-xl font-semibold text-foreground">
               Receiving Channels
             </h2>
             <span className="text-sm font-medium text-[#E33E38]">
@@ -109,22 +109,22 @@ export default function WelcomePage() {
           {/* Channel Card: Wave Agent */}
           <button
             onClick={() => router.push('/login')}
-            className="w-full mb-4 bg-white rounded-2xl border border-[#E0E0E0] shadow-sm overflow-hidden text-left active:scale-[0.98] transition-transform"
+            className="w-full mb-4 bg-white rounded-2xl border border-border shadow-sm overflow-hidden text-left active:scale-[0.98] transition-transform"
           >
             <div className="flex items-center justify-between px-4 py-3 border-b border-[#F0F0F0]">
-              <span className="text-base font-medium text-[#212121]">Wave Agent</span>
-              <ChevronRight className="w-5 h-5 text-[#9E9E9E]" />
+              <span className="text-base font-medium text-foreground">Wave Agent</span>
+              <ChevronRight className="w-5 h-5 text-[#767676]" />
             </div>
             <div className="flex items-center gap-3 px-4 py-3">
-              <div className="w-11 h-11 rounded-lg bg-[#0091EA] border border-[#E0E0E0] flex items-center justify-center flex-shrink-0">
+              <div className="w-11 h-11 rounded-lg bg-[#0091EA] border border-border flex items-center justify-center flex-shrink-0">
                 <span className="text-white text-sm font-bold">W</span>
               </div>
               <div className="flex-1" />
               <div className="text-right">
-                <p className="text-base font-bold text-[#212121] tabular-nums">
+                <p className="text-base font-bold text-foreground tabular-nums">
                   {formatCurrency(convertedPya, 'MMK')}
                 </p>
-                <p className="text-xs text-[#9E9E9E]">Fees: 10.00 THB</p>
+                <p className="text-xs text-[#767676]">Fees: 10.00 THB</p>
               </div>
             </div>
           </button>
@@ -132,25 +132,25 @@ export default function WelcomePage() {
           {/* Channel Card: Wave App */}
           <button
             onClick={() => router.push('/login')}
-            className="w-full mb-4 bg-white rounded-2xl border border-[#E0E0E0] shadow-sm overflow-hidden text-left active:scale-[0.98] transition-transform"
+            className="w-full mb-4 bg-white rounded-2xl border border-border shadow-sm overflow-hidden text-left active:scale-[0.98] transition-transform"
           >
             <div className="flex items-center justify-between px-4 py-3 border-b border-[#F0F0F0]">
-              <span className="text-base font-medium text-[#212121]">Wave App</span>
-              <ChevronRight className="w-5 h-5 text-[#9E9E9E]" />
+              <span className="text-base font-medium text-foreground">Wave App</span>
+              <ChevronRight className="w-5 h-5 text-[#767676]" />
             </div>
             <div className="flex items-center gap-3 px-4 py-3">
-              <div className="w-11 h-11 rounded-lg bg-[#FFE600] border border-[#E0E0E0] flex items-center justify-center flex-shrink-0">
-                <span className="text-[#212121] text-sm font-bold">W</span>
+              <div className="w-11 h-11 rounded-lg bg-[#FFE600] border border-border flex items-center justify-center flex-shrink-0">
+                <span className="text-foreground text-sm font-bold">W</span>
               </div>
-              <div className="w-11 h-11 rounded-lg bg-white border border-[#E0E0E0] flex items-center justify-center flex-shrink-0">
+              <div className="w-11 h-11 rounded-lg bg-white border border-border flex items-center justify-center flex-shrink-0">
                 <span className="text-[#E33E38] text-sm font-bold">W</span>
               </div>
               <div className="flex-1" />
               <div className="text-right">
-                <p className="text-base font-bold text-[#212121] tabular-nums">
+                <p className="text-base font-bold text-foreground tabular-nums">
                   {formatCurrency(convertedPya, 'MMK')}
                 </p>
-                <p className="text-xs text-[#9E9E9E]">Fees: 10.00 THB</p>
+                <p className="text-xs text-[#767676]">Fees: 10.00 THB</p>
               </div>
             </div>
           </button>

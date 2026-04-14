@@ -37,11 +37,11 @@ const statusConfig: Record<TransactionStatus, StatusConfig> = {
     label: "Processing",
   },
   rejected: {
-    text: "text-[#F44336]",
+    text: "text-destructive",
     label: "Rejected",
   },
   failed: {
-    text: "text-[#F44336]",
+    text: "text-destructive",
     label: "Failed",
   },
 };
@@ -93,7 +93,7 @@ export function RecentHistory() {
         </div>
         <button
           onClick={() => mutate()}
-          className="w-full text-sm text-[#757575] py-4 text-center"
+          className="w-full text-sm text-[#595959] py-4 text-center"
         >
           {t("errors.transactionFetch")}
         </button>
@@ -107,7 +107,7 @@ export function RecentHistory() {
     <div>
       {/* Section header */}
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-xl font-bold text-[#212121]">
+        <h3 className="text-xl font-bold text-foreground">
           {t("recentHistory.title")}
         </h3>
         <Link href="/history" aria-label="View all history">
@@ -118,10 +118,10 @@ export function RecentHistory() {
       {transactions.length === 0 ? (
         /* Empty state */
         <div className="flex flex-col items-center py-8 gap-2">
-          <p className="text-base font-bold text-[#212121]">
+          <p className="text-base font-bold text-foreground">
             {t("recentHistory.empty.heading")}
           </p>
-          <p className="text-sm text-[#757575] text-center">
+          <p className="text-sm text-[#595959] text-center">
             {t("recentHistory.empty.body")}
           </p>
         </div>
@@ -144,16 +144,16 @@ export function RecentHistory() {
               >
                 {/* Top row: description + amount */}
                 <div className="flex items-center justify-between">
-                  <span className="text-[15px] text-[#000000] truncate flex-1 min-w-0">
+                  <span className="text-sm text-[#000000] truncate flex-1 min-w-0">
                     {tx.description}
                   </span>
-                  <span className="text-[15px] font-medium text-[#000000] ml-2 whitespace-nowrap">
+                  <span className="text-sm font-medium text-[#000000] ml-2 whitespace-nowrap">
                     {amountPrefix}{formattedAmount}
                   </span>
                 </div>
                 {/* Bottom row: date + status */}
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-[#757575]">
+                  <span className="text-xs text-[#595959]">
                     {formatDate(tx.created_at)}
                   </span>
                   <span className={`text-xs font-medium ${sCfg.text}`}>

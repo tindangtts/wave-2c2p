@@ -168,7 +168,7 @@ export default function CapturePage() {
 
         <div className="flex flex-col flex-1 items-center px-4 pt-6 pb-8">
           {/* Image preview */}
-          <div className="w-full max-w-[300px] rounded-lg border-2 border-[#E0E0E0] overflow-hidden">
+          <div className="w-full max-w-[300px] rounded-lg border-2 border-border overflow-hidden">
             {imageToShow ? (
               <img
                 src={imageToShow}
@@ -176,13 +176,13 @@ export default function CapturePage() {
                 className="w-full object-cover"
               />
             ) : (
-              <div className="w-full aspect-[85.6/54] bg-[#F5F5F5] flex items-center justify-center">
-                <p className="text-[#9E9E9E] text-sm">No image</p>
+              <div className="w-full aspect-[85.6/54] bg-secondary flex items-center justify-center">
+                <p className="text-[#767676] text-sm">No image</p>
               </div>
             )}
           </div>
 
-          <p className="text-xs text-[#757575] text-center mt-4">
+          <p className="text-xs text-[#595959] text-center mt-4">
             {t('review.hint')}
           </p>
 
@@ -196,7 +196,7 @@ export default function CapturePage() {
             </Button>
             <Button
               onClick={handleUsePhoto}
-              className="flex-1 h-12 rounded-full bg-[#FFE600] text-[#212121] hover:bg-[#FFE600]/90"
+              className="flex-1 h-12 rounded-full bg-[#FFE600] text-foreground hover:bg-[#FFE600]/90"
             >
               {t('review.usePhoto')}
             </Button>

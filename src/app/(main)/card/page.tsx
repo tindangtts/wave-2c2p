@@ -30,13 +30,13 @@ export default function CardPage() {
           {/* Card holder & expiry */}
           <div className="flex items-end justify-between">
             <div>
-              <p className="text-[10px] text-foreground/60">CARD HOLDER</p>
+              <p className="text-[0.625rem] text-foreground/60">CARD HOLDER</p>
               <p className="text-sm font-semibold text-foreground">
                 LALITA TUNGTRAKUL
               </p>
             </div>
             <div className="text-right">
-              <p className="text-[10px] text-foreground/60">EXPIRES</p>
+              <p className="text-[0.625rem] text-foreground/60">EXPIRES</p>
               <p className="text-sm font-semibold text-foreground">
                 {showDetails ? "12/26" : "••/••"}
               </p>

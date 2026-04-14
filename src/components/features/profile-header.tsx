@@ -20,7 +20,7 @@ export function ProfileHeader({ name, title = "Profile Setting" }: ProfileHeader
       {/* Status bar space */}
       <div className="h-11 safe-top" />
       {/* Title */}
-      <h1 className="text-[20px] font-bold text-[#0091EA] text-center pt-2">
+      <h1 className="text-xl font-bold text-[#0091EA] text-center pt-2">
         {title}
       </h1>
       {/* Avatar */}
@@ -29,11 +29,11 @@ export function ProfileHeader({ name, title = "Profile Setting" }: ProfileHeader
           className="w-[72px] h-[72px] rounded-full bg-[#FFE600] border-2 border-[#212121] flex items-center justify-center"
           aria-label={`Avatar for ${name}`}
         >
-          <span className="text-[24px] font-bold text-[#212121] leading-none">
+          <span className="text-2xl font-bold text-foreground leading-none">
             {initials}
           </span>
         </div>
-        <p className="mt-2 text-[16px] font-bold text-[#212121]">{name}</p>
+        <p className="mt-2 text-base font-bold text-foreground">{name}</p>
       </div>
     </div>
   );

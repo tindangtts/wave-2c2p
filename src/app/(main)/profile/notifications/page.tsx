@@ -32,7 +32,7 @@ export default function NotificationsPage() {
         <div className="px-4 mt-6">
           <Button
             onClick={handleSave}
-            className="w-full h-14 rounded-full bg-[#FFE600] text-[#212121] font-semibold text-base hover:bg-[#FFD600]"
+            className="w-full h-14 rounded-full bg-[#FFE600] text-foreground font-semibold text-base hover:bg-[#FFD600]"
           >
             {t('notifications.saveCta')}
           </Button>

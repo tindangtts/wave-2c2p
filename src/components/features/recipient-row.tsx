@@ -64,7 +64,7 @@ export function RecipientRow({
         className="w-12 h-12 rounded-full bg-[#FFE600] flex items-center justify-center shrink-0"
         aria-hidden="true"
       >
-        <span className="text-[20px] font-bold text-[#212121]">{initial}</span>
+        <span className="text-xl font-bold text-foreground">{initial}</span>
       </div>
 
       {/* Name + type */}
@@ -89,11 +89,11 @@ export function RecipientRow({
               stroke={recipient.is_favorite ? "#0091EA" : "#C0C0C0"}
             />
           </button>
-          <p className="text-base font-bold text-[#212121] truncate">
+          <p className="text-base font-bold text-foreground truncate">
             {recipient.full_name}
           </p>
         </div>
-        <p className="text-xs text-[#757575] mt-0.5">{transferTypeLabel}</p>
+        <p className="text-xs text-[#595959] mt-0.5">{transferTypeLabel}</p>
       </div>
 
       {/* Kebab menu */}
@@ -103,7 +103,7 @@ export function RecipientRow({
           className="flex items-center justify-center w-11 h-11 shrink-0 rounded-full hover:bg-gray-100 transition-colors"
           aria-label={`More options for ${recipient.full_name}`}
         >
-          <MoreVertical className="w-6 h-6 text-[#757575]" />
+          <MoreVertical className="w-6 h-6 text-[#595959]" />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem

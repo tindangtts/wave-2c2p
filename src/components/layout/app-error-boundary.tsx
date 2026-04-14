@@ -41,17 +41,17 @@ export class AppErrorBoundary extends React.Component<
       }
 
       return (
-        <div className="bg-[#FAFAFA] flex flex-col items-center justify-center px-4 min-h-dvh">
+        <div className="bg-muted flex flex-col items-center justify-center px-4 min-h-dvh">
           <AlertCircle className="w-12 h-12 mb-4" style={{ color: '#F44336' }} />
-          <h1 className="text-[20px] font-bold text-[#212121] text-center mb-2">
+          <h1 className="text-xl font-bold text-foreground text-center mb-2">
             Something went wrong
           </h1>
-          <p className="text-[16px] font-normal text-[#757575] text-center mb-8">
+          <p className="text-base font-normal text-[#595959] text-center mb-8">
             An unexpected error occurred. Please try again.
           </p>
           <button
             onClick={this.handleReset}
-            className="rounded-full bg-[#FFE600] text-[#212121] h-14 px-8 text-base font-medium"
+            className="rounded-full bg-[#FFE600] text-foreground h-14 px-8 text-base font-medium"
           >
             Try Again
           </button>

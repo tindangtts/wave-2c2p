@@ -126,11 +126,11 @@ export default function ProcessingPage() {
     <div className="flex flex-col items-center justify-center min-h-screen px-4 bg-white">
       <Loader2 className="w-12 h-12 text-[#FFE600] animate-spin mb-6" />
 
-      <h1 className="text-xl font-bold text-[#212121] text-center mb-2">
+      <h1 className="text-xl font-bold text-foreground text-center mb-2">
         {t('processing.title')}
       </h1>
 
-      <p className="text-base text-[#757575] text-center mb-8">
+      <p className="text-base text-[#595959] text-center mb-8">
         {t('processing.subtitle')}
       </p>
 

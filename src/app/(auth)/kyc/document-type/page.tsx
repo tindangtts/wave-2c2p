@@ -57,10 +57,10 @@ export default function DocumentTypePage() {
       <StepIndicator currentStep={1} totalSteps={5} namespace="kyc" />
 
       <div className="flex flex-col flex-1 px-4 pt-6 pb-8">
-        <h2 className="text-xl font-bold text-[#212121] mb-2">
+        <h2 className="text-xl font-bold text-foreground mb-2">
           {t('selectDocType.title')}
         </h2>
-        <p className="text-base text-[#757575] mb-6">
+        <p className="text-base text-[#595959] mb-6">
           {t('selectDocType.subtitle')}
         </p>
 
@@ -86,7 +86,7 @@ export default function DocumentTypePage() {
         <Button
           onClick={handleContinue}
           disabled={!selectedType}
-          className="w-full h-12 rounded-full bg-[#FFE600] text-[#212121] hover:bg-[#FFE600]/90 disabled:opacity-50"
+          className="w-full h-12 rounded-full bg-[#FFE600] text-foreground hover:bg-[#FFE600]/90 disabled:opacity-50"
         >
           {t('cta.continue')}
         </Button>

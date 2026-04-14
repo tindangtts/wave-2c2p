@@ -32,18 +32,18 @@ export function DocumentTypeCard({
       className={`flex flex-row items-center gap-3 p-4 min-h-[64px] cursor-pointer transition-colors duration-150 rounded-xl ${
         selected
           ? 'border-2 border-[#FFE600] bg-[#FFFDE7]'
-          : 'border border-[#E0E0E0] bg-white'
+          : 'border border-border bg-white'
       }`}
     >
       <Icon
-        className={`w-6 h-6 shrink-0 ${selected ? 'text-[#212121]' : 'text-[#757575]'}`}
+        className={`w-6 h-6 shrink-0 ${selected ? 'text-foreground' : 'text-[#595959]'}`}
       />
-      <span className="text-base text-[#212121] flex-1">{label}</span>
+      <span className="text-base text-foreground flex-1">{label}</span>
       <div
         className={`w-5 h-5 rounded-full shrink-0 flex items-center justify-center ${
           selected
             ? 'bg-[#FFE600]'
-            : 'border-2 border-[#E0E0E0]'
+            : 'border-2 border-border'
         }`}
       >
         {selected && <div className="w-2 h-2 rounded-full bg-white" />}

@@ -50,7 +50,7 @@ export default function ReferFriendsPage() {
         onBack={() => router.push('/profile')}
       />
       <div className="flex-1 flex flex-col px-4 pt-6 pb-8 gap-4">
-        <p className="text-sm text-[#757575]">
+        <p className="text-sm text-[#595959]">
           {t('referFriends.instruction')}
         </p>
 
@@ -60,7 +60,7 @@ export default function ReferFriendsPage() {
 
         <Button
           onClick={handleShare}
-          className="w-full h-14 rounded-full bg-[#FFE600] text-[#212121] font-semibold text-base hover:bg-[#FFD600]"
+          className="w-full h-14 rounded-full bg-[#FFE600] text-foreground font-semibold text-base hover:bg-[#FFD600]"
         >
           {t('referFriends.shareCta')}
         </Button>

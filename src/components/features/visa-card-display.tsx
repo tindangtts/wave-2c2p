@@ -43,7 +43,7 @@ export function VisaCardDisplay({
 
       {/* Card number row */}
       <div className="mt-8 mx-5">
-        <span className="text-white font-bold tracking-widest text-[20px]">
+        <span className="text-white font-bold tracking-widest text-xl">
           {displayNumber}
         </span>
       </div>
@@ -52,14 +52,14 @@ export function VisaCardDisplay({
       <div className="absolute bottom-0 left-0 right-0 mx-5 mb-5 flex justify-between items-end">
         <div className="flex flex-col">
           <span
-            className="text-[10px] font-normal"
+            className="text-[0.625rem] font-normal"
             style={{ color: "rgba(255,255,255,0.7)" }}
           >
             VALID THRU
           </span>
-          <span className="text-[12px] font-bold text-white">{expiry}</span>
+          <span className="text-xs font-bold text-white">{expiry}</span>
         </div>
-        <span className="text-[12px] font-normal text-white uppercase">
+        <span className="text-xs font-normal text-white uppercase">
           {holderName}
         </span>
       </div>
@@ -68,7 +68,7 @@ export function VisaCardDisplay({
       {frozen && (
         <div className="absolute inset-0 rounded-2xl flex flex-col items-center justify-center bg-black/55">
           <Snowflake className="text-white" style={{ width: 32, height: 32 }} />
-          <span className="text-white font-bold text-[16px] mt-2">Card Frozen</span>
+          <span className="text-white font-bold text-base mt-2">Card Frozen</span>
         </div>
       )}
     </div>

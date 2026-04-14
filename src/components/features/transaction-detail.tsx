@@ -19,8 +19,8 @@ const statusConfig: Record<TransactionStatus, { bg: string; text: string; label:
   success: { bg: 'bg-[#E8F5E9]', text: 'text-[#00C853]', label: 'Success' },
   pending: { bg: 'bg-[#FFF3E0]', text: 'text-[#FF9800]', label: 'Pending' },
   processing: { bg: 'bg-[#FFF3E0]', text: 'text-[#FF9800]', label: 'Processing' },
-  rejected: { bg: 'bg-[#FFEBEE]', text: 'text-[#F44336]', label: 'Rejected' },
-  failed: { bg: 'bg-[#FFEBEE]', text: 'text-[#F44336]', label: 'Failed' },
+  rejected: { bg: 'bg-[#FFEBEE]', text: 'text-destructive', label: 'Rejected' },
+  failed: { bg: 'bg-[#FFEBEE]', text: 'text-destructive', label: 'Failed' },
 }
 
 interface ReceiptRowProps {
@@ -32,9 +32,9 @@ interface ReceiptRowProps {
 function ReceiptRow({ label, value, mono }: ReceiptRowProps) {
   return (
     <div className="flex items-baseline justify-between gap-4 py-1">
-      <span className="text-base text-[#757575] flex-shrink-0">{label}</span>
+      <span className="text-base text-[#595959] flex-shrink-0">{label}</span>
       <span
-        className={`text-base font-bold text-[#212121] text-right ${mono ? 'font-mono text-xs text-[#757575]' : ''}`}
+        className={`text-base font-bold text-foreground text-right ${mono ? 'font-mono text-xs text-[#595959]' : ''}`}
       >
         {value}
       </span>
@@ -79,7 +79,7 @@ export function TransactionDetail({ transaction }: TransactionDetailProps) {
       </div>
 
       {/* Receipt card */}
-      <div className="mx-4 bg-white rounded-2xl shadow-sm border border-[#E0E0E0] p-4">
+      <div className="mx-4 bg-white rounded-2xl shadow-sm border border-border p-4">
         {/* Logo placeholder */}
         <div className="flex items-center justify-center h-8 mb-4">
           <span className="text-base font-bold text-[#0091EA] tracking-wide">2C2P WAVE</span>
@@ -101,21 +101,21 @@ export function TransactionDetail({ transaction }: TransactionDetailProps) {
         </div>
 
         {/* Separator */}
-        <div className="border-t border-[#E0E0E0] my-3" />
+        <div className="border-t border-border my-3" />
 
         {/* Amount breakdown */}
         <div className="space-y-1">
           <div className="flex items-baseline justify-between gap-4 py-1">
-            <span className="text-base text-[#757575]">Amount</span>
-            <span className={`text-base font-bold ${isCredit ? 'text-[#00C853]' : 'text-[#212121]'}`}>
+            <span className="text-base text-[#595959]">Amount</span>
+            <span className={`text-base font-bold ${isCredit ? 'text-[#00C853]' : 'text-foreground'}`}>
               {formatCurrency(transaction.amount, transaction.currency as CurrencyCode)}
             </span>
           </div>
 
           {fee > 0 && (
             <div className="flex items-baseline justify-between gap-4 py-1">
-              <span className="text-base text-[#757575]">Fee</span>
-              <span className="text-base font-bold text-[#F44336]">
+              <span className="text-base text-[#595959]">Fee</span>
+              <span className="text-base font-bold text-destructive">
                 {formatCurrency(fee, 'THB')}
               </span>
             </div>
@@ -123,8 +123,8 @@ export function TransactionDetail({ transaction }: TransactionDetailProps) {
 
           {transaction.converted_amount && transaction.converted_currency && (
             <div className="flex items-baseline justify-between gap-4 py-1">
-              <span className="text-base text-[#757575]">Converted</span>
-              <span className="text-base text-[#757575]">
+              <span className="text-base text-[#595959]">Converted</span>
+              <span className="text-base text-[#595959]">
                 {formatCurrency(
                   transaction.converted_amount,
                   transaction.converted_currency as CurrencyCode
@@ -133,11 +133,11 @@ export function TransactionDetail({ transaction }: TransactionDetailProps) {
             </div>
           )}
 
-          <div className="border-t border-[#E0E0E0] my-2" />
+          <div className="border-t border-border my-2" />
 
           <div className="flex items-baseline justify-between gap-4 py-1">
-            <span className="text-xl font-bold text-[#212121]">Total</span>
-            <span className="text-xl font-bold text-[#212121]">
+            <span className="text-xl font-bold text-foreground">Total</span>
+            <span className="text-xl font-bold text-foreground">
               {formatCurrency(totalSatang, transaction.currency as CurrencyCode)}
             </span>
           </div>

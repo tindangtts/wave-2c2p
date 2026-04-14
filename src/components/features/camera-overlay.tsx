@@ -70,7 +70,7 @@ export function CameraOverlay({
       {variant === 'document' && (
         /* Yellow instruction banner — per Pencil design */
         <div className="mx-4 mt-3 bg-[#FFE600] rounded-lg py-2 px-4">
-          <p className="text-sm text-[#212121] text-center font-medium">{instruction}</p>
+          <p className="text-sm text-foreground text-center font-medium">{instruction}</p>
         </div>
       )}
 

@@ -33,14 +33,14 @@ import type { Recipient } from "@/types";
 function FieldError({ message }: { message?: string }) {
   if (!message) return null;
   return (
-    <p role="alert" className="text-xs text-[#F44336] mt-1">
+    <p role="alert" className="text-xs text-destructive mt-1">
       {message}
     </p>
   );
 }
 
 function SectionDivider() {
-  return <hr className="border-t border-[#E0E0E0] my-6" />;
+  return <hr className="border-t border-border my-6" />;
 }
 
 function FormSkeleton() {
@@ -161,10 +161,10 @@ export default function EditRecipientPage({
               <div>
                 <Label
                   htmlFor="transfer_type"
-                  className="text-xs text-[#212121] mb-1 block"
+                  className="text-xs text-foreground mb-1 block"
                 >
                   {t("label_transfer_type")}{" "}
-                  <span className="text-[#F44336]">*</span>
+                  <span className="text-destructive">*</span>
                 </Label>
                 <Select
                   value={transferType ?? ""}
@@ -180,7 +180,7 @@ export default function EditRecipientPage({
                 >
                   <SelectTrigger
                     id="transfer_type"
-                    className="h-12 w-full rounded-xl border-[#E0E0E0] focus-visible:border-[#0091EA]"
+                    className="h-12 w-full rounded-xl border-border focus-visible:border-[#0091EA]"
                     aria-invalid={!!errors.transfer_type}
                   >
                     <SelectValue placeholder="Select type" />
@@ -209,15 +209,15 @@ export default function EditRecipientPage({
                   <div>
                     <Label
                       htmlFor="bank_name"
-                      className="text-xs text-[#212121] mb-1 block"
+                      className="text-xs text-foreground mb-1 block"
                     >
                       {t("label_bank_name")}{" "}
-                      <span className="text-[#F44336]">*</span>
+                      <span className="text-destructive">*</span>
                     </Label>
                     <Input
                       id="bank_name"
                       {...form.register("bank_name")}
-                      className="h-12 rounded-xl border-[#E0E0E0] focus-visible:border-[#0091EA]"
+                      className="h-12 rounded-xl border-border focus-visible:border-[#0091EA]"
                       aria-invalid={!!errors.bank_name}
                     />
                     <FieldError message={errors.bank_name?.message} />
@@ -225,15 +225,15 @@ export default function EditRecipientPage({
                   <div>
                     <Label
                       htmlFor="account_no"
-                      className="text-xs text-[#212121] mb-1 block"
+                      className="text-xs text-foreground mb-1 block"
                     >
                       {t("label_account_no")}{" "}
-                      <span className="text-[#F44336]">*</span>
+                      <span className="text-destructive">*</span>
                     </Label>
                     <Input
                       id="account_no"
                       {...form.register("account_no")}
-                      className="h-12 rounded-xl border-[#E0E0E0] focus-visible:border-[#0091EA]"
+                      className="h-12 rounded-xl border-border focus-visible:border-[#0091EA]"
                       aria-invalid={!!errors.account_no}
                     />
                     <FieldError message={errors.account_no?.message} />
@@ -250,15 +250,15 @@ export default function EditRecipientPage({
               <div>
                 <Label
                   htmlFor="first_name"
-                  className="text-xs text-[#212121] mb-1 block"
+                  className="text-xs text-foreground mb-1 block"
                 >
                   {t("label_first_name")}{" "}
-                  <span className="text-[#F44336]">*</span>
+                  <span className="text-destructive">*</span>
                 </Label>
                 <Input
                   id="first_name"
                   {...form.register("first_name")}
-                  className="h-12 rounded-xl border-[#E0E0E0] focus-visible:border-[#0091EA]"
+                  className="h-12 rounded-xl border-border focus-visible:border-[#0091EA]"
                   aria-invalid={!!errors.first_name}
                   autoComplete="given-name"
                 />
@@ -269,15 +269,15 @@ export default function EditRecipientPage({
               <div>
                 <Label
                   htmlFor="last_name"
-                  className="text-xs text-[#212121] mb-1 block"
+                  className="text-xs text-foreground mb-1 block"
                 >
                   {t("label_last_name")}{" "}
-                  <span className="text-[#F44336]">*</span>
+                  <span className="text-destructive">*</span>
                 </Label>
                 <Input
                   id="last_name"
                   {...form.register("last_name")}
-                  className="h-12 rounded-xl border-[#E0E0E0] focus-visible:border-[#0091EA]"
+                  className="h-12 rounded-xl border-border focus-visible:border-[#0091EA]"
                   aria-invalid={!!errors.last_name}
                   autoComplete="family-name"
                 />
@@ -288,16 +288,16 @@ export default function EditRecipientPage({
               <div>
                 <Label
                   htmlFor="nrc"
-                  className="text-xs text-[#212121] mb-1 block"
+                  className="text-xs text-foreground mb-1 block"
                 >
                   {t("label_nrc")}{" "}
-                  <span className="text-xs text-[#9E9E9E]">(optional)</span>
+                  <span className="text-xs text-[#767676]">(optional)</span>
                 </Label>
                 <Input
                   id="nrc"
                   {...form.register("nrc")}
                   placeholder="e.g. 12/DAGANA(N)123456"
-                  className="h-12 rounded-xl border-[#E0E0E0] focus-visible:border-[#0091EA]"
+                  className="h-12 rounded-xl border-border focus-visible:border-[#0091EA]"
                   aria-invalid={!!errors.nrc}
                 />
                 <FieldError message={errors.nrc?.message} />
@@ -307,13 +307,13 @@ export default function EditRecipientPage({
               <div>
                 <Label
                   htmlFor="phone"
-                  className="text-xs text-[#212121] mb-1 block"
+                  className="text-xs text-foreground mb-1 block"
                 >
                   {t("label_phone")}{" "}
-                  <span className="text-[#F44336]">*</span>
+                  <span className="text-destructive">*</span>
                 </Label>
                 <div className="flex items-center gap-2">
-                  <span className="flex items-center h-12 px-3 rounded-xl border border-[#E0E0E0] bg-[#F5F5F5] text-sm text-[#212121] shrink-0">
+                  <span className="flex items-center h-12 px-3 rounded-xl border border-border bg-secondary text-sm text-foreground shrink-0">
                     +95
                   </span>
                   <Input
@@ -321,7 +321,7 @@ export default function EditRecipientPage({
                     type="tel"
                     {...form.register("phone")}
                     placeholder="9xxxxxxxxx"
-                    className="h-12 rounded-xl border-[#E0E0E0] focus-visible:border-[#0091EA] flex-1"
+                    className="h-12 rounded-xl border-border focus-visible:border-[#0091EA] flex-1"
                     aria-invalid={!!errors.phone}
                     autoComplete="tel"
                   />
@@ -333,10 +333,10 @@ export default function EditRecipientPage({
               <div>
                 <Label
                   htmlFor="occupation"
-                  className="text-xs text-[#212121] mb-1 block"
+                  className="text-xs text-foreground mb-1 block"
                 >
                   {t("label_occupation")}{" "}
-                  <span className="text-xs text-[#9E9E9E]">(optional)</span>
+                  <span className="text-xs text-[#767676]">(optional)</span>
                 </Label>
                 <Select
                   value={form.watch("occupation") ?? ""}
@@ -356,7 +356,7 @@ export default function EditRecipientPage({
                 >
                   <SelectTrigger
                     id="occupation"
-                    className="h-12 w-full rounded-xl border-[#E0E0E0] focus-visible:border-[#0091EA]"
+                    className="h-12 w-full rounded-xl border-border focus-visible:border-[#0091EA]"
                   >
                     <SelectValue placeholder="Select occupation" />
                   </SelectTrigger>
@@ -379,10 +379,10 @@ export default function EditRecipientPage({
               <div>
                 <Label
                   htmlFor="transfer_purpose"
-                  className="text-xs text-[#212121] mb-1 block"
+                  className="text-xs text-foreground mb-1 block"
                 >
                   {t("label_purpose")}{" "}
-                  <span className="text-[#F44336]">*</span>
+                  <span className="text-destructive">*</span>
                 </Label>
                 <Select
                   value={form.watch("transfer_purpose") ?? ""}
@@ -398,7 +398,7 @@ export default function EditRecipientPage({
                 >
                   <SelectTrigger
                     id="transfer_purpose"
-                    className="h-12 w-full rounded-xl border-[#E0E0E0] focus-visible:border-[#0091EA]"
+                    className="h-12 w-full rounded-xl border-border focus-visible:border-[#0091EA]"
                     aria-invalid={!!errors.transfer_purpose}
                   >
                     <SelectValue placeholder="Select purpose" />
@@ -418,10 +418,10 @@ export default function EditRecipientPage({
               <div>
                 <Label
                   htmlFor="relationship"
-                  className="text-xs text-[#212121] mb-1 block"
+                  className="text-xs text-foreground mb-1 block"
                 >
                   {t("label_relationship")}{" "}
-                  <span className="text-[#F44336]">*</span>
+                  <span className="text-destructive">*</span>
                 </Label>
                 <Select
                   value={form.watch("relationship") ?? ""}
@@ -437,7 +437,7 @@ export default function EditRecipientPage({
                 >
                   <SelectTrigger
                     id="relationship"
-                    className="h-12 w-full rounded-xl border-[#E0E0E0] focus-visible:border-[#0091EA]"
+                    className="h-12 w-full rounded-xl border-border focus-visible:border-[#0091EA]"
                     aria-invalid={!!errors.relationship}
                   >
                     <SelectValue placeholder="Select relationship" />
@@ -462,15 +462,15 @@ export default function EditRecipientPage({
               <div>
                 <Label
                   htmlFor="address_line_1"
-                  className="text-xs text-[#212121] mb-1 block"
+                  className="text-xs text-foreground mb-1 block"
                 >
                   {t("label_address1")}{" "}
-                  <span className="text-[#F44336]">*</span>
+                  <span className="text-destructive">*</span>
                 </Label>
                 <Input
                   id="address_line_1"
                   {...form.register("address_line_1")}
-                  className="h-12 rounded-xl border-[#E0E0E0] focus-visible:border-[#0091EA]"
+                  className="h-12 rounded-xl border-border focus-visible:border-[#0091EA]"
                   aria-invalid={!!errors.address_line_1}
                 />
                 <FieldError message={errors.address_line_1?.message} />
@@ -480,15 +480,15 @@ export default function EditRecipientPage({
               <div>
                 <Label
                   htmlFor="address_line_2"
-                  className="text-xs text-[#212121] mb-1 block"
+                  className="text-xs text-foreground mb-1 block"
                 >
                   {t("label_address2")}{" "}
-                  <span className="text-xs text-[#9E9E9E]">(optional)</span>
+                  <span className="text-xs text-[#767676]">(optional)</span>
                 </Label>
                 <Input
                   id="address_line_2"
                   {...form.register("address_line_2")}
-                  className="h-12 rounded-xl border-[#E0E0E0] focus-visible:border-[#0091EA]"
+                  className="h-12 rounded-xl border-border focus-visible:border-[#0091EA]"
                 />
               </div>
 
@@ -496,14 +496,14 @@ export default function EditRecipientPage({
               <div>
                 <Label
                   htmlFor="city"
-                  className="text-xs text-[#212121] mb-1 block"
+                  className="text-xs text-foreground mb-1 block"
                 >
-                  {t("label_city")} <span className="text-[#F44336]">*</span>
+                  {t("label_city")} <span className="text-destructive">*</span>
                 </Label>
                 <Input
                   id="city"
                   {...form.register("city")}
-                  className="h-12 rounded-xl border-[#E0E0E0] focus-visible:border-[#0091EA]"
+                  className="h-12 rounded-xl border-border focus-visible:border-[#0091EA]"
                   aria-invalid={!!errors.city}
                 />
                 <FieldError message={errors.city?.message} />
@@ -513,15 +513,15 @@ export default function EditRecipientPage({
               <div>
                 <Label
                   htmlFor="state_region"
-                  className="text-xs text-[#212121] mb-1 block"
+                  className="text-xs text-foreground mb-1 block"
                 >
                   {t("label_state")}{" "}
-                  <span className="text-[#F44336]">*</span>
+                  <span className="text-destructive">*</span>
                 </Label>
                 <Input
                   id="state_region"
                   {...form.register("state_region")}
-                  className="h-12 rounded-xl border-[#E0E0E0] focus-visible:border-[#0091EA]"
+                  className="h-12 rounded-xl border-border focus-visible:border-[#0091EA]"
                   aria-invalid={!!errors.state_region}
                 />
                 <FieldError message={errors.state_region?.message} />
@@ -537,7 +537,7 @@ export default function EditRecipientPage({
           type="button"
           onClick={form.handleSubmit(onSubmit)}
           disabled={isSubmitting || (isLoading && !recipient)}
-          className="w-full h-14 rounded-full bg-[#FFE600] hover:bg-[#FFD600] text-[#212121] font-bold text-base"
+          className="w-full h-14 rounded-full bg-[#FFE600] hover:bg-[#FFD600] text-foreground font-bold text-base"
         >
           {isSubmitting ? (
             <Loader2 className="w-5 h-5 animate-spin" />

@@ -144,7 +144,7 @@ export default function LoginPage() {
 
           {/* Language selector — design: rounded pill with blue border */}
           <Select value={currentLocale} onValueChange={handleLocaleChange}>
-            <SelectTrigger className="w-auto h-8 gap-1.5 rounded-full border-[#026fa2] border-[0.5px] bg-white px-3 text-[13px] shadow-none">
+            <SelectTrigger className="w-auto h-8 gap-1.5 rounded-full border-[#026fa2] border-[0.5px] bg-white px-3 text-xs shadow-none">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="flex-shrink-0">
                 <circle cx="12" cy="12" r="10" stroke="#026fa2" strokeWidth="2"/>
                 <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" stroke="#026fa2" strokeWidth="2"/>
@@ -165,14 +165,14 @@ export default function LoginPage() {
         </div>
 
         {/* Heading */}
-        <h1 className="text-xl font-bold text-[#212121]">{t('login.title')}</h1>
-        <p className="text-base text-[#757575] mt-2">{t('login.subtitle')}</p>
+        <h1 className="text-xl font-bold text-foreground">{t('login.title')}</h1>
+        <p className="text-base text-[#595959] mt-2">{t('login.subtitle')}</p>
 
         {/* Phone Number field group — card wrapper per design */}
-        <div className="mt-8 bg-[#F5F5F5] rounded-2xl p-4">
+        <div className="mt-8 bg-secondary rounded-2xl p-4">
           <Label
             htmlFor="phone-input"
-            className="text-xs text-[#757575] mb-2 block"
+            className="text-xs text-[#595959] mb-2 block"
           >
             {t('login.phoneLabel')}
           </Label>
@@ -216,7 +216,7 @@ export default function LoginPage() {
         </div>
 
         {/* Hint text */}
-        <p className="text-xs text-[#9E9E9E] text-center mt-2">
+        <p className="text-xs text-[#767676] text-center mt-2">
           {countryCode === '+66' ? 'Example +66 9xxx' : 'Example +95 9xxx'}
         </p>
 
@@ -224,7 +224,7 @@ export default function LoginPage() {
           <p
             id="phone-error"
             role="alert"
-            className="text-xs text-[#F44336] mt-1 text-center"
+            className="text-xs text-destructive mt-1 text-center"
           >
             {error}
           </p>
@@ -238,7 +238,7 @@ export default function LoginPage() {
           onClick={handleSubmit}
           disabled={!isCtaEnabled}
           aria-busy={isLoading}
-          className="w-full h-12 rounded-full bg-gradient-to-b from-[#F5F5F5] to-[#E0E0E0] text-[#0091EA] font-semibold text-base shadow-sm hover:from-[#EEEEEE] hover:to-[#D6D6D6] disabled:opacity-50 border border-[#E0E0E0]"
+          className="w-full h-12 rounded-full bg-gradient-to-b from-[#F5F5F5] to-[#E0E0E0] text-[#0091EA] font-semibold text-base shadow-sm hover:from-[#EEEEEE] hover:to-[#D6D6D6] disabled:opacity-50 border border-border"
         >
           {isLoading ? (
             <>

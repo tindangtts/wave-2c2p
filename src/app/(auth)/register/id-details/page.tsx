@@ -101,7 +101,7 @@ export default function IdDetailsPage() {
       <StepIndicator currentStep={2} />
 
       <div className="flex-1 flex flex-col px-4 pt-6 pb-8">
-        <p className="text-base text-[#757575] mb-6">{t('register.step2Subtitle')}</p>
+        <p className="text-base text-[#595959] mb-6">{t('register.step2Subtitle')}</p>
 
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col flex-1" noValidate>
           <div className="flex flex-col gap-6">
@@ -109,7 +109,7 @@ export default function IdDetailsPage() {
             <div>
               <Label
                 htmlFor="idType"
-                className="text-base text-[#212121] font-normal mb-2 block"
+                className="text-base text-foreground font-normal mb-2 block"
               >
                 {t('fields.idType')}
               </Label>
@@ -141,7 +141,7 @@ export default function IdDetailsPage() {
                 <p
                   id="idType-error"
                   role="alert"
-                  className="text-xs text-[#F44336] mt-1"
+                  className="text-xs text-destructive mt-1"
                 >
                   {errors.idType.message}
                 </p>
@@ -152,7 +152,7 @@ export default function IdDetailsPage() {
             <div>
               <Label
                 htmlFor="idNumber"
-                className="text-base text-[#212121] font-normal mb-2 block"
+                className="text-base text-foreground font-normal mb-2 block"
               >
                 {t('fields.idNumber')}
               </Label>
@@ -168,7 +168,7 @@ export default function IdDetailsPage() {
                 <p
                   id="idNumber-error"
                   role="alert"
-                  className="text-xs text-[#F44336] mt-1"
+                  className="text-xs text-destructive mt-1"
                 >
                   {errors.idNumber.message}
                 </p>
@@ -179,7 +179,7 @@ export default function IdDetailsPage() {
             <div>
               <Label
                 htmlFor="idExpiry"
-                className="text-base text-[#212121] font-normal mb-2 block"
+                className="text-base text-foreground font-normal mb-2 block"
               >
                 {t('fields.idExpiry')}
               </Label>
@@ -197,7 +197,7 @@ export default function IdDetailsPage() {
                 <p
                   id="idExpiry-error"
                   role="alert"
-                  className="text-xs text-[#F44336] mt-1"
+                  className="text-xs text-destructive mt-1"
                 >
                   {errors.idExpiry.message}
                 </p>
@@ -211,7 +211,7 @@ export default function IdDetailsPage() {
             type="submit"
             disabled={isLoading}
             aria-busy={isLoading}
-            className="w-full h-12 rounded-full bg-[#FFE600] text-[#212121] font-semibold text-base hover:bg-[#FFE600]/90 disabled:opacity-50"
+            className="w-full h-12 rounded-full bg-[#FFE600] text-foreground font-semibold text-base hover:bg-[#FFE600]/90 disabled:opacity-50"
           >
             {isLoading ? (
               <>

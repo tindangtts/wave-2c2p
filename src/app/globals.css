@@ -111,8 +111,8 @@
   --color-gray-200: #EEEEEE;
   --color-gray-300: #E0E0E0;
   --color-gray-400: #BDBDBD;
-  --color-gray-500: #9E9E9E;
-  --color-gray-600: #757575;
+  --color-gray-500: #767676;  /* WCAG AA compliant on white (4.5:1) */
+  --color-gray-600: #595959;  /* WCAG AA compliant on white (5.3:1) */
   --color-gray-700: #616161;
   --color-gray-800: #424242;
   --color-gray-900: #212121;
@@ -131,7 +131,7 @@
   --secondary: #F5F5F5;
   --secondary-foreground: #212121;
   --muted: #FAFAFA;
-  --muted-foreground: #757575;
+  --muted-foreground: #595959;
   --accent: #0091EA;
   --accent-foreground: #FFFFFF;
   --destructive: #F44336;
@@ -256,4 +256,15 @@
 
 .animate-shake {
   animation: shake 300ms ease-in-out;
+}
+
+/* Global focus-visible indicators for WCAG 2.4.7 — keyboard users */
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible,
+[role="radio"]:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid #0091EA;
+  outline-offset: 2px;
+  border-radius: 4px;
 }

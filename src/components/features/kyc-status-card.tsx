@@ -28,7 +28,7 @@ const STATUS_CONFIG = {
   },
   expired: {
     icon: Clock,
-    bgColor: 'bg-[#9E9E9E]',
+    bgColor: 'bg-[#767676]',
   },
 } as const
 
@@ -60,12 +60,12 @@ export function KYCStatusCard({
           </div>
 
           {/* Status title */}
-          <h2 className="text-lg font-bold text-[#212121] text-center mb-2">
+          <h2 className="text-lg font-bold text-foreground text-center mb-2">
             {t(`status.${status}.title`)}
           </h2>
 
           {/* Status description */}
-          <p className="text-sm text-[#757575] text-center mb-4">
+          <p className="text-sm text-[#595959] text-center mb-4">
             {t(`status.${status}.description`)}
           </p>
 
@@ -76,8 +76,8 @@ export function KYCStatusCard({
               <ul role="list" className="space-y-2 w-full">
                 {rejectionReasons.map((reason, index) => (
                   <li key={index} className="flex items-start gap-2">
-                    <XCircle className="w-4 h-4 text-[#F44336] mt-0.5 shrink-0" />
-                    <span className="text-sm text-[#212121]">{reason}</span>
+                    <XCircle className="w-4 h-4 text-destructive mt-0.5 shrink-0" />
+                    <span className="text-sm text-foreground">{reason}</span>
                   </li>
                 ))}
               </ul>
@@ -100,27 +100,27 @@ export function KYCStatusCard({
       </div>
 
       {/* Status title */}
-      <h2 className="text-xl font-bold text-[#212121] text-center mb-2">
+      <h2 className="text-xl font-bold text-foreground text-center mb-2">
         {t(`status.${status}.title`)}
       </h2>
 
       {/* Status description */}
-      <p className="text-base text-[#757575] text-center mb-6 max-w-[300px]">
+      <p className="text-base text-[#595959] text-center mb-6 max-w-[300px]">
         {t(`status.${status}.description`)}
       </p>
 
       {/* Detail card */}
       <Card className="w-full p-4 rounded-xl">
         {submittedAt && (
-          <p className="text-xs text-[#757575]">Submitted {submittedAt}</p>
+          <p className="text-xs text-[#595959]">Submitted {submittedAt}</p>
         )}
         {documentType && (
-          <p className="text-base text-[#212121] mt-2">
+          <p className="text-base text-foreground mt-2">
             Document: {documentType}
           </p>
         )}
         {verificationId && (
-          <p className="text-xs text-[#757575] mt-1">Ref: {verificationId}</p>
+          <p className="text-xs text-[#595959] mt-1">Ref: {verificationId}</p>
         )}
       </Card>
     </div>

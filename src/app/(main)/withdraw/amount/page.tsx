@@ -110,13 +110,13 @@ function WithdrawAmountContent() {
   void withdrawalTransactionId
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAFAFA]">
+    <div className="flex flex-col min-h-screen bg-muted">
       <BackHeader title="Withdraw" />
 
       <div className="flex-1 px-4 pt-4 pb-32 overflow-y-auto">
         {/* Recipient summary card */}
         {recipientLoading ? (
-          <div className="flex items-center gap-3 bg-[#F5F5F5] rounded-xl px-4 py-3 mb-6">
+          <div className="flex items-center gap-3 bg-secondary rounded-xl px-4 py-3 mb-6">
             <Skeleton className="w-10 h-10 rounded-full" />
             <div className="flex-1 space-y-1">
               <Skeleton className="h-4 w-32 rounded" />
@@ -124,15 +124,15 @@ function WithdrawAmountContent() {
             </div>
           </div>
         ) : recipient ? (
-          <div className="flex items-center gap-3 bg-[#F5F5F5] rounded-xl px-4 py-3 mb-6">
+          <div className="flex items-center gap-3 bg-secondary rounded-xl px-4 py-3 mb-6">
             <div className="w-10 h-10 rounded-full bg-[#FFE600] flex items-center justify-center flex-shrink-0">
-              <span className="text-[16px] font-bold text-[#212121]">
+              <span className="text-base font-bold text-foreground">
                 {getInitials(recipient.full_name)}
               </span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-[16px] font-bold text-[#212121] truncate">{recipient.full_name}</p>
-              <p className="text-[12px] text-[#757575]">
+              <p className="text-base font-bold text-foreground truncate">{recipient.full_name}</p>
+              <p className="text-xs text-[#595959]">
                 {recipient.transfer_type ? transferTypeLabel(recipient.transfer_type) : 'Transfer'}
               </p>
             </div>
@@ -141,14 +141,14 @@ function WithdrawAmountContent() {
 
         {/* Amount display */}
         <div className="text-center mb-4">
-          <p className="text-[48px] font-bold text-[#212121] leading-tight">
+          <p className="text-5xl font-bold text-foreground leading-tight">
             {amount || '0'}
           </p>
-          <p className="text-[16px] text-[#757575]">THB</p>
+          <p className="text-base text-[#595959]">THB</p>
         </div>
 
         {/* Balance line */}
-        <p className="text-[12px] text-[#757575] text-center mb-1">
+        <p className="text-xs text-[#595959] text-center mb-1">
           {walletLoading
             ? 'Loading balance...'
             : `Available: ${formatCurrency(balanceSatang, 'THB')}`}
@@ -156,7 +156,7 @@ function WithdrawAmountContent() {
 
         {/* Insufficient balance error */}
         {isInsufficient && (
-          <p className="text-[12px] text-[#F44336] text-center mb-4">
+          <p className="text-xs text-destructive text-center mb-4">
             Insufficient balance. Enter an amount up to {formatCurrency(balanceSatang, 'THB')}.
           </p>
         )}
@@ -168,12 +168,12 @@ function WithdrawAmountContent() {
       </div>
 
       {/* Sticky Withdraw CTA */}
-      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] bg-[#FAFAFA] px-4 py-4 safe-bottom border-t border-[#F0F0F0]">
+      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] bg-muted px-4 py-4 safe-bottom border-t border-[#F0F0F0]">
         <button
           type="button"
           onClick={handleWithdraw}
           disabled={isCTADisabled}
-          className="w-full h-14 rounded-full bg-[#FFE600] text-[#212121] text-[16px] font-bold active:scale-[0.98] transition-transform disabled:opacity-50"
+          className="w-full h-14 rounded-full bg-[#FFE600] text-foreground text-base font-bold active:scale-[0.98] transition-transform disabled:opacity-50"
         >
           {isSubmitting ? 'Processing...' : 'Withdraw'}
         </button>
@@ -192,7 +192,7 @@ function WithdrawAmountContent() {
 export default function WithdrawAmountPage() {
   return (
     <Suspense fallback={
-      <div className="flex flex-col min-h-screen bg-[#FAFAFA]">
+      <div className="flex flex-col min-h-screen bg-muted">
         <BackHeader title="Withdraw" />
         <div className="flex-1 flex items-center justify-center">
           <div className="w-6 h-6 rounded-full border-2 border-[#0091EA] border-t-transparent animate-spin" />

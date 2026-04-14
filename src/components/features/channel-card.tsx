@@ -58,8 +58,8 @@ export function ChannelCard({
 
         {/* Text */}
         <div className="flex flex-col min-w-0">
-          <span className="text-[16px] font-bold text-[#212121] truncate">{name}</span>
-          <span className="text-[12px] text-[#757575] truncate">{convertedAmount}</span>
+          <span className="text-base font-bold text-foreground truncate">{name}</span>
+          <span className="text-xs text-[#595959] truncate">{convertedAmount}</span>
         </div>
       </div>
 
@@ -67,8 +67,8 @@ export function ChannelCard({
       <div className="flex items-center gap-3 flex-shrink-0">
         {/* Fee */}
         <div className="flex flex-col items-end">
-          <span className="text-[12px] text-[#757575]">Fee</span>
-          <span className="text-[16px] font-bold text-[#212121]">{fee}</span>
+          <span className="text-xs text-[#595959]">Fee</span>
+          <span className="text-base font-bold text-foreground">{fee}</span>
         </div>
 
         {/* Radio indicator */}

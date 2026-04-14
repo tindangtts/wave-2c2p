@@ -81,8 +81,8 @@ export default function ProfilePage() {
       <div className="flex-1 bg-white overflow-y-auto pb-24">
         {/* Biometrics section */}
         <ProfileMenuSection heading={t("menu.biometrics")}>
-          <div className="flex items-center h-14 px-4 bg-white border-b border-[#E0E0E0]">
-            <span className="flex-1 text-[16px] font-normal text-[#212121]">
+          <div className="flex items-center h-14 px-4 bg-white border-b border-border">
+            <span className="flex-1 text-base font-normal text-foreground">
               {t("menu.enableBiometrics")}
             </span>
             <Switch
@@ -168,11 +168,11 @@ export default function ProfilePage() {
           <button
             type="button"
             onClick={handleLogout}
-            className="w-full h-12 rounded-full border-2 border-[#F44336] text-[16px] font-bold text-[#F44336] bg-white hover:bg-[#FFF5F5] transition-colors"
+            className="w-full h-12 rounded-full border-2 border-[#F44336] text-base font-bold text-destructive bg-white hover:bg-[#FFF5F5] transition-colors"
           >
             {t("logout")}
           </button>
-          <p className="text-[12px] text-[#9E9E9E]">{t("version")}</p>
+          <p className="text-xs text-[#767676]">{t("version")}</p>
         </div>
       </div>
     </div>

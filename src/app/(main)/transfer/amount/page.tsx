@@ -105,15 +105,15 @@ export default function AmountPage() {
       {/* Selected recipient summary */}
       <div className="px-4 py-3 flex items-center gap-3 border-b border-[#F5F5F5]">
         <div className="w-10 h-10 rounded-full bg-[#FFE600] flex items-center justify-center flex-shrink-0">
-          <span className="text-sm font-bold text-[#212121]">
+          <span className="text-sm font-bold text-foreground">
             {selectedRecipient.first_name?.[0]?.toUpperCase() ?? '?'}
           </span>
         </div>
         <div className="flex flex-col min-w-0">
-          <span className="text-[16px] font-bold text-[#212121] truncate">
+          <span className="text-base font-bold text-foreground truncate">
             {selectedRecipient.full_name}
           </span>
-          <span className="text-[12px] text-[#757575]">
+          <span className="text-xs text-[#595959]">
             {selectedRecipient.transfer_type?.replace(/_/g, ' ')}
           </span>
         </div>
@@ -124,12 +124,12 @@ export default function AmountPage() {
         {/* Main amount */}
         <div className="flex items-baseline gap-2">
           <span
-            className="text-[48px] font-bold leading-none"
-            style={{ color: amountStr ? '#212121' : '#9E9E9E' }}
+            className="text-5xl font-bold leading-none"
+            style={{ color: amountStr ? '#212121' : '#767676' }}
           >
             {amountStr || '0'}
           </span>
-          <span className="text-[16px] text-[#757575]">THB</span>
+          <span className="text-base text-[#595959]">THB</span>
         </div>
 
         {/* Converted MMK */}
@@ -137,18 +137,18 @@ export default function AmountPage() {
           {isRateLoading ? (
             <div className="w-[120px] h-[16px] bg-[#E0E0E0] rounded animate-pulse" />
           ) : convertedPya > 0 ? (
-            <span className="text-[16px] text-[#757575]">
+            <span className="text-base text-[#595959]">
               = {formatCurrency(convertedPya, 'MMK')}
             </span>
           ) : (
-            <span className="text-[16px] text-[#757575]">= 0 MMK</span>
+            <span className="text-base text-[#595959]">= 0 MMK</span>
           )}
         </div>
 
         {/* Rate line */}
         {!isRateLoading && rate > 0 && (
           <div className="mt-1">
-            <span className="text-[12px] text-[#757575]">
+            <span className="text-xs text-[#595959]">
               1 THB = {rate.toFixed(1)} MMK
             </span>
           </div>
@@ -158,7 +158,7 @@ export default function AmountPage() {
         {validationError && (
           <p
             role="alert"
-            className="mt-3 text-[14px] text-[#F44336] text-center"
+            className="mt-3 text-sm text-destructive text-center"
           >
             {validationError}
           </p>
@@ -176,10 +176,10 @@ export default function AmountPage() {
           type="button"
           onClick={handleNext}
           disabled={isNextDisabled}
-          className="w-full h-14 rounded-full text-[16px] font-bold transition-colors"
+          className="w-full h-14 rounded-full text-base font-bold transition-colors"
           style={{
             backgroundColor: isNextDisabled ? '#E0E0E0' : '#FFE600',
-            color: isNextDisabled ? '#9E9E9E' : '#212121',
+            color: isNextDisabled ? '#767676' : '#212121',
           }}
         >
           {t('cta_next')}

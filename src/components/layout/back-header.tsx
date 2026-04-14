@@ -33,11 +33,11 @@ export function BackHeader({ title, onBack, rightContent }: BackHeaderProps) {
           <BackArrowIcon />
         </button>
         {/* Centered title */}
-        <h1 className="absolute inset-x-0 text-center text-base font-semibold text-[#212121]">
+        <h1 className="absolute inset-x-0 text-center text-base font-semibold text-foreground">
           {title}
         </h1>
         {rightContent && (
-          <div className="ml-auto text-sm font-medium text-[#212121] z-10">
+          <div className="ml-auto text-sm font-medium text-foreground z-10">
             {rightContent}
           </div>
         )}

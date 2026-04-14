@@ -11,7 +11,7 @@ export default function GlobalErrorPage({ reset }: GlobalErrorPageProps) {
   return (
     <html lang="en">
       <body>
-        <div className="bg-[#FAFAFA] flex flex-col items-center justify-center px-4 min-h-dvh">
+        <div className="bg-muted flex flex-col items-center justify-center px-4 min-h-dvh">
           <AlertCircle className="w-12 h-12 mb-4" style={{ color: '#F44336' }} />
           <h1
             style={{
@@ -28,7 +28,7 @@ export default function GlobalErrorPage({ reset }: GlobalErrorPageProps) {
             style={{
               fontSize: '16px',
               fontWeight: 400,
-              color: '#757575',
+              color: '#595959',
               textAlign: 'center',
               marginBottom: '32px',
             }}

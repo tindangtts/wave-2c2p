@@ -14,12 +14,12 @@ export function ReferralCard({ referralCode, monthlyCount = 0 }: ReferralCardPro
   return (
     <div className="bg-white rounded-2xl shadow-md p-6 flex flex-col items-center gap-4">
       {/* Code label */}
-      <p className="text-xs text-[#9E9E9E] text-center">
+      <p className="text-xs text-[#767676] text-center">
         {t('referFriends.codeLabel')}
       </p>
 
       {/* Referral code */}
-      <p className="text-2xl font-bold text-[#212121] tracking-[0.12em] select-all">
+      <p className="text-2xl font-bold text-foreground tracking-[0.12em] select-all">
         {referralCode}
       </p>
 
@@ -35,7 +35,7 @@ export function ReferralCard({ referralCode, monthlyCount = 0 }: ReferralCardPro
       </div>
 
       {/* Monthly count */}
-      <p className="text-xs text-[#757575] text-center">
+      <p className="text-xs text-[#595959] text-center">
         {t('referFriends.monthlyCount', { n: monthlyCount })}
       </p>
     </div>

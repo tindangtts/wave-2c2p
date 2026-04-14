@@ -179,16 +179,16 @@ export default function ChangePhonePage() {
           <div className="w-20 h-20 bg-[#E8F5E9] rounded-full flex items-center justify-center">
             <CheckCircle2 className="w-10 h-10 text-[#4CAF50]" />
           </div>
-          <h2 className="text-xl font-bold text-[#212121] text-center">
+          <h2 className="text-xl font-bold text-foreground text-center">
             {t('changePhone.successHeading')}
           </h2>
-          <p className="text-sm text-[#757575] text-center">
+          <p className="text-sm text-[#595959] text-center">
             {t('changePhone.successBody')}
           </p>
           <div className="flex-1" />
           <Button
             onClick={() => router.push('/profile')}
-            className="w-full h-14 rounded-full bg-[#FFE600] text-[#212121] font-semibold text-base hover:bg-[#FFD600]"
+            className="w-full h-14 rounded-full bg-[#FFE600] text-foreground font-semibold text-base hover:bg-[#FFD600]"
           >
             {t('changePhone.successCta')}
           </Button>
@@ -210,7 +210,7 @@ export default function ChangePhonePage() {
           }}
         />
         <div className="flex-1 flex flex-col px-4 pt-8 pb-8">
-          <p className="text-base text-[#212121]">
+          <p className="text-base text-foreground">
             {t('changePhone.step2Instruction', { phone: maskedPhone })}
           </p>
 
@@ -239,7 +239,7 @@ export default function ChangePhonePage() {
           </div>
 
           {error && (
-            <p role="alert" className="text-xs text-[#F44336] mt-2 text-center">
+            <p role="alert" className="text-xs text-destructive mt-2 text-center">
               {error}
             </p>
           )}
@@ -254,7 +254,7 @@ export default function ChangePhonePage() {
                 {t('changePhone.resendCode')}
               </button>
             ) : (
-              <p className="text-xs text-[#757575]">
+              <p className="text-xs text-[#595959]">
                 {t('changePhone.resendIn', { n: timeLeft })}
               </p>
             )}
@@ -266,7 +266,7 @@ export default function ChangePhonePage() {
             onClick={() => handleVerifyOtp(otp)}
             disabled={otp.length !== 6 || isLoading}
             aria-busy={isLoading}
-            className="w-full h-14 rounded-full bg-[#FFE600] text-[#212121] font-semibold text-base hover:bg-[#FFD600] disabled:opacity-50"
+            className="w-full h-14 rounded-full bg-[#FFE600] text-foreground font-semibold text-base hover:bg-[#FFD600] disabled:opacity-50"
           >
             {isLoading ? (
               <>
@@ -290,12 +290,12 @@ export default function ChangePhonePage() {
         onBack={() => router.push('/profile')}
       />
       <div className="flex-1 flex flex-col px-4 pt-8 pb-8">
-        <p className="text-base text-[#757575] mb-6">
+        <p className="text-base text-[#595959] mb-6">
           {t('changePhone.step1Instruction')}
         </p>
 
         <div className="space-y-2">
-          <Label className="text-sm text-[#212121]">Phone Number</Label>
+          <Label className="text-sm text-foreground">Phone Number</Label>
           <div className="flex gap-2">
             <Select
               value={countryCode}
@@ -303,7 +303,7 @@ export default function ChangePhonePage() {
                 if (v) setCountryCode(v as '+66' | '+95')
               }}
             >
-              <SelectTrigger className="w-24 h-12 rounded-xl border-[#E0E0E0]">
+              <SelectTrigger className="w-24 h-12 rounded-xl border-border">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -320,13 +320,13 @@ export default function ChangePhonePage() {
                 setPhone(e.target.value)
                 if (error) setError('')
               }}
-              className="flex-1 h-12 rounded-xl border-[#E0E0E0]"
+              className="flex-1 h-12 rounded-xl border-border"
             />
           </div>
         </div>
 
         {error && (
-          <p role="alert" className="text-xs text-[#F44336] mt-2">
+          <p role="alert" className="text-xs text-destructive mt-2">
             {error}
           </p>
         )}
@@ -337,7 +337,7 @@ export default function ChangePhonePage() {
           onClick={handleSendOtp}
           disabled={!isStep1CtaEnabled}
           aria-busy={isLoading}
-          className="w-full h-14 rounded-full bg-[#FFE600] text-[#212121] font-semibold text-base hover:bg-[#FFD600] disabled:opacity-50"
+          className="w-full h-14 rounded-full bg-[#FFE600] text-foreground font-semibold text-base hover:bg-[#FFD600] disabled:opacity-50"
         >
           {isLoading ? (
             <>

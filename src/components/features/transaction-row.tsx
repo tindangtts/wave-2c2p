@@ -20,8 +20,8 @@ const statusConfig: Record<TransactionStatus, { bg: string; text: string; label:
   success: { bg: 'bg-[#E8F5E9]', text: 'text-[#00C853]', label: 'Success' },
   pending: { bg: 'bg-[#FFF3E0]', text: 'text-[#FF9800]', label: 'Pending' },
   processing: { bg: 'bg-[#FFF3E0]', text: 'text-[#FF9800]', label: 'Processing' },
-  rejected: { bg: 'bg-[#FFEBEE]', text: 'text-[#F44336]', label: 'Rejected' },
-  failed: { bg: 'bg-[#FFEBEE]', text: 'text-[#F44336]', label: 'Failed' },
+  rejected: { bg: 'bg-[#FFEBEE]', text: 'text-destructive', label: 'Rejected' },
+  failed: { bg: 'bg-[#FFEBEE]', text: 'text-destructive', label: 'Failed' },
 }
 
 const creditTypes: TransactionType[] = ['add_money', 'receive']
@@ -42,7 +42,7 @@ export function TransactionRow({ transaction, onClick }: TransactionRowProps) {
 
   const isCredit = creditTypes.includes(transaction.type)
   const amountPrefix = isCredit ? '+' : '-'
-  const amountColor = isCredit ? 'text-[#00C853]' : 'text-[#F44336]'
+  const amountColor = isCredit ? 'text-[#00C853]' : 'text-destructive'
 
   const formattedAmount = formatCurrency(
     transaction.amount,
@@ -60,7 +60,7 @@ export function TransactionRow({ transaction, onClick }: TransactionRowProps) {
     <button
       type="button"
       onClick={() => onClick(transaction.id)}
-      className="flex items-center gap-3 px-4 py-3 min-h-[60px] w-full border-b border-[#F5F5F5] text-left hover:bg-[#FAFAFA] transition-colors active:bg-[#F5F5F5]"
+      className="flex items-center gap-3 px-4 py-3 min-h-[60px] w-full border-b border-[#F5F5F5] text-left hover:bg-muted transition-colors active:bg-secondary"
       aria-label={`${transaction.description}, ${amountPrefix}${formattedAmount}`}
     >
       {/* Left: type icon circle */}
@@ -73,10 +73,10 @@ export function TransactionRow({ transaction, onClick }: TransactionRowProps) {
 
       {/* Center: description + date */}
       <div className="flex flex-col flex-1 min-w-0">
-        <span className="text-base text-[#212121] truncate leading-snug">
+        <span className="text-base text-foreground truncate leading-snug">
           {transaction.description}
         </span>
-        <span className="text-xs text-[#9E9E9E] mt-0.5">
+        <span className="text-xs text-[#767676] mt-0.5">
           {dateLabel}
         </span>
       </div>
@@ -87,7 +87,7 @@ export function TransactionRow({ transaction, onClick }: TransactionRowProps) {
           {amountPrefix}{formattedAmount}
         </span>
         <Badge
-          className={`rounded-full text-[10px] px-2 py-0.5 ${sCfg.bg} ${sCfg.text} border-0`}
+          className={`rounded-full text-[0.625rem] px-2 py-0.5 ${sCfg.bg} ${sCfg.text} border-0`}
         >
           {sCfg.label}
         </Badge>

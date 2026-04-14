@@ -76,7 +76,7 @@ export function StepIndicator({
           )
         })}
       </div>
-      <p className={`text-xs uppercase tracking-widest text-center mt-1 ${isDark ? 'text-white/70' : 'text-[#757575]'}`}>
+      <p className={`text-xs uppercase tracking-widest text-center mt-1 ${isDark ? 'text-white/70' : 'text-[#595959]'}`}>
         {t('stepLabel', { current: currentStep, total: totalSteps })}
       </p>
     </div>

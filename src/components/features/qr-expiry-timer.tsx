@@ -14,9 +14,9 @@ function formatMMSS(totalSeconds: number): string {
 }
 
 function getColorClass(remainingSeconds: number): string {
-  if (remainingSeconds > 300) return 'text-[#212121]' // > 5 min
+  if (remainingSeconds > 300) return 'text-foreground' // > 5 min
   if (remainingSeconds > 60) return 'text-[#FF9800]'  // 1-5 min
-  return 'text-[#F44336]'                              // < 60s
+  return 'text-destructive'                              // < 60s
 }
 
 export function QRExpiryTimer({ expiresAt, onExpired }: QRExpiryTimerProps) {
@@ -50,7 +50,7 @@ export function QRExpiryTimer({ expiresAt, onExpired }: QRExpiryTimerProps) {
 
   return (
     <p
-      className={`text-[12px] font-bold text-center ${colorClass}`}
+      className={`text-xs font-bold text-center ${colorClass}`}
       aria-live="polite"
       aria-label={`QR code expires in ${timeDisplay}`}
     >

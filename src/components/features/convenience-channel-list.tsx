@@ -21,14 +21,14 @@ interface ConvenienceChannelListProps {
 
 export function ConvenienceChannelList({ onSelect }: ConvenienceChannelListProps) {
   return (
-    <div className="bg-white rounded-xl border border-[#E0E0E0] overflow-hidden">
+    <div className="bg-white rounded-xl border border-border overflow-hidden">
       {CONVENIENCE_CHANNELS.map((channel, index) => (
         <button
           key={channel.id}
           type="button"
           onClick={() => onSelect(channel.id)}
-          className={`w-full flex items-center justify-between px-4 active:bg-[#F5F5F5] transition-colors ${
-            index < CONVENIENCE_CHANNELS.length - 1 ? 'border-b border-[#E0E0E0]' : ''
+          className={`w-full flex items-center justify-between px-4 active:bg-secondary transition-colors ${
+            index < CONVENIENCE_CHANNELS.length - 1 ? 'border-b border-border' : ''
           }`}
           style={{ height: '56px' }}
           aria-label={channel.label}
@@ -39,15 +39,15 @@ export function ConvenienceChannelList({ onSelect }: ConvenienceChannelListProps
               style={{ backgroundColor: channel.bgColor }}
             >
               <span
-                className="text-[10px] font-bold leading-none"
+                className="text-[0.625rem] font-bold leading-none"
                 style={{ color: channel.textColor }}
               >
                 {channel.abbr}
               </span>
             </div>
-            <span className="text-[14px] font-medium text-[#212121]">{channel.label}</span>
+            <span className="text-sm font-medium text-foreground">{channel.label}</span>
           </div>
-          <ChevronRight className="w-5 h-5 text-[#757575] flex-shrink-0" />
+          <ChevronRight className="w-5 h-5 text-[#595959] flex-shrink-0" />
         </button>
       ))}
     </div>

@@ -57,13 +57,13 @@ export default function AddMoneyPage() {
       <div className="flex-1 px-4 py-4 space-y-6 pb-8">
         {/* Balance info block */}
         <div className="flex items-center justify-between">
-          <p className="text-[12px] font-normal text-[#757575]">
+          <p className="text-xs font-normal text-[#595959]">
             {t('labels.walletBalance')}:{' '}
-            <span className="font-medium text-[#212121]">
+            <span className="font-medium text-foreground">
               {formatCurrency(walletBalanceSatang, 'THB')}
             </span>
           </p>
-          <p className="text-[12px] font-normal text-[#757575]">
+          <p className="text-xs font-normal text-[#595959]">
             {t('labels.maxTopup', { amount: '25,000.00' })}
           </p>
         </div>
@@ -71,20 +71,20 @@ export default function AddMoneyPage() {
         {/* Amount display */}
         <div className="text-center">
           <div className="flex items-baseline justify-center gap-2 mb-1">
-            <span className="text-[16px] font-normal text-[#757575]">THB</span>
-            <span className="text-[48px] font-bold text-[#212121] leading-none tabular-nums">
+            <span className="text-base font-normal text-[#595959]">THB</span>
+            <span className="text-5xl font-bold text-foreground leading-none tabular-nums">
               {topupAmount === '' ? '0' : topupAmount}
             </span>
           </div>
 
           {/* Validation captions */}
           {isBelowMin && (
-            <p className="text-[12px] text-[#F44336] mt-1">
+            <p className="text-xs text-destructive mt-1">
               {t('labels.minTopup', { amount: MIN_TOPUP_THB.toLocaleString() })}
             </p>
           )}
           {isAboveMax && (
-            <p className="text-[12px] text-[#F44336] mt-1">
+            <p className="text-xs text-destructive mt-1">
               {t('errors.aboveMaximum')}
             </p>
           )}
@@ -95,13 +95,13 @@ export default function AddMoneyPage() {
 
         {/* Top-up Channels */}
         <div className="space-y-4">
-          <h2 className="text-[16px] font-bold text-[#212121]">
+          <h2 className="text-base font-bold text-foreground">
             {t('sections.topupChannels')}
           </h2>
 
           {/* Banking services */}
           <div className="space-y-2">
-            <p className="text-[12px] font-normal text-[#757575]">
+            <p className="text-xs font-normal text-[#595959]">
               {t('sections.bankingServices')}
             </p>
             <BankChannelGrid onSelect={handleChannelSelect} />
@@ -109,7 +109,7 @@ export default function AddMoneyPage() {
 
           {/* Convenience store */}
           <div className="space-y-2">
-            <p className="text-[12px] font-normal text-[#757575]">
+            <p className="text-xs font-normal text-[#595959]">
               {t('sections.convenienceService')}
             </p>
             <ConvenienceChannelList onSelect={handleChannelSelect} />

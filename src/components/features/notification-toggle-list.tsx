@@ -45,10 +45,10 @@ export function NotificationToggleList({ onChange }: NotificationToggleListProps
           ].join(' ')}
         >
           <div className="flex flex-col justify-center">
-            <p className="text-base font-normal text-[#212121] leading-tight">
+            <p className="text-base font-normal text-foreground leading-tight">
               {t(item.labelKey as Parameters<typeof t>[0])}
             </p>
-            <p className="text-xs text-[#757575] leading-tight mt-0.5">
+            <p className="text-xs text-[#595959] leading-tight mt-0.5">
               {t(item.descKey as Parameters<typeof t>[0])}
             </p>
           </div>

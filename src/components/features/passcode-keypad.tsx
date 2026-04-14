@@ -29,6 +29,22 @@ export function PasscodeKeypad({
     }
   }, [value])
 
+  // Keyboard input support for WCAG 2.1.1 — allow hardware keyboard entry
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (isLoading) return
+      if (e.key >= '0' && e.key <= '9') {
+        e.preventDefault()
+        handleDigit(e.key)
+      } else if (e.key === 'Backspace' || e.key === 'Delete') {
+        e.preventDefault()
+        handleBackspace()
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  })
+
   function handleDigit(digit: string) {
     if (value.length >= 6 || isLoading) return
     const next = value + digit
@@ -69,7 +85,7 @@ export function PasscodeKeypad({
                 'w-3 h-3 rounded-full border-2 transition-colors duration-200',
                 filled
                   ? 'bg-[#FFE600] border-transparent'
-                  : 'border-[#E0E0E0] bg-transparent',
+                  : 'border-border bg-transparent',
               ].join(' ')}
               aria-hidden="true"
             />
@@ -87,7 +103,7 @@ export function PasscodeKeypad({
             onClick={() => handleDigit(digit)}
             disabled={isLoading}
             aria-label={digit}
-            className="w-16 h-16 bg-[#F5F5F5] rounded-full text-xl font-bold text-[#212121] active:bg-[#E0E0E0] transition-colors disabled:opacity-50 flex items-center justify-center"
+            className="w-16 h-16 bg-secondary rounded-full text-xl font-bold text-foreground active:bg-[#E0E0E0] transition-colors disabled:opacity-50 flex items-center justify-center"
           >
             {digit}
           </button>
@@ -102,7 +118,7 @@ export function PasscodeKeypad({
           onClick={() => handleDigit('0')}
           disabled={isLoading}
           aria-label="0"
-          className="w-16 h-16 bg-[#F5F5F5] rounded-full text-xl font-bold text-[#212121] active:bg-[#E0E0E0] transition-colors disabled:opacity-50 flex items-center justify-center"
+          className="w-16 h-16 bg-secondary rounded-full text-xl font-bold text-foreground active:bg-[#E0E0E0] transition-colors disabled:opacity-50 flex items-center justify-center"
         >
           0
         </button>
@@ -113,9 +129,9 @@ export function PasscodeKeypad({
           onClick={handleBackspace}
           disabled={isLoading}
           aria-label="Delete digit"
-          className="w-16 h-16 bg-[#F5F5F5] rounded-full active:bg-[#E0E0E0] transition-colors disabled:opacity-50 flex items-center justify-center"
+          className="w-16 h-16 bg-secondary rounded-full active:bg-[#E0E0E0] transition-colors disabled:opacity-50 flex items-center justify-center"
         >
-          <Delete className="w-6 h-6 text-[#212121]" />
+          <Delete className="w-6 h-6 text-foreground" />
         </button>
       </div>
 
@@ -123,7 +139,7 @@ export function PasscodeKeypad({
       {error && (
         <p
           role="alert"
-          className="text-xs text-[#F44336] mt-4 text-center"
+          className="text-xs text-destructive mt-4 text-center"
         >
           {error}
         </p>

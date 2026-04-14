@@ -19,14 +19,14 @@ export function CardRevealButton({
       variant="outline"
       onClick={onToggle}
       disabled={disabled}
-      className="rounded-full h-10 px-4 border-[#E0E0E0] bg-white text-[#212121] flex items-center gap-2"
+      className="rounded-full h-10 px-4 border-border bg-white text-foreground flex items-center gap-2"
     >
       {revealed ? (
         <EyeOff style={{ width: 16, height: 16 }} />
       ) : (
         <Eye style={{ width: 16, height: 16 }} />
       )}
-      <span className="text-[12px] font-normal">
+      <span className="text-xs font-normal">
         {revealed ? "Hide Card Details" : "Show Card Details"}
       </span>
     </Button>

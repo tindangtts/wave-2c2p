@@ -29,8 +29,8 @@ function Chip({ label, value, active, onClick }: ChipProps) {
       onClick={() => onClick(value)}
       className={`inline-flex items-center justify-center h-8 px-3 rounded-full text-xs font-normal whitespace-nowrap flex-shrink-0 transition-colors active:opacity-80 ${
         active
-          ? 'bg-[#FFE600] text-[#212121]'
-          : 'bg-[#F5F5F5] text-[#757575]'
+          ? 'bg-[#FFE600] text-foreground'
+          : 'bg-secondary text-[#595959]'
       }`}
       aria-pressed={active}
     >

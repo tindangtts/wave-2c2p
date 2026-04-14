@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import { Delete } from 'lucide-react'
 
 interface AmountInputProps {
@@ -84,8 +84,27 @@ export function AmountInput({ value, onChange, disabled }: AmountInputProps) {
     onChange(next)
   }
 
+  // Keyboard input support for WCAG 2.1.1 — allow hardware keyboard entry
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (disabled) return
+      if (e.key >= '0' && e.key <= '9') {
+        e.preventDefault()
+        handleDigitWithDecimalCheck(e.key)
+      } else if (e.key === '.') {
+        e.preventDefault()
+        handleDecimal()
+      } else if (e.key === 'Backspace' || e.key === 'Delete') {
+        e.preventDefault()
+        handleBackspace()
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  })
+
   const keyClass =
-    'flex items-center justify-center rounded-xl bg-[#F5F5F5] text-[20px] font-bold text-[#212121] active:bg-[#E0E0E0] transition-colors disabled:opacity-40'
+    'flex items-center justify-center rounded-xl bg-secondary text-xl font-bold text-foreground active:bg-[#E0E0E0] transition-colors disabled:opacity-40'
 
   return (
     <div className="grid grid-cols-3 gap-2 w-full">
@@ -140,7 +159,7 @@ export function AmountInput({ value, onChange, disabled }: AmountInputProps) {
         disabled={disabled}
         aria-label="Delete digit"
       >
-        <Delete className="w-5 h-5 text-[#212121]" />
+        <Delete className="w-5 h-5 text-foreground" />
       </button>
     </div>
   )

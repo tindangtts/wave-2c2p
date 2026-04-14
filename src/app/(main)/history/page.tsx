@@ -39,14 +39,14 @@ function groupByDate(transactions: Transaction[]): { date: string; items: Transa
 function SkeletonRow() {
   return (
     <div className="flex items-center gap-3 px-4 py-3 min-h-[60px] border-b border-[#F5F5F5]">
-      <Skeleton className="w-10 h-10 rounded-full flex-shrink-0 bg-[#F5F5F5]" />
+      <Skeleton className="w-10 h-10 rounded-full flex-shrink-0 bg-secondary" />
       <div className="flex-1 flex flex-col gap-1.5">
-        <Skeleton className="h-4 w-40 rounded bg-[#F5F5F5]" />
-        <Skeleton className="h-3 w-24 rounded bg-[#F5F5F5]" />
+        <Skeleton className="h-4 w-40 rounded bg-secondary" />
+        <Skeleton className="h-3 w-24 rounded bg-secondary" />
       </div>
       <div className="flex flex-col items-end gap-1.5">
-        <Skeleton className="h-4 w-20 rounded bg-[#F5F5F5]" />
-        <Skeleton className="h-4 w-14 rounded-full bg-[#F5F5F5]" />
+        <Skeleton className="h-4 w-20 rounded bg-secondary" />
+        <Skeleton className="h-4 w-14 rounded-full bg-secondary" />
       </div>
     </div>
   )
@@ -99,11 +99,11 @@ export default function HistoryPage() {
   const groups = groupByDate(transactions)
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAFAFA]">
+    <div className="flex flex-col min-h-screen bg-muted">
       <BackHeader title={t('screenTitles.transactionHistory')} />
 
       {/* Filter bar */}
-      <div className="bg-white border-b border-[#E0E0E0]">
+      <div className="bg-white border-b border-border">
         <HistoryFilterBar
           typeFilter={typeFilter}
           statusFilter={statusFilter}
@@ -126,10 +126,10 @@ export default function HistoryPage() {
         ) : isEmpty ? (
           /* Empty state */
           <div className="flex flex-col items-center justify-center py-16 px-6 gap-2">
-            <p className="text-base font-bold text-[#212121] text-center">
+            <p className="text-base font-bold text-foreground text-center">
               {hasActiveFilters ? t('empty.noTransactions') : t('empty.noTransactionsYet')}
             </p>
-            <p className="text-sm text-[#757575] text-center">
+            <p className="text-sm text-[#595959] text-center">
               {hasActiveFilters
                 ? t('empty.noTransactionsBody')
                 : t('empty.noTransactionsYetBody')}
@@ -142,7 +142,7 @@ export default function HistoryPage() {
               <div key={date}>
                 {/* Date group header — sticky */}
                 <div className="sticky top-[88px] z-10 mx-4 py-2 bg-white">
-                  <span className="text-xs text-[#9E9E9E]">
+                  <span className="text-xs text-[#767676]">
                     {formatGroupHeader(items[0]?.created_at ?? date)}
                   </span>
                 </div>

@@ -31,7 +31,7 @@ export function QuickActions() {
             height={50}
             className="w-[50px] h-[50px]"
           />
-          <span className="text-[14px] text-[#000000] text-center leading-snug">
+          <span className="text-sm text-[#000000] text-center leading-snug">
             {t(action.labelKey)}
           </span>
         </Link>

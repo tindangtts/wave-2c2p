@@ -123,17 +123,17 @@ export default function PasscodePage() {
   return (
     <div className="flex flex-col min-h-svh px-4 pt-16 pb-8 items-center">
       {/* Avatar circle */}
-      <div className="w-14 h-14 bg-[#FFE600] text-[#212121] rounded-full flex items-center justify-center text-xl font-bold">
+      <div className="w-14 h-14 bg-[#FFE600] text-foreground rounded-full flex items-center justify-center text-xl font-bold">
         {initial}
       </div>
 
       {/* Greeting */}
-      <h1 className="text-xl font-bold text-[#212121] mt-4 text-center">
+      <h1 className="text-xl font-bold text-foreground mt-4 text-center">
         {t('passcode.greeting', { name: userName })}
       </h1>
 
       {/* Instruction */}
-      <p className="text-base text-[#757575] mt-2 text-center">
+      <p className="text-base text-[#595959] mt-2 text-center">
         {t('passcode.instruction')}
       </p>
 
@@ -151,7 +151,7 @@ export default function PasscodePage() {
       {/* Logout link with confirmation dialog */}
       <AlertDialog>
         <AlertDialogTrigger
-          className="text-xs text-[#757575] underline mt-8 text-center"
+          className="text-xs text-[#595959] underline mt-8 text-center"
         >
           {t('passcode.logoutLink')}
         </AlertDialogTrigger>

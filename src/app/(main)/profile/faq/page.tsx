@@ -39,11 +39,11 @@ export default function FAQPage() {
       <BackHeader title={t("faq.title")} />
       <div className="flex-1 px-4 py-4 overflow-y-auto pb-24 space-y-4">
         {FAQ_ITEMS.map((item, index) => (
-          <div key={index} className="border-b border-[#E0E0E0] pb-4">
-            <h2 className="text-[16px] font-bold text-[#212121] mb-2">
+          <div key={index} className="border-b border-border pb-4">
+            <h2 className="text-base font-bold text-foreground mb-2">
               {item.question}
             </h2>
-            <p className="text-[16px] font-normal text-[#757575] leading-relaxed">
+            <p className="text-base font-normal text-[#595959] leading-relaxed">
               {item.answer}
             </p>
           </div>

@@ -71,11 +71,11 @@ export function DateRangePicker({
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger
-        className="flex items-center gap-2 w-full h-11 px-3 rounded-xl border border-[#E0E0E0] bg-white text-left text-sm text-[#212121] hover:bg-[#F5F5F5] transition-colors"
+        className="flex items-center gap-2 w-full h-11 px-3 rounded-xl border border-border bg-white text-left text-sm text-foreground hover:bg-secondary transition-colors"
         aria-label="Select date range"
       >
-        <CalendarIcon className="w-4 h-4 text-[#757575] flex-shrink-0" />
-        <span className={`flex-1 text-sm ${hasRange ? 'text-[#212121]' : 'text-[#9E9E9E]'}`}>
+        <CalendarIcon className="w-4 h-4 text-[#595959] flex-shrink-0" />
+        <span className={`flex-1 text-sm ${hasRange ? 'text-foreground' : 'text-[#767676]'}`}>
           {formatTriggerLabel()}
         </span>
         {hasRange && (
@@ -88,7 +88,7 @@ export function DateRangePicker({
             className="p-0.5 hover:bg-[#E0E0E0] rounded-full transition-colors"
             aria-label="Clear date range"
           >
-            <X className="w-3 h-3 text-[#757575]" />
+            <X className="w-3 h-3 text-[#595959]" />
           </button>
         )}
       </PopoverTrigger>
@@ -115,7 +115,7 @@ export function DateRangePicker({
           }}
         />
         {hasRange && (
-          <div className="border-t border-[#E0E0E0] px-3 py-2 flex justify-end">
+          <div className="border-t border-border px-3 py-2 flex justify-end">
             <button
               type="button"
               onClick={handleClear}

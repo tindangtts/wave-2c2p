@@ -34,17 +34,17 @@ export default function ReceiveQRPage() {
   }, [walletId])
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAFAFA]">
+    <div className="flex flex-col min-h-screen bg-muted">
       <BackHeader title="Receive Money" />
 
       <div className="flex-1 px-4 py-6 flex flex-col items-center">
         {/* QR Card */}
         <div className="w-full bg-white rounded-2xl shadow-md p-6 flex flex-col items-center">
           {/* Logo placeholder */}
-          <p className="text-[14px] font-bold text-[#0091EA] mb-1">2C2P WAVE</p>
+          <p className="text-sm font-bold text-[#0091EA] mb-1">2C2P WAVE</p>
 
           {/* Wallet ID label */}
-          <p className="text-[12px] font-normal text-[#757575] mb-4">Your Wallet ID</p>
+          <p className="text-xs font-normal text-[#595959] mb-4">Your Wallet ID</p>
 
           {/* QR code */}
           {isLoading ? (
@@ -52,8 +52,8 @@ export default function ReceiveQRPage() {
           ) : walletId ? (
             <QRCode value={walletId} size={200} />
           ) : (
-            <div className="w-[200px] h-[200px] flex items-center justify-center bg-[#F5F5F5] rounded-xl">
-              <p className="text-[12px] text-[#757575] text-center px-4">
+            <div className="w-[200px] h-[200px] flex items-center justify-center bg-secondary rounded-xl">
+              <p className="text-xs text-[#595959] text-center px-4">
                 Wallet ID not available
               </p>
             </div>
@@ -64,7 +64,7 @@ export default function ReceiveQRPage() {
             {isLoading ? (
               <Skeleton className="h-5 w-40 rounded-lg mx-auto" />
             ) : (
-              <p className="text-[16px] font-bold text-[#212121]">
+              <p className="text-base font-bold text-foreground">
                 {walletId || '—'}
               </p>
             )}
@@ -76,7 +76,7 @@ export default function ReceiveQRPage() {
           type="button"
           onClick={handleShare}
           disabled={isLoading || !walletId}
-          className="mt-6 w-full h-14 rounded-full bg-[#FFE600] text-[#212121] text-[16px] font-bold active:scale-[0.98] transition-transform disabled:opacity-50"
+          className="mt-6 w-full h-14 rounded-full bg-[#FFE600] text-foreground text-base font-bold active:scale-[0.98] transition-transform disabled:opacity-50"
         >
           Share QR
         </button>

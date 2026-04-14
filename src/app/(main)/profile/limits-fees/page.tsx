@@ -10,9 +10,9 @@ interface LimitRowProps {
 
 function LimitRow({ label, value }: LimitRowProps) {
   return (
-    <div className="flex items-center justify-between px-4 h-14 border-b border-[#E0E0E0]">
-      <span className="text-[16px] font-normal text-[#212121]">{label}</span>
-      <span className="text-[16px] font-normal text-[#757575]">{value}</span>
+    <div className="flex items-center justify-between px-4 h-14 border-b border-border">
+      <span className="text-base font-normal text-foreground">{label}</span>
+      <span className="text-base font-normal text-[#595959]">{value}</span>
     </div>
   );
 }
@@ -26,7 +26,7 @@ export default function LimitsFeesPage() {
       <div className="flex-1 bg-white">
         {/* Transfer Limits section */}
         <div className="px-4 pt-4 pb-2">
-          <h2 className="text-[16px] font-bold text-[#212121]">
+          <h2 className="text-base font-bold text-foreground">
             {t("limitsFees.transferLimits")}
           </h2>
         </div>
@@ -41,7 +41,7 @@ export default function LimitsFeesPage() {
 
         {/* Fees section */}
         <div className="px-4 pt-6 pb-2">
-          <h2 className="text-[16px] font-bold text-[#212121]">
+          <h2 className="text-base font-bold text-foreground">
             {t("limitsFees.fees")}
           </h2>
         </div>
