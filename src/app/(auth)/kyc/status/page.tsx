@@ -89,7 +89,7 @@ export default function KYCStatusPage() {
 
           {kycStatus === 'rejected' && (
             <Button
-              onClick={() => router.push('/(auth)/kyc/resubmit')}
+              onClick={() => router.push('/kyc/resubmit')}
               className="w-full h-12 rounded-full bg-[#FFE600] text-[#212121] hover:bg-[#FFE600]/90"
             >
               {t('status.rejected.cta')}
@@ -112,22 +112,12 @@ export default function KYCStatusPage() {
           )}
 
           {kycStatus === 'expired' && (
-            <div className="flex gap-4 w-full max-w-[320px] mx-auto">
-              <Button
-                variant="ghost"
-                onClick={() => router.push('/home')}
-                className="flex-1 h-12 text-[#212121] font-semibold"
-              >
-                {t('status.expired.later')}
-              </Button>
-              <Button
-                variant="ghost"
-                onClick={() => router.push('/(auth)/kyc/document-type')}
-                className="flex-1 h-12 text-[#212121] font-semibold"
-              >
-                {t('status.expired.now')}
-              </Button>
-            </div>
+            <Button
+              onClick={() => router.push('/kyc/document-type')}
+              className="w-full h-12 rounded-full bg-[#FFE600] text-[#212121] hover:bg-[#FFE600]/90"
+            >
+              {t('status.expired.cta')}
+            </Button>
           )}
         </div>
       </div>
