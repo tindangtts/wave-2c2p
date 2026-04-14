@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-02-PLAN.md
-last_updated: "2026-04-14T08:11:16.950Z"
+stopped_at: Completed 02-03-PLAN.md
+last_updated: "2026-04-14T08:11:27.166Z"
 last_activity: 2026-04-14
 progress:
   total_phases: 7
@@ -84,6 +84,9 @@ Recent decisions affecting current work:
 - [Phase 02-authentication]: i18n: auth.json merged via spread under 'auth' namespace in request.ts — parallel load with common.json
 - [Phase 02-authentication]: admin.auth.admin.getUserByPhone does not exist — use listUsers with .find() for phone lookup
 - [Phase 02-authentication]: isLoginOnlyPage split from isAuthPage — /passcode excluded from auth redirect (needed for lock screen)
+- [Phase 02-authentication]: base-ui Select onValueChange receives value | null — all handlers must guard against null before casting to typed enum
+- [Phase 02-authentication]: Hydration-safe Zustand reads: mounted state + useEffect prevents SSR/client mismatch on localStorage-persisted store
+- [Phase 02-authentication]: API errors are non-blocking in registration: Zustand store saves first, user advances even on API failure (offline resilience)
 
 ### Pending Todos
 
@@ -95,6 +98,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-14T08:11:04.145Z
-Stopped at: Completed 02-02-PLAN.md
+Last session: 2026-04-14T08:11:27.164Z
+Stopped at: Completed 02-03-PLAN.md
 Resume file: None
