@@ -1,0 +1,46 @@
+{
+  "greeting": "Hello, {firstName}",
+  "balanceHidden": "฿ •••••",
+  "showBalance": "Show balance",
+  "hideBalance": "Hide balance",
+  "copyWalletId": "Copy wallet ID",
+  "walletIdCopied": "Wallet ID copied",
+  "walletIdLabel": "Wallet ID:",
+  "quickActions": {
+    "transfer": "Transfer",
+    "bills": "Bills",
+    "referral": "Referral",
+    "withdrawal": "Withdrawal"
+  },
+  "recentHistory": {
+    "title": "Recent History",
+    "empty": {
+      "heading": "No transactions yet",
+      "body": "Your transactions will appear here after your first transfer or top-up."
+    }
+  },
+  "promotions": {
+    "title": "Promotions",
+    "promo1": {
+      "title": "Refer a Friend",
+      "body": "Earn 100 THB for every successful referral"
+    },
+    "promo2": {
+      "title": "Zero Fees Weekend",
+      "body": "Send money home at zero transfer fees this Saturday and Sunday"
+    },
+    "promo3": {
+      "title": "Visa Card Coming Soon",
+      "body": "Apply now and be first to get your 2C2P Wave Visa Card"
+    }
+  },
+  "comingSoon": {
+    "heading": "Coming Soon",
+    "body": "This feature is on its way. Check back soon."
+  },
+  "errors": {
+    "balanceFetch": "Unable to load balance. Pull down to refresh.",
+    "transactionFetch": "Unable to load transactions. Tap to retry."
+  },
+  "notifications": "Notifications"
+}

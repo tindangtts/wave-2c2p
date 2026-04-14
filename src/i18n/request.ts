@@ -8,10 +8,11 @@ export default getRequestConfig(async ({ requestLocale }) => {
     locale = routing.defaultLocale
   }
 
-  const [common, auth, kyc] = await Promise.all([
+  const [common, auth, kyc, home] = await Promise.all([
     import(`../../messages/${locale}/common.json`),
     import(`../../messages/${locale}/auth.json`),
     import(`../../messages/${locale}/kyc.json`),
+    import(`../../messages/${locale}/home.json`),
   ])
 
   return {
@@ -20,6 +21,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ...common.default,
       auth: auth.default,
       kyc: kyc.default,
+      home: home.default,
     },
   }
 })
