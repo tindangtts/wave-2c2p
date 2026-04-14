@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-04-PLAN.md (supabase schema bigint monetary columns and RLS policies)
-last_updated: "2026-04-14T06:55:31.791Z"
+stopped_at: Completed 01-foundation-01-03-PLAN.md
+last_updated: "2026-04-14T06:56:58.956Z"
 last_activity: 2026-04-14
 progress:
   total_phases: 7
   completed_phases: 0
   total_plans: 4
-  completed_plans: 1
+  completed_plans: 2
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-14)
 ## Current Position
 
 Phase: 01 (Foundation) — EXECUTING
-Plan: 2 of 4
+Plan: 3 of 4
 Status: Ready to execute
 Last activity: 2026-04-14
 
@@ -53,6 +53,7 @@ Progress: [░░░░░░░░░░] 0%
 
 *Updated after each plan completion*
 | Phase 01-foundation P04 | 5 | 1 tasks | 1 files |
+| Phase 01-foundation P03 | 2 | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -66,6 +67,8 @@ Recent decisions affecting current work:
 - Project: proxy.ts used instead of middleware.ts (Next.js 16 convention)
 - [Phase 01-foundation]: All monetary columns use bigint satang/pya per D-07 — prevents 100x display errors from float-to-integer mismatch in financial calculations
 - [Phase 01-foundation]: exchange_rate stays as numeric(10,4) — it is a ratio not a currency amount; INSERT policy added to user_profiles and UPDATE policy to wallets
+- [Phase 01-foundation]: Integer arithmetic for all currency math: Math.round(satang * rate) not parseFloat chains
+- [Phase 01-foundation]: Mock routes env-var-driven: MOCK_KYC_AUTO_APPROVE defaults true, MOCK_PAYMENT_FAIL defaults false
 
 ### Pending Todos
 
@@ -77,6 +80,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-14T06:55:31.789Z
-Stopped at: Completed 01-04-PLAN.md (supabase schema bigint monetary columns and RLS policies)
+Last session: 2026-04-14T06:56:58.954Z
+Stopped at: Completed 01-foundation-01-03-PLAN.md
 Resume file: None
