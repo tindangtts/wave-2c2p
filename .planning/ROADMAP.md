@@ -18,7 +18,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 4: Home & Wallet** - Users can view their balance, recent transactions, and navigate the app (completed 2026-04-14)
 - [x] **Phase 5: Transfer & Recipients** - Users can send money to Myanmar with full confirmation flow (completed 2026-04-14)
 - [x] **Phase 6: Wallet Operations** - Users can top up, withdraw, scan QR, and review transaction history (completed 2026-04-14)
-- [ ] **Phase 7: Profile, Card & System States** - Users can manage settings, view virtual card, and see system state screens
+- [x] **Phase 7: Profile, Card & System States** - Users can manage settings, view virtual card, and see system state screens (completed 2026-04-14)
 
 ## Phase Details
 
@@ -155,7 +155,7 @@ Plans:
 Plans:
 - [x] 07-01-PLAN.md — Profile menu page, i18n messages, logout, static sub-pages (Information, Contact Us, Limits & Fees, Terms, Privacy, FAQ)
 - [x] 07-02-PLAN.md — System states: maintenance modal, update modal, error boundary, loading skeletons
-- [ ] 07-03-PLAN.md — Phone change flow, passcode change flow, language selector, referral page, notification settings
+- [x] 07-03-PLAN.md — Phone change flow, passcode change flow, language selector, referral page, notification settings
 - [x] 07-04-PLAN.md — Virtual Visa card: display, reveal/hide toggle, freeze/unfreeze with confirmation
 
 **UI hint**: yes
@@ -173,4 +173,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 4. Home & Wallet | 2/2 | Complete   | 2026-04-14 |
 | 5. Transfer & Recipients | 4/4 | Complete   | 2026-04-14 |
 | 6. Wallet Operations | 4/4 | Complete   | 2026-04-14 |
-| 7. Profile, Card & System States | 3/4 | In Progress|  |
+| 7. Profile, Card & System States | 4/4 | Complete   | 2026-04-14 |

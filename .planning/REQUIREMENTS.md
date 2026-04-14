@@ -87,10 +87,10 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Profile & Settings
 
 - [x] **PROF-01**: Profile page shows settings menu matching prototype layout
-- [ ] **PROF-02**: User can change phone number through multi-step verification
-- [ ] **PROF-03**: User can change passcode (current → new flow)
+- [x] **PROF-02**: User can change phone number through multi-step verification
+- [x] **PROF-03**: User can change passcode (current → new flow)
 - [x] **PROF-04**: User can switch language (EN/TH/MM) with immediate UI update
-- [ ] **PROF-05**: User can view and share referral QR code with monthly count
+- [x] **PROF-05**: User can view and share referral QR code with monthly count
 - [x] **PROF-06**: Contact Us page shows call center, social channels, and resources
 - [x] **PROF-07**: User can view Limits & Fees, Terms, Privacy Policy, and FAQ pages
 - [x] **PROF-08**: User can log out from profile page
@@ -214,10 +214,10 @@ Deferred to future release. Tracked but not in current roadmap.
 | WTHD-02 | Phase 6 | Complete |
 | WTHD-03 | Phase 6 | Complete |
 | PROF-01 | Phase 7 | Complete |
-| PROF-02 | Phase 7 | Pending |
-| PROF-03 | Phase 7 | Pending |
+| PROF-02 | Phase 7 | Complete |
+| PROF-03 | Phase 7 | Complete |
 | PROF-04 | Phase 7 | Complete |
-| PROF-05 | Phase 7 | Pending |
+| PROF-05 | Phase 7 | Complete |
 | PROF-06 | Phase 7 | Complete |
 | PROF-07 | Phase 7 | Complete |
 | PROF-08 | Phase 7 | Complete |

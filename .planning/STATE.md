@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 07-04-PLAN.md
-last_updated: "2026-04-14T13:42:49.667Z"
+status: verifying
+stopped_at: Completed 07-03-PLAN.md
+last_updated: "2026-04-14T13:44:37.657Z"
 last_activity: 2026-04-14
 progress:
   total_phases: 7
-  completed_phases: 6
+  completed_phases: 7
   total_plans: 26
-  completed_plans: 25
+  completed_plans: 26
   percent: 0
 ---
 
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-04-14)
 
 Phase: 07 (profile-card-system-states) — EXECUTING
 Plan: 4 of 4
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-04-14
 
 Progress: [░░░░░░░░░░] 0%
@@ -77,6 +77,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 07-profile-card-system-states P02 | 189 | 2 tasks | 11 files |
 | Phase 07-profile-card-system-states P01 | 6 | 2 tasks | 14 files |
 | Phase 07-profile-card-system-states P04 | 2 | 2 tasks | 4 files |
+| Phase 07-profile-card-system-states P03 | 20 | 2 tasks | 11 files |
 
 ## Accumulated Context
 
@@ -141,6 +142,8 @@ Recent decisions affecting current work:
 - [Phase 07-profile-card-system-states]: Profile page uses useEffect + Supabase browser client for user data fetch; logout calls clearAll/reset explicitly per store; language badge derived from useLocale(); ProfileMenuItem uses border-b divider pattern
 - [Phase 07-profile-card-system-states]: FreezeCardToggle uses controlled AlertDialog (open state managed internally) — onCheckedChange triggers dialog open rather than immediate state change
 - [Phase 07-profile-card-system-states]: Auto-hide timer managed in page with useRef for cleanup; freeze while revealed auto-hides number
+- [Phase 07-profile-card-system-states]: locale cookie name is 'locale' (from routing.ts localeCookie config) — LanguageSelector sets document.cookie directly then calls router.refresh()
+- [Phase 07-profile-card-system-states]: change-passcode page uses key={step} on PasscodeKeypad to force remount/reset between steps
 
 ### Pending Todos
 
@@ -152,6 +155,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-14T13:42:49.665Z
-Stopped at: Completed 07-04-PLAN.md
+Last session: 2026-04-14T13:44:37.654Z
+Stopped at: Completed 07-03-PLAN.md
 Resume file: None
