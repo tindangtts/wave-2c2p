@@ -95,7 +95,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 04-01-PLAN.md — Data infrastructure: i18n messages, wallet/transactions API routes, SWR hooks, BottomNav enhancement
+- [x] 04-01-PLAN.md — Data infrastructure: i18n messages, wallet/transactions API routes, SWR hooks, BottomNav enhancement
 - [ ] 04-02-PLAN.md — Dashboard components: WalletCard, QuickActions, RecentHistory, PromoCarousel, placeholder pages, home page wiring
 
 **UI hint**: yes
@@ -149,7 +149,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 1. Foundation | 4/4 | Complete   | 2026-04-14 |
 | 2. Authentication | 4/4 | Complete   | 2026-04-14 |
 | 3. eKYC Onboarding | 4/4 | Complete   | 2026-04-14 |
-| 4. Home & Wallet | 0/2 | In progress | - |
+| 4. Home & Wallet | 1/2 | In Progress|  |
 | 5. Transfer & Recipients | 0/TBD | Not started | - |
 | 6. Wallet Operations | 0/TBD | Not started | - |
 | 7. Profile, Card & System States | 0/TBD | Not started | - |

@@ -45,8 +45,8 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **HOME-02**: Quick actions grid shows Bills, Referral, Withdrawal, History with correct icons
 - [ ] **HOME-03**: Recent History section shows last 5 transactions with status badges
 - [ ] **HOME-04**: Promotion carousel displays scrollable banner cards
-- [ ] **HOME-05**: Bottom navigation renders 4 tabs (Home, Scan, Add Money, Profile) with yellow FAB for Add Money
-- [ ] **HOME-06**: Wallet balance updates in real-time after transactions via Supabase Realtime
+- [x] **HOME-05**: Bottom navigation renders 4 tabs (Home, Scan, Add Money, Profile) with yellow FAB for Add Money
+- [x] **HOME-06**: Wallet balance updates in real-time after transactions via Supabase Realtime
 
 ### Transfer & Remittance
 
@@ -182,8 +182,8 @@ Deferred to future release. Tracked but not in current roadmap.
 | HOME-02 | Phase 4 | Pending |
 | HOME-03 | Phase 4 | Pending |
 | HOME-04 | Phase 4 | Pending |
-| HOME-05 | Phase 4 | Pending |
-| HOME-06 | Phase 4 | Pending |
+| HOME-05 | Phase 4 | Complete |
+| HOME-06 | Phase 4 | Complete |
 | XFER-01 | Phase 5 | Pending |
 | XFER-02 | Phase 5 | Pending |
 | XFER-03 | Phase 5 | Pending |

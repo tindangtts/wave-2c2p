@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: verifying
-stopped_at: Completed 03-04-PLAN.md
-last_updated: "2026-04-14T11:09:48.563Z"
+status: executing
+stopped_at: Completed 04-home-wallet-01-PLAN.md
+last_updated: "2026-04-14T11:26:33.404Z"
 last_activity: 2026-04-14
 progress:
   total_phases: 7
   completed_phases: 3
-  total_plans: 12
-  completed_plans: 12
+  total_plans: 14
+  completed_plans: 13
   percent: 0
 ---
 
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-14)
 
 **Core value:** Users can send money from Thailand to Myanmar quickly, affordably, and with full regulatory compliance
-**Current focus:** Phase 03 — ekyc-onboarding
+**Current focus:** Phase 04 — home-wallet
 
 ## Current Position
 
-Phase: 04
-Plan: Not started
-Status: Phase complete — ready for verification
+Phase: 04 (home-wallet) — EXECUTING
+Plan: 2 of 2
+Status: Ready to execute
 Last activity: 2026-04-14
 
 Progress: [░░░░░░░░░░] 0%
@@ -64,6 +64,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 03-ekyc-onboarding P03 | 8 | 2 tasks | 4 files |
 | Phase 03-ekyc-onboarding P02 | 8 | 2 tasks | 6 files |
 | Phase 03-ekyc-onboarding P04 | 15 | 2 tasks | 3 files |
+| Phase 04-home-wallet P01 | 8 | 2 tasks | 9 files |
 
 ## Accumulated Context
 
@@ -104,6 +105,7 @@ Recent decisions affecting current work:
 - [Phase 03-ekyc-onboarding]: Rejection heuristic maps keyword patterns to fields: document/blurry/expired → front+back rejected; face/photo → selfie rejected
 - [Phase 03-ekyc-onboarding]: retakeMode null|front|back|selfie drives inline CameraOverlay per field — avoids extra routes and iOS PWA camera permission re-prompts
 - [Phase 03-ekyc-onboarding]: KYCExpiredModal AlertDialog uses controlled mode (open prop only) — parent component owns open/close lifecycle
+- [Phase 04-home-wallet]: SWR dedupingInterval 30s per D-10; missing wallet returns null not 500; stroke-[2.5] vs stroke-[1.5] for active/inactive icon differentiation in BottomNav
 
 ### Pending Todos
 
@@ -115,6 +117,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-14T09:50:31.092Z
-Stopped at: Completed 03-04-PLAN.md
+Last session: 2026-04-14T11:26:33.402Z
+Stopped at: Completed 04-home-wallet-01-PLAN.md
 Resume file: None
