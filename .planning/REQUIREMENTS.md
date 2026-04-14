@@ -72,8 +72,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **ADDM-01**: User can enter top-up amount with balance and max limit displayed
 - [x] **ADDM-02**: User can select bank/convenience store channel from grid
-- [ ] **ADDM-03**: QR code generates for selected amount with payment details
-- [ ] **ADDM-04**: QR display shows countdown timer for expiration
+- [x] **ADDM-03**: QR code generates for selected amount with payment details
+- [x] **ADDM-04**: QR display shows countdown timer for expiration
 - [x] **ADDM-05**: Payment confirmation/receipt displays after successful top-up
 
 ### Transaction History
@@ -105,17 +105,17 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Withdrawal
 
-- [ ] **WTHD-01**: User can select recipient for withdrawal
+- [x] **WTHD-01**: User can select recipient for withdrawal
 - [x] **WTHD-02**: User can enter withdrawal amount with balance validation
-- [ ] **WTHD-03**: User can confirm withdrawal with passcode
+- [x] **WTHD-03**: User can confirm withdrawal with passcode
 
 ### Card & Scan
 
 - [ ] **CARD-01**: Virtual Visa card displays with masked number, holder name, expiry
 - [ ] **CARD-02**: User can reveal/hide card details (number, CVV, expiry)
 - [ ] **CARD-03**: User can freeze/unfreeze virtual card
-- [ ] **SCAN-01**: QR scanner page displays camera view with scan frame overlay
-- [ ] **SCAN-02**: QR scanner falls back to file input on iOS PWA standalone mode
+- [x] **SCAN-01**: QR scanner page displays camera view with scan frame overlay
+- [x] **SCAN-02**: QR scanner falls back to file input on iOS PWA standalone mode
 
 ## v2 Requirements
 
@@ -200,19 +200,19 @@ Deferred to future release. Tracked but not in current roadmap.
 | RCPT-05 | Phase 5 | Complete |
 | ADDM-01 | Phase 6 | Complete |
 | ADDM-02 | Phase 6 | Complete |
-| ADDM-03 | Phase 6 | Pending |
-| ADDM-04 | Phase 6 | Pending |
+| ADDM-03 | Phase 6 | Complete |
+| ADDM-04 | Phase 6 | Complete |
 | ADDM-05 | Phase 6 | Complete |
 | HIST-01 | Phase 6 | Complete |
 | HIST-02 | Phase 6 | Complete |
 | HIST-03 | Phase 6 | Complete |
 | HIST-04 | Phase 6 | Pending |
 | HIST-05 | Phase 6 | Pending |
-| SCAN-01 | Phase 6 | Pending |
-| SCAN-02 | Phase 6 | Pending |
-| WTHD-01 | Phase 6 | Pending |
+| SCAN-01 | Phase 6 | Complete |
+| SCAN-02 | Phase 6 | Complete |
+| WTHD-01 | Phase 6 | Complete |
 | WTHD-02 | Phase 6 | Complete |
-| WTHD-03 | Phase 6 | Pending |
+| WTHD-03 | Phase 6 | Complete |
 | PROF-01 | Phase 7 | Pending |
 | PROF-02 | Phase 7 | Pending |
 | PROF-03 | Phase 7 | Pending |

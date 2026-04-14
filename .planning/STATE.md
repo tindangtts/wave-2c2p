@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 06-02-PLAN.md
-last_updated: "2026-04-14T13:06:42.834Z"
+status: verifying
+stopped_at: Completed 06-04-PLAN.md
+last_updated: "2026-04-14T13:07:44.869Z"
 last_activity: 2026-04-14
 progress:
   total_phases: 7
-  completed_phases: 5
+  completed_phases: 6
   total_plans: 22
-  completed_plans: 20
+  completed_plans: 22
   percent: 0
 ---
 
@@ -26,8 +26,8 @@ See: .planning/PROJECT.md (updated 2026-04-14)
 ## Current Position
 
 Phase: 06 (wallet-operations) — EXECUTING
-Plan: 3 of 4
-Status: Ready to execute
+Plan: 4 of 4
+Status: Phase complete — ready for verification
 Last activity: 2026-04-14
 
 Progress: [░░░░░░░░░░] 0%
@@ -72,6 +72,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 05 P04 | 3 | 2 tasks | 5 files |
 | Phase 06-wallet-operations P01 | 81 | 2 tasks | 11 files |
 | Phase 06-wallet-operations P02 | 4 | 2 tasks | 7 files |
+| Phase 06 P04 | 4 | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -128,6 +129,8 @@ Recent decisions affecting current work:
 - [Phase 06-wallet-operations]: transactions route uses .select('*, recipients(*)') join — single query for enriched data, avoids secondary client fetch
 - [Phase 06-wallet-operations]: withdraw deducts balance immediately before async completion — prevents double-spend with rollback on tx insert failure
 - [Phase 06-wallet-operations]: Channel tap with invalid amount shows toast error; hasFetched ref prevents double-POST in React Strict Mode; amount from topup API is baht not satang
+- [Phase 06]: box-shadow 9999px spread used for ScannerFrame dark mask — single element, no 4-div clip-path complexity
+- [Phase 06]: withdraw/receipt passes transaction data via searchParams — store reset after successful withdrawal, searchParams are URL-stable
 
 ### Pending Todos
 
@@ -139,6 +142,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-14T13:06:42.832Z
-Stopped at: Completed 06-02-PLAN.md
+Last session: 2026-04-14T13:07:34.236Z
+Stopped at: Completed 06-04-PLAN.md
 Resume file: None

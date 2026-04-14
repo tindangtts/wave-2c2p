@@ -17,7 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: eKYC Onboarding** - Users can complete identity verification with mock approval/rejection (completed 2026-04-14)
 - [x] **Phase 4: Home & Wallet** - Users can view their balance, recent transactions, and navigate the app (completed 2026-04-14)
 - [x] **Phase 5: Transfer & Recipients** - Users can send money to Myanmar with full confirmation flow (completed 2026-04-14)
-- [ ] **Phase 6: Wallet Operations** - Users can top up, withdraw, scan QR, and review transaction history
+- [x] **Phase 6: Wallet Operations** - Users can top up, withdraw, scan QR, and review transaction history (completed 2026-04-14)
 - [ ] **Phase 7: Profile, Card & System States** - Users can manage settings, view virtual card, and see system state screens
 
 ## Phase Details
@@ -135,8 +135,8 @@ Plans:
 Plans:
 - [x] 06-01-PLAN.md — Data infrastructure: schemas, store, SWR hooks, i18n, mock topup/withdraw/transactions APIs
 - [x] 06-02-PLAN.md — Add Money flow: amount entry with bank/convenience channel grid, QR display with expiry timer
-- [ ] 06-03-PLAN.md — Transaction history: infinite scroll, filter chips, date range picker, transaction detail
-- [ ] 06-04-PLAN.md — QR scanner with camera overlay and file fallback, withdrawal flow with passcode
+- [x] 06-03-PLAN.md — Transaction history: infinite scroll, filter chips, date range picker, transaction detail
+- [x] 06-04-PLAN.md — QR scanner with camera overlay and file fallback, withdrawal flow with passcode
 
 **UI hint**: yes
 
@@ -165,5 +165,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 3. eKYC Onboarding | 4/4 | Complete   | 2026-04-14 |
 | 4. Home & Wallet | 2/2 | Complete   | 2026-04-14 |
 | 5. Transfer & Recipients | 4/4 | Complete   | 2026-04-14 |
-| 6. Wallet Operations | 2/4 | In Progress|  |
+| 6. Wallet Operations | 4/4 | Complete   | 2026-04-14 |
 | 7. Profile, Card & System States | 0/TBD | Not started | - |
