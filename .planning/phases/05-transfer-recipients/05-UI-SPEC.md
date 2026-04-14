@@ -1,7 +1,7 @@
 ---
 phase: 5
 slug: transfer-recipients
-status: draft
+status: approved
 shadcn_initialized: true
 preset: base-nova
 created: 2026-04-14
@@ -105,7 +105,7 @@ Two weights only: 700 (bold) for headings, 400 (regular) for body and caption. E
 
 **Transfer-phase-specific typography rules:**
 
-- Amount entry display: 48px, weight 700, `#212121` on `#FFFFFF` — large numeric keypad-driven input; "THB" suffix in 16px 400
+- Amount entry display: 48px (sizing exception — not a typography scale token, used only for amount keypad input), weight 700, `#212121` on `#FFFFFF`; "THB" suffix in 16px 400
 - MMK conversion below amount: 16px, weight 400, `#757575` — "= 133,000.00 MMK" displayed below amount
 - Rate line: 12px, weight 400, `#757575` — "1 THB = 133.0 MMK" (caption size)
 - Rate lock timer: 12px, weight 700, `#F44336` when < 60s remaining, `#FF9800` when 1–3 min, `#212121` when > 3 min
@@ -118,7 +118,7 @@ Two weights only: 700 (bold) for headings, 400 (regular) for body and caption. E
 - Receipt "Success!": 16px, weight 700, `#00C853` — green success badge label
 - Receipt section label (Amount / Fee / Total): 16px, weight 400, `#757575` — left side of breakdown rows
 - Receipt section value: 16px, weight 700, `#212121` — right side; Total row uses 20px weight 700
-- Form field label: 14px weight 400 `#212121` — outside input, above the field (not inside placeholder)
+- Form field label: 12px weight 400 `#212121` — outside input, above the field (caption size, not inside placeholder)
 - Form validation error: 12px, weight 400, `#F44336` — below field on error
 - Screen title in yellow header: 20px, weight 700, `#0091EA` blue — consistent with app header pattern
 
@@ -230,7 +230,7 @@ Source: Phase 1 color tokens; D-07, D-12, D-13, D-15 in 05-CONTEXT.md; Pencil de
 | Avatar | 48px circle, `bg-#FFE600`, 20px bold `#212121` initial |
 | Name | 16px bold `#212121`, truncate 1 line |
 | Transfer type | 12px regular `#757575`, below name ("Bank Transfer", "Wave App", etc.) |
-| Right: kebab | `MoreVertical` lucide, 24px `#757575`, 44×44px touch target |
+| Right: kebab | `MoreVertical` lucide, 24px `#757575`, 44×44px touch target, `aria-label="More options for {name}"` |
 | Favorite indicator | `Star` lucide left of name (16px), filled `#0091EA` if favorite, outline `#C0C0C0` if not |
 | Selected state | 3px left border `#FFE600`, `bg-#FFFDE7` (very light yellow) |
 | Press state | `active:bg-gray-50` |
@@ -283,11 +283,11 @@ Source: Phase 1 color tokens; D-07, D-12, D-13, D-15 in 05-CONTEXT.md; Pencil de
 
 | Property | Value |
 |----------|-------|
-| Label | 14px regular `#212121`, above field, `mb-1` |
+| Label | 12px regular `#212121`, above field, `mb-1` |
 | Input height | 48px (`h-12`) |
 | Input border | 1px `#E0E0E0` default, 2px `#0091EA` focused, 1px `#F44336` error |
 | Input border-radius | 12px (`rounded-xl`) |
-| Placeholder text | 14px regular `#9E9E9E` |
+| Placeholder text | 12px regular `#9E9E9E` |
 | Error message | 12px regular `#F44336`, below field, `mt-1` |
 | Required indicator | `*` in `#F44336` after label text |
 | Section spacing | 24px between fields (`gap-6`) in each section |
@@ -366,7 +366,7 @@ Source: Phase 1 color tokens; D-07, D-12, D-13, D-15 in 05-CONTEXT.md; Pencil de
 | Left: icon | 40px circle; channel-specific icon (see below); bg varies by channel |
 | Left: channel name | 16px bold `#212121` |
 | Left: converted amount | 12px regular `#757575` — "133,000.00 MMK" below name |
-| Right: fee | 14px bold `#212121` — "10 THB"; 12px regular `#757575` "Fee" label above |
+| Right: fee | 16px bold `#212121` — "10 THB"; 12px regular `#757575` "Fee" label above |
 | Unselected border | 1px `#E0E0E0` |
 | Selected border | 2px `#0091EA`; bg `#F0F9FF` |
 | Radio indicator | 20px radio circle right-most; unselected: `#E0E0E0` outline; selected: `#0091EA` filled |
@@ -428,7 +428,7 @@ Source: Phase 1 color tokens; D-07, D-12, D-13, D-15 in 05-CONTEXT.md; Pencil de
     [Row: Total — "1,010.00 THB" — label left 20px bold #212121, value right 20px bold #212121]
 
   [Note field — mt-4]
-    [Label "Note (optional)" — 14px regular #212121]
+    [Label "Note (optional)" — 16px regular #212121]
     [Textarea — 3 rows, rounded-xl, border 1px #E0E0E0, 14px regular]
 
 [Sticky bottom CTA]
@@ -443,7 +443,7 @@ Source: Phase 1 color tokens; D-07, D-12, D-13, D-15 in 05-CONTEXT.md; Pencil de
 | Trigger | "Confirm" button on confirmation screen |
 | Sheet type | Vaul `Drawer` bottom sheet, modal |
 | Title | "Enter Passcode" — 20px bold `#212121`, text-center |
-| Subtitle | "Confirm your transfer" — 14px regular `#757575`, text-center, mt-1 |
+| Subtitle | "Confirm your transfer" — 12px regular `#757575`, text-center, mt-1 |
 | Passcode dots | 6 dots row; empty: 16px circle `#E0E0E0` outline; filled: 16px circle `#212121` solid |
 | Error state | Dots shake animation (`animate-shake`); "Incorrect passcode" 12px `#F44336` below dots |
 | Max attempts | After 3 failures: "Too many attempts. Try again in 5 minutes." — sheet closes |
@@ -476,10 +476,10 @@ Source: Phase 1 color tokens; D-07, D-12, D-13, D-15 in 05-CONTEXT.md; Pencil de
     ["Transfer" section label — 12px bold #757575, mb-2, uppercase tracking-wide]
     [Sender row — flex justify-between]
       [Label "From" — 12px regular #757575]
-      [Value — 14px bold #212121 — name + phone]
+      [Value — 16px bold #212121 — name + phone]
     [Receiver row — flex justify-between, mt-2]
       [Label "To" — 12px regular #757575]
-      [Value — 14px bold #212121 — name + transfer type]
+      [Value — 16px bold #212121 — name + transfer type]
 
   [Separator 1px #E0E0E0, my-4]
 
@@ -492,7 +492,7 @@ Source: Phase 1 color tokens; D-07, D-12, D-13, D-15 in 05-CONTEXT.md; Pencil de
 
   [Note section — mt-4 — if note exists]
     ["Note" label — 12px regular #757575]
-    [Note text — 14px regular #212121]
+    [Note text — 16px regular #212121]
 
   [Share button — mt-6, text-center]
     [Share2 lucide 20px + "Share" — 16px regular #0091EA — centered, no border]
@@ -539,7 +539,7 @@ Source: Phase 1 color tokens; D-07, D-12, D-13, D-15 in 05-CONTEXT.md; Pencil de
 | Search no results | "No recipients match "{query}"" | Claude's discretion |
 | Delete recipient confirm | "Delete "{name}"? This cannot be undone." | Destructive — D-08 |
 | Delete recipient CTA | "Delete" | Destructive action label |
-| Delete recipient cancel | "Cancel" | Cancel label |
+| Delete recipient cancel | "Keep Recipient" | Contextual cancel — clarifies the recipient is preserved |
 | Form required field error | "This field is required" | Default validation copy |
 | Form NRC format error | "Enter a valid NRC (e.g. 12/DAGANA(N)123456)" | Field-specific guidance |
 | Form phone Myanmar error | "Enter a valid Myanmar phone number (+95 followed by 9 digits)" | Field-specific guidance |
@@ -553,7 +553,7 @@ Source: Phase 1 color tokens; D-07, D-12, D-13, D-15 in 05-CONTEXT.md; Pencil de
 
 | Action | Trigger | Confirmation approach |
 |--------|---------|----------------------|
-| Delete recipient | Kebab menu → "Delete" | Alert dialog with recipient name + "This cannot be undone." + red "Delete" button + "Cancel" |
+| Delete recipient | Kebab menu → "Delete" | Alert dialog with recipient name + "This cannot be undone." + red "Delete" button + "Keep Recipient" |
 
 Source: Pencil design reference; D-05, D-08, D-10, D-11, D-15, D-16 in 05-CONTEXT.md; REQUIREMENTS.md RCPT-01 through RCPT-05.
 
@@ -628,7 +628,7 @@ Source: Pencil design reference; D-05, D-08, D-10, D-11, D-15, D-16 in 05-CONTEX
 | Tap "Edit" | Navigate to `/transfer/edit-recipient/[id]` (same form, pre-filled) |
 | Tap "Delete" | Open `AlertDialog` with delete confirmation |
 | Confirm delete | `DELETE /api/recipients/[id]`, remove from list optimistically |
-| Cancel | Close dialog, no change |
+| Keep Recipient | Close dialog, no change |
 
 ### Channel Selection
 
@@ -682,7 +682,7 @@ Source: Pencil design reference; D-05, D-08, D-10, D-11, D-15, D-16 in 05-CONTEX
 | Exchange rate fetch on amount screen | Skeleton bar 120×16px where conversion text goes |
 | Channel cards during rate load | 4× skeleton cards: full-width × 72px, `rounded-xl`, `animate-pulse` |
 | Confirmation screen rate | Skeleton 80×24px for rate timer badge while fetching |
-| Receipt status pending | Spinner (24px `#0091EA`, `animate-spin`) + "Processing your transfer..." 14px |
+| Receipt status pending | Spinner (24px `#0091EA`, `animate-spin`) + "Processing your transfer..." 12px |
 | New recipient form submit | Button loading state: spinner inside "Create New" button, disabled |
 
 ---
