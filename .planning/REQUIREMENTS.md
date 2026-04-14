@@ -51,21 +51,21 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Transfer & Remittance
 
 - [ ] **XFER-01**: User can select existing recipient or add new one
-- [ ] **XFER-02**: User can enter amount in THB with real-time MMK conversion display
-- [ ] **XFER-03**: Exchange rate is displayed with lock timer countdown at confirmation
-- [ ] **XFER-04**: User can select receiving channel (Wave Agent, Wave App, Bank Transfer, Cash Pickup)
-- [ ] **XFER-05**: Fee breakdown shows per-channel fees before channel selection
+- [x] **XFER-02**: User can enter amount in THB with real-time MMK conversion display
+- [x] **XFER-03**: Exchange rate is displayed with lock timer countdown at confirmation
+- [x] **XFER-04**: User can select receiving channel (Wave Agent, Wave App, Bank Transfer, Cash Pickup)
+- [x] **XFER-05**: Fee breakdown shows per-channel fees before channel selection
 - [ ] **XFER-06**: Transfer confirmation shows full summary (amount, converted, rate, fees, total)
 - [ ] **XFER-07**: User confirms transfer with passcode entry
-- [ ] **XFER-08**: Transfer status updates from pending → processing → completed/failed
+- [x] **XFER-08**: Transfer status updates from pending → processing → completed/failed
 - [ ] **XFER-09**: User receives receipt with reference number, amounts, rate, and timestamp
 
 ### Recipient Management
 
-- [ ] **RCPT-01**: User can add recipient with name, phone (+95), and country
-- [ ] **RCPT-02**: User can provide NRC, occupation, transfer purpose, relationship (AML/EDD compliance fields)
+- [x] **RCPT-01**: User can add recipient with name, phone (+95), and country
+- [x] **RCPT-02**: User can provide NRC, occupation, transfer purpose, relationship (AML/EDD compliance fields)
 - [ ] **RCPT-03**: User can edit and delete existing recipients
-- [ ] **RCPT-04**: User can mark recipients as favorites for quick access
+- [x] **RCPT-04**: User can mark recipients as favorites for quick access
 - [ ] **RCPT-05**: Recipient list shows favorites first, then recents, with search
 
 ### Add Money
@@ -185,18 +185,18 @@ Deferred to future release. Tracked but not in current roadmap.
 | HOME-05 | Phase 4 | Complete |
 | HOME-06 | Phase 4 | Complete |
 | XFER-01 | Phase 5 | Pending |
-| XFER-02 | Phase 5 | Pending |
-| XFER-03 | Phase 5 | Pending |
-| XFER-04 | Phase 5 | Pending |
-| XFER-05 | Phase 5 | Pending |
+| XFER-02 | Phase 5 | Complete |
+| XFER-03 | Phase 5 | Complete |
+| XFER-04 | Phase 5 | Complete |
+| XFER-05 | Phase 5 | Complete |
 | XFER-06 | Phase 5 | Pending |
 | XFER-07 | Phase 5 | Pending |
-| XFER-08 | Phase 5 | Pending |
+| XFER-08 | Phase 5 | Complete |
 | XFER-09 | Phase 5 | Pending |
-| RCPT-01 | Phase 5 | Pending |
-| RCPT-02 | Phase 5 | Pending |
+| RCPT-01 | Phase 5 | Complete |
+| RCPT-02 | Phase 5 | Complete |
 | RCPT-03 | Phase 5 | Pending |
-| RCPT-04 | Phase 5 | Pending |
+| RCPT-04 | Phase 5 | Complete |
 | RCPT-05 | Phase 5 | Pending |
 | ADDM-01 | Phase 6 | Pending |
 | ADDM-02 | Phase 6 | Pending |

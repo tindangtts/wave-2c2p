@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 05-01-PLAN.md
-last_updated: "2026-04-14T12:08:33.173Z"
+stopped_at: Completed 05-03-PLAN.md
+last_updated: "2026-04-14T12:13:37.226Z"
 last_activity: 2026-04-14
 progress:
   total_phases: 7
   completed_phases: 4
   total_plans: 18
-  completed_plans: 15
+  completed_plans: 16
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-14)
 ## Current Position
 
 Phase: 05 (transfer-recipients) — EXECUTING
-Plan: 2 of 4
+Plan: 3 of 4
 Status: Ready to execute
 Last activity: 2026-04-14
 
@@ -67,6 +67,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 04-home-wallet P01 | 8 | 2 tasks | 9 files |
 | Phase 04-home-wallet P02 | 8 | 2 tasks | 9 files |
 | Phase 05-transfer-recipients P01 | 12 | 2 tasks | 12 files |
+| Phase 05 P03 | 145 | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -112,6 +113,9 @@ Recent decisions affecting current work:
 - [Phase 04-home-wallet]: localStorage hydration uses useState(true) + useEffect pattern to prevent SSR mismatch in WalletCard balance visibility
 - [Phase 05-transfer-recipients]: Recipient extended fields (first_name, last_name, transfer_type, bank fields) enriched in API response — DB schema uses legacy columns pending migration
 - [Phase 05-transfer-recipients]: Transfer store partialize excludes transactionId and status (ephemeral); MOCK_EXCHANGE_RATE (default 133.0) used for new /rate endpoint separate from existing exchange-rate endpoint
+- [Phase 05]: Long-press backspace (300ms) clears full amount using pointerDown/pointerUp — touch and mouse compatible
+- [Phase 05]: Rate fetch uses plain useEffect + fetch (not SWR) since it runs once on mount and stores in Zustand
+- [Phase 05]: Channel fee schedule defined as const map (D-14 values) — no API call needed
 
 ### Pending Todos
 
@@ -123,6 +127,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-14T12:08:33.171Z
-Stopped at: Completed 05-01-PLAN.md
+Last session: 2026-04-14T12:13:37.223Z
+Stopped at: Completed 05-03-PLAN.md
 Resume file: None
