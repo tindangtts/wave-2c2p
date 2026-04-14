@@ -52,7 +52,7 @@ export default function ProcessingPage() {
         submissionId: data.verification_id || '',
       })
 
-      router.push('/(auth)/kyc/status')
+      router.push('/kyc/status')
     } catch {
       // On error, set pending and navigate to status
       setSubmissionResult({
@@ -60,7 +60,7 @@ export default function ProcessingPage() {
         rejectionReasons: [],
         submissionId: '',
       })
-      router.push('/(auth)/kyc/status')
+      router.push('/kyc/status')
     }
   }, [
     submitted,
