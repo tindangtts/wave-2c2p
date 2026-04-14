@@ -1,0 +1,80 @@
+{
+  "screenTitles": {
+    "addMoney": "Add Money",
+    "topupWithQr": "Top-up with QR",
+    "scanQrCode": "Scan QR Code",
+    "transactionHistory": "Transaction History",
+    "withdraw": "Withdraw",
+    "receiveQr": "Receive Money",
+    "transactionDetail": "Transaction Detail"
+  },
+  "labels": {
+    "walletBalance": "Wallet Balance",
+    "maxTopup": "Max top-up: {amount} THB",
+    "minTopup": "Min top-up: {amount} THB",
+    "paymentCode": "Payment Code",
+    "amountThb": "Amount (THB)",
+    "pleasePayBefore": "Please pay before",
+    "expiresIn": "Expires in {time}",
+    "available": "Available: {amount} THB",
+    "referenceNo": "Reference No."
+  },
+  "sections": {
+    "topupChannels": "Select Bank",
+    "bankingServices": "Banking Services",
+    "convenienceService": "Convenience Store"
+  },
+  "ctas": {
+    "continue": "Continue",
+    "confirm": "Confirm",
+    "done": "Done",
+    "viewInstructions": "View Instructions",
+    "receiveMoneyQr": "Receive Money with QR",
+    "uploadFromGallery": "Upload from Gallery",
+    "withdraw": "Withdraw",
+    "close": "Close",
+    "generateNewQr": "Generate New QR",
+    "shareQr": "Share QR"
+  },
+  "filters": {
+    "all": "All",
+    "transfer": "Transfer",
+    "topup": "Top-up",
+    "withdrawal": "Withdrawal",
+    "success": "Success",
+    "pending": "Pending",
+    "failed": "Failed",
+    "selectDateRange": "Select Date Range"
+  },
+  "empty": {
+    "noTransactions": "No Transactions",
+    "noTransactionsBody": "No transactions match your current filters.",
+    "noTransactionsYet": "No Transactions Yet",
+    "noTransactionsYetBody": "Your transaction history will appear here after your first top-up or transfer."
+  },
+  "errors": {
+    "topupFailed": "Top-up failed. Please try again.",
+    "withdrawalFailed": "Withdrawal failed. Please try again.",
+    "insufficientBalance": "Insufficient wallet balance.",
+    "qrExpired": "QR code has expired. Please generate a new one.",
+    "belowMinimum": "Minimum top-up amount is 150 THB.",
+    "aboveMaximum": "Maximum top-up amount is 25,000 THB.",
+    "cameraAccessDenied": "Camera access denied. Please allow camera access in your device settings.",
+    "scanInstruction": "Point your camera at a QR code to scan"
+  },
+  "channels": {
+    "scb": "SCB",
+    "ktb": "KTB",
+    "bay": "Krungsri",
+    "bbl": "Bangkok Bank",
+    "kbank": "KBANK",
+    "gsb": "GSB",
+    "service_123": "123 Service",
+    "cenpay": "CenPay"
+  },
+  "topup": {
+    "merchantName": "2C2P PLUS (THAILAND) CO., LTD.",
+    "scanToPay": "Scan to pay with your banking app",
+    "qrExpiry": "QR code expires in 15 minutes"
+  }
+}

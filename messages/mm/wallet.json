@@ -1,0 +1,80 @@
+{
+  "screenTitles": {
+    "addMoney": "ငွေထည့်သွင်းရန်",
+    "topupWithQr": "QR ဖြင့်ငွေဖြည့်ရန်",
+    "scanQrCode": "QR ကုဒ်စကင်န်ရန်",
+    "transactionHistory": "ငွေပေးငွေယူမှတ်တမ်း",
+    "withdraw": "ငွေထုတ်ရန်",
+    "receiveQr": "ငွေလက်ခံရန်",
+    "transactionDetail": "ငွေပေးငွေယူအသေးစိတ်"
+  },
+  "labels": {
+    "walletBalance": "ပိုက်ဆံအိတ်လက်ကျန်",
+    "maxTopup": "အများဆုံးဖြည့်သွင်းနိုင်သောပမာဏ: {amount} ဘတ်",
+    "minTopup": "အနည်းဆုံးဖြည့်သွင်းနိုင်သောပမာဏ: {amount} ဘတ်",
+    "paymentCode": "ငွေပေးချေမှုကုဒ်",
+    "amountThb": "ပမာဏ (ဘတ်)",
+    "pleasePayBefore": "ဤကာလမတိုင်မီပေးချေပါ",
+    "expiresIn": "{time} တွင်သက်တမ်းကုန်မည်",
+    "available": "လက်ကျန်: {amount} ဘတ်",
+    "referenceNo": "ကိုးကားနံပါတ်"
+  },
+  "sections": {
+    "topupChannels": "ဘဏ်ရွေးချယ်ရန်",
+    "bankingServices": "ဘဏ်ဝန်ဆောင်မှုများ",
+    "convenienceService": "အဆင်ပြေဆိုင်များ"
+  },
+  "ctas": {
+    "continue": "ဆက်လက်သွားရန်",
+    "confirm": "အတည်ပြုရန်",
+    "done": "ပြီးဆုံးသည်",
+    "viewInstructions": "လမ်းညွှန်ကြည့်ရန်",
+    "receiveMoneyQr": "QR ဖြင့်ငွေလက်ခံရန်",
+    "uploadFromGallery": "ကြည့်ရှုမှုမှတင်ရန်",
+    "withdraw": "ငွေထုတ်ရန်",
+    "close": "ပိတ်ရန်",
+    "generateNewQr": "QR အသစ်ထုတ်ရန်",
+    "shareQr": "QR မျှဝေရန်"
+  },
+  "filters": {
+    "all": "အားလုံး",
+    "transfer": "လွှဲပြောင်းမှု",
+    "topup": "ငွေဖြည့်မှု",
+    "withdrawal": "ငွေထုတ်မှု",
+    "success": "အောင်မြင်",
+    "pending": "စောင့်ဆိုင်းဆဲ",
+    "failed": "မအောင်မြင်",
+    "selectDateRange": "ရက်စွဲအပိုင်းအခြားရွေးရန်"
+  },
+  "empty": {
+    "noTransactions": "ငွေပေးငွေယူမရှိပါ",
+    "noTransactionsBody": "လက်ရှိစစ်ထုတ်မှုနှင့်ကိုက်ညီသောငွေပေးငွေယူမရှိပါ",
+    "noTransactionsYet": "ငွေပေးငွေယူမရှိသေးပါ",
+    "noTransactionsYetBody": "ပထမဆုံးငွေဖြည့်မှုသို့မဟုတ်လွှဲပြောင်းမှုပြီးနောက်မှတ်တမ်းပေါ်လာမည်"
+  },
+  "errors": {
+    "topupFailed": "ငွေဖြည့်မှုမအောင်မြင်ပါ။ ထပ်မံကြိုးစားပါ။",
+    "withdrawalFailed": "ငွေထုတ်မှုမအောင်မြင်ပါ။ ထပ်မံကြိုးစားပါ။",
+    "insufficientBalance": "ပိုက်ဆံအိတ်တွင်လက်ကျန်မလုံလောက်ပါ",
+    "qrExpired": "QR ကုဒ်သက်တမ်းကုန်ပါပြီ။ အသစ်ထုတ်ပါ။",
+    "belowMinimum": "အနည်းဆုံးဖြည့်သွင်းပမာဏမှာ 150 ဘတ်ဖြစ်သည်",
+    "aboveMaximum": "အများဆုံးဖြည့်သွင်းပမာဏမှာ 25,000 ဘတ်ဖြစ်သည်",
+    "cameraAccessDenied": "ကင်မရာဝင်ရောက်ခွင့်ငြင်းဆိုပါသည်။ ကိရိယာဆက်တင်တွင်ကင်မရာဝင်ရောက်ခွင့်ပေးပါ။",
+    "scanInstruction": "QR ကုဒ်ကိုကင်မရာနှင့်ညွှန်ပြပါ"
+  },
+  "channels": {
+    "scb": "SCB",
+    "ktb": "KTB",
+    "bay": "Krungsri",
+    "bbl": "Bangkok Bank",
+    "kbank": "KBANK",
+    "gsb": "GSB",
+    "service_123": "123 ဝန်ဆောင်မှု",
+    "cenpay": "CenPay"
+  },
+  "topup": {
+    "merchantName": "2C2P PLUS (ထိုင်းနိုင်ငံ) ကုမ္ပဏီ",
+    "scanToPay": "ဘဏ်အက်ပ်ဖြင့်ငွေပေးရန်စကင်န်ဖတ်ပါ",
+    "qrExpiry": "QR ကုဒ် 15 မိနစ်အတွင်းသက်တမ်းကုန်မည်"
+  }
+}

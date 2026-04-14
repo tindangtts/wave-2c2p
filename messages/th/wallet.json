@@ -1,0 +1,80 @@
+{
+  "screenTitles": {
+    "addMoney": "เติมเงิน",
+    "topupWithQr": "เติมเงินด้วย QR",
+    "scanQrCode": "สแกน QR โค้ด",
+    "transactionHistory": "ประวัติธุรกรรม",
+    "withdraw": "ถอนเงิน",
+    "receiveQr": "รับเงิน",
+    "transactionDetail": "รายละเอียดธุรกรรม"
+  },
+  "labels": {
+    "walletBalance": "ยอดเงินในกระเป๋า",
+    "maxTopup": "เติมสูงสุด: {amount} บาท",
+    "minTopup": "เติมขั้นต่ำ: {amount} บาท",
+    "paymentCode": "รหัสชำระเงิน",
+    "amountThb": "จำนวนเงิน (บาท)",
+    "pleasePayBefore": "กรุณาชำระก่อน",
+    "expiresIn": "หมดอายุใน {time}",
+    "available": "คงเหลือ: {amount} บาท",
+    "referenceNo": "เลขที่อ้างอิง"
+  },
+  "sections": {
+    "topupChannels": "เลือกธนาคาร",
+    "bankingServices": "บริการธนาคาร",
+    "convenienceService": "ร้านสะดวกซื้อ"
+  },
+  "ctas": {
+    "continue": "ถัดไป",
+    "confirm": "ยืนยัน",
+    "done": "เสร็จสิ้น",
+    "viewInstructions": "ดูวิธีการ",
+    "receiveMoneyQr": "รับเงินด้วย QR",
+    "uploadFromGallery": "อัปโหลดจากคลัง",
+    "withdraw": "ถอนเงิน",
+    "close": "ปิด",
+    "generateNewQr": "สร้าง QR ใหม่",
+    "shareQr": "แชร์ QR"
+  },
+  "filters": {
+    "all": "ทั้งหมด",
+    "transfer": "โอนเงิน",
+    "topup": "เติมเงิน",
+    "withdrawal": "ถอนเงิน",
+    "success": "สำเร็จ",
+    "pending": "รอดำเนินการ",
+    "failed": "ล้มเหลว",
+    "selectDateRange": "เลือกช่วงวันที่"
+  },
+  "empty": {
+    "noTransactions": "ไม่มีธุรกรรม",
+    "noTransactionsBody": "ไม่มีธุรกรรมที่ตรงกับตัวกรองปัจจุบัน",
+    "noTransactionsYet": "ยังไม่มีธุรกรรม",
+    "noTransactionsYetBody": "ประวัติธุรกรรมของคุณจะปรากฏที่นี่หลังจากการเติมเงินหรือโอนเงินครั้งแรก"
+  },
+  "errors": {
+    "topupFailed": "การเติมเงินล้มเหลว กรุณาลองใหม่",
+    "withdrawalFailed": "การถอนเงินล้มเหลว กรุณาลองใหม่",
+    "insufficientBalance": "ยอดเงินในกระเป๋าไม่เพียงพอ",
+    "qrExpired": "QR โค้ดหมดอายุแล้ว กรุณาสร้างใหม่",
+    "belowMinimum": "จำนวนเงินเติมขั้นต่ำคือ 150 บาท",
+    "aboveMaximum": "จำนวนเงินเติมสูงสุดคือ 25,000 บาท",
+    "cameraAccessDenied": "ไม่ได้รับอนุญาตให้ใช้กล้อง กรุณาอนุญาตในการตั้งค่าอุปกรณ์",
+    "scanInstruction": "ชี้กล้องไปที่ QR โค้ดเพื่อสแกน"
+  },
+  "channels": {
+    "scb": "ไทยพาณิชย์",
+    "ktb": "กรุงไทย",
+    "bay": "กรุงศรี",
+    "bbl": "กรุงเทพ",
+    "kbank": "กสิกรไทย",
+    "gsb": "ออมสิน",
+    "service_123": "123 เซอร์วิส",
+    "cenpay": "เซ็นเพย์"
+  },
+  "topup": {
+    "merchantName": "2C2P พลัส (ประเทศไทย) จำกัด",
+    "scanToPay": "สแกนเพื่อชำระเงินด้วยแอปธนาคาร",
+    "qrExpiry": "QR โค้ดหมดอายุใน 15 นาที"
+  }
+}
