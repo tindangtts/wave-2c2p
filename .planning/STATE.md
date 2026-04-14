@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 03-03-PLAN.md
-last_updated: "2026-04-14T09:46:17.021Z"
+stopped_at: Completed 03-02-PLAN.md
+last_updated: "2026-04-14T09:46:43.470Z"
 last_activity: 2026-04-14
 progress:
   total_phases: 7
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-14)
 ## Current Position
 
 Phase: 03 (ekyc-onboarding) — EXECUTING
-Plan: 3 of 4
+Plan: 4 of 4
 Status: Ready to execute
 Last activity: 2026-04-14
 
@@ -62,6 +62,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 02-authentication P04 | 10 | 2 tasks | 8 files |
 | Phase 03-ekyc-onboarding P01 | 8 | 2 tasks | 8 files |
 | Phase 03-ekyc-onboarding P03 | 8 | 2 tasks | 4 files |
+| Phase 03-ekyc-onboarding P02 | 8 | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -97,6 +98,8 @@ Recent decisions affecting current work:
 - [Phase 03-ekyc-onboarding]: StepIndicator namespace prop defaults to 'auth.register' for backward-compat with Phase 2 registration pages
 - [Phase 03-ekyc-onboarding]: ProcessingSteps uses sequential setTimeout chain (not interval) for precise step timing
 - [Phase 03-ekyc-onboarding]: Auto-redirect on approval uses useEffect with 2s timeout + aria-live=assertive for screen readers
+- [Phase 03-ekyc-onboarding]: Camera capture via native <input capture> attribute — single /kyc/capture route to avoid iOS PWA permission re-prompts
+- [Phase 03-ekyc-onboarding]: router.push paths in Next.js App Router must not include route group names like (auth)
 
 ### Pending Todos
 
@@ -108,6 +111,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-14T09:46:17.019Z
-Stopped at: Completed 03-03-PLAN.md
+Last session: 2026-04-14T09:46:43.467Z
+Stopped at: Completed 03-02-PLAN.md
 Resume file: None

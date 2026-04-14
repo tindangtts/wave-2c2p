@@ -31,9 +31,9 @@ Requirements for initial release. Each maps to roadmap phases.
 ### eKYC
 
 - [x] **EKYC-01**: User can select document type (ID card, work permit, pink card, OWIC, visa)
-- [ ] **EKYC-02**: User can capture document front/back via camera with guide overlay frame
-- [ ] **EKYC-03**: Camera capture falls back to file input on iOS PWA standalone mode
-- [ ] **EKYC-04**: User can complete face verification with circular liveness frame
+- [x] **EKYC-02**: User can capture document front/back via camera with guide overlay frame
+- [x] **EKYC-03**: Camera capture falls back to file input on iOS PWA standalone mode
+- [x] **EKYC-04**: User can complete face verification with circular liveness frame
 - [x] **EKYC-05**: Mock eKYC processes documents and returns configurable approval/rejection with reasons
 - [x] **EKYC-06**: User sees KYC status (pending/approved/rejected/expired) with clear next steps
 - [ ] **EKYC-07**: User can re-submit documents after rejection with specific field guidance
@@ -171,9 +171,9 @@ Deferred to future release. Tracked but not in current roadmap.
 | AUTH-06 | Phase 2 | Complete |
 | AUTH-07 | Phase 2 | Complete |
 | EKYC-01 | Phase 3 | Complete |
-| EKYC-02 | Phase 3 | Pending |
-| EKYC-03 | Phase 3 | Pending |
-| EKYC-04 | Phase 3 | Pending |
+| EKYC-02 | Phase 3 | Complete |
+| EKYC-03 | Phase 3 | Complete |
+| EKYC-04 | Phase 3 | Complete |
 | EKYC-05 | Phase 3 | Complete |
 | EKYC-06 | Phase 3 | Complete |
 | EKYC-07 | Phase 3 | Pending |
