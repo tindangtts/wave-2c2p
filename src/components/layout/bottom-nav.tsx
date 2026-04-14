@@ -16,7 +16,7 @@ export function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="sticky bottom-0 z-50 bg-white wave-bottom-nav-shadow safe-bottom">
+    <nav role="navigation" aria-label="Main" className="sticky bottom-0 z-50 bg-white wave-bottom-nav-shadow safe-bottom">
       <div className="flex items-center justify-around h-16">
         {navItems.map((item) => {
           const isActive = pathname.startsWith(item.href);
@@ -27,12 +27,13 @@ export function BottomNav() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="flex flex-col items-center gap-0.5 -mt-5"
+                aria-label="Add Money"
+                className="flex flex-col items-center gap-0.5 -mt-5 min-h-[44px] justify-center"
               >
                 <div className="w-14 h-14 rounded-full bg-wave-yellow flex items-center justify-center shadow-md">
                   <Icon className="w-7 h-7 text-foreground" />
                 </div>
-                <span className="text-[10px] font-medium text-foreground">
+                <span className="text-xs font-medium text-foreground">
                   {item.label}
                 </span>
               </Link>
@@ -43,13 +44,14 @@ export function BottomNav() {
             <Link
               key={item.href}
               href={item.href}
+              aria-current={isActive ? "page" : undefined}
               className={cn(
-                "flex flex-col items-center gap-0.5 py-2 px-3 min-w-[64px]",
+                "flex flex-col items-center gap-0.5 py-2 px-3 min-w-[64px] min-h-[44px] justify-center",
                 isActive ? "text-wave-blue" : "text-muted-foreground"
               )}
             >
               <Icon className="w-6 h-6" />
-              <span className="text-[10px] font-medium">{item.label}</span>
+              <span className="text-xs font-medium">{item.label}</span>
             </Link>
           );
         })}
