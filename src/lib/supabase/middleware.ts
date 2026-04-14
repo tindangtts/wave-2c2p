@@ -6,6 +6,22 @@ export async function updateSession(request: NextRequest) {
     request,
   });
 
+  // Demo mode: skip Supabase, treat as authenticated
+  if (process.env.DEMO_MODE === 'true') {
+    const isLoginOnlyPage =
+      request.nextUrl.pathname.startsWith("/login") ||
+      request.nextUrl.pathname.startsWith("/otp") ||
+      request.nextUrl.pathname.startsWith("/register");
+
+    if (isLoginOnlyPage) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/home";
+      return NextResponse.redirect(url);
+    }
+
+    return supabaseResponse;
+  }
+
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,

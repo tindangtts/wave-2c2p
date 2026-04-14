@@ -1,8 +1,13 @@
 import { createClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
+import { isDemoMode, DEMO_TRANSACTIONS } from "@/lib/demo";
 
 export async function GET() {
   try {
+    if (isDemoMode) {
+      return NextResponse.json({ transactions: DEMO_TRANSACTIONS.slice(0, 5) });
+    }
+
     const supabase = await createClient();
 
     const {

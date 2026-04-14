@@ -1,8 +1,24 @@
 import { createClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
+import { isDemoMode, DEMO_WALLET, DEMO_PROFILE } from "@/lib/demo";
 
 export async function GET() {
   try {
+    if (isDemoMode) {
+      return NextResponse.json({
+        wallet: {
+          id: DEMO_WALLET.id,
+          balance: DEMO_WALLET.balance,
+          currency: DEMO_WALLET.currency,
+          max_topup: 2500000,
+        },
+        profile: {
+          first_name: DEMO_PROFILE.full_name.split(' ')[0],
+          wallet_id: DEMO_WALLET.wallet_id,
+        },
+      });
+    }
+
     const supabase = await createClient();
 
     const {

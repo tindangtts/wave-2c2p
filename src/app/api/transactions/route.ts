@@ -1,8 +1,26 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { isDemoMode, DEMO_TRANSACTIONS } from '@/lib/demo'
 
 export async function GET(request: Request) {
   try {
+    const { searchParams } = new URL(request.url)
+    const id = searchParams.get('id')
+
+    if (isDemoMode) {
+      if (id) {
+        const tx = DEMO_TRANSACTIONS.find((t) => t.id === id)
+        if (!tx) return NextResponse.json({ error: 'Not found' }, { status: 404 })
+        return NextResponse.json({ transaction: tx })
+      }
+      const type = searchParams.get('type')
+      const txStatus = searchParams.get('status')
+      let filtered = [...DEMO_TRANSACTIONS]
+      if (type && type !== 'all') filtered = filtered.filter((t) => t.type === type)
+      if (txStatus && txStatus !== 'all') filtered = filtered.filter((t) => t.status === txStatus)
+      return NextResponse.json({ transactions: filtered, hasMore: false })
+    }
+
     const supabase = await createClient()
 
     const {
@@ -13,9 +31,6 @@ export async function GET(request: Request) {
     if (authError || !user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
-
-    const { searchParams } = new URL(request.url)
-    const id = searchParams.get('id')
 
     // Single transaction fetch by ID
     if (id) {
