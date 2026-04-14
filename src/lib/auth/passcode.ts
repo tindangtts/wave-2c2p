@@ -1,5 +1,3 @@
-'use server'
-
 import {
   randomBytes,
   pbkdf2Sync,
