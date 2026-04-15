@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Supabase Migration & Auth Hardening
 status: executing
-stopped_at: Completed 18-03-PLAN.md
-last_updated: "2026-04-15T09:49:06.109Z"
+stopped_at: Completed 18-02-PLAN.md
+last_updated: "2026-04-15T09:47:47.676Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 14
-  completed_phases: 10
+  completed_phases: 9
   total_plans: 35
-  completed_plans: 35
+  completed_plans: 33
   percent: 0
 ---
 
@@ -63,7 +63,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 17-features-polish P01 | 276s | 2 tasks | 8 files |
 | Phase 17-features-polish P02 | 286s | 2 tasks | 7 files |
 | Phase 18-core-data-layer P01 | 134s | 1 tasks | 5 files |
-| Phase 18-core-data-layer P03 | 3min | 1 tasks | 3 files |
+| Phase 18-core-data-layer P02 | 5min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -96,8 +96,8 @@ Progress: [░░░░░░░░░░] 0%
 - [v1.3 roadmap]: AUTH-01 (SystemConfig table) executes before AUTH-02/03 (which read from it) — both in Phase 21
 - [Phase 18-core-data-layer]: timestamptz not exported from drizzle-orm/pg-core@0.45.2; use timestamp({ withTimezone: true }) alias in schema.ts
 - [Phase 18-core-data-layer]: drizzle-orm/neon-http adapter chosen for Supabase PostgreSQL (stateless HTTP, no TCP pooler issues)
-- [Phase 18-core-data-layer]: db/index.ts uses Proxy-based lazy singleton: neon() deferred to first db usage, prevents Next.js build crash when DATABASE_URL absent in demo/CI environments
-- [Phase 18-core-data-layer]: cards API never exposes card_number_encrypted or cvv_encrypted — only masked number and display fields returned to client (security)
+- [Phase 18-core-data-layer]: Paginated transactions list omits recipients join; only single fetch by ID uses leftJoin — reduces query cost for list views
+- [Phase 18-core-data-layer]: snake_case column aliases in Drizzle select preserve existing API contract consumed by client hooks (max_topup, first_name, wallet_id, created_at)
 
 ### Pending Todos
 
@@ -111,7 +111,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-15T09:49:06.106Z
-Stopped at: Completed 18-03-PLAN.md
+Last session: 2026-04-15T09:47:47.673Z
+Stopped at: Completed 18-02-PLAN.md
 Resume file: None
 Next step: `/gsd:plan-phase 18`

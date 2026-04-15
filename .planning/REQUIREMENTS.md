@@ -9,8 +9,8 @@ Requirements for Supabase Migration & Auth Hardening milestone. Each maps to roa
 
 ### Supabase Data Migration
 
-- [ ] **DATA-01**: Wallet balance reads from `wallets` table instead of hardcoded demo data
-- [ ] **DATA-02**: Transaction history reads from `transactions` table with proper pagination
+- [x] **DATA-01**: Wallet balance reads from `wallets` table instead of hardcoded demo data
+- [x] **DATA-02**: Transaction history reads from `transactions` table with proper pagination
 - [ ] **DATA-03**: Mock payment APIs (transfer, P2P, topup, withdraw) insert real transactions and update wallet balance in Supabase
 - [ ] **DATA-04**: Notifications stored in new `notifications` table with read/unread status
 - [ ] **DATA-05**: Voucher codes stored in new `vouchers` table with redemption tracking
@@ -60,8 +60,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DATA-01 | Phase 18 | Pending |
-| DATA-02 | Phase 18 | Pending |
+| DATA-01 | Phase 18 | Complete |
+| DATA-02 | Phase 18 | Complete |
 | DATA-06 | Phase 18 | Pending |
 | DATA-03 | Phase 19 | Pending |
 | DATA-04 | Phase 20 | Pending |

@@ -1,6 +1,9 @@
 import { createClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
 import { isDemoMode, DEMO_WALLET, DEMO_PROFILE } from "@/lib/demo";
+import { db } from "@/db";
+import { eq } from "drizzle-orm";
+import { wallets, userProfiles } from "@/db/schema";
 
 export async function GET() {
   try {
@@ -30,32 +33,32 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const [walletResult, profileResult] = await Promise.all([
-      supabase
-        .from("wallets")
-        .select("id, balance, currency, max_topup")
-        .eq("user_id", user.id)
-        .single(),
-      supabase
-        .from("user_profiles")
-        .select("first_name, wallet_id")
-        .eq("id", user.id)
-        .single(),
+    const [walletRows, profileRows] = await Promise.all([
+      db.select({
+        id: wallets.id,
+        balance: wallets.balance,
+        currency: wallets.currency,
+        max_topup: wallets.maxTopup,
+      }).from(wallets).where(eq(wallets.userId, user.id)).limit(1),
+      db.select({
+        first_name: userProfiles.firstName,
+        wallet_id: userProfiles.walletId,
+      }).from(userProfiles).where(eq(userProfiles.id, user.id)).limit(1),
     ]);
 
-    if (profileResult.error) {
+    const wallet = walletRows[0] ?? null;
+    const profile = profileRows[0];
+
+    if (!profile) {
       return NextResponse.json(
         { error: "Failed to fetch wallet" },
         { status: 500 }
       );
     }
 
-    // Missing wallet row is not an error — return null wallet for zero state
-    const wallet = walletResult.error ? null : walletResult.data;
-
     return NextResponse.json({
       wallet,
-      profile: profileResult.data,
+      profile,
     });
   } catch {
     return NextResponse.json(

@@ -1,6 +1,9 @@
 import { createClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
 import { isDemoMode, DEMO_TRANSACTIONS } from "@/lib/demo";
+import { db } from "@/db";
+import { eq, desc } from "drizzle-orm";
+import { transactions } from "@/db/schema";
 
 export async function GET() {
   try {
@@ -19,19 +22,18 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { data, error } = await supabase
-      .from("transactions")
-      .select("id, type, amount, currency, status, description, created_at")
-      .eq("user_id", user.id)
-      .order("created_at", { ascending: false })
+    const data = await db.select({
+      id: transactions.id,
+      type: transactions.type,
+      amount: transactions.amount,
+      currency: transactions.currency,
+      status: transactions.status,
+      description: transactions.description,
+      created_at: transactions.createdAt,
+    }).from(transactions)
+      .where(eq(transactions.userId, user.id))
+      .orderBy(desc(transactions.createdAt))
       .limit(5);
-
-    if (error) {
-      return NextResponse.json(
-        { error: "Failed to fetch transactions" },
-        { status: 500 }
-      );
-    }
 
     return NextResponse.json({
       transactions: data ?? [],
