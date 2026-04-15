@@ -66,7 +66,14 @@
     "shareCta": "แชร์",
     "monthlyCount": "แนะนำ {n} คนในเดือนนี้",
     "emptyHeading": "ยังไม่มีการแนะนำ",
-    "emptyBody": "แชร์รหัสของคุณเพื่อเริ่มรับรางวัล"
+    "emptyBody": "แชร์รหัสของคุณเพื่อเริ่มรับรางวัล",
+    "referredCount": "{n} เพื่อนเข้าร่วมแล้ว",
+    "totalBonus": "รางวัลรวมที่ได้รับ",
+    "bonusValue": "{amount} บาท",
+    "shareWhatsApp": "แชร์ผ่าน WhatsApp",
+    "shareLine": "แชร์ผ่าน Line",
+    "copyLink": "คัดลอกลิงก์",
+    "linkCopied": "คัดลอกลิงก์แล้ว!"
   },
   "notifications": {
     "title": "การตั้งค่าการแจ้งเตือน",
@@ -168,6 +175,19 @@
       "body": "เกิดข้อผิดพลาดที่ไม่คาดคิด กรุณาลองอีกครั้ง",
       "cta": "ลองอีกครั้ง"
     }
+  },
+  "notificationInbox": {
+    "title": "การแจ้งเตือน",
+    "empty": "ยังไม่มีการแจ้งเตือน",
+    "emptyBody": "คุณอ่านทั้งหมดแล้ว!",
+    "markAllRead": "ทำเครื่องหมายว่าอ่านทั้งหมด",
+    "unreadBadge": "ใหม่",
+    "typeTransfer": "โอนเงิน",
+    "typeTopup": "เติมเงิน",
+    "typeSystem": "ระบบ",
+    "typeReferral": "การแนะนำ",
+    "typeKyc": "การยืนยันตัวตน",
+    "typePromo": "โปรโมชั่น"
   },
   "logout": "ออกจากระบบ",
   "version": "V 1.0"

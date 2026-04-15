@@ -66,7 +66,14 @@
     "shareCta": "မျှဝေပါ",
     "monthlyCount": "ဤလတွင် {n} ဦး ညွှန်းဆိုပြီး",
     "emptyHeading": "မည်သူမျှ ညွှန်းဆိုထားခြင်း မရှိသေး",
-    "emptyBody": "ဆုရရှိရန် သင့်ကုဒ် မျှဝေပါ"
+    "emptyBody": "ဆုရရှိရန် သင့်ကုဒ် မျှဝေပါ",
+    "referredCount": "{n} ယောက် ပါဝင်ပြီး",
+    "totalBonus": "ရရှိသော ဆုစုစုပေါင်း",
+    "bonusValue": "{amount} ဘတ်",
+    "shareWhatsApp": "WhatsApp တွင် မျှဝေပါ",
+    "shareLine": "Line တွင် မျှဝေပါ",
+    "copyLink": "လင့်ကူးပါ",
+    "linkCopied": "လင့်ကူးပြီးပါပြီ!"
   },
   "notifications": {
     "title": "အကြောင်းကြားချက် ဆက်တင်",
@@ -168,6 +175,19 @@
       "body": "မမျှော်လင့်သော အမှားတစ်ခု ဖြစ်ပေါ်သည် ထပ်မံကြိုးစားပါ",
       "cta": "ထပ်မံကြိုးစားပါ"
     }
+  },
+  "notificationInbox": {
+    "title": "အကြောင်းကြားချက်များ",
+    "empty": "အကြောင်းကြားချက် မရှိသေးပါ",
+    "emptyBody": "သင် အားလုံး ဖတ်ပြီးပါပြီ!",
+    "markAllRead": "အားလုံး ဖတ်ပြီးဟု မှတ်ပါ",
+    "unreadBadge": "အသစ်",
+    "typeTransfer": "ငွေလွှဲ",
+    "typeTopup": "ငွေဖြည့်",
+    "typeSystem": "စနစ်",
+    "typeReferral": "ညွှန်းဆိုမှု",
+    "typeKyc": "အထောက်အထားစိစစ်ခြင်း",
+    "typePromo": "မြှင့်တင်မှု"
   },
   "logout": "ထွက်ပါ",
   "version": "V 1.0"
