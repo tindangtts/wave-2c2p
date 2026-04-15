@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Supabase Migration & Auth Hardening
-status: verifying
-stopped_at: Completed 19-02-PLAN.md
-last_updated: "2026-04-15T11:49:48.477Z"
+status: executing
+stopped_at: Completed 20-02-PLAN.md
+last_updated: "2026-04-15T11:58:14.670Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 14
   completed_phases: 11
-  total_plans: 37
-  completed_plans: 37
+  total_plans: 40
+  completed_plans: 38
   percent: 0
 ---
 
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-15)
 
 **Core value:** Users can send money from Thailand to Myanmar quickly, affordably, and with full regulatory compliance
-**Current focus:** Phase 19 — payment-write-back
+**Current focus:** Phase 20 — new-tables-seed
 
 ## Current Position
 
-Phase: 20
-Plan: Not started
-Status: Phase complete — ready for verification
+Phase: 20 (new-tables-seed) — EXECUTING
+Plan: 2 of 3
+Status: Ready to execute
 Last activity: 2026-04-15
 
 Progress: [░░░░░░░░░░] 0%
@@ -66,6 +66,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 18-core-data-layer P02 | 5min | 2 tasks | 3 files |
 | Phase 19-payment-write-back P01 | 117s | 2 tasks | 2 files |
 | Phase 19-payment-write-back P02 | 151s | 2 tasks | 2 files |
+| Phase 20-new-tables-seed P02 | 84s | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -102,6 +103,8 @@ Progress: [░░░░░░░░░░] 0%
 - [Phase 18-core-data-layer]: snake_case column aliases in Drizzle select preserve existing API contract consumed by client hooks (max_topup, first_name, wallet_id, created_at)
 - [Phase 19-payment-write-back]: db.batch() used for atomic wallet+transaction write in process-transfer and withdraw routes; neon-http driver does not support db.transaction()
 - [Phase 19-payment-write-back]: db.batch() used for atomicity in payment routes — neon-http adapter does not support db.transaction(); topup writes status:success immediately while response returns pending for UI compatibility
+- [Phase 20-new-tables-seed]: db.batch() used for atomic voucher redeem+wallet credit (neon-http does not support db.transaction())
+- [Phase 20-new-tables-seed]: isDemoMode branch in voucher route preserved with in-memory VALID_VOUCHERS — no DB call in demo mode
 
 ### Pending Todos
 
@@ -115,7 +118,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-15T11:45:56.231Z
-Stopped at: Completed 19-02-PLAN.md
+Last session: 2026-04-15T11:58:14.667Z
+Stopped at: Completed 20-02-PLAN.md
 Resume file: None
 Next step: `/gsd:plan-phase 18`

@@ -13,7 +13,7 @@ Requirements for Supabase Migration & Auth Hardening milestone. Each maps to roa
 - [x] **DATA-02**: Transaction history reads from `transactions` table with proper pagination
 - [x] **DATA-03**: Mock payment APIs (transfer, P2P, topup, withdraw) insert real transactions and update wallet balance in Supabase
 - [ ] **DATA-04**: Notifications stored in new `notifications` table with read/unread status
-- [ ] **DATA-05**: Voucher codes stored in new `vouchers` table with redemption tracking
+- [x] **DATA-05**: Voucher codes stored in new `vouchers` table with redemption tracking
 - [x] **DATA-06**: Visa card data reads from `cards` table instead of hardcoded mock
 - [ ] **DATA-07**: Seed SQL file populates all tables with initial data for fresh installs
 - [ ] **DATA-08**: Remove `demo.ts` and all `isDemoMode` branches from entire codebase
@@ -65,7 +65,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DATA-06 | Phase 18 | Complete |
 | DATA-03 | Phase 19 | Complete |
 | DATA-04 | Phase 20 | Pending |
-| DATA-05 | Phase 20 | Pending |
+| DATA-05 | Phase 20 | Complete |
 | DATA-07 | Phase 20 | Pending |
 | AUTH-01 | Phase 21 | Pending |
 | AUTH-02 | Phase 21 | Pending |
