@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { topupAmountSchema, topupChannelSchema } from '@/lib/wallet/schemas'
-import { isDemoMode, DEMO_USER, DEMO_WALLET } from '@/lib/demo'
 import { z } from 'zod/v4'
 import { db } from '@/db'
 import { wallets, transactions } from '@/db/schema'
@@ -23,50 +22,6 @@ function generateReference(): string {
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-
-    if (isDemoMode) {
-      const parseResult = topupRequestSchema.safeParse(body)
-      if (!parseResult.success) {
-        return NextResponse.json(
-          { error: 'Validation failed', details: parseResult.error },
-          { status: 400 }
-        )
-      }
-      const { amount, channel } = parseResult.data
-      const referenceNumber = generateReference()
-      const amountInBaht = amount / 100
-      const expiresMinutes = channel === 'service_123' ? 30 : 15
-      const expiresAt = new Date(Date.now() + expiresMinutes * 60 * 1000).toISOString()
-      const walletId = DEMO_WALLET.wallet_id
-
-      if (channel === 'service_123') {
-        return NextResponse.json({
-          transaction_id: `demo-tx-${Date.now()}`,
-          barcode_data: {
-            barcodeValue: referenceNumber.replace(/[^0-9]/g, '').padStart(20, '0'),
-            ref1: walletId,
-            ref2: referenceNumber,
-            amount: amountInBaht,
-            expiresAt,
-            channel,
-          },
-          status: 'pending',
-        })
-      }
-
-      return NextResponse.json({
-        transaction_id: `demo-tx-${Date.now()}`,
-        qr_data: {
-          paymentCode: '9300596914',
-          amount: amountInBaht,
-          merchantName: '2C2P PLUS (THAILAND) CO., LTD.',
-          expiresAt,
-          channel,
-          referenceNumber,
-        },
-        status: 'pending',
-      })
-    }
 
     const supabase = await createClient()
 

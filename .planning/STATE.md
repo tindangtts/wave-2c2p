@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Supabase Migration & Auth Hardening
 status: executing
-stopped_at: Completed 22-02-PLAN.md
-last_updated: "2026-04-15T12:25:52.456Z"
+stopped_at: Completed 22-01-PLAN.md
+last_updated: "2026-04-15T12:27:42Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 14
   completed_phases: 13
   total_plans: 47
-  completed_plans: 44
+  completed_plans: 43
   percent: 0
 ---
 
@@ -26,9 +26,9 @@ See: .planning/PROJECT.md (updated 2026-04-15)
 ## Current Position
 
 Phase: 22 (demo-mode-removal) — EXECUTING
-Plan: 3 of 5
-Status: Ready to execute
-Last activity: 2026-04-15
+Plan: 2 of 5
+Status: Executing Phase 22
+Last activity: 2026-04-15 -- Completed 22-01 (Group A route demo removal)
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -71,8 +71,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 20-new-tables-seed P03 | 103s | 2 tasks | 2 files |
 | Phase 21-system-config-auth-gates P02 | 189s | 2 tasks | 5 files |
 | Phase 21-system-config-auth-gates P01 | 218s | 2 tasks | 7 files |
-| Phase 22-demo-mode-removal P04 | 2min | 2 tasks | 2 files |
-| Phase 22-demo-mode-removal P02 | 65 | 2 tasks | 0 files |
+| Phase 22-demo-mode-removal P01 | 174s | 2 tasks | 10 files |
 
 ## Accumulated Context
 
@@ -119,9 +118,7 @@ Progress: [░░░░░░░░░░] 0%
 - [Phase 21-system-config-auth-gates]: Maintenance modal onClose is a no-op per AUTH-02 spec — modal persists until maintenance_mode=false in DB
 - [Phase 21-system-config-auth-gates]: system-status API fails open on DB error — returns all-false to avoid blocking users on infrastructure failures
 - [Phase 21-system-config-auth-gates]: softUpdateDismissed stored in component state (per-session reset) not localStorage — appropriate for soft update reminder
-- [Phase 22-demo-mode-removal]: Root page redirect to /welcome is now unconditional — isDemoMode shortcut to /home removed from entry point
-- [Phase 22-demo-mode-removal]: src/lib/demo.ts deleted in full — isDemoMode, DEMO_USER, DEMO_PROFILE, DEMO_WALLET, DEMO_TRANSACTIONS, DEMO_RECIPIENTS all removed from codebase
-- [Phase 22-demo-mode-removal]: All Group B auth routes were already clean with zero isDemoMode references — register/consent and webauthn routes do not exist in codebase
+- [Phase 22-demo-mode-removal]: isDemoMode branches and associated demo data structures (DEMO_NOTIFICATIONS, VALID_VOUCHERS) removed from all 10 Group A API routes — routes now execute Drizzle paths unconditionally
 
 ### Pending Todos
 
@@ -135,7 +132,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-15T12:25:52.453Z
-Stopped at: Completed 22-02-PLAN.md
+Last session: 2026-04-15T12:27:42Z
+Stopped at: Completed 22-01-PLAN.md
 Resume file: None
-Next step: `/gsd:plan-phase 18`
+Next step: Execute 22-02-PLAN.md

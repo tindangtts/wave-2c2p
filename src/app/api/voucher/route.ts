@@ -1,16 +1,8 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import { isDemoMode } from '@/lib/demo'
 import { db } from '@/db'
 import { eq } from 'drizzle-orm'
 import { vouchers, wallets } from '@/db/schema'
-
-// Mock voucher database (demo mode only)
-const VALID_VOUCHERS: Record<string, { amount: number; type: 'cashback' | 'free_transfer'; used: boolean }> = {
-  WAVE2024: { amount: 5000, type: 'cashback', used: false }, // 50 THB
-  NEWYEAR: { amount: 10000, type: 'cashback', used: false }, // 100 THB
-  FREETX: { amount: 0, type: 'free_transfer', used: false },
-}
 
 export async function POST(request: Request) {
   try {
@@ -21,31 +13,6 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Code is required' }, { status: 400 })
     }
 
-    if (isDemoMode) {
-      const voucher = VALID_VOUCHERS[code.toUpperCase()]
-
-      if (!voucher) {
-        return NextResponse.json({ error: 'invalid', message: 'Invalid or expired voucher code.' }, { status: 400 })
-      }
-
-      if (voucher.used) {
-        return NextResponse.json({ error: 'already_used', message: 'This voucher has already been used.' }, { status: 400 })
-      }
-
-      // Mark as used
-      voucher.used = true
-
-      return NextResponse.json({
-        success: true,
-        voucher: {
-          code: code.toUpperCase(),
-          amount: voucher.amount,
-          type: voucher.type,
-        },
-      })
-    }
-
-    // Non-demo: authenticate user
     const supabase = await createClient()
     const { data: { user }, error: authError } = await supabase.auth.getUser()
     if (authError || !user) {

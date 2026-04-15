@@ -3,27 +3,9 @@ import { db } from '@/db'
 import { eq } from 'drizzle-orm'
 import { cards } from '@/db/schema'
 import { NextResponse } from 'next/server'
-import { isDemoMode } from '@/lib/demo'
 
 export async function GET() {
   try {
-    if (isDemoMode) {
-      // Return mock card data matching existing hardcoded values
-      return NextResponse.json({
-        cards: [
-          {
-            id: 'mock-card-001',
-            card_number_masked: '•••• •••• •••• 3210',
-            expiry_month: 12,
-            expiry_year: 2028,
-            balance: 0,
-            is_frozen: false,
-            status: 'active',
-          },
-        ],
-      })
-    }
-
     const supabase = await createClient()
     const {
       data: { user },

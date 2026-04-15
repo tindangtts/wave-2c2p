@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { isDemoMode, DEMO_USER, DEMO_WALLET } from "@/lib/demo";
 import { db } from "@/db";
 import { wallets, transactions } from "@/db/schema";
 import { eq } from "drizzle-orm";
@@ -34,41 +33,6 @@ function generateReference(): string {
 
 export async function POST(request: Request) {
   try {
-    if (isDemoMode) {
-      const body = await request.json();
-      const { receiver_wallet_id, amount, force_confirm } = body as {
-        receiver_wallet_id: string;
-        amount: number;
-        force_confirm?: boolean;
-      };
-
-      if (!force_confirm && checkDuplicateTransfer("demo", receiver_wallet_id, amount)) {
-        return NextResponse.json(
-          { error: "duplicate_transfer", message: "A similar transfer was made less than 60 seconds ago. Please confirm to proceed." },
-          { status: 409 }
-        );
-      }
-
-      if (receiver_wallet_id === DEMO_WALLET.wallet_id) {
-        return NextResponse.json(
-          { error: "Cannot transfer to yourself" },
-          { status: 400 }
-        );
-      }
-
-      const referenceNumber = generateReference();
-      recordTransfer("demo", receiver_wallet_id, amount);
-      return NextResponse.json({
-        success: true,
-        status: "success",
-        reference_number: referenceNumber,
-        transaction_id: `demo-tx-${Date.now()}`,
-        amount,
-        fee: 0,
-        channel: "p2p",
-      });
-    }
-
     const supabase = await createClient();
 
     const {
