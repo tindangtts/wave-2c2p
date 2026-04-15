@@ -46,7 +46,7 @@
 
 ### v1.3 Supabase Migration & Auth Hardening
 
-- [ ] **Phase 18: Core Data Layer** - Wire wallet, transactions, and Visa card reads to Supabase tables
+- [x] **Phase 18: Core Data Layer** - Wire wallet, transactions, and Visa card reads to Supabase tables (completed 2026-04-15)
 - [ ] **Phase 19: Payment Write-Back** - Mock payment APIs insert real transactions and update wallet balance in DB
 - [ ] **Phase 20: New Tables & Seed** - Notifications and vouchers tables, plus a seed SQL file for fresh installs
 - [ ] **Phase 21: System Config & Auth Gates** - SystemConfig table, maintenance/version checks, rejected-number gate, single active session
@@ -224,8 +224,8 @@ Plans:
 
 Plans:
 - [x] 18-01-PLAN.md — Install Drizzle ORM + schema definitions + db singleton + drizzle.config
-- [ ] 18-02-PLAN.md — Replace wallet + transactions API routes with Drizzle queries
-- [ ] 18-03-PLAN.md — Create /api/cards route + update card page to fetch from DB
+- [x] 18-02-PLAN.md — Replace wallet + transactions API routes with Drizzle queries
+- [x] 18-03-PLAN.md — Create /api/cards route + update card page to fetch from DB
 
 ### Phase 19: Payment Write-Back
 **Goal**: Every money movement initiated through the app creates a permanent record in Supabase and updates the user's wallet balance atomically
@@ -291,7 +291,7 @@ Plans:
 | 15. QR Scanner & WebAuthn Migration | v1.2 | 3/3 | Complete | 2026-04-15 |
 | 16. Test Coverage | v1.2 | 5/5 | Complete | 2026-04-15 |
 | 17. Features & Polish | v1.2 | 2/2 | Complete | 2026-04-15 |
-| 18. Core Data Layer | v1.3 | 1/3 | In Progress|  |
+| 18. Core Data Layer | v1.3 | 3/3 | Complete   | 2026-04-15 |
 | 19. Payment Write-Back | v1.3 | 0/TBD | Not started | - |
 | 20. New Tables & Seed | v1.3 | 0/TBD | Not started | - |
 | 21. System Config & Auth Gates | v1.3 | 0/TBD | Not started | - |
