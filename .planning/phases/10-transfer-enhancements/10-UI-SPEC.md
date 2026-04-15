@@ -46,7 +46,7 @@ Exceptions:
 - Recipient row minimum height: 64px (established pattern in `RecipientRow`)
 - Receipt card container: `mx-4 mt-4` (16px horizontal margin, 16px top margin — match existing `TransferReceipt`)
 - Secret code chip: 48px height to accommodate copy icon + 6-digit code text comfortably
-- Filter tab pills: 32px height × 12px horizontal padding (match `HistoryFilterBar` chip pattern exactly)
+- Filter tab pills: 32px height × `px-4` (16px) horizontal padding (match `HistoryFilterBar` chip pattern exactly)
 
 ---
 
@@ -58,9 +58,8 @@ Canonical values from `globals.css` `@theme inline` block (do not redefine):
 |------|------|--------|-------------|----------------|---------------------|
 | Display | 28px (1.75rem) | 700 | 1.2 | -0.02em | P2P wallet balance display on confirm screen |
 | Heading | 20px (1.25rem) | 700 | 1.3 | -0.01em | Screen titles ("Send to Wallet", "Select Channel") via `BackHeader` |
-| Body | 16px (1rem) | 400 | 1.5 | 0 | Receipt row labels, amount fields, recipient name |
-| Label | 14px (0.875rem) — use `text-sm` | 400 | 1.5 | 0 | Secondary text, transfer type sub-label, fee line items |
-| Caption | 12px (0.75rem) | 400 | 1.4 | 0.08em | Section divider labels ("FAVOURITES", "ALL RECIPIENTS"), timestamps, ref number |
+| Body | 16px (1rem) | 400 | 1.5 | 0 | Receipt row labels, amount fields, recipient name; also secondary text (sub-labels, fee line items) using `text-base text-[#595959]` |
+| Caption | 12px (0.75rem) | 400 | 1.4 | 0.08em | Section divider labels ("FAVOURITES", "ALL RECIPIENTS") with `tracking-wide uppercase`; timestamps; ref number; transfer type sub-label; fee line item secondary text use `text-xs` |
 
 Weights in use: 400 (regular) and 700 (bold). No other weights.
 
@@ -118,13 +117,15 @@ Phase 10 introduces the following screens and surface modifications:
 
 ### 1. P2P Wallet ID Entry Screen (`/transfer/p2p`)
 
+**Focal point:** The wallet ID text input is the primary focal point. It must receive auto-focus on mount. The layout is input-first: full-width input at top, OR-divider + scan button below, sticky CTA at bottom. No competing elements above the fold.
+
 **Layout:** `BackHeader` ("Send to Wallet") + scrollable content area + sticky bottom CTA.
 
 **Elements:**
-- Wallet ID text input: full-width, `h-14`, `rounded-xl`, `bg-secondary`, `text-base`, placeholder "Enter wallet ID (e.g. W-123456)" — use existing `<Input>` from shadcn
+- Wallet ID text input: full-width, `h-14`, `rounded-xl`, `bg-secondary`, `text-base`, placeholder "Enter wallet ID (e.g. W-123456)" — use existing `<Input>` from shadcn; `autoFocus` on mount
 - OR divider: `text-sm text-[#595959]` centered, horizontal rule on both sides using `border-t border-gray-200`
 - Scan QR button: full-width outlined button, `h-12`, `rounded-xl`, border `#0091EA`, text `#0091EA`, icon `ScanLine` (Lucide) left of label "Scan Wallet QR"
-- CTA button: full-width `h-14 rounded-xl bg-[#FFE600] text-foreground font-bold text-base`, label "Continue", sticky at bottom with 16px padding
+- CTA button: full-width `h-14 rounded-xl bg-[#FFE600] text-foreground font-bold text-base`, label "Enter Amount", sticky at bottom with 16px padding
 
 **Validation states:**
 - Invalid wallet ID format: red border `border-[#F44336]` + `text-xs text-[#F44336]` error message below input
@@ -182,7 +183,7 @@ Add tab pill row above the existing search bar.
 **Tab row:**
 - Container: `flex gap-2 px-4 pt-3 pb-1`
 - Two pills: "All" and "Favourites"
-- Pill sizing: `h-8 px-3 rounded-full text-xs font-normal`
+- Pill sizing: `h-8 px-4 rounded-full text-xs font-normal`
 - Active pill: `bg-[#FFE600] text-foreground`
 - Inactive pill: `bg-secondary text-[#595959]`
 - Pattern: identical to `HistoryFilterBar` `<Chip>` component — reuse or extract shared `<FilterChip>`
@@ -195,7 +196,7 @@ Add tab pill row above the existing search bar.
 **Favourites-only empty state:**
 - Centred in remaining space, `py-12 px-8 text-center`
 - Heading: `text-base font-bold text-foreground` — "No favourites yet"
-- Body: `text-sm text-[#595959]` — "Tap the star next to a recipient to add them here."
+- Body: `text-xs text-[#595959]` — "Tap the star next to a recipient to add them here."
 
 ### 6. QR Scanner P2P Detection
 
@@ -225,7 +226,7 @@ No visual change to `/scan` page layout. Behavioural addition only:
 
 | Element | Copy |
 |---------|------|
-| Primary CTA — P2P entry | "Continue" |
+| Primary CTA — P2P entry | "Enter Amount" |
 | Primary CTA — P2P amount | "Review Transfer" |
 | Primary CTA — P2P confirm | "Confirm & Send" |
 | Receipt share action | "Share" |
