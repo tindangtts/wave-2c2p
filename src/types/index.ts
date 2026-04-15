@@ -125,3 +125,13 @@ export interface Referral {
   reward_amount?: number;
   created_at: string;
 }
+
+// Bank Account
+export interface BankAccount {
+  id: string;
+  user_id: string;
+  bank_name: string;
+  account_number: string;
+  account_name: string;
+  created_at: string;
+}

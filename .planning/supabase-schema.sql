@@ -197,3 +197,29 @@ ALTER TABLE public.user_profiles
   ADD COLUMN IF NOT EXISTS passcode_locked_at timestamptz;
 
 -- Note: full_name column is retained for backward compatibility
+
+-- =============================================================================
+-- Phase 11 Wallet Operations Migration
+-- Bank Accounts table for recurring withdrawals
+-- Note: bank_account_id for withdrawals is stored in metadata JSONB as metadata->>'bank_account_id'
+-- This avoids a migration on transactions; the pending-withdrawal guard queries metadata
+-- =============================================================================
+create table public.bank_accounts (
+  id uuid primary key default uuid_generate_v4(),
+  user_id uuid references public.user_profiles(id) on delete cascade not null,
+  bank_name text not null,
+  account_number text not null,
+  account_name text not null,
+  created_at timestamptz not null default now()
+);
+
+alter table public.bank_accounts enable row level security;
+
+create policy "Users can view own bank accounts" on public.bank_accounts
+  for select using (auth.uid() = user_id);
+
+create policy "Users can insert own bank accounts" on public.bank_accounts
+  for insert with check (auth.uid() = user_id);
+
+create policy "Users can delete own bank accounts" on public.bank_accounts
+  for delete using (auth.uid() = user_id);
