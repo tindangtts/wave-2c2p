@@ -1,14 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { generateAuthenticationOptions } from '@simplewebauthn/server'
 import { createClient } from '@/lib/supabase/server'
-import { isDemoMode } from '@/lib/demo'
-
 export async function POST(_request: NextRequest) {
   try {
-    if (isDemoMode) {
-      return NextResponse.json({ options: null, mock: true })
-    }
-
     const supabase = await createClient()
 
     const {

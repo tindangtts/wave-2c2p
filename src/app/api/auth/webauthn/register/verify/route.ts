@@ -1,26 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { verifyRegistrationResponse } from '@simplewebauthn/server'
 import { createClient } from '@/lib/supabase/server'
-import { isDemoMode, DEMO_USER } from '@/lib/demo'
 import { isoBase64URL } from '@simplewebauthn/server/helpers'
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     const { credential } = body
-
-    if (isDemoMode) {
-      const supabase = await createClient()
-      await supabase
-        .from('user_profiles')
-        .update({
-          webauthn_credential_id: 'demo-credential',
-          webauthn_public_key: 'demo-key',
-          webauthn_counter: 0,
-        })
-        .eq('id', DEMO_USER.id)
-      return NextResponse.json({ enrolled: true })
-    }
 
     const supabase = await createClient()
 

@@ -1,13 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import { isDemoMode } from '@/lib/demo'
-
 export async function POST(request: NextRequest) {
   try {
-    if (isDemoMode) {
-      return NextResponse.json({ success: true, message: 'OTP sent' })
-    }
-
     const body = await request.json()
     const { phone, countryCode } = body
 

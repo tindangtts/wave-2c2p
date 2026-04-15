@@ -2,17 +2,10 @@ import { NextRequest, NextResponse } from 'next/server'
 import { verifyAuthenticationResponse } from '@simplewebauthn/server'
 import { isoBase64URL } from '@simplewebauthn/server/helpers'
 import { createClient } from '@/lib/supabase/server'
-import { isDemoMode } from '@/lib/demo'
-
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     const { credential } = body
-
-    if (isDemoMode) {
-      // Session already valid at passcode screen — just confirm auth
-      return NextResponse.json({ authenticated: true })
-    }
 
     const supabase = await createClient()
 

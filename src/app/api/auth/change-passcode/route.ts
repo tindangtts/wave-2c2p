@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import { isDemoMode } from '@/lib/demo'
 import { verifyPasscode, hashPasscode } from '@/lib/auth/passcode'
 
 const MAX_ATTEMPTS = 5
@@ -8,10 +7,6 @@ const LOCK_DURATION_MS = 30 * 60 * 1000 // 30 minutes
 
 export async function POST(request: NextRequest) {
   try {
-    if (isDemoMode) {
-      return NextResponse.json({ success: true })
-    }
-
     const body = await request.json()
     const { currentPasscode, newPasscode } = body
 
