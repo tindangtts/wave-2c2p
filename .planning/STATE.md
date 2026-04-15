@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Feature Completeness
 status: executing
-stopped_at: Completed 12-complex-flows-03-PLAN.md
-last_updated: "2026-04-15T04:52:14.360Z"
+stopped_at: Completed 13-engagement-auth-01-PLAN.md
+last_updated: "2026-04-15T05:20:34.398Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 5
   completed_phases: 4
-  total_plans: 16
-  completed_plans: 16
+  total_plans: 20
+  completed_plans: 17
   percent: 0
 ---
 
@@ -21,12 +21,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-14)
 
 **Core value:** Users can send money from Thailand to Myanmar quickly, affordably, and with full regulatory compliance
-**Current focus:** Phase 12 — complex-flows
+**Current focus:** Phase 13 — engagement-auth
 
 ## Current Position
 
-Phase: 13
-Plan: Not started
+Phase: 13 (engagement-auth) — EXECUTING
+Plan: 2 of 4
 Status: Ready to execute
 Last activity: 2026-04-15
 
@@ -86,6 +86,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 12-complex-flows P01 | 2 | 2 tasks | 4 files |
 | Phase 12-complex-flows P03 | 5 | 2 tasks | 2 files |
 | Phase 12-complex-flows P04 | 110 | 2 tasks | 2 files |
+| Phase 13-engagement-auth P01 | 10 | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -164,6 +165,8 @@ Recent decisions affecting current work:
 - [Phase 12-complex-flows]: AlertDialog controlled by resultModal?.type check — two separate AlertDialogs for success/fail clarity
 - [Phase 12-complex-flows]: Work permit update page uses local state (not KYCStore) to isolate re-verification from onboarding state
 - [Phase 12-complex-flows]: tKyc alias in profile page avoids collision with existing t (profile namespace)
+- [Phase 13-engagement-auth]: Demo mode returns 3 referred friends and 30000 satang (300 THB) mock bonus for referral stats
+- [Phase 13-engagement-auth]: navigator.share() as primary mobile CTA; WhatsApp/Line/Copy as explicit secondary share row
 
 ### Pending Todos
 
@@ -175,6 +178,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-15T04:48:40.984Z
-Stopped at: Completed 12-complex-flows-03-PLAN.md
+Last session: 2026-04-15T05:20:34.395Z
+Stopped at: Completed 13-engagement-auth-01-PLAN.md
 Resume file: None
