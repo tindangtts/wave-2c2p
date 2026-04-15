@@ -1,13 +1,14 @@
 'use client'
 
-import { useState, useCallback } from 'react'
-import { useRouter } from 'next/navigation'
-import { ArrowDown } from 'lucide-react'
+import { useState, useCallback, Suspense } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { ArrowDown, Wallet } from 'lucide-react'
 import { toast } from 'sonner'
 import { BackHeader } from '@/components/layout/back-header'
 import { RateTimer } from '@/components/features/rate-timer'
 import { PasscodeSheet } from '@/components/features/passcode-sheet'
 import { useTransferStore } from '@/stores/transfer-store'
+import { useP2PStore } from '@/stores/p2p-store'
 import { useWallet } from '@/hooks/use-wallet'
 import { formatCurrency, convertSatangToPya, fromSmallestUnit } from '@/lib/currency'
 
@@ -20,8 +21,10 @@ function getInitials(name: string): string {
     .slice(0, 2)
 }
 
-export default function ConfirmPage() {
+function ConfirmPageInner() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const isP2P = searchParams.get('type') === 'p2p'
   const { mutate: mutateWallet, data: walletData } = useWallet()
 
   const {
@@ -38,19 +41,36 @@ export default function ConfirmPage() {
     setRate,
   } = useTransferStore()
 
+  const p2pStore = useP2PStore()
+
   const [passcodeOpen, setPasscodeOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  // Guard: redirect if no channel selected
-  if (!channel || !selectedRecipient) {
+  // Guard: P2P flow — redirect if no receiver wallet ID
+  if (isP2P && !p2pStore.receiverWalletId) {
+    if (typeof window !== 'undefined') {
+      router.replace('/transfer/p2p')
+    }
+    return null
+  }
+
+  // Guard: standard flow — redirect if no channel selected
+  if (!isP2P && (!channel || !selectedRecipient)) {
     if (typeof window !== 'undefined') {
       router.replace('/transfer/channel')
     }
     return null
   }
 
-  const convertedPya = convertSatangToPya(amountSatang, rate)
-  const totalSatang = amountSatang + feeSatang
+  // Derive display values based on flow type
+  const displayAmount = isP2P ? p2pStore.amountSatang : amountSatang
+  const displayFee = isP2P ? 0 : feeSatang
+  const displayRate = isP2P ? 1 : rate
+  const displayRecipientName = isP2P ? p2pStore.receiverWalletId : (selectedRecipient?.full_name ?? '')
+  const displayChannel = isP2P ? 'p2p' : channel
+
+  const convertedPya = isP2P ? 0 : convertSatangToPya(amountSatang, rate)
+  const totalSatang = displayAmount + displayFee
 
   const senderName = walletData?.profile?.first_name ?? 'You'
   const senderPhone = ''
@@ -70,6 +90,39 @@ export default function ConfirmPage() {
   }, [setRate])
 
   async function handleVerified() {
+    if (isP2P) {
+      // P2P transfer path
+      setIsSubmitting(true)
+      try {
+        const res = await fetch('/api/mock-payment/p2p-transfer', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            receiver_wallet_id: p2pStore.receiverWalletId,
+            amount: p2pStore.amountSatang,
+          }),
+        })
+
+        const data = await res.json()
+
+        if (!res.ok || !data.success) {
+          toast.error(data.error ?? 'Transfer failed. Please try again.')
+          return
+        }
+
+        p2pStore.setTransactionId(data.transfer?.id ?? data.transfer?.reference_number ?? '')
+        p2pStore.setStatus('pending')
+        mutateWallet()
+        router.push('/transfer/receipt?type=p2p')
+      } catch {
+        toast.error('Connection error. Please check your internet and try again.')
+      } finally {
+        setIsSubmitting(false)
+      }
+      return
+    }
+
+    // Standard A/C transfer path
     if (!selectedRecipient || !channel) return
 
     // Re-check rate not expired
@@ -119,19 +172,23 @@ export default function ConfirmPage() {
         <div className="text-center">
           <p className="text-xs text-[#595959]">Transfer</p>
           <p className="text-[1.75rem] font-bold text-foreground mt-1">
-            {formatCurrency(amountSatang, 'THB')}
+            {formatCurrency(displayAmount, 'THB')}
           </p>
-          <p className="text-base text-[#595959] mt-1">
-            {formatCurrency(convertedPya, 'MMK')}
-          </p>
-        </div>
-
-        {/* Rate lock timer */}
-        <div className="mt-3 flex justify-center">
-          {rateValidUntil && (
-            <RateTimer validUntil={rateValidUntil} onExpired={handleRateExpired} />
+          {!isP2P && (
+            <p className="text-base text-[#595959] mt-1">
+              {formatCurrency(convertedPya, 'MMK')}
+            </p>
           )}
         </div>
+
+        {/* Rate lock timer — hidden for P2P (no rate expiry) */}
+        {!isP2P && (
+          <div className="mt-3 flex justify-center">
+            {rateValidUntil && (
+              <RateTimer validUntil={rateValidUntil} onExpired={handleRateExpired} />
+            )}
+          </div>
+        )}
 
         {/* Sender / Receiver card */}
         <div className="mt-4 bg-white rounded-xl border border-border p-4">
@@ -159,15 +216,15 @@ export default function ConfirmPage() {
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-full bg-[#FFE600] flex items-center justify-center flex-shrink-0">
               <span className="text-base font-bold text-foreground">
-                {getInitials(selectedRecipient.full_name)}
+                {getInitials(displayRecipientName)}
               </span>
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-base font-bold text-foreground truncate">
-                {selectedRecipient.full_name}
+                {displayRecipientName}
               </p>
-              <p className="text-xs text-[#595959] capitalize">
-                {channel.replace(/_/g, ' ')}
+              <p className="text-xs text-[#595959]">
+                {isP2P ? '2C2P WAVE (P2P)' : (displayChannel ?? '').replace(/_/g, ' ')}
               </p>
             </div>
           </div>
@@ -179,7 +236,7 @@ export default function ConfirmPage() {
           <div className="flex items-center justify-between">
             <span className="text-base text-[#595959]">Amount</span>
             <span className="text-base font-bold text-foreground">
-              {formatCurrency(amountSatang, 'THB')}
+              {formatCurrency(displayAmount, 'THB')}
             </span>
           </div>
 
@@ -187,9 +244,40 @@ export default function ConfirmPage() {
           <div className="flex items-center justify-between mt-2">
             <span className="text-base text-[#595959]">Fee</span>
             <span className="text-base font-bold text-destructive">
-              {formatCurrency(feeSatang, 'THB')}
+              {formatCurrency(displayFee, 'THB')}
             </span>
           </div>
+
+          {/* Exchange Rate row — hidden for P2P */}
+          {!isP2P && (
+            <div className="flex items-center justify-between mt-2">
+              <span className="text-base text-[#595959]">Exchange Rate</span>
+              <span className="text-base text-[#595959]">
+                1 THB = {displayRate.toFixed(2)} MMK
+              </span>
+            </div>
+          )}
+
+          {/* Converted Amount row — hidden for P2P */}
+          {!isP2P && (
+            <div className="flex items-center justify-between mt-2">
+              <span className="text-base text-[#595959]">Converted Amount</span>
+              <span className="text-base text-[#595959]">
+                {formatCurrency(convertedPya, 'MMK')}
+              </span>
+            </div>
+          )}
+
+          {/* Transfer Type row — P2P only */}
+          {isP2P && (
+            <div className="flex items-center justify-between mt-2">
+              <span className="text-base text-[#595959]">Type</span>
+              <span className="flex items-center gap-1 text-base font-bold text-foreground">
+                <Wallet className="w-4 h-4 text-[#0091EA]" />
+                Wallet Transfer
+              </span>
+            </div>
+          )}
 
           {/* Separator */}
           <div className="border-t border-border my-3" />
@@ -211,8 +299,8 @@ export default function ConfirmPage() {
           <textarea
             id="transfer-note"
             rows={3}
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
+            value={isP2P ? '' : note}
+            onChange={(e) => { if (!isP2P) setNote(e.target.value) }}
             placeholder="Add a note for your recipient..."
             className="w-full rounded-xl border border-border px-3 py-2 text-sm text-foreground placeholder:text-[#767676] focus:border-[#0091EA] focus:outline-none resize-none"
           />
@@ -238,5 +326,13 @@ export default function ConfirmPage() {
         onVerified={handleVerified}
       />
     </div>
+  )
+}
+
+export default function ConfirmPage() {
+  return (
+    <Suspense>
+      <ConfirmPageInner />
+    </Suspense>
   )
 }
