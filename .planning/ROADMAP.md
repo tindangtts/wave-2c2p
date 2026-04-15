@@ -176,7 +176,7 @@ Plans:
   3. Vitest + RTL tests exercise registration, recipient, and amount form components: submit with valid data succeeds, submit with invalid data shows field errors
   4. Running `npm run test:e2e` executes Playwright against localhost:3000 and the registration → KYC happy path completes without errors
   5. Running `npm run test:e2e` also covers the transfer confirmation → receipt happy path end to end
-**Plans**: TBD
+**Plans**: 5 plans
 
 Plans:
 - [ ] 16-01-PLAN.md — Vitest + RTL setup (vitest.config.ts, jsdom environment, test utilities, mock Supabase client)
