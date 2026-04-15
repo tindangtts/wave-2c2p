@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useWallet } from "@/hooks/use-wallet";
 import { formatCurrency } from "@/lib/currency";
@@ -24,6 +25,84 @@ function EyeOffIcon() {
       <path d="M14.12 14.12a3 3 0 11-4.24-4.24" stroke="#212121" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
       <line x1="1" y1="1" x2="23" y2="23" stroke="#212121" strokeWidth="2" strokeLinecap="round"/>
     </svg>
+  );
+}
+
+const LANGUAGES = [
+  { code: "en", label: "English", flag: "🌐" },
+  { code: "th", label: "ไทย", flag: "🇹🇭" },
+  { code: "mm", label: "မြန်မာ", flag: "🇲🇲" },
+] as const;
+
+function ChevronDownIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+      <path d="M6 9l6 6 6-6" stroke="#212121" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
+
+function LanguagePill() {
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const [currentLocale, setCurrentLocale] = useState("en");
+
+  useEffect(() => {
+    const match = document.cookie.match(/(?:^|;\s*)locale=([^;]*)/);
+    if (match) setCurrentLocale(match[1]);
+  }, []);
+
+  const current = LANGUAGES.find((l) => l.code === currentLocale) ?? LANGUAGES[0];
+
+  function handleSelect(code: string) {
+    if (code === currentLocale) {
+      setOpen(false);
+      return;
+    }
+    document.cookie = `locale=${code}; path=/; max-age=${60 * 60 * 24 * 365}; samesite=lax`;
+    setCurrentLocale(code);
+    setOpen(false);
+    router.refresh();
+  }
+
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#21212133] bg-white/60 min-h-[44px]"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+      >
+        <span className="text-sm">{current.flag}</span>
+        <span className="text-xs font-medium text-[#212121]">{current.label}</span>
+        <span className={`transition-transform duration-200 ${open ? "rotate-180" : ""}`}>
+          <ChevronDownIcon />
+        </span>
+      </button>
+      {open && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
+          <ul
+            role="listbox"
+            className="absolute right-0 top-full mt-1 z-50 bg-white rounded-xl shadow-lg border border-[#e0e0e0] py-1 min-w-[140px] animate-dropdown-enter"
+          >
+            {LANGUAGES.map((lang) => (
+              <li key={lang.code} role="option" aria-selected={lang.code === currentLocale}>
+                <button
+                  onClick={() => handleSelect(lang.code)}
+                  className={`w-full flex items-center gap-2 px-3 py-2.5 text-left ${
+                    lang.code === currentLocale ? "bg-[#FFE60020]" : ""
+                  }`}
+                >
+                  <span className="text-sm">{lang.flag}</span>
+                  <span className="text-sm text-[#212121]">{lang.label}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+    </div>
   );
 }
 
@@ -63,13 +142,7 @@ export function WalletCard() {
   const profile = data?.profile ?? null;
   const firstName = profile?.first_name ?? "";
 
-  // Masked wallet ID: WAVE-XXXX-XXXX from last 8 chars
   const rawWalletId = profile?.wallet_id ?? "";
-  const last8 = rawWalletId.replace(/-/g, "").slice(-8);
-  const maskedWalletId =
-    last8.length >= 8
-      ? `WAVE-${last8.slice(0, 4)}-${last8.slice(4)}`
-      : rawWalletId;
 
   const handleCopyWalletId = async () => {
     try {
@@ -82,10 +155,13 @@ export function WalletCard() {
 
   return (
     <div className="flex flex-col gap-2.5">
-      {/* User greeting — design: Kanit 20px medium */}
-      <p className="text-xl font-medium text-[#000000] leading-[1.4] truncate">
-        {t("greeting", { firstName })}
-      </p>
+      {/* User greeting + language selector — design: name on left, language pill on right */}
+      <div className="flex items-center justify-between gap-2">
+        <p className="text-xl font-medium text-[#000000] leading-[1.4] truncate min-w-0">
+          {t("greeting", { firstName })}
+        </p>
+        <LanguagePill />
+      </div>
 
       {/* Balance row — design: baht icon + amount + eye toggle */}
       <div className="flex items-center gap-[7px]">
@@ -99,7 +175,7 @@ export function WalletCard() {
         ) : error ? (
           <span className="text-sm text-[#595959]">{t("errors.balanceFetch")}</span>
         ) : (
-          <span className="text-xs font-normal text-[#000000]">
+          <span className="text-[13.3px] font-normal text-[#000000] balance-transition">
             {showBalance
               ? wallet
                 ? formatCurrency(wallet.balance, "THB")
@@ -112,18 +188,28 @@ export function WalletCard() {
           className="min-w-[44px] min-h-[44px] flex items-center justify-center -ml-2"
           aria-label={showBalance ? t("hideBalance") : t("showBalance")}
         >
-          {showBalance ? <EyeIcon /> : <EyeOffIcon />}
+          <span className="w-6 h-6 flex items-center justify-center rounded-[6px] bg-[#dbc300]">
+            {showBalance ? <EyeIcon /> : <EyeOffIcon />}
+          </span>
         </button>
       </div>
 
       {/* Wallet ID row — design: 12px normal text + copy icon */}
-      <div className="flex items-center gap-0">
+      <div className="flex items-center gap-0 rounded-md" id="wallet-id-row">
         <span className="text-xs text-[#000000]">
-          {t("walletIdLabel")}{maskedWalletId}
+          {t("walletIdLabel")}{rawWalletId}
         </span>
         <button
-          onClick={handleCopyWalletId}
-          className="min-w-[44px] min-h-[44px] flex items-center justify-center"
+          onClick={() => {
+            handleCopyWalletId();
+            const row = document.getElementById("wallet-id-row");
+            if (row) {
+              row.classList.remove("animate-copy-flash");
+              void row.offsetWidth;
+              row.classList.add("animate-copy-flash");
+            }
+          }}
+          className="min-w-[44px] min-h-[44px] flex items-center justify-center active:scale-90 transition-transform duration-100"
           aria-label={t("copyWalletId")}
         >
           <CopyIcon />

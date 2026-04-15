@@ -258,6 +258,130 @@
   animation: shake 300ms ease-in-out;
 }
 
+/* ============================================
+ * HOME SCREEN ENTRANCE CHOREOGRAPHY
+ * Staggered fade+slide for progressive reveal
+ * ============================================ */
+@keyframes wave-fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes wave-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes wave-slide-up {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes wave-pulse-soft {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,229,18,0.4); }
+  50%      { box-shadow: 0 0 0 8px rgba(255,229,18,0); }
+}
+
+.animate-fade-up {
+  animation: wave-fade-up 400ms cubic-bezier(0.25,1,0.5,1) both;
+}
+
+.animate-fade-in {
+  animation: wave-fade-in 300ms cubic-bezier(0.25,1,0.5,1) both;
+}
+
+.animate-slide-up {
+  animation: wave-slide-up 500ms cubic-bezier(0.25,1,0.5,1) both;
+}
+
+/* Stagger delays for home page sections */
+.stagger-1 { animation-delay: 0ms; }
+.stagger-2 { animation-delay: 80ms; }
+.stagger-3 { animation-delay: 160ms; }
+.stagger-4 { animation-delay: 240ms; }
+.stagger-5 { animation-delay: 320ms; }
+
+/* Transfer center button gentle pulse */
+.animate-pulse-ring {
+  animation: wave-pulse-soft 2.5s cubic-bezier(0.25,1,0.5,1) infinite;
+  animation-delay: 1s;
+}
+
+/* ============================================
+ * MICRO-INTERACTIONS
+ * ============================================ */
+
+/* Language dropdown enter */
+@keyframes dropdown-enter {
+  from { opacity: 0; transform: translateY(-4px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.animate-dropdown-enter {
+  animation: dropdown-enter 200ms cubic-bezier(0.25,1,0.5,1) both;
+}
+
+/* Copy flash feedback */
+@keyframes copy-flash {
+  0%   { background-color: transparent; }
+  30%  { background-color: rgba(255,230,0,0.25); }
+  100% { background-color: transparent; }
+}
+
+.animate-copy-flash {
+  animation: copy-flash 600ms cubic-bezier(0.25,1,0.5,1);
+}
+
+/* Skeleton shimmer override — more polished */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Balance toggle — smooth number crossfade */
+.balance-transition {
+  transition: opacity 150ms cubic-bezier(0.25,1,0.5,1);
+}
+
+/* Dot indicator transition */
+.dot-indicator {
+  transition: background-color 250ms cubic-bezier(0.25,1,0.5,1),
+              transform 250ms cubic-bezier(0.25,1,0.5,1);
+}
+
+/* Nav item hover/active feedback */
+.nav-item-press {
+  transition: transform 100ms cubic-bezier(0.25,1,0.5,1),
+              opacity 100ms cubic-bezier(0.25,1,0.5,1);
+}
+
+.nav-item-press:active {
+  transform: scale(0.92);
+  opacity: 0.8;
+}
+
+/* ============================================
+ * REDUCED MOTION — respect user preference
+ * ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-fade-in,
+  .animate-slide-up,
+  .animate-dropdown-enter,
+  .animate-copy-flash,
+  .animate-pulse-ring {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .balance-transition,
+  .dot-indicator,
+  .nav-item-press {
+    transition: none !important;
+  }
+}
+
 /* Global focus-visible indicators for WCAG 2.4.7 — keyboard users */
 button:focus-visible,
 a:focus-visible,

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
 import { useTranslations } from "next-intl";
 
@@ -27,27 +28,24 @@ export function PromoCarousel() {
   const promos = [
     {
       key: "promo1",
-      title: t("promotions.promo1.title"),
-      body: t("promotions.promo1.body"),
-      bg: "from-[#FFE600] to-[#FFD600]",
-      textColor: "text-foreground",
-      image: "/icons/promo-referral.svg",
+      badge: t("promotions.promo1.title"),
+      badgeIcon: "🇹🇭",
+      badgeBg: "bg-white/90 text-[#212121]",
+      image: "/images/promo-transfer-thai.svg",
     },
     {
       key: "promo2",
-      title: t("promotions.promo2.title"),
-      body: t("promotions.promo2.body"),
-      bg: "from-[#0091EA] to-[#01579B]",
-      textColor: "text-white",
-      image: "/icons/promo-transfer.svg",
+      badge: t("promotions.promo2.title"),
+      badgeIcon: "🇲🇲",
+      badgeBg: "bg-[#FFE600]/90 text-[#212121]",
+      image: "/images/promo-transfer-myanmar.png",
     },
     {
       key: "promo3",
-      title: t("promotions.promo3.title"),
-      body: t("promotions.promo3.body"),
-      bg: "from-[#1B5E20] to-[#388E3C]",
-      textColor: "text-white",
-      image: "/icons/promo-visa.svg",
+      badge: t("promotions.promo3.title"),
+      badgeIcon: "💳",
+      badgeBg: "bg-white/90 text-[#212121]",
+      image: "/images/promo-visa.svg",
     },
   ];
 
@@ -65,11 +63,21 @@ export function PromoCarousel() {
               key={promo.key}
               className="flex-[0_0_85%] max-w-[340px] mr-3"
             >
-              <div className={`h-40 rounded-xl overflow-hidden bg-gradient-to-br ${promo.bg} px-5 py-4 flex flex-col justify-end relative`}>
-                <p className={`text-lg font-bold leading-snug ${promo.textColor}`}>
-                  {promo.title}
-                </p>
-                <p className={`text-sm mt-1 ${promo.textColor} opacity-80`}>{promo.body}</p>
+              <div className="h-[136px] rounded-[17px] overflow-hidden relative bg-[#f0f0f0]">
+                <Image
+                  src={promo.image}
+                  alt={promo.badge}
+                  fill
+                  className="object-cover"
+                  sizes="340px"
+                />
+                {/* Badge overlay */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-bold shadow-sm ${promo.badgeBg}`}>
+                    <span>{promo.badgeIcon}</span>
+                    {promo.badge}
+                  </span>
+                </div>
               </div>
             </div>
           ))}
@@ -81,9 +89,10 @@ export function PromoCarousel() {
         {(scrollSnaps.length > 0 ? scrollSnaps : promos).map((_, idx) => (
           <span
             key={idx}
-            className="w-2 h-2 rounded-full"
+            className="w-2 h-2 rounded-full dot-indicator"
             style={{
               backgroundColor: idx === selectedIndex ? "#FFE600" : "#E0E0E0",
+              transform: idx === selectedIndex ? "scale(1.25)" : "scale(1)",
             }}
           />
         ))}

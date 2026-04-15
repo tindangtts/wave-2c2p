@@ -76,7 +76,7 @@ export function RecentHistory() {
         </div>
         <div className="flex flex-col gap-0">
           {Array.from({ length: 5 }).map((_, i) => (
-            <Skeleton key={i} className="h-[60px] w-full rounded-md mb-1" />
+            <Skeleton key={i} className="h-[60px] w-full rounded-md mb-1 animate-fade-in" style={{ animationDelay: `${i * 60}ms` }} />
           ))}
         </div>
       </div>
@@ -107,7 +107,7 @@ export function RecentHistory() {
     <div>
       {/* Section header */}
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-xl font-bold text-foreground">
+        <h3 className="text-base font-bold text-[#000000]">
           {t("recentHistory.title")}
         </h3>
         <Link href="/history" aria-label="View all history">
@@ -118,7 +118,7 @@ export function RecentHistory() {
       {transactions.length === 0 ? (
         /* Empty state */
         <div className="flex flex-col items-center py-8 gap-2">
-          <p className="text-base font-bold text-foreground">
+          <p className="text-base font-bold text-[#000000]">
             {t("recentHistory.empty.heading")}
           </p>
           <p className="text-sm text-[#595959] text-center">

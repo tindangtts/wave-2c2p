@@ -1,0 +1,6 @@
+<svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- "Linear / Arrows / Square Transfer Horizontal" — Pencil design -->
+  <rect x="2" y="2" width="31" height="31" rx="8" stroke="#019cdf" stroke-width="2.2" fill="none"/>
+  <path d="M10.5 13h14m0 0l-4.5-4.5M24.5 13l-4.5 4.5" stroke="#019cdf" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M24.5 22h-14m0 0l4.5-4.5M10.5 22l4.5 4.5" stroke="#019cdf" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>

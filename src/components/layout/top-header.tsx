@@ -21,7 +21,7 @@ function BellIcon() {
 function BrandLogo() {
   return (
     <svg width="144" height="20" viewBox="0 0 144 20" fill="none" aria-label="2c2p WAVE">
-      <text x="0" y="16" fontFamily="'Arial Black', 'Helvetica Neue', Arial, sans-serif" fontWeight="900" fontSize="18" fill="#004D5A" letterSpacing="-0.5">2c2p</text>
+      <text x="0" y="16" fontFamily="'Arial Black', 'Helvetica Neue', Arial, sans-serif" fontWeight="900" fontSize="18" fill="#044F5C" letterSpacing="-0.5">2c2p</text>
       <text x="56" y="16" fontFamily="'Arial Black', 'Helvetica Neue', Arial, sans-serif" fontWeight="900" fontSize="18" fill="#0091C7" letterSpacing="0.5">WAVE</text>
     </svg>
   );
@@ -41,7 +41,7 @@ export function TopHeader() {
         {/* Notification bell with blue tinted bg pill — per Pencil design */}
         <button
           aria-label={t("notifications")}
-          className="relative w-11 h-11 flex items-center justify-center rounded-[10px] bg-[#019cdf1a]"
+          className="relative w-11 h-11 flex items-center justify-center rounded-[10px] bg-[#019cdf1a] active:scale-90 transition-transform duration-100"
         >
           <BellIcon />
         </button>
