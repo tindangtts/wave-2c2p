@@ -135,3 +135,17 @@ export interface BankAccount {
   account_name: string;
   created_at: string;
 }
+
+// Notification
+export type NotificationType = 'transfer' | 'topup' | 'system' | 'referral' | 'kyc' | 'promo'
+
+export interface Notification {
+  id: string
+  user_id: string
+  type: NotificationType
+  title: string
+  body: string
+  is_read: boolean
+  deep_link?: string
+  created_at: string
+}
