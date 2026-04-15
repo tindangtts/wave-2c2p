@@ -126,7 +126,30 @@
     "unfreezeDialogBody": "Your card will be ready to use again.",
     "unfreezeCta": "Unfreeze",
     "emptyHeading": "Your virtual card is being set up.",
-    "emptyBody": "This may take a moment. Check back soon."
+    "emptyBody": "This may take a moment. Check back soon.",
+    "request": {
+      "title": "Request Visa Card",
+      "subtitle": "Choose your delivery address",
+      "currentAddress": "Current Address",
+      "mailingAddress": "Mailing Address",
+      "addressPlaceholder": "Enter mailing address",
+      "confirmTitle": "Card Payment",
+      "fee": "Processing Fee",
+      "feeValue": "10 THB",
+      "cardFee": "Card Fee",
+      "cardFeeValue": "200 THB",
+      "total": "Total",
+      "fxRate": "Exchange Rate",
+      "youReceive": "You Receive (MMK)",
+      "confirmCta": "Pay & Request Card",
+      "successTitle": "Card Requested!",
+      "successBody": "Your Visa card is on its way. Estimated delivery: 5-7 business days.",
+      "successCta": "Done",
+      "failTitle": "Payment Failed",
+      "failBody": "Card payment could not be processed. Please try again.",
+      "failCta": "Try Again",
+      "cardRequestCta": "Request Card"
+    }
   },
   "system": {
     "maintenance": {

@@ -126,7 +126,30 @@
     "unfreezeDialogBody": "သင့်ကတ် ပြန်အသုံးပြုနိုင်မည်",
     "unfreezeCta": "ပြန်ဖွင့်ပါ",
     "emptyHeading": "သင့် virtual ကတ်ကို တပ်ဆင်နေသည်",
-    "emptyBody": "ခဏစောင့်ပါ နောက်မှ ပြန်စစ်ပါ"
+    "emptyBody": "ခဏစောင့်ပါ နောက်မှ ပြန်စစ်ပါ",
+    "request": {
+      "title": "Visa ကတ် တောင်းဆိုရန်",
+      "subtitle": "ပို့ဆောင်မည့်လိပ်စာ ရွေးချယ်ပါ",
+      "currentAddress": "လက်ရှိလိပ်စာ",
+      "mailingAddress": "စာပို့လိပ်စာ",
+      "addressPlaceholder": "စာပို့လိပ်စာ ထည့်ပါ",
+      "confirmTitle": "ကတ်ငွေပေးချေမှု",
+      "fee": "ဆောင်ရွက်ခ",
+      "feeValue": "10 ဘတ်",
+      "cardFee": "ကတ်ကြေး",
+      "cardFeeValue": "200 ဘတ်",
+      "total": "စုစုပေါင်း",
+      "fxRate": "ငွေလဲနှုန်း",
+      "youReceive": "သင်ရမည် (MMK)",
+      "confirmCta": "ငွေပေးပြီး ကတ်တောင်းဆိုပါ",
+      "successTitle": "ကတ်တောင်းဆိုပြီးပါပြီ!",
+      "successBody": "သင်၏ Visa ကတ် ပေးပို့နေပါသည်။ ခန့်မှန်းချိန်: လုပ်ငန်းရက် 5-7 ရက်",
+      "successCta": "ပြီးပါပြီ",
+      "failTitle": "ငွေပေးချေမှု မအောင်မြင်ပါ",
+      "failBody": "ကတ်ငွေပေးချေမှု ဆောင်ရွက်၍မရပါ။ နောက်မှ ထပ်ကြိုးစားပါ",
+      "failCta": "ထပ်ကြိုးစားပါ",
+      "cardRequestCta": "ကတ်တောင်းဆိုပါ"
+    }
   },
   "system": {
     "maintenance": {

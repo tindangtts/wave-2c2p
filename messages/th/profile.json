@@ -126,7 +126,30 @@
     "unfreezeDialogBody": "บัตรของคุณจะพร้อมใช้งานอีกครั้ง",
     "unfreezeCta": "ยกเลิกอายัด",
     "emptyHeading": "กำลังตั้งค่าบัตรเสมือนของคุณ",
-    "emptyBody": "อาจใช้เวลาสักครู่ กรุณาตรวจสอบในภายหลัง"
+    "emptyBody": "อาจใช้เวลาสักครู่ กรุณาตรวจสอบในภายหลัง",
+    "request": {
+      "title": "ขอบัตร Visa",
+      "subtitle": "เลือกที่อยู่จัดส่ง",
+      "currentAddress": "ที่อยู่ปัจจุบัน",
+      "mailingAddress": "ที่อยู่ทางไปรษณีย์",
+      "addressPlaceholder": "กรอกที่อยู่ทางไปรษณีย์",
+      "confirmTitle": "ชำระเงินบัตร",
+      "fee": "ค่าดำเนินการ",
+      "feeValue": "10 บาท",
+      "cardFee": "ค่าบัตร",
+      "cardFeeValue": "200 บาท",
+      "total": "รวม",
+      "fxRate": "อัตราแลกเปลี่ยน",
+      "youReceive": "คุณได้รับ (MMK)",
+      "confirmCta": "ชำระและขอบัตร",
+      "successTitle": "ขอบัตรสำเร็จ!",
+      "successBody": "บัตร Visa ของคุณอยู่ระหว่างจัดส่ง ประมาณ 5-7 วันทำการ",
+      "successCta": "เสร็จสิ้น",
+      "failTitle": "การชำระเงินล้มเหลว",
+      "failBody": "ไม่สามารถประมวลผลการชำระเงินได้ กรุณาลองอีกครั้ง",
+      "failCta": "ลองอีกครั้ง",
+      "cardRequestCta": "ขอบัตร"
+    }
   },
   "system": {
     "maintenance": {
