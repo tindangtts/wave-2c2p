@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { MyanmarAddressPicker, type MyanmarAddress } from "@/components/features/myanmar-address-picker";
 
 import { BackHeader } from "@/components/layout/back-header";
 import { Input } from "@/components/ui/input";
@@ -46,6 +47,11 @@ export default function NewRecipientPage() {
   const router = useRouter();
   const { mutate } = useRecipients();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [myanmarAddress, setMyanmarAddress] = useState<MyanmarAddress>({
+    state: '',
+    township: '',
+    ward: '',
+  });
 
   const form = useForm<RecipientFormInput>({
     resolver: zodResolver(recipientFormSchema),
@@ -71,6 +77,7 @@ export default function NewRecipientPage() {
   const errors = form.formState.errors;
   const transferType = form.watch("transfer_type");
   const isBankTransfer = transferType === "bank_transfer";
+  const isMyanmarRecipient = transferType === "cash_pickup" || transferType === "bank_transfer";
 
   async function onSubmit(data: RecipientFormInput) {
     setIsSubmitting(true);
@@ -424,73 +431,92 @@ export default function NewRecipientPage() {
 
           {/* Section: Address */}
           <div className="flex flex-col gap-5">
-            {/* Address Line 1 */}
-            <div>
-              <Label
-                htmlFor="address_line_1"
-                className="text-xs text-foreground mb-1 block"
-              >
-                {t("label_address1")}{" "}
-                <span className="text-destructive">*</span>
-              </Label>
-              <Input
-                id="address_line_1"
-                {...form.register("address_line_1")}
-                className="h-12 rounded-xl border-border focus-visible:border-[#0091EA]"
-                aria-invalid={!!errors.address_line_1}
-              />
-              <FieldError message={errors.address_line_1?.message} />
-            </div>
+            {isMyanmarRecipient ? (
+              <div className="space-y-1">
+                <p className="text-sm font-medium text-foreground">Myanmar Address</p>
+                <MyanmarAddressPicker
+                  value={myanmarAddress}
+                  onChange={(v) => {
+                    setMyanmarAddress(v);
+                    form.setValue('state_region', v.state);
+                    form.setValue('city', v.township);
+                    form.setValue('address_line_1', v.ward);
+                  }}
+                  disabled={isSubmitting}
+                />
+                <FieldError message={errors.address_line_1?.message} />
+              </div>
+            ) : (
+              <>
+                {/* Address Line 1 */}
+                <div>
+                  <Label
+                    htmlFor="address_line_1"
+                    className="text-xs text-foreground mb-1 block"
+                  >
+                    {t("label_address1")}{" "}
+                    <span className="text-destructive">*</span>
+                  </Label>
+                  <Input
+                    id="address_line_1"
+                    {...form.register("address_line_1")}
+                    className="h-12 rounded-xl border-border focus-visible:border-[#0091EA]"
+                    aria-invalid={!!errors.address_line_1}
+                  />
+                  <FieldError message={errors.address_line_1?.message} />
+                </div>
 
-            {/* Address Line 2 — optional */}
-            <div>
-              <Label
-                htmlFor="address_line_2"
-                className="text-xs text-foreground mb-1 block"
-              >
-                {t("label_address2")}{" "}
-                <span className="text-xs text-[#767676]">(optional)</span>
-              </Label>
-              <Input
-                id="address_line_2"
-                {...form.register("address_line_2")}
-                className="h-12 rounded-xl border-border focus-visible:border-[#0091EA]"
-              />
-            </div>
+                {/* Address Line 2 — optional */}
+                <div>
+                  <Label
+                    htmlFor="address_line_2"
+                    className="text-xs text-foreground mb-1 block"
+                  >
+                    {t("label_address2")}{" "}
+                    <span className="text-xs text-[#767676]">(optional)</span>
+                  </Label>
+                  <Input
+                    id="address_line_2"
+                    {...form.register("address_line_2")}
+                    className="h-12 rounded-xl border-border focus-visible:border-[#0091EA]"
+                  />
+                </div>
 
-            {/* City */}
-            <div>
-              <Label
-                htmlFor="city"
-                className="text-xs text-foreground mb-1 block"
-              >
-                {t("label_city")} <span className="text-destructive">*</span>
-              </Label>
-              <Input
-                id="city"
-                {...form.register("city")}
-                className="h-12 rounded-xl border-border focus-visible:border-[#0091EA]"
-                aria-invalid={!!errors.city}
-              />
-              <FieldError message={errors.city?.message} />
-            </div>
+                {/* City */}
+                <div>
+                  <Label
+                    htmlFor="city"
+                    className="text-xs text-foreground mb-1 block"
+                  >
+                    {t("label_city")} <span className="text-destructive">*</span>
+                  </Label>
+                  <Input
+                    id="city"
+                    {...form.register("city")}
+                    className="h-12 rounded-xl border-border focus-visible:border-[#0091EA]"
+                    aria-invalid={!!errors.city}
+                  />
+                  <FieldError message={errors.city?.message} />
+                </div>
 
-            {/* State / Region */}
-            <div>
-              <Label
-                htmlFor="state_region"
-                className="text-xs text-foreground mb-1 block"
-              >
-                {t("label_state")} <span className="text-destructive">*</span>
-              </Label>
-              <Input
-                id="state_region"
-                {...form.register("state_region")}
-                className="h-12 rounded-xl border-border focus-visible:border-[#0091EA]"
-                aria-invalid={!!errors.state_region}
-              />
-              <FieldError message={errors.state_region?.message} />
-            </div>
+                {/* State / Region */}
+                <div>
+                  <Label
+                    htmlFor="state_region"
+                    className="text-xs text-foreground mb-1 block"
+                  >
+                    {t("label_state")} <span className="text-destructive">*</span>
+                  </Label>
+                  <Input
+                    id="state_region"
+                    {...form.register("state_region")}
+                    className="h-12 rounded-xl border-border focus-visible:border-[#0091EA]"
+                    aria-invalid={!!errors.state_region}
+                  />
+                  <FieldError message={errors.state_region?.message} />
+                </div>
+              </>
+            )}
           </div>
         </form>
       </div>
