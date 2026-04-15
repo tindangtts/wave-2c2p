@@ -36,7 +36,7 @@
 ### v1.2 Production Readiness
 
 - [x] **Phase 14: PWA & Offline** - Serwist service worker, caching strategies, install prompt, app manifest (completed 2026-04-15)
-- [ ] **Phase 15: QR Scanner & WebAuthn Migration** - Real camera-based QR scanning and WebAuthn DB columns for deployed biometrics
+- [x] **Phase 15: QR Scanner & WebAuthn Migration** - Real camera-based QR scanning and WebAuthn DB columns for deployed biometrics (completed 2026-04-15)
 - [ ] **Phase 16: Test Coverage** - Vitest unit tests and Playwright E2E tests for critical flows
 - [ ] **Phase 17: Features & Polish** - PDF statement download and user-configurable spending limits
 
@@ -163,7 +163,7 @@ Plans:
 
 Plans:
 - [x] 15-01-PLAN.md — Install @yudiel/react-qr-scanner, replace mock scan page with live scanner component, iOS playsInline + permission handling
-- [ ] 15-02-PLAN.md — QR type detection logic (wallet ID vs payment code) + navigation routing + file-input fallback for iOS PWA
+- [x] 15-02-PLAN.md — QR type detection logic (wallet ID vs payment code) + navigation routing + file-input fallback for iOS PWA
 - [x] 15-03-PLAN.md — Supabase SQL migration for WebAuthn columns + verify biometric enrollment on HTTPS
 
 ### Phase 16: Test Coverage
@@ -218,6 +218,6 @@ Plans:
 | 12. Complex Flows | v1.1 | 4/4 | Complete | 2026-04-15 |
 | 13. Engagement & Auth | v1.1 | 4/4 | Complete | 2026-04-15 |
 | 14. PWA & Offline | v1.2 | 2/2 | Complete    | 2026-04-15 |
-| 15. QR Scanner & WebAuthn Migration | v1.2 | 2/3 | In Progress|  |
+| 15. QR Scanner & WebAuthn Migration | v1.2 | 3/3 | Complete   | 2026-04-15 |
 | 16. Test Coverage | v1.2 | 0/5 | Not started | - |
 | 17. Features & Polish | v1.2 | 0/2 | Not started | - |

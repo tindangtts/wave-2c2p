@@ -18,7 +18,7 @@ Requirements for milestone v1.2 — Production Readiness. Each maps to roadmap p
 ### QR Scanner
 
 - [x] **QR-01**: User can scan QR codes using live camera via @yudiel/react-qr-scanner
-- [ ] **QR-02**: Scanned QR auto-detects type (wallet ID for P2P, payment code for receive)
+- [x] **QR-02**: Scanned QR auto-detects type (wallet ID for P2P, payment code for receive)
 
 ### Database & Auth
 
@@ -76,7 +76,7 @@ Deferred to future release.
 | PWA-04 | Phase 14 | Complete |
 | PWA-05 | Phase 14 | Pending |
 | QR-01 | Phase 15 | Complete |
-| QR-02 | Phase 15 | Pending |
+| QR-02 | Phase 15 | Complete |
 | DB-01 | Phase 15 | Complete |
 | DB-02 | Phase 15 | Complete |
 | TEST-01 | Phase 16 | Pending |
