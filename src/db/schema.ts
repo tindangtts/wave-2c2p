@@ -90,6 +90,8 @@ export const userProfiles = pgTable('user_profiles', {
   // Phase 17 spending limits
   dailyLimitSatang: bigint('daily_limit_satang', { mode: 'number' }).default(5000000),
   monthlyLimitSatang: bigint('monthly_limit_satang', { mode: 'number' }).default(20000000),
+  // Phase 21 Auth Gates
+  permanentlyRejected: boolean('permanently_rejected').notNull().default(false),
   createdAt: timestamptz('created_at').notNull().defaultNow(),
   updatedAt: timestamptz('updated_at').notNull().defaultNow(),
 })
@@ -164,4 +166,16 @@ export const vouchers = pgTable('vouchers', {
   redeemedAt: timestamptz('redeemed_at'),
   expiresAt: timestamptz('expires_at'),
   createdAt: timestamptz('created_at').notNull().defaultNow(),
+})
+
+// =========================================================================
+// systemConfig
+// Mirrors: public.system_config in supabase-schema.sql (Phase 21 migration)
+// value is JSON-serialized text: booleans as 'true'/'false', versions as '"0.1.0"'
+// No RLS — publicly readable; only service role writes.
+// =========================================================================
+export const systemConfig = pgTable('system_config', {
+  key: text('key').primaryKey(),
+  value: text('value').notNull(),
+  updatedAt: timestamptz('updated_at').notNull().defaultNow(),
 })

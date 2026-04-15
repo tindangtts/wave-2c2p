@@ -296,3 +296,9 @@ create policy "Users can view active vouchers" on public.vouchers
   for select using (active = true);
 
 create index if not exists idx_vouchers_code on public.vouchers(code);
+
+-- =============================================================================
+-- Phase 21: Auth Gates — permanently_rejected column
+-- =============================================================================
+ALTER TABLE public.user_profiles
+  ADD COLUMN IF NOT EXISTS permanently_rejected boolean NOT NULL DEFAULT false;
