@@ -223,7 +223,7 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 18-01-PLAN.md — Install Drizzle ORM + schema definitions + db singleton + drizzle.config
+- [x] 18-01-PLAN.md — Install Drizzle ORM + schema definitions + db singleton + drizzle.config
 - [ ] 18-02-PLAN.md — Replace wallet + transactions API routes with Drizzle queries
 - [ ] 18-03-PLAN.md — Create /api/cards route + update card page to fetch from DB
 
@@ -291,7 +291,7 @@ Plans:
 | 15. QR Scanner & WebAuthn Migration | v1.2 | 3/3 | Complete | 2026-04-15 |
 | 16. Test Coverage | v1.2 | 5/5 | Complete | 2026-04-15 |
 | 17. Features & Polish | v1.2 | 2/2 | Complete | 2026-04-15 |
-| 18. Core Data Layer | v1.3 | 0/3 | Not started | - |
+| 18. Core Data Layer | v1.3 | 1/3 | In Progress|  |
 | 19. Payment Write-Back | v1.3 | 0/TBD | Not started | - |
 | 20. New Tables & Seed | v1.3 | 0/TBD | Not started | - |
 | 21. System Config & Auth Gates | v1.3 | 0/TBD | Not started | - |
