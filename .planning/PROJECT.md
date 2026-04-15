@@ -38,7 +38,44 @@ Users can send money from Thailand to Myanmar quickly, affordably, and with full
 
 ### Active
 
-(None — all v1.0 requirements validated. Define v1.1 requirements with `/gsd:new-milestone`)
+<!-- v1.1 Feature Completeness — close all Pencil/PRD gaps -->
+
+- [ ] P2P wallet-to-wallet transfer (wallet ID entry + QR scan)
+- [ ] Bank account management for withdrawals (add/delete saved accounts)
+- [ ] Cash pick-up transfer channel with secret code generation
+- [ ] T&C / Privacy consent screen during registration
+- [ ] Selfie/liveness capture with face guide overlay
+- [ ] 123 Service convenience store top-up channel
+- [ ] Visa card request + payment flow (address selection, FX, success/fail)
+- [ ] Work permit / 2nd document update flow
+- [ ] Myanmar address cascade (State → Township → Ward/Village)
+- [ ] E-receipt share/download as image
+- [ ] Recipient favourites toggle + filter
+- [ ] Referral stats + social share buttons (WhatsApp, Line, copy link)
+- [ ] Pre-registration info + daily limit acknowledgment screens
+- [ ] Biometric login option (Face ID / Touch ID / Fingerprint)
+- [ ] Notification inbox with unread badge
+
+## Current Milestone: v1.1 Feature Completeness
+
+**Goal:** Close all remaining gaps between Pencil design / PRD and the shipped codebase — deliver every designed screen and specified feature.
+
+**Target features:**
+- P2P wallet-to-wallet transfer (wallet ID + QR)
+- Bank account CRUD for withdrawals
+- Cash pick-up channel with secret code
+- T&C consent during registration
+- Selfie/liveness capture
+- 123 Service top-up
+- Visa card request + payment flow
+- Work permit update flow
+- Myanmar address cascade
+- E-receipt share/download
+- Recipient favourites
+- Referral stats + social sharing
+- Pre-registration + daily limit screens
+- Biometric login
+- Notification inbox
 
 ### Out of Scope
 
@@ -104,4 +141,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-15 after v1.0 milestone*
+*Last updated: 2026-04-15 after v1.1 milestone start*
