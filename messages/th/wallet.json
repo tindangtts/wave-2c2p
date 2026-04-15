@@ -79,5 +79,9 @@
     "merchantName": "2C2P พลัส (ประเทศไทย) จำกัด",
     "scanToPay": "สแกนเพื่อชำระเงินด้วยแอปธนาคาร",
     "qrExpiry": "QR โค้ดหมดอายุใน 15 นาที"
-  }
+  },
+  "downloadStatement": "ดาวน์โหลดใบแจ้งยอด",
+  "downloading": "กำลังดาวน์โหลด...",
+  "noTransactionsForPeriod": "ไม่พบรายการในช่วงเวลานี้",
+  "downloadFailed": "ดาวน์โหลดไม่สำเร็จ"
 }

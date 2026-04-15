@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl'
 import { BackHeader } from '@/components/layout/back-header'
 import { Skeleton } from '@/components/ui/skeleton'
 import { HistoryFilterBar } from '@/components/features/history-filter-bar'
+import { StatementDownloadButton } from '@/components/features/statement-download-button'
 import { TransactionRow } from '@/components/features/transaction-row'
 import { useTransactions } from '@/hooks/use-transactions'
 import type { Transaction } from '@/types'
@@ -111,6 +112,14 @@ export default function HistoryPage() {
           onTypeChange={setTypeFilter}
           onStatusChange={setStatusFilter}
           onDateRangeChange={setDateRange}
+        />
+      </div>
+
+      {/* Download statement button — only shown when date range is selected */}
+      <div className="px-4 py-2 bg-white border-b border-border">
+        <StatementDownloadButton
+          dateFrom={filters.dateFrom}
+          dateTo={filters.dateTo}
         />
       </div>
 

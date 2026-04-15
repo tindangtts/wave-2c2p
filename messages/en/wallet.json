@@ -79,5 +79,9 @@
     "merchantName": "2C2P PLUS (THAILAND) CO., LTD.",
     "scanToPay": "Scan to pay with your banking app",
     "qrExpiry": "QR code expires in 15 minutes"
-  }
+  },
+  "downloadStatement": "Download Statement",
+  "downloading": "Downloading...",
+  "noTransactionsForPeriod": "No transactions found for this period",
+  "downloadFailed": "Failed to download statement"
 }
