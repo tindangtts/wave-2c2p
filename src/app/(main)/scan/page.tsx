@@ -1,65 +1,23 @@
 'use client'
 
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { X } from 'lucide-react'
 import { toast } from 'sonner'
-import { ScannerFrame } from '@/components/features/scanner-frame'
+import { LiveScanner } from '@/components/features/live-scanner'
 import { useP2PStore } from '@/stores/p2p-store'
-
-type CameraState = 'requesting' | 'active' | 'denied' | 'unavailable'
 
 const P2P_WALLET_REGEX = /^W-\d{6,}$/
 
 export default function ScanPage() {
   const router = useRouter()
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const streamRef = useRef<MediaStream | null>(null)
   const galleryInputRef = useRef<HTMLInputElement>(null)
-  const [cameraState, setCameraState] = useState<CameraState>('requesting')
+  const handledRef = useRef(false)
+  const [scanPaused, setScanPaused] = useState(false)
+  const [cameraError, setCameraError] = useState(false)
   const { setReceiverWalletId } = useP2PStore()
 
-  const stopCamera = useCallback(() => {
-    if (streamRef.current) {
-      streamRef.current.getTracks().forEach((track) => track.stop())
-      streamRef.current = null
-    }
-  }, [])
-
-  useEffect(() => {
-    async function startCamera() {
-      if (
-        typeof navigator === 'undefined' ||
-        !navigator.mediaDevices ||
-        !navigator.mediaDevices.getUserMedia
-      ) {
-        setCameraState('unavailable')
-        return
-      }
-
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: 'environment' },
-        })
-        streamRef.current = stream
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream
-        }
-        setCameraState('active')
-      } catch {
-        setCameraState('denied')
-      }
-    }
-
-    startCamera()
-
-    return () => {
-      stopCamera()
-    }
-  }, [stopCamera])
-
   function handleQRResult(value: string) {
-    stopCamera()
     if (P2P_WALLET_REGEX.test(value.trim())) {
       // P2P wallet QR detected
       setReceiverWalletId(value.trim())
@@ -67,6 +25,21 @@ export default function ScanPage() {
     } else {
       // Non-P2P QR — existing behavior preserved
       toast.success('QR code scanned (mock)')
+    }
+  }
+
+  function handleScanResult(value: string) {
+    if (handledRef.current) return
+    handledRef.current = true
+    setScanPaused(true)
+    handleQRResult(value)
+  }
+
+  function handleCameraError(err: unknown) {
+    if (err instanceof DOMException && err.name === 'NotAllowedError') {
+      setCameraError(true)
+    } else {
+      console.error('[Scan] Camera error:', err)
     }
   }
 
@@ -80,7 +53,6 @@ export default function ScanPage() {
   }
 
   function handleClose() {
-    stopCamera()
     router.push('/home')
   }
 
@@ -105,42 +77,22 @@ export default function ScanPage() {
       </div>
 
       {/* Camera area */}
-      <div className="relative flex-1 overflow-hidden">
-        {/* Video feed */}
-        {cameraState === 'active' && (
-          <video
-            ref={videoRef}
-            autoPlay
-            playsInline
-            muted
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-        )}
-
-        {/* Dark background when no camera */}
-        {(cameraState === 'denied' || cameraState === 'unavailable' || cameraState === 'requesting') && (
+      {!cameraError ? (
+        <LiveScanner
+          onScan={handleScanResult}
+          onError={handleCameraError}
+          paused={scanPaused}
+        />
+      ) : (
+        <div className="relative flex-1 overflow-hidden">
           <div className="absolute inset-0 bg-black" />
-        )}
-
-        {/* Scanner frame overlay (only when camera active) */}
-        {cameraState === 'active' && <ScannerFrame size={240} />}
-
-        {/* Permission denied message */}
-        {(cameraState === 'denied' || cameraState === 'unavailable') && (
           <div className="absolute inset-0 flex flex-col items-center justify-center px-8">
             <p className="text-sm text-[#595959] text-center">
               Camera access denied. Use gallery to scan.
             </p>
           </div>
-        )}
-
-        {/* Requesting state */}
-        {cameraState === 'requesting' && (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-6 h-6 rounded-full border-2 border-white border-t-transparent animate-spin" />
-          </div>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* Bottom controls */}
       <div className="relative z-10 px-4 pb-8 pt-4 flex flex-col items-center gap-3 safe-bottom">
