@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { Loader2 } from 'lucide-react'
+import { Loader2, XCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -14,6 +14,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogTitle,
+  AlertDialogAction,
+} from '@/components/ui/alert-dialog'
 import { phoneSchema } from '@/lib/auth/schemas'
 import { useRegistrationStore } from '@/stores/registration-store'
 
@@ -33,6 +39,7 @@ export default function LoginPage() {
   const [error, setError] = useState('')
   const [touched, setTouched] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [isRejected, setIsRejected] = useState(false)
 
   // Read current locale from cookie
   const [currentLocale, setCurrentLocale] = useState('en')
@@ -108,6 +115,10 @@ export default function LoginPage() {
 
       if (!res.ok) {
         const data = await res.json()
+        if (data.error === 'permanently_rejected') {
+          setIsRejected(true)
+          return
+        }
         setError(data.error ?? t('errors.generic'))
         return
       }
@@ -258,6 +269,27 @@ export default function LoginPage() {
           </span>
         </div>
       </div>
+
+      {/* AUTH-04: Rejection modal — shown when permanently_rejected=true */}
+      <AlertDialog open={isRejected}>
+        <AlertDialogContent className="bg-white rounded-2xl max-w-sm mx-4 p-6 text-center">
+          <div className="flex flex-col items-center">
+            <XCircle className="w-12 h-12 mb-4 mx-auto" style={{ color: '#F44336' }} />
+            <AlertDialogTitle className="text-xl font-bold text-foreground mb-2">
+              Registration is Rejected
+            </AlertDialogTitle>
+            <p className="text-xs font-normal text-[#595959] mb-6">
+              Sorry, Your profile is rejected. For more information please contact support.
+            </p>
+            <AlertDialogAction
+              onClick={() => setIsRejected(false)}
+              className="w-full h-12 rounded-full bg-[#FFE600] text-foreground hover:bg-[#FFE600]/90"
+            >
+              Ok
+            </AlertDialogAction>
+          </div>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 }

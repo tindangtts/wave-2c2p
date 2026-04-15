@@ -152,6 +152,14 @@ export async function POST(request: NextRequest) {
     const registrationComplete = profile?.registration_complete ?? false
     const registrationStep = profile?.registration_step ?? 1
 
+    // AUTH-05: Invalidate all other sessions for this user
+    try {
+      await admin.auth.admin.signOut(userId, 'others')
+    } catch (err) {
+      // Non-fatal — session was created; old sessions will expire naturally
+      console.warn('[otp/verify] signOut others failed:', err)
+    }
+
     // Build final response with cookie headers
     sessionResponse = NextResponse.json({
       success: true,
@@ -208,6 +216,15 @@ export async function POST(request: NextRequest) {
     .select('id, registration_complete, registration_step')
     .eq('id', userId)
     .single()
+
+  // AUTH-05: Invalidate all other sessions for this user
+  if (userId) {
+    try {
+      await admin.auth.admin.signOut(userId, 'others')
+    } catch (err) {
+      console.warn('[otp/verify] signOut others failed:', err)
+    }
+  }
 
   const finalResponse = NextResponse.json({
     success: true,
