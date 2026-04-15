@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Feature Completeness
-status: verifying
-stopped_at: Completed 10-transfer-enhancements-10-04-PLAN.md
-last_updated: "2026-04-15T04:07:46.609Z"
+status: executing
+stopped_at: Completed 11-wallet-operations-11-02-PLAN.md
+last_updated: "2026-04-15T04:20:23.163Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 5
   completed_phases: 2
-  total_plans: 8
-  completed_plans: 8
+  total_plans: 12
+  completed_plans: 11
   percent: 0
 ---
 
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-14)
 
 **Core value:** Users can send money from Thailand to Myanmar quickly, affordably, and with full regulatory compliance
-**Current focus:** Phase 08 — integration-fixes
+**Current focus:** Phase 11 — wallet-operations
 
 ## Current Position
 
-Phase: 11
-Plan: Not started
-Status: Phase complete — ready for verification
+Phase: 11 (wallet-operations) — EXECUTING
+Plan: 3 of 4
+Status: Ready to execute
 Last activity: 2026-04-15
 
 Progress: [░░░░░░░░░░] 0%
@@ -79,6 +79,8 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 07-profile-card-system-states P04 | 2 | 2 tasks | 4 files |
 | Phase 07-profile-card-system-states P03 | 20 | 2 tasks | 11 files |
 | Phase 10-transfer-enhancements P04 | 3 | 1 tasks | 1 files |
+| Phase 11-wallet-operations P01 | 8 | 2 tasks | 6 files |
+| Phase 11-wallet-operations P02 | 163 | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -146,6 +148,8 @@ Recent decisions affecting current work:
 - [Phase 07-profile-card-system-states]: locale cookie name is 'locale' (from routing.ts localeCookie config) — LanguageSelector sets document.cookie directly then calls router.refresh()
 - [Phase 07-profile-card-system-states]: change-passcode page uses key={step} on PasscodeKeypad to force remount/reset between steps
 - [Phase 10-transfer-enhancements]: activeFilter defaults to 'all' to preserve existing UX; displayedRecipients computed before favorites/all split so both tab views reflect the active filter
+- [Phase 11-wallet-operations]: react-barcode for Code 128 SVG output; barcode_data returned only for service_123; 30min expiry for service_123 vs 15min for QR channels; barcodeValue is digits-only padded to 20 chars for POS scanner compatibility
+- [Phase 11-wallet-operations]: bank_account_id stored in transactions.metadata JSONB — avoids migration; pending-withdrawal guard uses PostgREST .contains() JSONB containment operator
 
 ### Pending Todos
 
@@ -157,6 +161,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-15T03:51:17.093Z
-Stopped at: Completed 10-transfer-enhancements-10-04-PLAN.md
+Last session: 2026-04-15T04:20:23.160Z
+Stopped at: Completed 11-wallet-operations-11-02-PLAN.md
 Resume file: None

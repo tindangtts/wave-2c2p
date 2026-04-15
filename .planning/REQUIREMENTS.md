@@ -30,8 +30,8 @@ Requirements for milestone v1.1 — Feature Completeness. Each maps to roadmap p
 
 ### Add Money
 
-- [ ] **TOPUP-01**: User can top up via 123 Service convenience store channel
-- [ ] **TOPUP-02**: User sees barcode (Code 128) with Ref.1, Ref.2, amount, and pay-before timestamp for 123 Service
+- [x] **TOPUP-01**: User can top up via 123 Service convenience store channel
+- [x] **TOPUP-02**: User sees barcode (Code 128) with Ref.1, Ref.2, amount, and pay-before timestamp for 123 Service
 
 ### Bank Accounts
 
@@ -119,8 +119,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CHAN-01 | Phase 10 | Complete |
 | CHAN-02 | Phase 10 | Complete |
 | CHAN-03 | Phase 10 | Complete |
-| TOPUP-01 | Phase 11 | Pending |
-| TOPUP-02 | Phase 11 | Pending |
+| TOPUP-01 | Phase 11 | Complete |
+| TOPUP-02 | Phase 11 | Complete |
 | BANK-01 | Phase 11 | Pending |
 | BANK-02 | Phase 11 | Pending |
 | BANK-03 | Phase 11 | Pending |

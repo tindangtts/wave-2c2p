@@ -81,10 +81,10 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 11-01-PLAN.md — 123 Service barcode page + extend topup API + i18n strings
-- [ ] 11-02-PLAN.md — bank_accounts DB schema + API routes (GET/POST/DELETE) + BankAccount type
+- [x] 11-01-PLAN.md — 123 Service barcode page + extend topup API + i18n strings
+- [x] 11-02-PLAN.md — bank_accounts DB schema + API routes (GET/POST/DELETE) + BankAccount type
 - [ ] 11-03-PLAN.md — Withdraw flow bank selector + add-bank form + withdraw API update
-- [ ] 11-04-PLAN.md — Myanmar address data + cascade picker component + recipient form integration
+- [x] 11-04-PLAN.md — Myanmar address data + cascade picker component + recipient form integration
 
 **UI hint**: yes
 
@@ -124,6 +124,6 @@ Plans:
 | 8. Integration Fixes | v1.0 | 1/1 | Complete | 2026-04-15 |
 | 9. Compliance & Registration | v1.1 | 3/3 | Complete   | 2026-04-15 |
 | 10. Transfer Enhancements | v1.1 | 5/5 | Complete    | 2026-04-15 |
-| 11. Wallet Operations | v1.1 | 0/4 | Not started | — |
+| 11. Wallet Operations | v1.1 | 3/4 | In Progress|  |
 | 12. Complex Flows | v1.1 | 0/? | Not started | — |
 | 13. Engagement & Auth | v1.1 | 0/? | Not started | — |
