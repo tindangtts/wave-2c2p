@@ -70,28 +70,28 @@ Deferred to future release.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| PWA-01 | — | Pending |
-| PWA-02 | — | Pending |
-| PWA-03 | — | Pending |
-| PWA-04 | — | Pending |
-| PWA-05 | — | Pending |
-| QR-01 | — | Pending |
-| QR-02 | — | Pending |
-| DB-01 | — | Pending |
-| DB-02 | — | Pending |
-| TEST-01 | — | Pending |
-| TEST-02 | — | Pending |
-| TEST-03 | — | Pending |
-| TEST-04 | — | Pending |
-| TEST-05 | — | Pending |
-| FEAT-01 | — | Pending |
-| FEAT-02 | — | Pending |
+| PWA-01 | Phase 14 | Pending |
+| PWA-02 | Phase 14 | Pending |
+| PWA-03 | Phase 14 | Pending |
+| PWA-04 | Phase 14 | Pending |
+| PWA-05 | Phase 14 | Pending |
+| QR-01 | Phase 15 | Pending |
+| QR-02 | Phase 15 | Pending |
+| DB-01 | Phase 15 | Pending |
+| DB-02 | Phase 15 | Pending |
+| TEST-01 | Phase 16 | Pending |
+| TEST-02 | Phase 16 | Pending |
+| TEST-03 | Phase 16 | Pending |
+| TEST-04 | Phase 16 | Pending |
+| TEST-05 | Phase 16 | Pending |
+| FEAT-01 | Phase 17 | Pending |
+| FEAT-02 | Phase 17 | Pending |
 
 **Coverage:**
 - v1.2 requirements: 17 total
-- Mapped to phases: 0
-- Unmapped: 17 ⚠️
+- Mapped to phases: 17
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-04-15*
-*Last updated: 2026-04-15 after initial definition*
+*Last updated: 2026-04-15 after v1.2 roadmap creation*

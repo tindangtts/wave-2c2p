@@ -3,7 +3,8 @@
 ## Milestones
 
 - ✅ **v1.0 MVP** — Phases 1-8 (shipped 2026-04-15) → [Archive](milestones/v1.0-ROADMAP.md)
-- 🔄 **v1.1 Feature Completeness** — Phases 9-13 (active)
+- ✅ **v1.1 Feature Completeness** — Phases 9-13 (shipped 2026-04-15)
+- 🚧 **v1.2 Production Readiness** — Phases 14-17 (active)
 
 ## Phases
 
@@ -21,13 +22,23 @@
 
 </details>
 
-### v1.1 Feature Completeness
+<details>
+<summary>✅ v1.1 Feature Completeness (Phases 9-13) — SHIPPED 2026-04-15</summary>
 
-- [x] **Phase 9: Compliance & Registration** - T&C consent, pre-registration info, daily limit acknowledgment, selfie/liveness capture (completed 2026-04-15)
-- [x] **Phase 10: Transfer Enhancements** - P2P wallet transfer, cash pick-up channel, e-receipt share, recipient favourites (completed 2026-04-15)
-- [x] **Phase 11: Wallet Operations** - 123 Service top-up, bank account CRUD, Myanmar address cascade (completed 2026-04-15)
-- [x] **Phase 12: Complex Flows** - Visa card request + payment, work permit document update (completed 2026-04-15)
-- [x] **Phase 13: Engagement & Auth** - Referral stats + social share, notification inbox, biometric login (completed 2026-04-15)
+- [x] Phase 9: Compliance & Registration (3/3 plans) — completed 2026-04-15
+- [x] Phase 10: Transfer Enhancements (5/5 plans) — completed 2026-04-15
+- [x] Phase 11: Wallet Operations (4/4 plans) — completed 2026-04-15
+- [x] Phase 12: Complex Flows (4/4 plans) — completed 2026-04-15
+- [x] Phase 13: Engagement & Auth (4/4 plans) — completed 2026-04-15
+
+</details>
+
+### v1.2 Production Readiness
+
+- [ ] **Phase 14: PWA & Offline** - Serwist service worker, caching strategies, install prompt, app manifest
+- [ ] **Phase 15: QR Scanner & WebAuthn Migration** - Real camera-based QR scanning and WebAuthn DB columns for deployed biometrics
+- [ ] **Phase 16: Test Coverage** - Vitest unit tests and Playwright E2E tests for critical flows
+- [ ] **Phase 17: Features & Polish** - PDF statement download and user-configurable spending limits
 
 ## Phase Details
 
@@ -124,6 +135,71 @@ Plans:
 
 **UI hint**: yes
 
+### Phase 14: PWA & Offline
+**Goal**: The app is installable as a PWA and remains functional on spotty or no connectivity through a service worker caching strategy
+**Depends on**: Phase 13
+**Requirements**: PWA-01, PWA-02, PWA-03, PWA-04, PWA-05
+**Success Criteria** (what must be TRUE):
+  1. A mobile user visiting the app on Chrome or Safari sees an install-to-home-screen prompt and can install the app; the installed app opens with the correct splash screen and icons
+  2. A user who installed the app and goes offline can still open the app and see the home screen (app shell loads from cache)
+  3. A user on a slow connection attempting an API call while offline sees a clear offline fallback message instead of a broken page
+  4. Static assets (icons, fonts) load instantly on repeat visits because they are served from cache (CacheFirst), and API routes always attempt the network first (NetworkFirst)
+**Plans**: TBD
+
+Plans:
+- [ ] 14-01-PLAN.md — Install Serwist, configure next.config.ts plugin, create service worker entry with caching strategies
+- [ ] 14-02-PLAN.md — Web app manifest (icons, splash, display, theme), offline fallback page, install prompt component
+
+### Phase 15: QR Scanner & WebAuthn Migration
+**Goal**: The QR scanner page uses real camera hardware for live scanning, and the biometric auth system is backed by proper database columns in the deployed environment
+**Depends on**: Phase 14
+**Requirements**: QR-01, QR-02, DB-01, DB-02
+**Success Criteria** (what must be TRUE):
+  1. User can open the scan page, point their camera at a QR code, and have it detected and decoded without pressing any button
+  2. When a scanned QR code contains a wallet ID the app navigates to the P2P transfer flow pre-filled with that wallet ID; when it contains a payment code the app navigates to the receive/add-money flow
+  3. A developer running the production migration can apply the WebAuthn columns (credential_id, public_key, counter, challenge) to user_profiles without data loss
+  4. A user on a deployed HTTPS domain with an installed PWA can enrol Face ID / Touch ID and subsequently authenticate using biometrics
+**Plans**: TBD
+
+Plans:
+- [ ] 15-01-PLAN.md — Install @yudiel/react-qr-scanner, replace mock scan page with live scanner component, iOS playsInline + permission handling
+- [ ] 15-02-PLAN.md — QR type detection logic (wallet ID vs payment code) + navigation routing + file-input fallback for iOS PWA
+- [ ] 15-03-PLAN.md — Supabase SQL migration for WebAuthn columns + verify biometric enrollment on HTTPS
+
+### Phase 16: Test Coverage
+**Goal**: Critical auth, currency, and transfer code paths are verified by automated tests so regressions are caught before deployment
+**Depends on**: Phase 15
+**Requirements**: TEST-01, TEST-02, TEST-03, TEST-04, TEST-05
+**Success Criteria** (what must be TRUE):
+  1. Running `npm test` executes Vitest unit tests covering Zod schemas (auth, transfer, wallet, KYC) and all tests pass
+  2. Running `npm test` also covers currency formatting edge cases — THB zero, MMK large amounts, locale switching — and all pass
+  3. Vitest + RTL tests exercise registration, recipient, and amount form components: submit with valid data succeeds, submit with invalid data shows field errors
+  4. Running `npm run test:e2e` executes Playwright against localhost:3000 and the registration → KYC happy path completes without errors
+  5. Running `npm run test:e2e` also covers the transfer confirmation → receipt happy path end to end
+**Plans**: TBD
+
+Plans:
+- [ ] 16-01-PLAN.md — Vitest + RTL setup (vitest.config.ts, jsdom environment, test utilities, mock Supabase client)
+- [ ] 16-02-PLAN.md — Zod schema unit tests (auth, transfer, wallet, KYC) + currency formatter unit tests
+- [ ] 16-03-PLAN.md — Form component RTL tests (registration, recipient, amount entry)
+- [ ] 16-04-PLAN.md — Playwright setup (playwright.config.ts, global setup for auth state) + registration → KYC E2E test
+- [ ] 16-05-PLAN.md — Transfer confirmation → receipt E2E test
+
+### Phase 17: Features & Polish
+**Goal**: Users can download a PDF of their transaction history for any date range, and can view and adjust their personal spending limits from the profile
+**Depends on**: Phase 16
+**Requirements**: FEAT-01, FEAT-02
+**Success Criteria** (what must be TRUE):
+  1. User can select a date range on the transaction history screen and tap a download button; the browser downloads or shares a PDF file containing transactions for that range, formatted with amounts in THB and MMK
+  2. User can navigate to a spending limits screen in profile settings, see their current daily and monthly limits, and edit them within the allowed tier options; changes persist across sessions
+**Plans**: TBD
+
+Plans:
+- [ ] 17-01-PLAN.md — PDF generation (jsPDF or similar), statement API route, date range picker integration, download/share action
+- [ ] 17-02-PLAN.md — Spending limits API (GET/PATCH), profile menu entry, spending limits screen with tier selector
+
+**UI hint**: yes
+
 ## Progress
 
 | Phase | Milestone | Plans Complete | Status | Completed |
@@ -136,8 +212,12 @@ Plans:
 | 6. Wallet Operations | v1.0 | 4/4 | Complete | 2026-04-14 |
 | 7. Profile, Card & System States | v1.0 | 4/4 | Complete | 2026-04-14 |
 | 8. Integration Fixes | v1.0 | 1/1 | Complete | 2026-04-15 |
-| 9. Compliance & Registration | v1.1 | 3/3 | Complete   | 2026-04-15 |
-| 10. Transfer Enhancements | v1.1 | 5/5 | Complete    | 2026-04-15 |
-| 11. Wallet Operations | v1.1 | 4/4 | Complete    | 2026-04-15 |
-| 12. Complex Flows | v1.1 | 4/4 | Complete    | 2026-04-15 |
-| 13. Engagement & Auth | v1.1 | 4/4 | Complete    | 2026-04-15 |
+| 9. Compliance & Registration | v1.1 | 3/3 | Complete | 2026-04-15 |
+| 10. Transfer Enhancements | v1.1 | 5/5 | Complete | 2026-04-15 |
+| 11. Wallet Operations | v1.1 | 4/4 | Complete | 2026-04-15 |
+| 12. Complex Flows | v1.1 | 4/4 | Complete | 2026-04-15 |
+| 13. Engagement & Auth | v1.1 | 4/4 | Complete | 2026-04-15 |
+| 14. PWA & Offline | v1.2 | 0/2 | Not started | - |
+| 15. QR Scanner & WebAuthn Migration | v1.2 | 0/3 | Not started | - |
+| 16. Test Coverage | v1.2 | 0/5 | Not started | - |
+| 17. Features & Polish | v1.2 | 0/2 | Not started | - |
