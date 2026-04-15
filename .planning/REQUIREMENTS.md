@@ -69,8 +69,8 @@ Requirements for milestone v1.1 — Feature Completeness. Each maps to roadmap p
 
 ### Authentication
 
-- [ ] **AUTH-01**: User can enable biometric login (Face ID / Touch ID / Fingerprint) from profile settings
-- [ ] **AUTH-02**: User can authenticate with biometrics instead of passcode on login
+- [x] **AUTH-01**: User can enable biometric login (Face ID / Touch ID / Fingerprint) from profile settings
+- [x] **AUTH-02**: User can authenticate with biometrics instead of passcode on login
 
 ## v2 Requirements
 
@@ -140,8 +140,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | NOTIF-01 | Phase 13 | Complete |
 | NOTIF-02 | Phase 13 | Complete |
 | NOTIF-03 | Phase 13 | Complete |
-| AUTH-01 | Phase 13 | Pending |
-| AUTH-02 | Phase 13 | Pending |
+| AUTH-01 | Phase 13 | Complete |
+| AUTH-02 | Phase 13 | Complete |
 
 **Coverage:**
 - v1.1 requirements: 35 total

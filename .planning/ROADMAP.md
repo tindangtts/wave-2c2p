@@ -27,7 +27,7 @@
 - [x] **Phase 10: Transfer Enhancements** - P2P wallet transfer, cash pick-up channel, e-receipt share, recipient favourites (completed 2026-04-15)
 - [x] **Phase 11: Wallet Operations** - 123 Service top-up, bank account CRUD, Myanmar address cascade (completed 2026-04-15)
 - [x] **Phase 12: Complex Flows** - Visa card request + payment, work permit document update (completed 2026-04-15)
-- [ ] **Phase 13: Engagement & Auth** - Referral stats + social share, notification inbox, biometric login
+- [x] **Phase 13: Engagement & Auth** - Referral stats + social share, notification inbox, biometric login (completed 2026-04-15)
 
 ## Phase Details
 
@@ -120,7 +120,7 @@ Plans:
 - [x] 13-01-PLAN.md — Referral stats API + social share buttons (WhatsApp/Line/copy) on refer-friends page
 - [x] 13-02-PLAN.md — Notifications API (GET/PATCH) + Notification type + i18n strings
 - [x] 13-03-PLAN.md — Notification inbox page + TopHeader bell badge + navigation
-- [ ] 13-04-PLAN.md — WebAuthn API routes + profile biometrics toggle + passcode biometric button
+- [x] 13-04-PLAN.md — WebAuthn API routes + profile biometrics toggle + passcode biometric button
 
 **UI hint**: yes
 
@@ -140,4 +140,4 @@ Plans:
 | 10. Transfer Enhancements | v1.1 | 5/5 | Complete    | 2026-04-15 |
 | 11. Wallet Operations | v1.1 | 4/4 | Complete    | 2026-04-15 |
 | 12. Complex Flows | v1.1 | 4/4 | Complete    | 2026-04-15 |
-| 13. Engagement & Auth | v1.1 | 3/4 | In Progress|  |
+| 13. Engagement & Auth | v1.1 | 4/4 | Complete   | 2026-04-15 |

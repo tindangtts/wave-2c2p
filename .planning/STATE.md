@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Feature Completeness
-status: executing
-stopped_at: Completed 13-engagement-auth-03-PLAN.md
-last_updated: "2026-04-15T05:24:15.723Z"
+status: verifying
+stopped_at: Completed 13-engagement-auth-04-PLAN.md
+last_updated: "2026-04-15T05:28:49.845Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 5
-  completed_phases: 4
+  completed_phases: 5
   total_plans: 20
-  completed_plans: 19
+  completed_plans: 20
   percent: 0
 ---
 
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-04-14)
 
 Phase: 13 (engagement-auth) — EXECUTING
 Plan: 4 of 4
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-04-15
 
 Progress: [░░░░░░░░░░] 0%
@@ -89,6 +89,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 13-engagement-auth P01 | 10 | 2 tasks | 5 files |
 | Phase 13-engagement-auth P02 | 5 | 2 tasks | 7 files |
 | Phase 13-engagement-auth P03 | 7 | 2 tasks | 2 files |
+| Phase 13-engagement-auth P04 | 7 | 2 tasks | 12 files |
 
 ## Accumulated Context
 
@@ -172,6 +173,8 @@ Recent decisions affecting current work:
 - [Phase 13-engagement-auth]: PATCH accepts { id } or { all: true } — single endpoint covers both mark-one and mark-all notification flows
 - [Phase 13-engagement-auth]: notificationInbox namespace in profile.json kept separate from notifications (settings toggle page namespace)
 - [Phase 13-engagement-auth]: TopHeader fetches /api/notifications with 30s dedupingInterval; inbox uses 5s; optimistic mutate(false) then revalidate for snappy mark-read UX
+- [Phase 13-engagement-auth]: @simplewebauthn/server v13: userID must be Uint8Array not Buffer; allowCredentials item has no 'type' field
+- [Phase 13-engagement-auth]: isoBase64URL from @simplewebauthn/server/helpers sub-path for Uint8Array ↔ text column encoding
 
 ### Pending Todos
 
@@ -183,6 +186,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-15T05:24:15.721Z
-Stopped at: Completed 13-engagement-auth-03-PLAN.md
+Last session: 2026-04-15T05:28:49.842Z
+Stopped at: Completed 13-engagement-auth-04-PLAN.md
 Resume file: None
