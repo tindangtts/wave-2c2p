@@ -44,5 +44,6 @@
     "balanceFetch": "Unable to load balance. Pull down to refresh.",
     "transactionFetch": "Unable to load transactions. Tap to retry."
   },
-  "notifications": "Notifications"
+  "notifications": "Notifications",
+  "notificationsBadge": "{count} unread notifications"
 }

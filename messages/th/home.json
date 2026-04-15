@@ -44,5 +44,6 @@
     "balanceFetch": "ไม่สามารถโหลดยอดเงินได้ ดึงลงเพื่อรีเฟรช",
     "transactionFetch": "ไม่สามารถโหลดรายการได้ แตะเพื่อลองใหม่"
   },
-  "notifications": "การแจ้งเตือน"
+  "notifications": "การแจ้งเตือน",
+  "notificationsBadge": "{count} การแจ้งเตือนที่ยังไม่ได้อ่าน"
 }
