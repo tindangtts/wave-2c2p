@@ -223,3 +223,16 @@ create policy "Users can insert own bank accounts" on public.bank_accounts
 
 create policy "Users can delete own bank accounts" on public.bank_accounts
   for delete using (auth.uid() = user_id);
+
+-- =============================================================================
+-- Phase 15 WebAuthn Migration
+-- Add WebAuthn credential columns to user_profiles
+-- Referenced by: api/auth/webauthn/register/, authenticate/
+-- All columns nullable — no existing rows affected
+-- Idempotent: safe to re-run via ADD COLUMN IF NOT EXISTS
+-- =============================================================================
+ALTER TABLE public.user_profiles
+  ADD COLUMN IF NOT EXISTS webauthn_credential_id text,
+  ADD COLUMN IF NOT EXISTS webauthn_public_key text,
+  ADD COLUMN IF NOT EXISTS webauthn_counter bigint DEFAULT 0,
+  ADD COLUMN IF NOT EXISTS webauthn_challenge text;
