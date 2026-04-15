@@ -54,27 +54,28 @@ Users can send money from Thailand to Myanmar quickly, affordably, and with full
 
 ### Active
 
-<!-- v1.2 Production Readiness -->
+<!-- v1.3 Supabase Migration & Auth Hardening -->
 
-- [ ] PWA service worker with Serwist (offline caching, install prompt, app shell)
-- [ ] Real QR scanner integration (@yudiel/react-qr-scanner)
-- [ ] WebAuthn SQL migration for real biometric auth
-- [ ] Vitest unit tests for critical paths (auth, currency, transfer schemas)
-- [ ] Playwright E2E tests for critical flows (registration, transfer, add money)
-- [ ] Statement download as PDF
-- [ ] Editable spending limits (user-configurable tiers)
+- [ ] Wallet balance + transactions read/write from Supabase tables
+- [ ] Mock payment APIs write real transactions + update wallet balance in DB
+- [ ] Notifications table + API wiring (replace hardcoded demo data)
+- [ ] Vouchers table + redemption API wiring
+- [ ] Visa card data from Supabase cards table
+- [ ] SystemConfig table + maintenance mode check on app open + modal
+- [ ] Version gate check on app open + update required modal
+- [ ] Permanently rejected number pre-login gate + block modal
+- [ ] Single active session (new login invalidates prior token)
+- [ ] Remove DEMO_MODE entirely (delete demo.ts, all isDemoMode branches)
 
-## Current Milestone: v1.2 Production Readiness
+## Current Milestone: v1.3 Supabase Migration & Auth Hardening
 
-**Goal:** Make the app production-ready with offline support, real QR scanning, test coverage, and remaining technical gaps.
+**Goal:** Wire all demo/mock data to real Supabase tables, implement missing PRD auth requirements, and remove DEMO_MODE fallback.
 
 ### Out of Scope
 
 - Real eKYC integration — mock service only (configurable pass/fail)
-- Real payment processing — mock service only (configurable delays/rates)
 - Real SMS/OTP delivery — mock flow with auto-bypass for development
 - Push notifications — placeholder UI only
-- Bills payment — placeholder page only
 - Real Visa card issuance — UI mockup with fake data
 - Native mobile app — PWA only
 - Admin dashboard — user-facing app only
@@ -82,7 +83,7 @@ Users can send money from Thailand to Myanmar quickly, affordably, and with full
 
 ## Context
 
-**Shipped v1.1 Feature Completeness** on 2026-04-15 with 21,601 LOC TypeScript across 198 source files and ~250 commits.
+**Shipped v1.2 Production Readiness** on 2026-04-15 with PWA, QR scanner, test coverage, PDF statements, and spending limits.
 
 - **Tech Stack**: Next.js 16.2.3 (App Router), Supabase (auth/DB/storage), shadcn/ui, Tailwind CSS v4, TypeScript
 - **Brand**: Yellow #FFE600 primary, Blue #0091EA secondary, dark text #212121 on yellow (WCAG AA)
@@ -90,10 +91,11 @@ Users can send money from Thailand to Myanmar quickly, affordably, and with full
 - **Markets**: Thailand ↔ Myanmar corridor, migrant worker primary persona
 - **Languages**: English, Thai, Myanmar (Burmese) — fully implemented with next-intl
 - **Prototype**: All 150+ Pencil screens implemented — full design/PRD coverage
-- **Mock Services**: eKYC and payment via env-var-configurable mock APIs with demo mode
+- **Mock Services**: eKYC and payment via env-var-configurable mock APIs with demo mode (being removed in v1.3)
 - **Auth**: Phone OTP + PBKDF2 passcode + WebAuthn biometric (Face ID/Touch ID)
-- **Integration**: 7/7 E2E flows verified (registration, transfer, P2P, withdraw, receipt share, notifications, profile)
-- **New in v1.1**: P2P wallet transfer, 123 Service barcode top-up, bank account management, cash pick-up with secret code, Visa card request, work permit update, notification inbox, biometric login, recipient favourites, Myanmar address cascade, e-receipt PNG export, referral stats + social sharing, T&C consent, selfie face guide
+- **Testing**: 109 Vitest unit/RTL tests + 5 Playwright E2E tests
+- **PWA**: Serwist service worker with offline fallback and install prompt
+- **Data**: Most API routes still use hardcoded demo data — 72 files reference isDemoMode
 
 ## Constraints
 
@@ -137,4 +139,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-15 after v1.2 milestone start*
+*Last updated: 2026-04-15 after v1.3 milestone start*

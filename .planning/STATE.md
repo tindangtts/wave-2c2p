@@ -1,16 +1,16 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.2
-milestone_name: Production Readiness
-status: verifying
-stopped_at: Completed 17-02-PLAN.md (Spending Limits)
-last_updated: "2026-04-15T08:16:38.490Z"
+milestone: v1.3
+milestone_name: Supabase Migration & Auth Hardening
+status: defining_requirements
+stopped_at: Milestone v1.3 started
+last_updated: "2026-04-15T10:00:00.000Z"
 last_activity: 2026-04-15
 progress:
-  total_phases: 9
-  completed_phases: 9
-  total_plans: 32
-  completed_plans: 32
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
   percent: 0
 ---
 
@@ -21,13 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-15)
 
 **Core value:** Users can send money from Thailand to Myanmar quickly, affordably, and with full regulatory compliance
-**Current focus:** Phase 17 — Features & Polish
+**Current focus:** Defining requirements for v1.3
 
 ## Current Position
 
-Phase: 17
-Plan: Not started
-Status: Phase complete — ready for verification
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-04-15 — Milestone v1.3 started
 Last activity: 2026-04-15
 
 Progress: [░░░░░░░░░░] 0%
