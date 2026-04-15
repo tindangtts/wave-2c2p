@@ -192,6 +192,22 @@
     "typeKyc": "Verification",
     "typePromo": "Promotion"
   },
+  "spendingLimits": {
+    "title": "Spending Limits",
+    "description": "Set your personal daily and monthly spending limits",
+    "dailyLimit": "Daily Limit",
+    "monthlyLimit": "Monthly Limit",
+    "currentTier": "Current Tier",
+    "selectTier": "Select a tier",
+    "basic": "Basic",
+    "standard": "Standard",
+    "premium": "Premium",
+    "perDay": "per day",
+    "perMonth": "per month",
+    "save": "Save Changes",
+    "saved": "Spending limits updated",
+    "saveFailed": "Failed to update limits"
+  },
   "logout": "Logout",
   "version": "V 1.0"
 }

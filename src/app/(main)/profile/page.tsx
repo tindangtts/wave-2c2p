@@ -184,7 +184,7 @@ export default function ProfilePage() {
           <ProfileMenuItem
             icon={Shield}
             label={t("menu.manageLimit")}
-            onClick={() => router.push("/profile/limits-fees")}
+            onClick={() => router.push("/profile/spending-limits")}
           />
           <ProfileMenuItem
             icon={Bell}
