@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { isDemoMode, DEMO_USER } from '@/lib/demo'
 import { z } from 'zod/v4'
 
 const createBankAccountSchema = z.object({
@@ -8,8 +9,15 @@ const createBankAccountSchema = z.object({
   account_name: z.string().min(1, 'account_name is required'),
 })
 
+// In-memory store for demo mode bank accounts
+const demoBankAccounts: Array<{ id: string; user_id: string; bank_name: string; account_number: string; account_name: string; created_at: string }> = []
+
 export async function GET() {
   try {
+    if (isDemoMode) {
+      return NextResponse.json({ bank_accounts: demoBankAccounts })
+    }
+
     const supabase = await createClient()
     const { data: { user }, error: authError } = await supabase.auth.getUser()
     if (authError || !user) {
@@ -34,14 +42,28 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
+    const body = await request.json()
+    const parseResult = createBankAccountSchema.safeParse(body)
+
+    if (isDemoMode) {
+      if (!parseResult.success) {
+        return NextResponse.json({ error: 'Validation failed', details: parseResult.error.flatten() }, { status: 400 })
+      }
+      const newAccount = {
+        id: `demo-ba-${Date.now()}`,
+        user_id: DEMO_USER.id,
+        ...parseResult.data,
+        created_at: new Date().toISOString(),
+      }
+      demoBankAccounts.unshift(newAccount)
+      return NextResponse.json({ bank_account: newAccount }, { status: 201 })
+    }
+
     const supabase = await createClient()
     const { data: { user }, error: authError } = await supabase.auth.getUser()
     if (authError || !user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
-
-    const body = await request.json()
-    const parseResult = createBankAccountSchema.safeParse(body)
     if (!parseResult.success) {
       return NextResponse.json(
         { error: 'Validation failed', details: parseResult.error.flatten() },
@@ -69,16 +91,22 @@ export async function POST(request: Request) {
 
 export async function DELETE(request: Request) {
   try {
-    const supabase = await createClient()
-    const { data: { user }, error: authError } = await supabase.auth.getUser()
-    if (authError || !user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    }
-
     const { searchParams } = new URL(request.url)
     const id = searchParams.get('id')
     if (!id) {
       return NextResponse.json({ error: 'id is required' }, { status: 400 })
+    }
+
+    if (isDemoMode) {
+      const idx = demoBankAccounts.findIndex((a) => a.id === id)
+      if (idx !== -1) demoBankAccounts.splice(idx, 1)
+      return NextResponse.json({ success: true })
+    }
+
+    const supabase = await createClient()
+    const { data: { user }, error: authError } = await supabase.auth.getUser()
+    if (authError || !user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     // Check for pending withdrawal referencing this bank account via metadata JSONB

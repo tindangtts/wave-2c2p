@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { isDemoMode, DEMO_USER, DEMO_WALLET } from "@/lib/demo";
 
 function generateReference(): string {
   const timestamp = Date.now();
@@ -11,6 +12,32 @@ function generateReference(): string {
 
 export async function POST(request: Request) {
   try {
+    if (isDemoMode) {
+      const body = await request.json();
+      const { receiver_wallet_id, amount } = body as {
+        receiver_wallet_id: string;
+        amount: number;
+      };
+
+      if (receiver_wallet_id === DEMO_WALLET.wallet_id) {
+        return NextResponse.json(
+          { error: "Cannot transfer to yourself" },
+          { status: 400 }
+        );
+      }
+
+      const referenceNumber = generateReference();
+      return NextResponse.json({
+        success: true,
+        status: "success",
+        reference_number: referenceNumber,
+        transaction_id: `demo-tx-${Date.now()}`,
+        amount,
+        fee: 0,
+        channel: "p2p",
+      });
+    }
+
     const supabase = await createClient();
 
     const {
