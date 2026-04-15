@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Supabase Migration & Auth Hardening
-status: executing
-stopped_at: Completed 21-02-PLAN.md
-last_updated: "2026-04-15T12:15:00.833Z"
+status: verifying
+stopped_at: Completed 21-01-PLAN.md
+last_updated: "2026-04-15T12:15:48.708Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 14
-  completed_phases: 12
+  completed_phases: 13
   total_plans: 42
-  completed_plans: 41
+  completed_plans: 42
   percent: 0
 ---
 
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-04-15)
 
 Phase: 21 (system-config-auth-gates) — EXECUTING
 Plan: 2 of 2
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-04-15
 
 Progress: [░░░░░░░░░░] 0%
@@ -70,6 +70,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 20-new-tables-seed P01 | 98s | 2 tasks | 3 files |
 | Phase 20-new-tables-seed P03 | 103s | 2 tasks | 2 files |
 | Phase 21-system-config-auth-gates P02 | 189s | 2 tasks | 5 files |
+| Phase 21-system-config-auth-gates P01 | 218s | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -113,6 +114,9 @@ Progress: [░░░░░░░░░░] 0%
 - [Phase 20-new-tables-seed]: Hard-coded SEED-TXN-001..005 reference numbers satisfy transactions.reference_number UNIQUE constraint without random() re-insertion issues
 - [Phase 21-system-config-auth-gates]: permanently_rejected check uses admin client to bypass RLS — phone column stores local digits only (no country code prefix)
 - [Phase 21-system-config-auth-gates]: signOut('others') failure is non-fatal — session was created; old sessions expire naturally; warning logged
+- [Phase 21-system-config-auth-gates]: Maintenance modal onClose is a no-op per AUTH-02 spec — modal persists until maintenance_mode=false in DB
+- [Phase 21-system-config-auth-gates]: system-status API fails open on DB error — returns all-false to avoid blocking users on infrastructure failures
+- [Phase 21-system-config-auth-gates]: softUpdateDismissed stored in component state (per-session reset) not localStorage — appropriate for soft update reminder
 
 ### Pending Todos
 
@@ -126,7 +130,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-15T12:15:00.831Z
-Stopped at: Completed 21-02-PLAN.md
+Last session: 2026-04-15T12:15:48.706Z
+Stopped at: Completed 21-01-PLAN.md
 Resume file: None
 Next step: `/gsd:plan-phase 18`

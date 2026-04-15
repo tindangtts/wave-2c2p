@@ -49,7 +49,7 @@
 - [x] **Phase 18: Core Data Layer** - Wire wallet, transactions, and Visa card reads to Supabase tables (completed 2026-04-15)
 - [x] **Phase 19: Payment Write-Back** - Mock payment APIs insert real transactions and update wallet balance in DB (completed 2026-04-15)
 - [x] **Phase 20: New Tables & Seed** - Notifications and vouchers tables, plus a seed SQL file for fresh installs (completed 2026-04-15)
-- [ ] **Phase 21: System Config & Auth Gates** - SystemConfig table, maintenance/version checks, rejected-number gate, single active session
+- [x] **Phase 21: System Config & Auth Gates** - SystemConfig table, maintenance/version checks, rejected-number gate, single active session (completed 2026-04-15)
 - [ ] **Phase 22: Demo Mode Removal** - Delete demo.ts and remove all isDemoMode branches from the codebase
 
 ## Phase Details
@@ -269,7 +269,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 21-01-PLAN.md — system_config schema + SQL migration + /api/system-status DB rewrite + soft/hard update distinction
+- [x] 21-01-PLAN.md — system_config schema + SQL migration + /api/system-status DB rewrite + soft/hard update distinction
 - [x] 21-02-PLAN.md — permanently_rejected column + rejection gate in OTP send + RejectionModal in login + single session invalidation
 
 ### Phase 22: Demo Mode Removal
@@ -307,5 +307,5 @@ Plans:
 | 18. Core Data Layer | v1.3 | 3/3 | Complete    | 2026-04-15 |
 | 19. Payment Write-Back | v1.3 | 2/2 | Complete    | 2026-04-15 |
 | 20. New Tables & Seed | v1.3 | 3/3 | Complete    | 2026-04-15 |
-| 21. System Config & Auth Gates | v1.3 | 1/2 | In Progress|  |
+| 21. System Config & Auth Gates | v1.3 | 2/2 | Complete   | 2026-04-15 |
 | 22. Demo Mode Removal | v1.3 | 0/TBD | Not started | - |

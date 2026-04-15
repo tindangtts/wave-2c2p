@@ -20,9 +20,9 @@ Requirements for Supabase Migration & Auth Hardening milestone. Each maps to roa
 
 ### Auth Hardening
 
-- [ ] **AUTH-01**: SystemConfig table with `maintenance_mode` and `min_version`/`recommended_version` keys
-- [ ] **AUTH-02**: App checks `/system/status` on every open — maintenance mode shows blocking modal
-- [ ] **AUTH-03**: Version gate check on app open — hard update blocks all actions, soft update dismissible once per session
+- [x] **AUTH-01**: SystemConfig table with `maintenance_mode` and `min_version`/`recommended_version` keys
+- [x] **AUTH-02**: App checks `/system/status` on every open — maintenance mode shows blocking modal
+- [x] **AUTH-03**: Version gate check on app open — hard update blocks all actions, soft update dismissible once per session
 - [x] **AUTH-04**: Pre-login check for `permanently_rejected` flag — blocked users see rejection modal
 - [x] **AUTH-05**: Single active session per user — new login invalidates all prior Supabase sessions
 
@@ -67,9 +67,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DATA-04 | Phase 20 | Complete |
 | DATA-05 | Phase 20 | Complete |
 | DATA-07 | Phase 20 | Complete |
-| AUTH-01 | Phase 21 | Pending |
-| AUTH-02 | Phase 21 | Pending |
-| AUTH-03 | Phase 21 | Pending |
+| AUTH-01 | Phase 21 | Complete |
+| AUTH-02 | Phase 21 | Complete |
+| AUTH-03 | Phase 21 | Complete |
 | AUTH-04 | Phase 21 | Complete |
 | AUTH-05 | Phase 21 | Complete |
 | DATA-08 | Phase 22 | Pending |
