@@ -5,6 +5,7 @@ status: draft
 shadcn_initialized: true
 preset: base-nova
 created: 2026-04-15
+revised: 2026-04-15
 ---
 
 # Phase 9 — UI Design Contract
@@ -64,7 +65,9 @@ Notes:
 - Label inside form fields: 12px / weight 400 / color `#595959` (matches existing personal-info pattern)
 - Step counter ("Step 1/3") in BackHeader: 12px / weight 400 / color `#595959`
 - Daily limit tier values: 20px / weight 700 / color `#212121`
+- Daily limit currency labels ("THB / day"): 12px / weight 400 / color `#595959` — label role, not body text
 - Checkbox label text: 16px / weight 400 — must be full-width tappable, not just the checkbox node
+- Selfie instruction text ("Position your face within the circle"): 16px / weight 400 / white — body role
 
 Source: `globals.css --text-*` tokens, `personal-info/page.tsx` inline classes.
 
@@ -80,13 +83,14 @@ Source: `globals.css --text-*` tokens, `personal-info/page.tsx` inline classes.
 | Destructive | #F44336 | Field validation errors only (`text-destructive`) |
 
 Accent reserved for:
-1. Primary CTA button background (Continue, I Understand, Confirm — all yellow pill buttons)
+1. Primary CTA button background (Continue to Registration, Agree and Continue, I Understand — all yellow pill buttons)
 2. Active/checked state border ring on checkboxes (T&C and Privacy Policy)
 3. Step indicator active dot
 
 Secondary color (`#0091EA`) is used for:
 - Focus-visible outlines (existing global rule in `globals.css`)
 - Linked text within T&C scrollable body ("Terms & Conditions" and "Privacy Policy" hyperlinks)
+- Document checklist icons on pre-registration info screen (Lucide `FileText`)
 
 Dark text `#212121` on yellow CTA backgrounds is required for WCAG AA contrast (locked decision from CLAUDE.md).
 
@@ -101,9 +105,10 @@ Four screens/states added or enhanced in this phase:
 ### Screen 1: Pre-Registration Info
 - **Route**: Inserted between `/otp` completion and T&C screen
 - **Layout**: BackHeader (no step counter) + scrollable content area + fixed bottom CTA
+- **Focal point**: Centered illustration or icon group at top — Lucide `ClipboardList` at 64px / color `#0091EA`, above heading. This gives the eye an anchor before reading the document checklist.
 - **Content**: Heading + sub-paragraph + checklist of required documents (ID/Passport, Work Permit) — each item is an icon (Lucide `FileText`) + label row at 16px
 - **Icon color**: `#0091EA` (brand blue) for document icons
-- **CTA**: Yellow pill button "Continue" — full width, h-12
+- **CTA**: Yellow pill button "Continue to Registration" — full width, h-12
 
 ### Screen 2: T&C Consent
 - **Route**: After pre-registration info, before daily limit
@@ -112,14 +117,14 @@ Four screens/states added or enhanced in this phase:
 - **Checkboxes**: shadcn `Checkbox` component — NOT pre-checked, each minimum 44×44px tap target achieved by wrapping in a label row with `gap-3 items-start` and `py-3`
 - **Checkbox labels**: "I have read and agree to the Terms & Conditions" / "I have read and agree to the Privacy Policy" — 16px / weight 400
 - **CTA disabled state**: Yellow button with `opacity-50` and `disabled:cursor-not-allowed` when either checkbox unchecked
-- **CTA label**: "Continue" — becomes enabled only when both boxes are ticked
+- **CTA label**: "Agree and Continue" — becomes enabled only when both boxes are ticked
 - **Linked terms**: "Terms & Conditions" and "Privacy Policy" within labels are `<a>` tags in `text-[#0091EA] underline`
 
 ### Screen 3: Daily Transfer Limit Acknowledgment
 - **Route**: After T&C consent, before personal-info
 - **Layout**: BackHeader (title: "Transfer Limits") + info card + "I Understand" CTA
 - **Info card**: White card with `border border-[#E0E0E0] rounded-xl p-4`, shadow `var(--shadow-sm)`
-- **Card content**: Two rows — "KYC Pending" tier and "KYC Approved" tier. Each row: tier label (12px / `#595959`) + limit amount (20px / weight 700 / `#212121`) + currency (14px / `#595959`)
+- **Card content**: Two rows — "KYC Pending" tier and "KYC Approved" tier. Each row: tier label (12px / `#595959`) + limit amount (20px / weight 700 / `#212121`) + currency label (12px / `#595959`)
 - **Visual separator**: horizontal `<Separator />` component between tiers
 - **CTA label**: "I Understand" — yellow pill, full width, h-12
 
@@ -130,7 +135,7 @@ Four screens/states added or enhanced in this phase:
   - Border: `2px dashed rgba(255,255,255,0.85)`
   - Background: `transparent` (cutout via CSS clip or SVG mask)
   - Outer dimming: semi-transparent dark overlay `rgba(0,0,0,0.55)` around the circle
-- **Instruction text**: Below the circle guide, white text `"Position your face within the circle"` — 14px / weight 400 / centered
+- **Instruction text**: Below the circle guide, white text `"Position your face within the circle"` — 16px / weight 400 / centered
 - **Helper text**: Below instruction, white text at 12px / weight 400 / `rgba(255,255,255,0.75)` — e.g. "Look directly at the camera"
 - **Step indicator**: Existing `StepIndicator` with `variant="dark"` overlay at top (unchanged)
 - **Review step**: Same confirm/retake pattern already used for document review — no change needed
@@ -141,8 +146,8 @@ Four screens/states added or enhanced in this phase:
 
 | Element | Copy |
 |---------|------|
-| Primary CTA — pre-reg info | "Continue" |
-| Primary CTA — T&C | "Continue" (disabled until both checked) |
+| Primary CTA — pre-reg info | "Continue to Registration" |
+| Primary CTA — T&C | "Agree and Continue" (disabled until both checked) |
 | Primary CTA — daily limit | "I Understand" |
 | Pre-reg info heading | "Before You Register" |
 | Pre-reg info subtext | "Please have the following documents ready. You will need them to complete your registration." |
@@ -154,9 +159,11 @@ Four screens/states added or enhanced in this phase:
 | Daily limit screen title | "Transfer Limits" |
 | Daily limit card heading | "Daily Transfer Limits" |
 | Daily limit tier 1 label | "KYC Pending" |
-| Daily limit tier 1 amount | "฿50,000 / day" |
+| Daily limit tier 1 amount | "฿50,000" |
+| Daily limit tier 1 currency | "THB / day" |
 | Daily limit tier 2 label | "KYC Approved" |
-| Daily limit tier 2 amount | "฿500,000 / day" |
+| Daily limit tier 2 amount | "฿500,000" |
+| Daily limit tier 2 currency | "THB / day" |
 | Daily limit disclaimer | "Limits apply to all outgoing transfers combined across all channels." |
 | Selfie capture instruction | "Position your face within the circle" |
 | Selfie capture helper | "Look directly at the camera and ensure good lighting" |
@@ -183,7 +190,7 @@ Source: CONTEXT.md decisions, REQUIREMENTS.md COMP-01 through COMP-04, Pencil de
 ### Pre-Registration Info — Read-only
 - No form validation
 - Back navigates to OTP page
-- Single tap on "Continue" advances to T&C screen
+- Single tap on "Continue to Registration" advances to T&C screen
 
 ### Daily Limit — Acknowledgment
 - No form validation
