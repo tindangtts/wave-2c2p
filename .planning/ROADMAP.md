@@ -25,7 +25,7 @@
 
 - [x] **Phase 9: Compliance & Registration** - T&C consent, pre-registration info, daily limit acknowledgment, selfie/liveness capture (completed 2026-04-15)
 - [x] **Phase 10: Transfer Enhancements** - P2P wallet transfer, cash pick-up channel, e-receipt share, recipient favourites (completed 2026-04-15)
-- [ ] **Phase 11: Wallet Operations** - 123 Service top-up, bank account CRUD, Myanmar address cascade
+- [x] **Phase 11: Wallet Operations** - 123 Service top-up, bank account CRUD, Myanmar address cascade (completed 2026-04-15)
 - [ ] **Phase 12: Complex Flows** - Visa card request + payment, work permit document update
 - [ ] **Phase 13: Engagement & Auth** - Referral stats + social share, notification inbox, biometric login
 
@@ -83,7 +83,7 @@ Plans:
 Plans:
 - [x] 11-01-PLAN.md — 123 Service barcode page + extend topup API + i18n strings
 - [x] 11-02-PLAN.md — bank_accounts DB schema + API routes (GET/POST/DELETE) + BankAccount type
-- [ ] 11-03-PLAN.md — Withdraw flow bank selector + add-bank form + withdraw API update
+- [x] 11-03-PLAN.md — Withdraw flow bank selector + add-bank form + withdraw API update
 - [x] 11-04-PLAN.md — Myanmar address data + cascade picker component + recipient form integration
 
 **UI hint**: yes
@@ -124,6 +124,6 @@ Plans:
 | 8. Integration Fixes | v1.0 | 1/1 | Complete | 2026-04-15 |
 | 9. Compliance & Registration | v1.1 | 3/3 | Complete   | 2026-04-15 |
 | 10. Transfer Enhancements | v1.1 | 5/5 | Complete    | 2026-04-15 |
-| 11. Wallet Operations | v1.1 | 3/4 | In Progress|  |
+| 11. Wallet Operations | v1.1 | 4/4 | Complete   | 2026-04-15 |
 | 12. Complex Flows | v1.1 | 0/? | Not started | — |
 | 13. Engagement & Auth | v1.1 | 0/? | Not started | — |

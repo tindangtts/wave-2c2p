@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Feature Completeness
-status: executing
-stopped_at: Completed 11-wallet-operations-04-PLAN.md
-last_updated: "2026-04-15T04:21:04.322Z"
+status: verifying
+stopped_at: Completed 11-wallet-operations-03-PLAN.md
+last_updated: "2026-04-15T04:25:48.122Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 5
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 12
-  completed_plans: 11
+  completed_plans: 12
   percent: 0
 ---
 
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-04-14)
 
 Phase: 11 (wallet-operations) — EXECUTING
 Plan: 4 of 4
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-04-15
 
 Progress: [░░░░░░░░░░] 0%
@@ -82,6 +82,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 11-wallet-operations P01 | 8 | 2 tasks | 6 files |
 | Phase 11-wallet-operations P02 | 163 | 2 tasks | 4 files |
 | Phase 11-wallet-operations P04 | 166 | 2 tasks | 4 files |
+| Phase 11-wallet-operations P03 | 179 | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -152,6 +153,8 @@ Recent decisions affecting current work:
 - [Phase 11-wallet-operations]: react-barcode for Code 128 SVG output; barcode_data returned only for service_123; 30min expiry for service_123 vs 15min for QR channels; barcodeValue is digits-only padded to 20 chars for POS scanner compatibility
 - [Phase 11-wallet-operations]: bank_account_id stored in transactions.metadata JSONB — avoids migration; pending-withdrawal guard uses PostgREST .contains() JSONB containment operator
 - [Phase 11-wallet-operations]: isMyanmarRecipient covers cash_pickup+bank_transfer; MyanmarAddressPicker replaces plain Input address fields for Myanmar transfer types; cascade resets on state/township change
+- [Phase 11-wallet-operations]: Withdraw page fully replaces recipient list with bank account list — no backward compat needed for UI since users withdraw to their own accounts
+- [Phase 11-wallet-operations]: withdraw API uses .refine() to require either recipient_id or bank_account_id — backward compat with any legacy callers
 
 ### Pending Todos
 
@@ -163,6 +166,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-15T04:21:04.320Z
-Stopped at: Completed 11-wallet-operations-04-PLAN.md
+Last session: 2026-04-15T04:25:48.119Z
+Stopped at: Completed 11-wallet-operations-03-PLAN.md
 Resume file: None

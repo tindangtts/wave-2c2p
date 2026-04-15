@@ -37,7 +37,7 @@ Requirements for milestone v1.1 — Feature Completeness. Each maps to roadmap p
 
 - [x] **BANK-01**: User can add a bank account (bank name, account number, account name) for withdrawal
 - [x] **BANK-02**: User can delete a saved bank account (with confirmation dialog)
-- [ ] **BANK-03**: User can select from saved bank accounts during withdrawal flow
+- [x] **BANK-03**: User can select from saved bank accounts during withdrawal flow
 - [x] **BANK-04**: System prevents deletion of bank account with pending withdrawal
 
 ### Recipient Management
@@ -45,7 +45,7 @@ Requirements for milestone v1.1 — Feature Completeness. Each maps to roadmap p
 - [x] **REC-01**: User can toggle favourite on recipients (star icon)
 - [ ] **REC-02**: User can filter recipient list by favourites
 - [ ] **REC-03**: Favourite recipients sort to top of the list
-- [ ] **REC-04**: User can enter Myanmar address via cascading pickers (State → Township → Ward/Village)
+- [x] **REC-04**: User can enter Myanmar address via cascading pickers (State → Township → Ward/Village)
 
 ### Transaction History
 
@@ -123,12 +123,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TOPUP-02 | Phase 11 | Complete |
 | BANK-01 | Phase 11 | Complete |
 | BANK-02 | Phase 11 | Complete |
-| BANK-03 | Phase 11 | Pending |
+| BANK-03 | Phase 11 | Complete |
 | BANK-04 | Phase 11 | Complete |
 | REC-01 | Phase 10 | Complete |
 | REC-02 | Phase 10 | Pending |
 | REC-03 | Phase 10 | Pending |
-| REC-04 | Phase 11 | Pending |
+| REC-04 | Phase 11 | Complete |
 | HIST-01 | Phase 10 | Complete |
 | HIST-02 | Phase 10 | Complete |
 | VISA-01 | Phase 12 | Pending |
