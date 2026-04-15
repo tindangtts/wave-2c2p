@@ -44,11 +44,10 @@ export async function decodeQRFromFile(file: File): Promise<string | null> {
       window.BarcodeDetector = BDPoly
     }
 
-    // @ts-expect-error -- BarcodeDetector not in TS lib.dom.d.ts
     const detector = new BarcodeDetector({ formats: ['qr_code'] })
     const bitmap = await createImageBitmap(file)
     const results = await detector.detect(bitmap)
-    return (results[0]?.rawValue as string | undefined) ?? null
+    return results[0]?.rawValue ?? null
   } catch {
     return null
   }

@@ -6,8 +6,7 @@ import { X } from 'lucide-react'
 import { toast } from 'sonner'
 import { LiveScanner } from '@/components/features/live-scanner'
 import { useP2PStore } from '@/stores/p2p-store'
-
-const P2P_WALLET_REGEX = /^W-\d{6,}$/
+import { detectQRType, decodeQRFromFile } from '@/lib/qr-detection'
 
 export default function ScanPage() {
   const router = useRouter()
@@ -17,22 +16,21 @@ export default function ScanPage() {
   const [cameraError, setCameraError] = useState(false)
   const { setReceiverWalletId } = useP2PStore()
 
-  function handleQRResult(value: string) {
-    if (P2P_WALLET_REGEX.test(value.trim())) {
-      // P2P wallet QR detected
-      setReceiverWalletId(value.trim())
-      router.push('/transfer/p2p/amount')
-    } else {
-      // Non-P2P QR — existing behavior preserved
-      toast.success('QR code scanned (mock)')
-    }
-  }
-
   function handleScanResult(value: string) {
     if (handledRef.current) return
     handledRef.current = true
     setScanPaused(true)
-    handleQRResult(value)
+
+    const result = detectQRType(value)
+    if (result.type === 'p2p_wallet') {
+      setReceiverWalletId(result.walletId)
+      router.push('/transfer/p2p/amount')
+    } else {
+      toast.info(`QR: ${result.rawValue}`)
+      // Reset scan state so user can scan again
+      handledRef.current = false
+      setScanPaused(false)
+    }
   }
 
   function handleCameraError(err: unknown) {
@@ -43,12 +41,15 @@ export default function ScanPage() {
     }
   }
 
-  function handleGallerySelect(e: React.ChangeEvent<HTMLInputElement>) {
+  async function handleGallerySelect(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
     if (!file) return
-    // Mock behavior: no actual QR decoding in Phase 6 — P2P routing available for future real detection
-    handleQRResult('mock-gallery-scan')
-    // Reset input so same file can be re-selected
+    const decoded = await decodeQRFromFile(file)
+    if (decoded) {
+      handleScanResult(decoded)
+    } else {
+      toast.error('No QR code found in image')
+    }
     e.target.value = ''
   }
 
