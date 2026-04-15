@@ -1,5 +1,27 @@
 # Milestones: 2C2P Wave
 
+## v1.2 Production Readiness (Shipped: 2026-04-15)
+
+**Phases completed:** 4 phases, 12 plans
+**Files changed:** 92 | **LOC added:** ~10,680
+
+**Key accomplishments:**
+
+- PWA & Offline: Serwist service worker with CacheFirst/NetworkFirst caching, offline fallback, install prompt (Android + iOS)
+- Live QR Scanner: @yudiel/react-qr-scanner replacing mock camera, QR type detection routing, BarcodeDetector gallery fallback
+- WebAuthn DB Migration: 4 credential columns on user_profiles for production biometric auth
+- Test Coverage: 109 Vitest unit/RTL tests + 5 Playwright E2E tests (schemas, forms, registration, transfer)
+- PDF Statement Download: jsPDF generation with date range picker on history page
+- Spending Limits: Tier-based daily/monthly limit selector from profile settings
+
+### Archive
+
+- [v1.2-ROADMAP.md](milestones/v1.2-ROADMAP.md) — Full phase details
+- [v1.2-REQUIREMENTS.md](milestones/v1.2-REQUIREMENTS.md) — All 17 requirements with traceability
+- [v1.2-MILESTONE-AUDIT.md](../v1.2-MILESTONE-AUDIT.md) — Final audit report
+
+---
+
 ## v1.1 Feature Completeness (Shipped: 2026-04-15)
 
 **Phases completed:** 5 phases, 20 plans, 27 tasks

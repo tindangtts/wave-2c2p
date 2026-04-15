@@ -4,7 +4,7 @@
 
 - ✅ **v1.0 MVP** — Phases 1-8 (shipped 2026-04-15) → [Archive](milestones/v1.0-ROADMAP.md)
 - ✅ **v1.1 Feature Completeness** — Phases 9-13 (shipped 2026-04-15)
-- 🚧 **v1.2 Production Readiness** — Phases 14-17 (active)
+- ✅ **v1.2 Production Readiness** — Phases 14-17 (shipped 2026-04-15)
 
 ## Phases
 
@@ -33,12 +33,15 @@
 
 </details>
 
-### v1.2 Production Readiness
+<details>
+<summary>✅ v1.2 Production Readiness (Phases 14-17) — SHIPPED 2026-04-15</summary>
 
-- [x] **Phase 14: PWA & Offline** - Serwist service worker, caching strategies, install prompt, app manifest (completed 2026-04-15)
-- [x] **Phase 15: QR Scanner & WebAuthn Migration** - Real camera-based QR scanning and WebAuthn DB columns for deployed biometrics (completed 2026-04-15)
-- [x] **Phase 16: Test Coverage** - Vitest unit tests and Playwright E2E tests for critical flows (completed 2026-04-15)
-- [x] **Phase 17: Features & Polish** - PDF statement download and user-configurable spending limits (completed 2026-04-15)
+- [x] Phase 14: PWA & Offline (2/2 plans) — completed 2026-04-15
+- [x] Phase 15: QR Scanner & WebAuthn Migration (3/3 plans) — completed 2026-04-15
+- [x] Phase 16: Test Coverage (5/5 plans) — completed 2026-04-15
+- [x] Phase 17: Features & Polish (2/2 plans) — completed 2026-04-15
+
+</details>
 
 ## Phase Details
 
