@@ -31,7 +31,7 @@ Requirements for milestone v1.2 — Production Readiness. Each maps to roadmap p
 - [x] **TEST-02**: Vitest unit tests cover currency formatting edge cases (THB/MMK)
 - [x] **TEST-03**: Vitest + RTL tests cover form components (registration, recipient, amount)
 - [x] **TEST-04**: Playwright E2E test covers registration → KYC happy path
-- [ ] **TEST-05**: Playwright E2E test covers transfer confirmation → receipt happy path
+- [x] **TEST-05**: Playwright E2E test covers transfer confirmation → receipt happy path
 
 ### Features
 
@@ -83,7 +83,7 @@ Deferred to future release.
 | TEST-02 | Phase 16 | Complete |
 | TEST-03 | Phase 16 | Complete |
 | TEST-04 | Phase 16 | Complete |
-| TEST-05 | Phase 16 | Pending |
+| TEST-05 | Phase 16 | Complete |
 | FEAT-01 | Phase 17 | Pending |
 | FEAT-02 | Phase 17 | Pending |
 

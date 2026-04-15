@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Production Readiness
-status: executing
-stopped_at: Completed 16-03-PLAN.md (RTL form component tests)
-last_updated: "2026-04-15T07:42:45.099Z"
+status: verifying
+stopped_at: Completed 16-05-PLAN.md (Transfer E2E test)
+last_updated: "2026-04-15T07:47:47.599Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 9
-  completed_phases: 7
+  completed_phases: 8
   total_plans: 30
-  completed_plans: 29
+  completed_plans: 30
   percent: 0
 ---
 
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-04-15)
 
 Phase: 16 (Test Coverage) — EXECUTING
 Plan: 5 of 5
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-04-15
 
 Progress: [░░░░░░░░░░] 0%
@@ -58,6 +58,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 16-test-coverage P02 | 8min | 2 tasks | 4 files |
 | Phase 16-test-coverage P04 | 101s | 2 tasks | 4 files |
 | Phase 16-test-coverage P03 | 15min | 2 tasks | 4 files |
+| Phase 16-test-coverage P05 | 90s | 1 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -79,6 +80,8 @@ Progress: [░░░░░░░░░░] 0%
 - [Phase 16-test-coverage]: Playwright E2E tests scoped to DEMO_MODE-accessible paths: auto-auth redirect, home render, KYC document selection, capture navigation
 - [Phase 16-test-coverage]: AmountInput is a custom keypad; RTL tests interact via aria-label button clicks, not native input typing
 - [Phase 16-test-coverage]: Exclude src/e2e/** from vitest discovery — Playwright specs use test.describe() which errors in Vitest context
+- [Phase 16-test-coverage]: Exact button name match required in Playwright (name: 'Next', exact: true) — Next.js 16 dev mode injects a Dev Tools button matching /next/i
+- [Phase 16-test-coverage]: DEMO_MODE passcode verify accepts any 6-digit code — E2E tests use 123456
 
 ### Pending Todos
 
@@ -91,6 +94,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-15T07:42:45.097Z
-Stopped at: Completed 16-03-PLAN.md (RTL form component tests)
+Last session: 2026-04-15T07:47:47.597Z
+Stopped at: Completed 16-05-PLAN.md (Transfer E2E test)
 Resume file: None

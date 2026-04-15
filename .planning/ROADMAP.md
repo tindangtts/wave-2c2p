@@ -37,7 +37,7 @@
 
 - [x] **Phase 14: PWA & Offline** - Serwist service worker, caching strategies, install prompt, app manifest (completed 2026-04-15)
 - [x] **Phase 15: QR Scanner & WebAuthn Migration** - Real camera-based QR scanning and WebAuthn DB columns for deployed biometrics (completed 2026-04-15)
-- [ ] **Phase 16: Test Coverage** - Vitest unit tests and Playwright E2E tests for critical flows
+- [x] **Phase 16: Test Coverage** - Vitest unit tests and Playwright E2E tests for critical flows (completed 2026-04-15)
 - [ ] **Phase 17: Features & Polish** - PDF statement download and user-configurable spending limits
 
 ## Phase Details
@@ -183,7 +183,7 @@ Plans:
 - [x] 16-02-PLAN.md — Zod schema unit tests (auth, transfer, wallet, KYC) + currency formatter unit tests
 - [x] 16-03-PLAN.md — Form component RTL tests (registration, recipient, amount entry)
 - [x] 16-04-PLAN.md — Playwright setup (playwright.config.ts, global setup for auth state) + registration → KYC E2E test
-- [ ] 16-05-PLAN.md — Transfer confirmation → receipt E2E test
+- [x] 16-05-PLAN.md — Transfer confirmation → receipt E2E test
 
 ### Phase 17: Features & Polish
 **Goal**: Users can download a PDF of their transaction history for any date range, and can view and adjust their personal spending limits from the profile
@@ -219,5 +219,5 @@ Plans:
 | 13. Engagement & Auth | v1.1 | 4/4 | Complete | 2026-04-15 |
 | 14. PWA & Offline | v1.2 | 2/2 | Complete    | 2026-04-15 |
 | 15. QR Scanner & WebAuthn Migration | v1.2 | 3/3 | Complete    | 2026-04-15 |
-| 16. Test Coverage | v1.2 | 4/5 | In Progress|  |
+| 16. Test Coverage | v1.2 | 5/5 | Complete   | 2026-04-15 |
 | 17. Features & Polish | v1.2 | 0/2 | Not started | - |
