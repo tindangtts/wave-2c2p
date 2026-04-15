@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import { isDemoMode, DEMO_USER } from '@/lib/demo'
 import { z } from 'zod/v4'
 
 const createBankAccountSchema = z.object({
@@ -9,32 +8,8 @@ const createBankAccountSchema = z.object({
   account_name: z.string().min(1, 'account_name is required'),
 })
 
-// Seeded demo bank accounts — returned on every GET in demo mode
-const DEMO_BANK_ACCOUNTS = [
-  {
-    id: 'demo-ba-1',
-    user_id: DEMO_USER.id,
-    bank_name: 'Bangkok Bank',
-    account_number: '1234567890',
-    account_name: 'Aung Kyaw',
-    created_at: '2026-03-01T08:00:00.000Z',
-  },
-  {
-    id: 'demo-ba-2',
-    user_id: DEMO_USER.id,
-    bank_name: 'Kasikornbank',
-    account_number: '9876543210',
-    account_name: 'Aung Kyaw',
-    created_at: '2026-02-15T10:30:00.000Z',
-  },
-]
-
 export async function GET() {
   try {
-    if (isDemoMode) {
-      return NextResponse.json({ bank_accounts: DEMO_BANK_ACCOUNTS })
-    }
-
     const supabase = await createClient()
     const { data: { user }, error: authError } = await supabase.auth.getUser()
     if (authError || !user) {
@@ -61,20 +36,6 @@ export async function POST(request: Request) {
   try {
     const body = await request.json()
     const parseResult = createBankAccountSchema.safeParse(body)
-
-    if (isDemoMode) {
-      if (!parseResult.success) {
-        return NextResponse.json({ error: 'Validation failed', details: parseResult.error.flatten() }, { status: 400 })
-      }
-      return NextResponse.json({
-        bank_account: {
-          id: `demo-ba-${Date.now()}`,
-          user_id: DEMO_USER.id,
-          ...parseResult.data,
-          created_at: new Date().toISOString(),
-        },
-      }, { status: 201 })
-    }
 
     const supabase = await createClient()
     const { data: { user }, error: authError } = await supabase.auth.getUser()
@@ -112,10 +73,6 @@ export async function DELETE(request: Request) {
     const id = searchParams.get('id')
     if (!id) {
       return NextResponse.json({ error: 'id is required' }, { status: 400 })
-    }
-
-    if (isDemoMode) {
-      return NextResponse.json({ success: true })
     }
 
     const supabase = await createClient()

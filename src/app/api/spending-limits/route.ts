@@ -1,6 +1,5 @@
 import { createClient } from "@/lib/supabase/server"
 import { NextResponse, NextRequest } from "next/server"
-import { isDemoMode } from "@/lib/demo"
 import { z } from "zod/v4"
 
 const SPENDING_TIERS = {
@@ -9,21 +8,12 @@ const SPENDING_TIERS = {
   premium:  { daily_limit_satang: 5000000,  monthly_limit_satang: 20000000 },  // 50,000 / 200,000 THB
 } as const
 
-const DEMO_SPENDING_LIMITS = {
-  daily_limit_satang: 5000000,
-  monthly_limit_satang: 20000000,
-}
-
 const PatchSchema = z.object({
   tier: z.enum(['basic', 'standard', 'premium']),
 })
 
 export async function GET() {
   try {
-    if (isDemoMode) {
-      return NextResponse.json(DEMO_SPENDING_LIMITS)
-    }
-
     const supabase = await createClient()
 
     const {
@@ -66,10 +56,6 @@ export async function PATCH(request: NextRequest) {
 
     const { tier } = parsed.data
     const tierValues = SPENDING_TIERS[tier]
-
-    if (isDemoMode) {
-      return NextResponse.json({ success: true })
-    }
 
     const supabase = await createClient()
 

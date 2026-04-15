@@ -1,17 +1,8 @@
 import { createClient } from '@/lib/supabase/server'
 import { NextResponse } from 'next/server'
-import { isDemoMode } from '@/lib/demo'
 
 export async function GET() {
   try {
-    if (isDemoMode) {
-      return NextResponse.json({
-        referredCount: 3,
-        totalBonusSatang: 30000,
-        referralCode: 'WAVE2C2P',
-      })
-    }
-
     const supabase = await createClient()
 
     const {
