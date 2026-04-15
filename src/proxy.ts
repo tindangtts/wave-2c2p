@@ -1,5 +1,9 @@
 import { type NextRequest, NextResponse } from 'next/server'
+import createIntlMiddleware from 'next-intl/middleware'
 import { updateSession } from '@/lib/supabase/middleware'
+import { routing } from '@/i18n/routing'
+
+const intlMiddleware = createIntlMiddleware(routing)
 
 export async function proxy(request: NextRequest) {
   // 1. Refresh Supabase session (auth guards + session refresh)
@@ -10,24 +14,15 @@ export async function proxy(request: NextRequest) {
     return sessionResponse
   }
 
-  // 2. Ensure locale cookie exists (next-intl reads from cookie via request.ts)
-  // No intl middleware rewrite — app uses localePrefix:'never' with cookie-based detection
-  if (!request.cookies.get('locale')) {
-    const acceptLang = request.headers.get('accept-language') ?? ''
-    let locale = 'en'
-    if (acceptLang.includes('th')) locale = 'th'
-    else if (acceptLang.includes('my')) locale = 'mm'
+  // 2. Run next-intl middleware — reads locale cookie, sets headers for requestLocale
+  const intlResponse = intlMiddleware(request)
 
-    const response = NextResponse.next({ request })
-    response.cookies.set('locale', locale, {
-      path: '/',
-      maxAge: 60 * 60 * 24 * 365,
-      sameSite: 'lax',
-    })
-    return response
+  // Merge session cookies (auth tokens) into the intl response
+  for (const cookie of sessionResponse.cookies.getAll()) {
+    intlResponse.cookies.set(cookie.name, cookie.value)
   }
 
-  return sessionResponse
+  return intlResponse
 }
 
 export const config = {

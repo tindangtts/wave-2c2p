@@ -83,5 +83,46 @@
   "downloadStatement": "Download Statement",
   "downloading": "Downloading...",
   "noTransactionsForPeriod": "No transactions found for this period",
-  "downloadFailed": "Failed to download statement"
+  "downloadFailed": "Failed to download statement",
+  "addBank": {
+    "title": "Add Bank Account",
+    "bankName": "Bank Name",
+    "bankNamePlaceholder": "Select a bank",
+    "accountNumber": "Account Number",
+    "accountNumberPlaceholder": "10-12 digit account number",
+    "accountName": "Account Holder Name",
+    "accountNamePlaceholder": "Account holder name",
+    "saveCta": "Save Bank Account",
+    "saving": "Saving...",
+    "saved": "Bank account saved.",
+    "saveFailed": "Failed to save bank account.",
+    "connectionError": "Connection error. Please try again.",
+    "validationBank": "Select a bank",
+    "validationAccountNo": "Account number must be 10-12 digits",
+    "validationAccountName": "Account name is required"
+  },
+  "withdraw": {
+    "title": "Withdraw",
+    "selectBank": "Select Bank Account",
+    "addBank": "Add Bank Account",
+    "noAccounts": "No bank accounts",
+    "noAccountsBody": "Add a bank account to start withdrawing.",
+    "deleteTitle": "Delete Bank Account?",
+    "deleteBody": "This account will be removed from your list.",
+    "deleteCta": "Delete",
+    "cancelCta": "Cancel",
+    "deleted": "Bank account deleted.",
+    "deleteFailed": "Failed to delete bank account.",
+    "pendingDelete": "Cannot delete — pending withdrawal in progress.",
+    "amount": "Withdraw Amount",
+    "feeLine": "Transfer to bank account will be charged a fee. Settlement within 1 business day.",
+    "processing": "Processing...",
+    "confirmCta": "Withdraw"
+  },
+  "duplicateTransfer": {
+    "title": "Duplicate Transfer?",
+    "body": "A similar transfer was made less than 60 seconds ago. Are you sure you want to proceed?",
+    "confirm": "Yes, Proceed",
+    "cancel": "Cancel"
+  }
 }

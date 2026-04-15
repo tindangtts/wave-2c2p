@@ -4,6 +4,17 @@ import { useState, useCallback, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { ArrowDown, Wallet } from 'lucide-react'
 import { toast } from 'sonner'
+import { useTranslations } from 'next-intl'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog'
 import { BackHeader } from '@/components/layout/back-header'
 import { RateTimer } from '@/components/features/rate-timer'
 import { PasscodeSheet } from '@/components/features/passcode-sheet'
@@ -27,6 +38,8 @@ function ConfirmPageInner() {
   const isP2P = searchParams.get('type') === 'p2p'
   const { mutate: mutateWallet, data: walletData } = useWallet()
 
+  const t = useTranslations('wallet')
+
   const {
     channel,
     selectedRecipient,
@@ -45,6 +58,8 @@ function ConfirmPageInner() {
 
   const [passcodeOpen, setPasscodeOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [duplicateDialogOpen, setDuplicateDialogOpen] = useState(false)
+  const [forceConfirm, setForceConfirm] = useState(false)
 
   // Guard: P2P flow — redirect if no receiver wallet ID
   if (isP2P && !p2pStore.receiverWalletId) {
@@ -100,10 +115,18 @@ function ConfirmPageInner() {
           body: JSON.stringify({
             receiver_wallet_id: p2pStore.receiverWalletId,
             amount: p2pStore.amountSatang,
+            force_confirm: forceConfirm,
           }),
         })
 
         const data = await res.json()
+
+        // Duplicate transfer guard (TXN-11)
+        if (res.status === 409 && data.error === 'duplicate_transfer') {
+          setIsSubmitting(false)
+          setDuplicateDialogOpen(true)
+          return
+        }
 
         if (!res.ok || !data.success) {
           toast.error(data.error ?? 'Transfer failed. Please try again.')
@@ -113,6 +136,7 @@ function ConfirmPageInner() {
         p2pStore.setTransactionId(data.transfer?.id ?? data.transfer?.reference_number ?? '')
         p2pStore.setStatus('pending')
         mutateWallet()
+        setForceConfirm(false)
         router.push('/transfer/receipt?type=p2p')
       } catch {
         toast.error('Connection error. Please check your internet and try again.')
@@ -142,10 +166,18 @@ function ConfirmPageInner() {
           currency: 'THB',
           recipient_id: selectedRecipient.id,
           channel,
+          force_confirm: forceConfirm,
         }),
       })
 
       const data = await res.json()
+
+      // Duplicate transfer guard (TXN-11)
+      if (res.status === 409 && data.error === 'duplicate_transfer') {
+        setIsSubmitting(false)
+        setDuplicateDialogOpen(true)
+        return
+      }
 
       if (!res.ok || !data.success) {
         toast.error(data.error ?? 'Transfer failed. Please try again.')
@@ -155,6 +187,7 @@ function ConfirmPageInner() {
       setTransactionId(data.transfer.reference_number)
       setStatus('pending')
       mutateWallet()
+      setForceConfirm(false)
       router.push('/transfer/receipt')
     } catch {
       toast.error('Connection error. Please check your internet and try again.')
@@ -325,6 +358,31 @@ function ConfirmPageInner() {
         onOpenChange={setPasscodeOpen}
         onVerified={handleVerified}
       />
+
+      {/* Duplicate Transfer Guard Dialog (TXN-11) */}
+      <AlertDialog open={duplicateDialogOpen} onOpenChange={setDuplicateDialogOpen}>
+        <AlertDialogContent className="max-w-[380px] rounded-2xl">
+          <AlertDialogHeader>
+            <AlertDialogTitle>{t('duplicateTransfer.title')}</AlertDialogTitle>
+            <AlertDialogDescription>{t('duplicateTransfer.body')}</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setDuplicateDialogOpen(false)}>
+              {t('duplicateTransfer.cancel')}
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => {
+                setDuplicateDialogOpen(false)
+                setForceConfirm(true)
+                setPasscodeOpen(true)
+              }}
+              className="bg-[#FFE600] text-foreground hover:bg-[#FFD600]"
+            >
+              {t('duplicateTransfer.confirm')}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 }

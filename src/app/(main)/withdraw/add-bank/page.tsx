@@ -6,6 +6,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod/v4'
 import { toast } from 'sonner'
+import { useTranslations } from 'next-intl'
 import { BackHeader } from '@/components/layout/back-header'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -42,6 +43,7 @@ type AddBankInput = z.infer<typeof addBankSchema>
 
 export default function AddBankPage() {
   const router = useRouter()
+  const t = useTranslations('wallet')
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const form = useForm<AddBankInput>({
@@ -70,13 +72,13 @@ export default function AddBankPage() {
       })
       const json = await res.json()
       if (!res.ok) {
-        toast.error(json.error ?? 'Failed to save bank account.')
+        toast.error(json.error ?? t('addBank.saveFailed'))
         return
       }
-      toast.success('Bank account saved.')
+      toast.success(t('addBank.saved'))
       router.push('/withdraw')
     } catch {
-      toast.error('Connection error. Please try again.')
+      toast.error(t('addBank.connectionError'))
     } finally {
       setIsSubmitting(false)
     }
@@ -84,13 +86,13 @@ export default function AddBankPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-muted">
-      <BackHeader title="Add Bank Account" />
+      <BackHeader title={t('addBank.title')} />
       <div className="flex-1 px-4 pt-6 pb-32 overflow-y-auto">
         <form onSubmit={handleSubmit(onSubmit)} noValidate className="flex flex-col gap-5">
           {/* Bank Name */}
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="bank_name" className="text-sm font-medium text-foreground">
-              Bank Name
+              {t('addBank.bankName')}
             </Label>
             <Controller
               name="bank_name"
@@ -106,7 +108,7 @@ export default function AddBankPage() {
                     id="bank_name"
                     className="w-full h-12 bg-white rounded-xl border border-border"
                   >
-                    <SelectValue placeholder="Select a bank" />
+                    <SelectValue placeholder={t('addBank.bankNamePlaceholder')} />
                   </SelectTrigger>
                   <SelectContent>
                     {BANK_OPTIONS.map((bank) => (
@@ -126,14 +128,14 @@ export default function AddBankPage() {
           {/* Account Number */}
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="account_number" className="text-sm font-medium text-foreground">
-              Account Number
+              {t('addBank.accountNumber')}
             </Label>
             <Input
               id="account_number"
               type="tel"
               inputMode="numeric"
               maxLength={12}
-              placeholder="10-12 digit account number"
+              placeholder={t('addBank.accountNumberPlaceholder')}
               className="h-12 bg-white rounded-xl border border-border"
               {...register('account_number')}
             />
@@ -145,12 +147,12 @@ export default function AddBankPage() {
           {/* Account Name */}
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="account_name" className="text-sm font-medium text-foreground">
-              Account Holder Name
+              {t('addBank.accountName')}
             </Label>
             <Input
               id="account_name"
               type="text"
-              placeholder="Account holder name"
+              placeholder={t('addBank.accountNamePlaceholder')}
               className="h-12 bg-white rounded-xl border border-border"
               {...register('account_name')}
             />
@@ -169,7 +171,7 @@ export default function AddBankPage() {
           disabled={isSubmitting}
           className="w-full h-14 rounded-full bg-[#FFE600] text-foreground text-base font-bold active:scale-[0.98] transition-transform disabled:opacity-50"
         >
-          {isSubmitting ? 'Saving...' : 'Save Bank Account'}
+          {isSubmitting ? t('addBank.saving') : t('addBank.saveCta')}
         </button>
       </div>
     </div>

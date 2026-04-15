@@ -83,5 +83,46 @@
   "downloadStatement": "ดาวน์โหลดใบแจ้งยอด",
   "downloading": "กำลังดาวน์โหลด...",
   "noTransactionsForPeriod": "ไม่พบรายการในช่วงเวลานี้",
-  "downloadFailed": "ดาวน์โหลดไม่สำเร็จ"
+  "downloadFailed": "ดาวน์โหลดไม่สำเร็จ",
+  "addBank": {
+    "title": "เพิ่มบัญชีธนาคาร",
+    "bankName": "ชื่อธนาคาร",
+    "bankNamePlaceholder": "เลือกธนาคาร",
+    "accountNumber": "เลขที่บัญชี",
+    "accountNumberPlaceholder": "เลขที่บัญชี 10-12 หลัก",
+    "accountName": "ชื่อเจ้าของบัญชี",
+    "accountNamePlaceholder": "ชื่อเจ้าของบัญชี",
+    "saveCta": "บันทึกบัญชีธนาคาร",
+    "saving": "กำลังบันทึก...",
+    "saved": "บันทึกบัญชีธนาคารแล้ว",
+    "saveFailed": "ไม่สามารถบันทึกบัญชีธนาคาร",
+    "connectionError": "ข้อผิดพลาดการเชื่อมต่อ กรุณาลองใหม่",
+    "validationBank": "กรุณาเลือกธนาคาร",
+    "validationAccountNo": "เลขที่บัญชีต้องมี 10-12 หลัก",
+    "validationAccountName": "กรุณากรอกชื่อเจ้าของบัญชี"
+  },
+  "withdraw": {
+    "title": "ถอนเงิน",
+    "selectBank": "เลือกบัญชีธนาคาร",
+    "addBank": "เพิ่มบัญชีธนาคาร",
+    "noAccounts": "ไม่มีบัญชีธนาคาร",
+    "noAccountsBody": "เพิ่มบัญชีธนาคารเพื่อเริ่มถอนเงิน",
+    "deleteTitle": "ลบบัญชีธนาคาร?",
+    "deleteBody": "บัญชีนี้จะถูกลบออกจากรายการของคุณ",
+    "deleteCta": "ลบ",
+    "cancelCta": "ยกเลิก",
+    "deleted": "ลบบัญชีธนาคารแล้ว",
+    "deleteFailed": "ไม่สามารถลบบัญชีธนาคาร",
+    "pendingDelete": "ไม่สามารถลบ — มีการถอนเงินที่กำลังดำเนินอยู่",
+    "amount": "จำนวนเงินที่ถอน",
+    "feeLine": "การโอนเงินไปบัญชีธนาคารจะมีค่าธรรมเนียม ดำเนินการภายใน 1 วันทำการ",
+    "processing": "กำลังดำเนินการ...",
+    "confirmCta": "ถอนเงิน"
+  },
+  "duplicateTransfer": {
+    "title": "โอนเงินซ้ำ?",
+    "body": "มีการโอนเงินที่คล้ายกันภายใน 60 วินาทีที่ผ่านมา คุณต้องการดำเนินการต่อหรือไม่?",
+    "confirm": "ใช่ ดำเนินการต่อ",
+    "cancel": "ยกเลิก"
+  }
 }

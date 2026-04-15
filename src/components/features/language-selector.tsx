@@ -29,8 +29,9 @@ export function LanguageSelector({ currentLocale }: LanguageSelectorProps) {
     // Set locale cookie (same name used by next-intl routing)
     document.cookie = `locale=${localeCode}; path=/; max-age=${60 * 60 * 24 * 365}; samesite=lax`
 
-    // Trigger re-render via router refresh — next-intl picks up new cookie
-    router.refresh()
+    // Full reload required — root layout reads locale at build time via getLocale()
+    // router.refresh() alone doesn't re-run the root layout's getMessages()
+    window.location.reload()
   }
 
   return (

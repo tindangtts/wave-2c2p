@@ -3,6 +3,29 @@ import { createClient } from "@/lib/supabase/server";
 import { isDemoMode } from "@/lib/demo";
 import type { TransferChannel } from "@/types";
 
+// Duplicate transfer guard (TXN-11): same recipient+amount within 60s
+const recentTransfers = new Map<string, number>();
+const DEDUP_WINDOW_MS = 60_000;
+
+function checkDuplicateTransfer(userId: string, recipientId: string, amount: number): boolean {
+  const key = `${userId}:${recipientId}:${amount}`;
+  const lastTime = recentTransfers.get(key);
+  const now = Date.now();
+  if (lastTime && now - lastTime < DEDUP_WINDOW_MS) {
+    return true; // duplicate
+  }
+  return false;
+}
+
+function recordTransfer(userId: string, recipientId: string, amount: number) {
+  const key = `${userId}:${recipientId}:${amount}`;
+  recentTransfers.set(key, Date.now());
+  // Cleanup old entries
+  for (const [k, v] of recentTransfers) {
+    if (Date.now() - v > DEDUP_WINDOW_MS) recentTransfers.delete(k);
+  }
+}
+
 const channelFees: Record<TransferChannel, number> = {
   wave_agent: 1000,    // 10.00 THB in satang
   wave_app: 1000,      // 10.00 THB in satang
@@ -23,10 +46,20 @@ export async function POST(request: Request) {
   try {
     if (isDemoMode) {
       const body = await request.json();
-      const { amount, currency = "THB", channel } = body;
+      const { amount, currency = "THB", channel, recipient_id, force_confirm } = body;
+
+      // Duplicate transfer guard (TXN-11)
+      if (!force_confirm && checkDuplicateTransfer("demo", recipient_id ?? "unknown", amount)) {
+        return NextResponse.json(
+          { error: "duplicate_transfer", message: "A similar transfer was made less than 60 seconds ago. Please confirm to proceed." },
+          { status: 409 }
+        );
+      }
+
       const exchangeRate = parseFloat(process.env.MOCK_EXCHANGE_RATE ?? "133.0");
       const fee = channelFees[channel as TransferChannel] ?? 1000;
       const referenceNumber = generateReference();
+      recordTransfer("demo", recipient_id ?? "unknown", amount);
       return NextResponse.json({
         success: true,
         status: "pending",
@@ -60,7 +93,15 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { amount, currency = "THB", recipient_id, channel, note } = body;
+    const { amount, currency = "THB", recipient_id, channel, note, force_confirm } = body;
+
+    // Duplicate transfer guard (TXN-11)
+    if (!force_confirm && checkDuplicateTransfer(user.id, recipient_id ?? "unknown", amount)) {
+      return NextResponse.json(
+        { error: "duplicate_transfer", message: "A similar transfer was made less than 60 seconds ago. Please confirm to proceed." },
+        { status: 409 }
+      );
+    }
 
     const shouldFail = process.env.MOCK_PAYMENT_FAIL === "true";
     const exchangeRate = parseFloat(
@@ -140,6 +181,8 @@ export async function POST(request: Request) {
         { status: 500 }
       );
     }
+
+    recordTransfer(user.id, recipient_id ?? "unknown", amount);
 
     // Auto-complete after 2s (mock behavior)
     setTimeout(async () => {

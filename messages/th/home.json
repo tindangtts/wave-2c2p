@@ -45,5 +45,53 @@
     "transactionFetch": "ไม่สามารถโหลดรายการได้ แตะเพื่อลองใหม่"
   },
   "notifications": "การแจ้งเตือน",
-  "notificationsBadge": "{count} การแจ้งเตือนที่ยังไม่ได้อ่าน"
+  "notificationsBadge": "{count} การแจ้งเตือนที่ยังไม่ได้อ่าน",
+  "bills": {
+    "title": "ชำระบิล",
+    "electricity": "ค่าไฟฟ้า",
+    "water": "ค่าน้ำประปา",
+    "internet": "อินเทอร์เน็ต / WiFi",
+    "mobile": "เติมเงินมือถือ",
+    "insurance": "ประกันภัย",
+    "enterAccountNo": "กรอกเลขที่บัญชี",
+    "enterAmount": "กรอกจำนวนเงิน (บาท)",
+    "payNow": "ชำระเงิน",
+    "paying": "กำลังดำเนินการ...",
+    "paySuccess": "ชำระบิลสำเร็จ!",
+    "payFailed": "การชำระเงินล้มเหลว กรุณาลองใหม่",
+    "selectProvider": "เลือกผู้ให้บริการ",
+    "recentBills": "บิลล่าสุด",
+    "noBills": "ยังไม่มีการชำระบิล",
+    "noBillsBody": "ประวัติการชำระบิลจะปรากฏที่นี่"
+  },
+  "voucher": {
+    "title": "โปรโมชั่นและคูปอง",
+    "enterCode": "กรอกรหัสคูปอง",
+    "codePlaceholder": "เช่น WAVE2024",
+    "redeem": "ใช้คูปอง",
+    "redeeming": "กำลังดำเนินการ...",
+    "success": "ใช้คูปองสำเร็จ! เพิ่ม {amount} บาทในกระเป๋าเงิน",
+    "invalid": "รหัสคูปองไม่ถูกต้องหรือหมดอายุ",
+    "alreadyUsed": "คูปองนี้ถูกใช้แล้ว",
+    "activeVouchers": "คูปองที่ใช้ได้",
+    "noVouchers": "ไม่มีคูปอง",
+    "noVouchersBody": "กรอกรหัสคูปองหรือตรวจสอบโปรโมชั่นใหม่",
+    "expires": "หมดอายุ {date}",
+    "discount": "ลด {amount} บาท",
+    "freeTransfer": "โอนฟรีไม่มีค่าธรรมเนียม"
+  },
+  "chat": {
+    "title": "แชทกับฝ่ายสนับสนุน",
+    "inputPlaceholder": "พิมพ์ข้อความ...",
+    "send": "ส่ง",
+    "welcome": "สวัสดี! เราช่วยอะไรได้บ้าง?",
+    "agentName": "Wave Support",
+    "offlineNotice": "เจ้าหน้าที่ไม่ออนไลน์ กรุณาฝากข้อความ เราจะติดต่อกลับ",
+    "quickActions": {
+      "transferHelp": "ปัญหาการโอนเงิน",
+      "kycHelp": "การยืนยันตัวตน",
+      "accountHelp": "ปัญหาบัญชี",
+      "otherHelp": "คำถามอื่น"
+    }
+  }
 }

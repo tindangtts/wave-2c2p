@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import useEmblaCarousel from "embla-carousel-react";
 import { useTranslations } from "next-intl";
 
@@ -32,6 +33,7 @@ export function PromoCarousel() {
       badgeIcon: "🇹🇭",
       badgeBg: "bg-white/90 text-[#212121]",
       image: "/images/promo-transfer-thai.svg",
+      href: "/transfer/channel",
     },
     {
       key: "promo2",
@@ -39,6 +41,7 @@ export function PromoCarousel() {
       badgeIcon: "🇲🇲",
       badgeBg: "bg-[#FFE600]/90 text-[#212121]",
       image: "/images/promo-transfer-myanmar.png",
+      href: "/transfer/channel",
     },
     {
       key: "promo3",
@@ -46,6 +49,15 @@ export function PromoCarousel() {
       badgeIcon: "💳",
       badgeBg: "bg-white/90 text-[#212121]",
       image: "/images/promo-visa.svg",
+      href: "/profile/card",
+    },
+    {
+      key: "promo4",
+      badge: t("voucher.title"),
+      badgeIcon: "🎁",
+      badgeBg: "bg-[#E8F5E9]/90 text-[#212121]",
+      image: "/images/promo-transfer-thai.svg",
+      href: "/voucher",
     },
   ];
 
@@ -59,8 +71,9 @@ export function PromoCarousel() {
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
           {promos.map((promo) => (
-            <div
+            <Link
               key={promo.key}
+              href={promo.href}
               className="flex-[0_0_85%] max-w-[340px] mr-3"
             >
               <div className="h-[136px] rounded-[17px] overflow-hidden relative bg-[#f0f0f0]">
@@ -79,7 +92,7 @@ export function PromoCarousel() {
                   </span>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

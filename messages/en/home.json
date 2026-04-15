@@ -45,5 +45,53 @@
     "transactionFetch": "Unable to load transactions. Tap to retry."
   },
   "notifications": "Notifications",
-  "notificationsBadge": "{count} unread notifications"
+  "notificationsBadge": "{count} unread notifications",
+  "bills": {
+    "title": "Bill Payments",
+    "electricity": "Electricity",
+    "water": "Water Supply",
+    "internet": "Internet / WiFi",
+    "mobile": "Mobile Top-up",
+    "insurance": "Insurance",
+    "enterAccountNo": "Enter Account Number",
+    "enterAmount": "Enter Amount (THB)",
+    "payNow": "Pay Now",
+    "paying": "Processing...",
+    "paySuccess": "Bill paid successfully!",
+    "payFailed": "Payment failed. Please try again.",
+    "selectProvider": "Select Provider",
+    "recentBills": "Recent Bills",
+    "noBills": "No bill payments yet",
+    "noBillsBody": "Your bill payment history will appear here."
+  },
+  "voucher": {
+    "title": "Promotions & Vouchers",
+    "enterCode": "Enter Voucher Code",
+    "codePlaceholder": "e.g. WAVE2024",
+    "redeem": "Redeem",
+    "redeeming": "Redeeming...",
+    "success": "Voucher applied! {amount} THB added to your wallet.",
+    "invalid": "Invalid or expired voucher code.",
+    "alreadyUsed": "This voucher has already been used.",
+    "activeVouchers": "Active Vouchers",
+    "noVouchers": "No vouchers available",
+    "noVouchersBody": "Enter a voucher code or check back for new promotions.",
+    "expires": "Expires {date}",
+    "discount": "{amount} THB off",
+    "freeTransfer": "Free transfer fee"
+  },
+  "chat": {
+    "title": "Chat Support",
+    "inputPlaceholder": "Type your message...",
+    "send": "Send",
+    "welcome": "Hello! How can we help you today?",
+    "agentName": "Wave Support",
+    "offlineNotice": "Our agents are currently offline. Please leave a message and we'll get back to you.",
+    "quickActions": {
+      "transferHelp": "Transfer issue",
+      "kycHelp": "KYC verification",
+      "accountHelp": "Account problem",
+      "otherHelp": "Other question"
+    }
+  }
 }

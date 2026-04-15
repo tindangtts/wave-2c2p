@@ -2,6 +2,25 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { isDemoMode, DEMO_USER, DEMO_WALLET } from "@/lib/demo";
 
+// Duplicate transfer guard (TXN-11): same wallet+amount within 60s
+const recentTransfers = new Map<string, number>();
+const DEDUP_WINDOW_MS = 60_000;
+
+function checkDuplicateTransfer(userId: string, receiverWalletId: string, amount: number): boolean {
+  const key = `${userId}:${receiverWalletId}:${amount}`;
+  const lastTime = recentTransfers.get(key);
+  if (lastTime && Date.now() - lastTime < DEDUP_WINDOW_MS) return true;
+  return false;
+}
+
+function recordTransfer(userId: string, receiverWalletId: string, amount: number) {
+  const key = `${userId}:${receiverWalletId}:${amount}`;
+  recentTransfers.set(key, Date.now());
+  for (const [k, v] of recentTransfers) {
+    if (Date.now() - v > DEDUP_WINDOW_MS) recentTransfers.delete(k);
+  }
+}
+
 function generateReference(): string {
   const timestamp = Date.now();
   const random = Math.floor(Math.random() * 10000)
@@ -14,10 +33,18 @@ export async function POST(request: Request) {
   try {
     if (isDemoMode) {
       const body = await request.json();
-      const { receiver_wallet_id, amount } = body as {
+      const { receiver_wallet_id, amount, force_confirm } = body as {
         receiver_wallet_id: string;
         amount: number;
+        force_confirm?: boolean;
       };
+
+      if (!force_confirm && checkDuplicateTransfer("demo", receiver_wallet_id, amount)) {
+        return NextResponse.json(
+          { error: "duplicate_transfer", message: "A similar transfer was made less than 60 seconds ago. Please confirm to proceed." },
+          { status: 409 }
+        );
+      }
 
       if (receiver_wallet_id === DEMO_WALLET.wallet_id) {
         return NextResponse.json(
@@ -27,6 +54,7 @@ export async function POST(request: Request) {
       }
 
       const referenceNumber = generateReference();
+      recordTransfer("demo", receiver_wallet_id, amount);
       return NextResponse.json({
         success: true,
         status: "success",
@@ -60,10 +88,19 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { receiver_wallet_id, amount } = body as {
+    const { receiver_wallet_id, amount, force_confirm } = body as {
       receiver_wallet_id: string;
       amount: number;
+      force_confirm?: boolean;
     };
+
+    // Duplicate transfer guard (TXN-11)
+    if (!force_confirm && checkDuplicateTransfer(user.id, receiver_wallet_id, amount)) {
+      return NextResponse.json(
+        { error: "duplicate_transfer", message: "A similar transfer was made less than 60 seconds ago. Please confirm to proceed." },
+        { status: 409 }
+      );
+    }
 
     if (!receiver_wallet_id || typeof amount !== "number" || amount <= 0) {
       return NextResponse.json(
@@ -182,6 +219,8 @@ export async function POST(request: Request) {
         { status: 500 }
       );
     }
+
+    recordTransfer(user.id, receiver_wallet_id, amount);
 
     // Auto-complete after 2s (mock behavior)
     setTimeout(async () => {

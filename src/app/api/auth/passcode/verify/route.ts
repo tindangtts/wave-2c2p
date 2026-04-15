@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { verifyPasscode } from '@/lib/auth/passcode'
+import { isDemoMode } from '@/lib/demo'
 
 const MAX_ATTEMPTS = 5
 const LOCK_DURATION_MS = 30 * 60 * 1000 // 30 minutes
@@ -16,6 +17,11 @@ export async function POST(request: NextRequest) {
         { error: 'Passcode must be exactly 6 digits' },
         { status: 400 }
       )
+    }
+
+    if (isDemoMode) {
+      // Demo mode: accept any valid 6-digit passcode
+      return NextResponse.json({ success: true })
     }
 
     const supabase = await createClient()
