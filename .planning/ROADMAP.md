@@ -35,7 +35,7 @@
 
 ### v1.2 Production Readiness
 
-- [ ] **Phase 14: PWA & Offline** - Serwist service worker, caching strategies, install prompt, app manifest
+- [x] **Phase 14: PWA & Offline** - Serwist service worker, caching strategies, install prompt, app manifest (completed 2026-04-15)
 - [ ] **Phase 15: QR Scanner & WebAuthn Migration** - Real camera-based QR scanning and WebAuthn DB columns for deployed biometrics
 - [ ] **Phase 16: Test Coverage** - Vitest unit tests and Playwright E2E tests for critical flows
 - [ ] **Phase 17: Features & Polish** - PDF statement download and user-configurable spending limits
@@ -148,7 +148,7 @@ Plans:
 
 Plans:
 - [x] 14-01-PLAN.md — Install Serwist, configure next.config.ts plugin, create service worker entry with caching strategies
-- [ ] 14-02-PLAN.md — Web app manifest (icons, splash, display, theme), offline fallback page, install prompt component
+- [x] 14-02-PLAN.md — Web app manifest (icons, splash, display, theme), offline fallback page, install prompt component
 
 ### Phase 15: QR Scanner & WebAuthn Migration
 **Goal**: The QR scanner page uses real camera hardware for live scanning, and the biometric auth system is backed by proper database columns in the deployed environment
@@ -217,7 +217,7 @@ Plans:
 | 11. Wallet Operations | v1.1 | 4/4 | Complete | 2026-04-15 |
 | 12. Complex Flows | v1.1 | 4/4 | Complete | 2026-04-15 |
 | 13. Engagement & Auth | v1.1 | 4/4 | Complete | 2026-04-15 |
-| 14. PWA & Offline | v1.2 | 1/2 | In Progress|  |
+| 14. PWA & Offline | v1.2 | 2/2 | Complete    | 2026-04-15 |
 | 15. QR Scanner & WebAuthn Migration | v1.2 | 0/3 | Not started | - |
 | 16. Test Coverage | v1.2 | 0/5 | Not started | - |
 | 17. Features & Polish | v1.2 | 0/2 | Not started | - |
