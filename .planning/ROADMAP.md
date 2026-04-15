@@ -218,6 +218,6 @@ Plans:
 | 12. Complex Flows | v1.1 | 4/4 | Complete | 2026-04-15 |
 | 13. Engagement & Auth | v1.1 | 4/4 | Complete | 2026-04-15 |
 | 14. PWA & Offline | v1.2 | 2/2 | Complete    | 2026-04-15 |
-| 15. QR Scanner & WebAuthn Migration | v1.2 | 3/3 | Complete   | 2026-04-15 |
+| 15. QR Scanner & WebAuthn Migration | v1.2 | 3/3 | Complete    | 2026-04-15 |
 | 16. Test Coverage | v1.2 | 0/5 | Not started | - |
 | 17. Features & Polish | v1.2 | 0/2 | Not started | - |
