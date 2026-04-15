@@ -285,9 +285,9 @@ Plans:
 
 Plans:
 - [ ] 22-01-PLAN.md — Remove isDemoMode from 10 Drizzle API routes (Group A)
-- [ ] 22-02-PLAN.md — Remove isDemoMode from 11 auth routes (Group B)
+- [x] 22-02-PLAN.md — Remove isDemoMode from 11 auth routes (Group B)
 - [ ] 22-03-PLAN.md — Remove isDemoMode from 8 other API routes (Group C)
-- [ ] 22-04-PLAN.md — Rewrite root page + delete demo.ts
+- [x] 22-04-PLAN.md — Rewrite root page + delete demo.ts
 - [ ] 22-05-PLAN.md — Zero-reference verification + npm run build
 
 ## Progress
@@ -315,4 +315,4 @@ Plans:
 | 19. Payment Write-Back | v1.3 | 2/2 | Complete    | 2026-04-15 |
 | 20. New Tables & Seed | v1.3 | 3/3 | Complete    | 2026-04-15 |
 | 21. System Config & Auth Gates | v1.3 | 2/2 | Complete    | 2026-04-15 |
-| 22. Demo Mode Removal | v1.3 | 0/5 | In progress | - |
+| 22. Demo Mode Removal | v1.3 | 2/5 | In Progress|  |
