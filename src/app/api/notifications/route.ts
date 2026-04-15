@@ -1,24 +1,9 @@
-// Run in Supabase SQL Editor:
-// create table if not exists public.notifications (
-//   id uuid primary key default uuid_generate_v4(),
-//   user_id uuid references public.user_profiles(id) on delete cascade not null,
-//   type text not null,
-//   title text not null,
-//   body text not null,
-//   is_read boolean not null default false,
-//   deep_link text,
-//   created_at timestamptz not null default now()
-// );
-// alter table public.notifications enable row level security;
-// create policy "Users view own notifications" on public.notifications
-//   for select using (auth.uid() = user_id);
-// create policy "Users update own notifications" on public.notifications
-//   for update using (auth.uid() = user_id);
-// create index idx_notifications_user_id on public.notifications(user_id, created_at desc);
-
 import { createClient } from "@/lib/supabase/server"
 import { NextResponse, NextRequest } from "next/server"
 import { isDemoMode } from "@/lib/demo"
+import { db } from '@/db'
+import { eq, and, desc } from 'drizzle-orm'
+import { notifications } from '@/db/schema'
 
 const DEMO_NOTIFICATIONS = [
   {
@@ -80,18 +65,14 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    const { data, error } = await supabase
-      .from('notifications')
-      .select('*')
-      .eq('user_id', user.id)
-      .order('created_at', { ascending: false })
+    const rows = await db
+      .select()
+      .from(notifications)
+      .where(eq(notifications.userId, user.id))
+      .orderBy(desc(notifications.createdAt))
       .limit(50)
 
-    if (error) {
-      return NextResponse.json({ error: "Failed to fetch notifications" }, { status: 500 })
-    }
-
-    return NextResponse.json({ notifications: data ?? [] })
+    return NextResponse.json({ notifications: rows ?? [] })
   } catch {
     return NextResponse.json({ error: "Failed to fetch notifications" }, { status: 500 })
   }
@@ -117,25 +98,15 @@ export async function PATCH(request: NextRequest) {
     }
 
     if (body.all === true) {
-      const { error } = await supabase
-        .from('notifications')
-        .update({ is_read: true })
-        .eq('user_id', user.id)
-        .eq('is_read', false)
-
-      if (error) {
-        return NextResponse.json({ error: "Failed to mark notifications read" }, { status: 500 })
-      }
+      await db
+        .update(notifications)
+        .set({ isRead: true })
+        .where(and(eq(notifications.userId, user.id), eq(notifications.isRead, false)))
     } else if (body.id) {
-      const { error } = await supabase
-        .from('notifications')
-        .update({ is_read: true })
-        .eq('id', body.id)
-        .eq('user_id', user.id)
-
-      if (error) {
-        return NextResponse.json({ error: "Failed to mark notification read" }, { status: 500 })
-      }
+      await db
+        .update(notifications)
+        .set({ isRead: true })
+        .where(and(eq(notifications.id, body.id), eq(notifications.userId, user.id)))
     } else {
       return NextResponse.json({ error: "Provide id or all:true" }, { status: 400 })
     }
