@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Feature Completeness
-status: executing
-last_updated: "2026-04-15T03:02:34.706Z"
+status: verifying
+last_updated: "2026-04-15T03:06:02.683Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 5
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 3
-  completed_plans: 1
+  completed_plans: 3
   percent: 0
 ---
 
@@ -25,8 +25,8 @@ See: .planning/PROJECT.md (updated 2026-04-15)
 ## Current Position
 
 Phase: 09 (compliance-registration) — EXECUTING
-Plan: 2 of 3
-Status: Ready to execute
+Plan: 3 of 3
+Status: Phase complete — ready for verification
 Last activity: 2026-04-15
 
 ```
@@ -50,6 +50,9 @@ Recent decisions affecting current work:
 - Zustand persist version must be bumped when adding `tcAccepted` field in Phase 9 (see research pitfall 5)
 - [Phase 09]: Persist key bumped to wave-registration-state-v2 to avoid stale localStorage hydration when new consent fields were added
 - [Phase 09]: Consent API route mirrors register/step/route.ts pattern — auth guard, update, error handling — no observability added for consistency
+- [Phase 09]: T&C consent API failure is non-fatal — store updated optimistically and navigation proceeds regardless
+- [Phase 09]: Checkbox component added via shadcn CLI (was missing from component library) as a blocking dependency fix
+- [Phase 09]: Used box-shadow spread hack for circular face guide overlay in CameraOverlay selfie variant — avoids clip-path complexity
 
 ### Pending Todos
 

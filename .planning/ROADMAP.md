@@ -23,7 +23,7 @@
 
 ### v1.1 Feature Completeness
 
-- [ ] **Phase 9: Compliance & Registration** - T&C consent, pre-registration info, daily limit acknowledgment, selfie/liveness capture
+- [x] **Phase 9: Compliance & Registration** - T&C consent, pre-registration info, daily limit acknowledgment, selfie/liveness capture (completed 2026-04-15)
 - [ ] **Phase 10: Transfer Enhancements** - P2P wallet transfer, cash pick-up channel, e-receipt share, recipient favourites
 - [ ] **Phase 11: Wallet Operations** - 123 Service top-up, bank account CRUD, Myanmar address cascade
 - [ ] **Phase 12: Complex Flows** - Visa card request + payment, work permit document update
@@ -44,8 +44,8 @@
 
 Plans:
 - [x] 09-01-PLAN.md — Store extension + i18n strings + consent API route
-- [ ] 09-02-PLAN.md — Pre-reg info screen + T&C consent screen + OTP routing update
-- [ ] 09-03-PLAN.md — Daily limit acknowledgment screen + CameraOverlay face guide
+- [x] 09-02-PLAN.md — Pre-reg info screen + T&C consent screen + OTP routing update
+- [x] 09-03-PLAN.md — Daily limit acknowledgment screen + CameraOverlay face guide
 
 **UI hint**: yes
 
@@ -107,7 +107,7 @@ Plans:
 | 6. Wallet Operations | v1.0 | 4/4 | Complete | 2026-04-14 |
 | 7. Profile, Card & System States | v1.0 | 4/4 | Complete | 2026-04-14 |
 | 8. Integration Fixes | v1.0 | 1/1 | Complete | 2026-04-15 |
-| 9. Compliance & Registration | v1.1 | 1/3 | In Progress|  |
+| 9. Compliance & Registration | v1.1 | 3/3 | Complete   | 2026-04-15 |
 | 10. Transfer Enhancements | v1.1 | 0/? | Not started | — |
 | 11. Wallet Operations | v1.1 | 0/? | Not started | — |
 | 12. Complex Flows | v1.1 | 0/? | Not started | — |
