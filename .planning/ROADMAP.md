@@ -250,7 +250,12 @@ Plans:
   1. The notification inbox fetches rows from the `notifications` table scoped to the logged-in user; marking a notification as read updates `is_read = true` in the DB and the badge count decrements
   2. A voucher code entered by the user is validated against the `vouchers` table; a valid unredeemed code updates `redeemed_at` and credits the wallet; an already-redeemed code returns an error
   3. Running the seed SQL against a blank Supabase project populates wallets, transactions, cards, notifications, and vouchers with enough demo records that all screens render without empty-state fallbacks
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 20-01-PLAN.md — Notifications table: Drizzle schema + SQL migration + API route rewrite
+- [ ] 20-02-PLAN.md — Vouchers table: Drizzle schema + SQL migration + atomic redemption route
+- [ ] 20-03-PLAN.md — Seed SQL for all tables + schema doc update
 
 ### Phase 21: System Config & Auth Gates
 **Goal**: The app enforces maintenance windows and version requirements on every open, blocks permanently rejected users before they can log in, and ensures only one active session exists per user
