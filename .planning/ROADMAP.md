@@ -144,7 +144,7 @@ Plans:
   2. A user who installed the app and goes offline can still open the app and see the home screen (app shell loads from cache)
   3. A user on a slow connection attempting an API call while offline sees a clear offline fallback message instead of a broken page
   4. Static assets (icons, fonts) load instantly on repeat visits because they are served from cache (CacheFirst), and API routes always attempt the network first (NetworkFirst)
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
 - [ ] 14-01-PLAN.md — Install Serwist, configure next.config.ts plugin, create service worker entry with caching strategies
