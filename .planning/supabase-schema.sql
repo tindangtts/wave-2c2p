@@ -248,3 +248,51 @@ ALTER TABLE public.user_profiles
 ALTER TABLE public.user_profiles
   ADD COLUMN IF NOT EXISTS daily_limit_satang bigint DEFAULT 5000000,
   ADD COLUMN IF NOT EXISTS monthly_limit_satang bigint DEFAULT 20000000;
+
+-- =============================================================================
+-- Phase 20: New Tables — Notifications
+-- =============================================================================
+create table if not exists public.notifications (
+  id uuid primary key default uuid_generate_v4(),
+  user_id uuid references public.user_profiles(id) on delete cascade not null,
+  type text not null,
+  title text not null,
+  body text not null,
+  is_read boolean not null default false,
+  deep_link text,
+  created_at timestamptz not null default now()
+);
+
+alter table public.notifications enable row level security;
+
+create policy "Users view own notifications" on public.notifications
+  for select using (auth.uid() = user_id);
+
+create policy "Users update own notifications" on public.notifications
+  for update using (auth.uid() = user_id);
+
+create index if not exists idx_notifications_user_id
+  on public.notifications(user_id, created_at desc);
+
+-- =============================================================================
+-- Phase 20: New Tables — Vouchers
+-- =============================================================================
+create table if not exists public.vouchers (
+  id uuid primary key default uuid_generate_v4(),
+  code text not null unique,
+  type text not null check (type in ('cashback', 'free_transfer')),
+  amount bigint not null default 0,
+  description text not null default '',
+  active boolean not null default true,
+  redeemed_by uuid references public.user_profiles(id),
+  redeemed_at timestamptz,
+  expires_at timestamptz,
+  created_at timestamptz not null default now()
+);
+
+alter table public.vouchers enable row level security;
+
+create policy "Users can view active vouchers" on public.vouchers
+  for select using (active = true);
+
+create index if not exists idx_vouchers_code on public.vouchers(code);
