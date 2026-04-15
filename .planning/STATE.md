@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Production Readiness
 status: executing
-stopped_at: Completed 16-01-PLAN.md (Vitest RTL setup upgrade)
-last_updated: "2026-04-15T07:37:19.432Z"
+stopped_at: Completed 16-02-PLAN.md (Zod schema + currency edge case tests)
+last_updated: "2026-04-15T07:41:27.160Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 9
   completed_phases: 7
   total_plans: 30
-  completed_plans: 26
+  completed_plans: 27
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-15)
 ## Current Position
 
 Phase: 16 (Test Coverage) — EXECUTING
-Plan: 2 of 5
+Plan: 3 of 5
 Status: Ready to execute
 Last activity: 2026-04-15
 
@@ -55,6 +55,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 15-qr-scanner-webauthn-migration P01 | 240s | 2 tasks | 3 files |
 | Phase 15-qr-scanner-webauthn-migration P02 | 180s | 2 tasks | 2 files |
 | Phase 16-test-coverage P01 | 3min | 1 tasks | 5 files |
+| Phase 16-test-coverage P02 | 8min | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -71,6 +72,7 @@ Progress: [░░░░░░░░░░] 0%
 - [Phase 15-qr-scanner-webauthn-migration]: P2P_WALLET_REGEX extracted to qr-detection module; detectQRType returns discriminated union for type-safe routing
 - [Phase 15-qr-scanner-webauthn-migration]: decodeQRFromFile uses dynamic barcode-detector/pure polyfill import (SSR safe, no double-polyfill with @yudiel bundle)
 - [Phase 16-test-coverage]: jsdom environment set globally in vitest config (safe for both React and pure-TS tests); .claude worktrees excluded from test discovery
+- [Phase 16-test-coverage]: Pre-existing new-recipient.test.tsx failure logged to deferred-items.md (out of scope for 16-02 — scope boundary rule applied)
 
 ### Pending Todos
 
@@ -83,6 +85,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-15T07:37:19.430Z
-Stopped at: Completed 16-01-PLAN.md (Vitest RTL setup upgrade)
+Last session: 2026-04-15T07:41:27.158Z
+Stopped at: Completed 16-02-PLAN.md (Zod schema + currency edge case tests)
 Resume file: None
