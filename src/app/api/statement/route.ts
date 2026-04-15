@@ -1,6 +1,5 @@
 import { NextResponse, NextRequest } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import { isDemoMode, DEMO_TRANSACTIONS } from '@/lib/demo'
 
 // GET /api/statement?dateFrom=yyyy-MM-dd&dateTo=yyyy-MM-dd
 // Returns all transactions for authenticated user in range (max 500 rows, no pagination)
@@ -15,17 +14,6 @@ export async function GET(request: NextRequest) {
         { error: 'dateFrom and dateTo query params are required (yyyy-MM-dd)' },
         { status: 400 }
       )
-    }
-
-    if (isDemoMode) {
-      // Filter DEMO_TRANSACTIONS by date range
-      const from = new Date(dateFrom)
-      const to = new Date(`${dateTo}T23:59:59`)
-      const filtered = DEMO_TRANSACTIONS.filter((tx) => {
-        const txDate = new Date(tx.created_at)
-        return txDate >= from && txDate <= to
-      })
-      return NextResponse.json({ transactions: filtered })
     }
 
     const supabase = await createClient()

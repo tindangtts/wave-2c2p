@@ -2,19 +2,9 @@ import { createClient } from '@/lib/supabase/server'
 import { NextResponse } from 'next/server'
 import { recipientFormSchema } from '@/lib/transfer/schemas'
 import { z } from 'zod/v4'
-import { isDemoMode, DEMO_RECIPIENTS } from '@/lib/demo'
 
 export async function GET() {
   try {
-    if (isDemoMode) {
-      const sorted = [...DEMO_RECIPIENTS].sort((a, b) => {
-        if (a.is_favorite && !b.is_favorite) return -1
-        if (!a.is_favorite && b.is_favorite) return 1
-        return a.full_name.localeCompare(b.full_name)
-      })
-      return NextResponse.json({ recipients: sorted })
-    }
-
     const supabase = await createClient()
 
     const {

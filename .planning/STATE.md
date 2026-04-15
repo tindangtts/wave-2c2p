@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Supabase Migration & Auth Hardening
-status: executing
-stopped_at: Completed 22-01-PLAN.md
-last_updated: "2026-04-15T12:27:42Z"
+status: verifying
+stopped_at: Completed 22-03-PLAN.md
+last_updated: "2026-04-15T12:28:31.527Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 14
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-15)
 
 **Core value:** Users can send money from Thailand to Myanmar quickly, affordably, and with full regulatory compliance
-**Current focus:** Phase 22 — demo-mode-removal
+**Current focus:** Phase 21 — system-config-auth-gates
 
 ## Current Position
 
-Phase: 22 (demo-mode-removal) — EXECUTING
-Plan: 2 of 5
-Status: Executing Phase 22
-Last activity: 2026-04-15 -- Completed 22-01 (Group A route demo removal)
+Phase: 22
+Plan: Not started
+Status: Phase complete — ready for verification
+Last activity: 2026-04-15
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -71,7 +71,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 20-new-tables-seed P03 | 103s | 2 tasks | 2 files |
 | Phase 21-system-config-auth-gates P02 | 189s | 2 tasks | 5 files |
 | Phase 21-system-config-auth-gates P01 | 218s | 2 tasks | 7 files |
-| Phase 22-demo-mode-removal P01 | 174s | 2 tasks | 10 files |
+| Phase 22-demo-mode-removal P03 | 5min | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -118,7 +118,7 @@ Progress: [░░░░░░░░░░] 0%
 - [Phase 21-system-config-auth-gates]: Maintenance modal onClose is a no-op per AUTH-02 spec — modal persists until maintenance_mode=false in DB
 - [Phase 21-system-config-auth-gates]: system-status API fails open on DB error — returns all-false to avoid blocking users on infrastructure failures
 - [Phase 21-system-config-auth-gates]: softUpdateDismissed stored in component state (per-session reset) not localStorage — appropriate for soft update reminder
-- [Phase 22-demo-mode-removal]: isDemoMode branches and associated demo data structures (DEMO_NOTIFICATIONS, VALID_VOUCHERS) removed from all 10 Group A API routes — routes now execute Drizzle paths unconditionally
+- [Phase 22-demo-mode-removal]: recipients/[id]/route.ts had isDemoMode in three handlers (PUT, DELETE, PATCH) — all three removed
 
 ### Pending Todos
 
@@ -132,7 +132,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-15T12:27:42Z
-Stopped at: Completed 22-01-PLAN.md
+Last session: 2026-04-15T12:28:31.524Z
+Stopped at: Completed 22-03-PLAN.md
 Resume file: None
-Next step: Execute 22-02-PLAN.md
+Next step: `/gsd:plan-phase 18`
