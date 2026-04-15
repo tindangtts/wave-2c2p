@@ -1,16 +1,11 @@
 import { createClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
-import { isDemoMode, DEMO_TRANSACTIONS } from "@/lib/demo";
 import { db } from "@/db";
 import { eq, desc } from "drizzle-orm";
 import { transactions } from "@/db/schema";
 
 export async function GET() {
   try {
-    if (isDemoMode) {
-      return NextResponse.json({ transactions: DEMO_TRANSACTIONS.slice(0, 5) });
-    }
-
     const supabase = await createClient();
 
     const {
