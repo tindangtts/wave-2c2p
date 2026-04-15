@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Production Readiness
 status: executing
-stopped_at: Completed 15-03-PLAN.md (WebAuthn schema migration)
-last_updated: "2026-04-15T07:09:03.479Z"
+stopped_at: Completed 15-01-PLAN.md (QR scanner live camera integration)
+last_updated: "2026-04-15T07:09:47.982Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 9
   completed_phases: 6
   total_plans: 25
-  completed_plans: 23
+  completed_plans: 24
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-15)
 ## Current Position
 
 Phase: 15 (QR Scanner & WebAuthn Migration) — EXECUTING
-Plan: 2 of 3
+Plan: 3 of 3
 Status: Ready to execute
 Last activity: 2026-04-15
 
@@ -52,6 +52,7 @@ Progress: [░░░░░░░░░░] 0%
 *Updated after each plan completion*
 | Phase 14-pwa-offline P01 | 252s | 2 tasks | 5 files |
 | Phase 15-qr-scanner-webauthn-migration P03 | 180 | 1 tasks | 1 files |
+| Phase 15-qr-scanner-webauthn-migration P01 | 240s | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -64,6 +65,7 @@ Progress: [░░░░░░░░░░] 0%
 - [Phase 14-pwa-offline]: @serwist/next webpack plugin requires --webpack build flag in Next.js 16.2.3 (Turbopack default); added build:pwa script
 - [Phase 14-pwa-offline]: Serwist disabled in dev (NODE_ENV === development); Supabase routes use NetworkFirst with 0s timeout (never cache auth tokens)
 - [Phase 15-qr-scanner-webauthn-migration]: WebAuthn columns all nullable except counter (DEFAULT 0) — ADD COLUMN IF NOT EXISTS for idempotent migration
+- [Phase 15-qr-scanner-webauthn-migration]: @yudiel/react-qr-scanner with finder:false; ScannerFrame provides overlay; handledRef prevents double-fire
 
 ### Pending Todos
 
@@ -76,6 +78,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-15T07:09:03.473Z
-Stopped at: Completed 15-03-PLAN.md (WebAuthn schema migration)
+Last session: 2026-04-15T07:09:47.979Z
+Stopped at: Completed 15-01-PLAN.md (QR scanner live camera integration)
 Resume file: None
