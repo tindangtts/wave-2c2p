@@ -96,7 +96,14 @@ Plans:
   1. User can initiate a Visa card request, choose between current or mailing delivery address, and see FX conversion details on the payment confirmation screen
   2. User sees a success or failure modal after the card payment attempt completes
   3. A user whose work permit has expired can navigate to a standalone document update flow, capture front and back of the new permit, and submit for re-verification without losing access to in-flight transfers
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 12-01-PLAN.md — Visa card mock payment API + i18n strings (en/th/mm)
+- [ ] 12-02-PLAN.md — Work permit update mock KYC API + i18n strings (en/th/mm)
+- [ ] 12-03-PLAN.md — Visa card request UI (address selection + confirm + result modals)
+- [ ] 12-04-PLAN.md — Work permit update capture page + profile menu entry
+
 **UI hint**: yes
 
 ### Phase 13: Engagement & Auth
@@ -125,5 +132,5 @@ Plans:
 | 9. Compliance & Registration | v1.1 | 3/3 | Complete   | 2026-04-15 |
 | 10. Transfer Enhancements | v1.1 | 5/5 | Complete    | 2026-04-15 |
 | 11. Wallet Operations | v1.1 | 4/4 | Complete    | 2026-04-15 |
-| 12. Complex Flows | v1.1 | 0/? | Not started | — |
+| 12. Complex Flows | v1.1 | 0/4 | Not started | — |
 | 13. Engagement & Auth | v1.1 | 0/? | Not started | — |
