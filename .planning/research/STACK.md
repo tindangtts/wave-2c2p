@@ -1,8 +1,111 @@
 # Technology Stack
 
 **Project:** 2C2P Wave — Mobile Banking & Remittance PWA
-**Researched:** 2026-04-14
+**Researched:** 2026-04-14 (v1.0) / Updated 2026-04-15 (v1.1 additions)
 **Stack basis:** Next.js 16.2.3 + Supabase + shadcn/ui already scaffolded and locked in
+
+---
+
+## v1.1 Stack Additions (NEW — April 2026)
+
+This section covers only what is new for the 15 v1.1 features. The base stack from v1.0 remains valid and locked.
+
+### Feature-to-Library Mapping
+
+| Feature | New Library Required | Rationale |
+|---------|---------------------|-----------|
+| P2P wallet transfer — QR scan | `@yudiel/react-qr-scanner` | v1.0 scan page uses raw `getUserMedia` with no decode logic — scanning QR codes to prefill wallet ID requires actual barcode decoding |
+| 123 Service convenience store top-up | `react-barcode` | Barcode display (Code 128) for store counter; `react-qr-code` is QR-only, not linear barcode |
+| E-receipt share / download as image | `html-to-image` | DOM-to-PNG for receipt card; Web Share API (native, zero bundle) handles the share sheet |
+| Biometric login (Face ID / Touch ID / Fingerprint) | `@simplewebauthn/browser` + `@simplewebauthn/server` | WebAuthn FIDO2 — raw `navigator.credentials` API is extremely verbose; SimpleWebAuthn provides TypeScript-typed wrappers, handles attestation/assertion correctly, maintained by the FIDO community |
+| Bank account CRUD | None | RHF + Zod + Supabase already sufficient |
+| Cash pick-up secret code | None | `crypto.randomBytes` (Node built-in) + Supabase; pure UI |
+| T&C consent screen | None | Static content + RHF checkbox |
+| Selfie / liveness capture | None | Native `MediaDevices.getUserMedia` — same pattern as v1.0 eKYC |
+| Visa card request + payment | None | RHF + Zod + mock Route Handler — same pattern as existing transfer |
+| Work permit document update | None | Supabase Storage upload — same as v1.0 document upload |
+| Myanmar address cascade | None | Static JSON + controlled selects — no library needed |
+| Recipient favourites | None | Supabase column toggle + Zustand — no library |
+| Referral social sharing (WhatsApp, Line, copy) | None | URL schemes + `navigator.clipboard` + `navigator.share` — all native |
+| Pre-registration + daily limit screens | None | Static informational UI with next-intl strings |
+| Notification inbox | None | Supabase Realtime already in stack; SWR polling fallback |
+
+### New Libraries to Install
+
+| Library | Version | Purpose | Why This |
+|---------|---------|---------|----------|
+| `@yudiel/react-qr-scanner` | `^2.5.1` | QR code scanning via device camera | Already recommended in CLAUDE.md; uses BarcodeDetector API with `jsQR` fallback; iOS Safari supported; last published Jan 2026 |
+| `react-barcode` | `^1.6.1` | Code 128 linear barcode SVG display | 105K weekly downloads; wraps JsBarcode; SVG output scales on AMOLED/Retina; Code 128 is standard for Thai convenience store payment barcodes |
+| `html-to-image` | `^1.11.13` | DOM element to PNG/JPEG for e-receipt download | Better TypeScript support than `html2canvas`; no dependencies; faster rendering; handles inline SVGs and web fonts correctly — both present in the receipt card |
+| `@simplewebauthn/browser` | `^13.3.0` | Browser-side passkey registration and authentication | TypeScript-first; handles CBOR encoding and credential serialization; reduces raw WebAuthn API surface from ~200 lines to ~10; Google's WebAuthn codelab references this library |
+| `@simplewebauthn/server` | `^13.3.0` | Server-side WebAuthn verification in Route Handlers | Verifies attestation/assertion responses; stores credential public keys in Supabase; Node.js LTS 20+ compatible (matches Next.js 16 runtime) |
+
+### Installation
+
+```bash
+npm install @yudiel/react-qr-scanner react-barcode html-to-image @simplewebauthn/browser @simplewebauthn/server
+```
+
+### Alternatives Considered for v1.1
+
+| Recommended | Alternative | Why Not |
+|-------------|-------------|---------|
+| `react-barcode` | `react-jsbarcode` | 8K weekly downloads vs 105K; react-barcode is the standard JsBarcode React wrapper |
+| `react-barcode` | `bwip-js` | 100+ barcode types bundled; overkill for single Code 128 use case; much heavier |
+| `html-to-image` | `html2canvas` | Slower rendering; larger bundle; known issues with inline SVGs and web fonts; not ESM-native |
+| `html-to-image` | `dom-to-image` | Older project; `html-to-image` is the actively maintained fork |
+| `@simplewebauthn/*` | Raw `navigator.credentials` | 200+ lines of boilerplate per flow; CBOR encoding requires a separate library anyway |
+| `@yudiel/react-qr-scanner` | `html5-qrcode` | Large bundle; outdated API; CLAUDE.md explicitly rejects this |
+| `@yudiel/react-qr-scanner` | `react-qr-scanner` (kybarg) | Abandoned 3 years ago; documented iOS incompatibility; CLAUDE.md explicitly rejects this |
+
+### What NOT to Add for v1.1
+
+| Avoid | Why | Use Instead |
+|-------|-----|-------------|
+| `html5-qrcode` | Large bundle; CLAUDE.md rejection | `@yudiel/react-qr-scanner` |
+| `react-webcam` | iOS PWA permission re-prompting on route changes | Native `MediaDevices.getUserMedia` |
+| `html2canvas` | SVG rendering bugs; not ESM | `html-to-image` |
+| Any push notification library | Out of scope per PROJECT.md v1.1 | Static placeholder inbox UI only |
+| WhatsApp / Line SDK | URL schemes (`https://wa.me/`, `https://line.me/R/msg/text/`) are sufficient | Native URL + `navigator.share` |
+
+### Integration Notes for v1.1
+
+**QR Scanner (`@yudiel/react-qr-scanner`):** The v1.0 `/scan` route uses raw `getUserMedia` with no decoding — it is a camera UI shell. For P2P wallet transfer, add the `<Scanner>` component inline on the transfer flow page, not the `/scan` route. Requires `'use client'` directive.
+
+**Barcode Display (`react-barcode`):** For 123 Service top-up, use `<Barcode value={refNumber} format="CODE128" renderer="svg" />`. Use SVG renderer, not canvas, for Retina/AMOLED correctness.
+
+**E-Receipt Image Export (`html-to-image`):** Call `toPng(elementRef.current)` on the receipt card DOM node inside a button handler. Create download via `<a href={dataUrl} download="receipt.png">`. For sharing, use `navigator.share({ files: [new File([blob], 'receipt.png', { type: 'image/png' })] })` — feature-detect with `navigator.canShare` and fall back to download-only on unsupported browsers.
+
+**Biometric Login (`@simplewebauthn/*`):**
+- Registration: Route Handler generates options via `generateRegistrationOptions()` → browser calls `startRegistration(options)` → Route Handler verifies via `verifyRegistrationResponse()` → store `credentialPublicKey` + `credentialID` in Supabase `user_credentials` table
+- Authentication: Route Handler generates options via `generateAuthenticationOptions()` → browser calls `startAuthentication(options)` → Route Handler verifies via `verifyAuthenticationResponse()` → issue Supabase session
+- Works on Safari iOS 14+ (Face ID / Touch ID), Chrome Android (fingerprint), all modern desktop
+- WebAuthn credentials are origin-bound: localhost credentials do not work on the production domain. Biometric testing requires HTTPS or the deployed domain.
+- The v1.0 profile page has a `biometricsEnabled` toggle that is currently UI-only — this is the registration entry point
+
+**Myanmar Address Cascade:** Implement as a bundled static JSON `{ states: [{ name, townships: [{ name, wards: [] }] }] }`. Myanmar has 15 states/regions with a fixed set of townships — no API call needed. Controlled cascading selects using React state reset on parent change.
+
+**Notification Inbox:** Supabase Realtime `channel().on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'notifications', filter: `user_id=eq.${userId}` }, handler)`. Use SWR for initial inbox load; Realtime for live updates. No external library needed.
+
+### Version Compatibility for v1.1
+
+| Package | Compatible With | Notes |
+|---------|-----------------|-------|
+| `@yudiel/react-qr-scanner@2.5.1` | React 19, Next.js 16 | Requires `'use client'`; uses BarcodeDetector + jsQR fallback |
+| `react-barcode@1.6.1` | React 19 | JsBarcode 3.12.x underneath; use SVG renderer |
+| `html-to-image@1.11.13` | React 19, browser-only | Must run in event handler or `useEffect` — never in RSC; no SSR support |
+| `@simplewebauthn/browser@13.3.0` | React 19, browser-only | Must be in Client Component |
+| `@simplewebauthn/server@13.3.0` | Next.js 16 Route Handlers | Node.js runtime only (not Edge runtime); uses Node.js `crypto` module |
+
+### v1.1 Sources
+
+- `@yudiel/react-qr-scanner` npm v2.5.1: https://www.npmjs.com/package/@yudiel/react-qr-scanner — HIGH confidence
+- `react-barcode` npm v1.6.1, 105K weekly downloads: https://www.npmjs.com/package/react-barcode — HIGH confidence
+- `html-to-image` vs `html2canvas` comparison: https://npm-compare.com/dom-to-image,html-to-image,html2canvas — MEDIUM confidence
+- `@simplewebauthn/*` npm v13.3.0: https://www.npmjs.com/package/@simplewebauthn/server — HIGH confidence
+- SimpleWebAuthn official docs: https://simplewebauthn.dev/ — HIGH confidence
+- WebAuthn iOS PWA support (Face ID / Touch ID since iOS 14): https://webkit.org/blog/11312/meet-face-id-and-touch-id-for-the-web/ — HIGH confidence
+- npm version verification via `npm info` CLI — HIGH confidence
 
 ---
 
@@ -30,7 +133,8 @@ The project scaffold is live. These are confirmed installed via `package.json`:
 | react-day-picker | ^9.14.0 | Installed |
 | sonner | ^2.0.7 | Installed |
 | vaul | ^1.1.2 | Installed |
-| zustand | ^5.0.12 | Installed |
+| react-qr-code | ^2.0.18 | Installed |
+| swr | ^2.4.1 | Installed |
 
 ---
 
@@ -410,14 +514,23 @@ Apply via CSS `lang` targeting:
 ## Complete Additions Required
 
 ```bash
-# QR generation
-npm install react-qr-code
+# QR generation (already installed in v1.0)
+# npm install react-qr-code
 
-# QR scanning (live camera — Android/browser)
+# QR scanning (live camera — Android/browser) — NEEDED for v1.1 P2P transfer
 npm install @yudiel/react-qr-scanner
 
-# Server state / data fetching
-npm install swr
+# Server state / data fetching (already installed in v1.0)
+# npm install swr
+
+# Barcode display — NEW for v1.1 (123 Service top-up)
+npm install react-barcode
+
+# DOM-to-image — NEW for v1.1 (e-receipt download/share)
+npm install html-to-image
+
+# WebAuthn biometric login — NEW for v1.1
+npm install @simplewebauthn/browser @simplewebauthn/server
 
 # PWA service worker
 npm install @serwist/next
@@ -441,6 +554,11 @@ npm install -D @playwright/test
 | QR generation | react-qr-code | qr-code-styling | Unnecessary visual complexity for PromptPay standard |
 | QR scanning | @yudiel/react-qr-scanner | html5-qrcode | Large bundle, outdated |
 | QR scanning | @yudiel/react-qr-scanner | react-qr-scanner (kybarg) | Abandoned 3 years ago, iOS broken |
+| Barcode display | react-barcode | bwip-js | 100+ barcode types bundled; overkill for single Code 128 |
+| Barcode display | react-barcode | react-jsbarcode | 8K vs 105K weekly downloads; less community validation |
+| DOM-to-image | html-to-image | html2canvas | Slower; SVG bugs; not ESM-native |
+| DOM-to-image | html-to-image | dom-to-image | Older; html-to-image is the maintained fork |
+| Biometric | @simplewebauthn/* | Raw navigator.credentials | 200+ lines boilerplate; CBOR encoding also needed separately |
 | Currency | Intl.NumberFormat | currency.js | Native API covers all needs, 0KB cost |
 | Currency | Intl.NumberFormat | numeral | Unmaintained since 2019 |
 | PWA | Serwist | next-pwa | Unmaintained, broken on Next.js 15+ |
@@ -464,6 +582,10 @@ npm install -D @playwright/test
 
 **next-intl v4 ESM:** The package is ESM-only. If any bundler or test config uses CommonJS transforms without proper ESM interop, imports will fail. Vitest with `environment: 'jsdom'` requires explicit ESM support in `vite.config.ts`.
 
+**WebAuthn origin binding:** WebAuthn credentials are bound to the exact origin (scheme + hostname + port). `localhost` credentials cannot be used on `app.example.com`. Test biometric login on the deployed HTTPS domain, or use `https://localhost` with a self-signed cert.
+
+**html-to-image browser-only:** The library calls DOM APIs directly — it will crash if imported into a Server Component or called during SSR. Import inside a `useEffect` or behind a dynamic import with `{ ssr: false }`.
+
 ---
 
 ## Sources
@@ -475,9 +597,13 @@ npm install -D @playwright/test
 - Next.js PWA guide: https://nextjs.org/docs/app/guides/progressive-web-apps
 - Vitest with Next.js: https://nextjs.org/docs/app/guides/testing/vitest
 - iOS PWA camera limitation: https://dev.to/niscontractor/qr-code-integration-in-pwa-and-its-challenges-18o4
-- Nimiq QR Scanner: https://github.com/nimiq/qr-scanner
 - @yudiel/react-qr-scanner: https://www.npmjs.com/package/@yudiel/react-qr-scanner
 - react-qr-code: https://github.com/rosskhanas/react-qr-code
+- react-barcode npm: https://www.npmjs.com/package/react-barcode
+- html-to-image comparison: https://npm-compare.com/dom-to-image,html-to-image,html2canvas
+- SimpleWebAuthn npm: https://www.npmjs.com/package/@simplewebauthn/server
+- SimpleWebAuthn docs: https://simplewebauthn.dev/
+- WebAuthn iOS Face ID / Touch ID: https://webkit.org/blog/11312/meet-face-id-and-touch-id-for-the-web/
 - Noto Sans Myanmar UI: https://notofonts.github.io/noto-docs/specimen/NotoSansMyanmarUI/
 - Intl.NumberFormat MDN: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat
 - Zustand v5 + Next.js App Router: https://www.technetexperts.com/nextjs-zustand-app-router-state/

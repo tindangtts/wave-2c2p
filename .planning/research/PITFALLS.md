@@ -1,385 +1,422 @@
-# Domain Pitfalls
+# Pitfalls Research
 
-**Domain:** Mobile Banking / Cross-Border Remittance PWA (Thailand → Myanmar)
-**Project:** 2C2P Wave
-**Researched:** 2026-04-14
-**Stack:** Next.js 16 App Router + Supabase + shadcn/ui + Tailwind CSS v4
+**Domain:** Mobile Banking PWA — v1.1 Feature Addition to Existing System
+**Project:** 2C2P Wave (Next.js 16 + Supabase + shadcn/ui)
+**Researched:** 2026-04-15
+**Confidence:** HIGH (integration pitfalls validated against codebase; iOS/WebAuthn pitfalls verified against official sources)
 
 ---
 
 ## Critical Pitfalls
 
-Mistakes that cause rewrites, security incidents, or regulatory/financial failures.
+### Pitfall 1: P2P Wallet Transfer Collides with Existing A/C Transfer Store
+
+**What goes wrong:**
+The existing `transfer-store.ts` was designed for A/C (bank/agent/cash) transfers and persists `selectedRecipient`, `channel`, `rate`, `rateValidUntil`, and `feeSatang` to localStorage. P2P wallet-to-wallet transfers have a fundamentally different shape: the "recipient" is a wallet ID (not a `Recipient` object), there is no channel selection step, and the exchange rate is irrelevant (THB→THB). If P2P reuses `useTransferStore`, entering P2P flow partially populates the store with incompatible data — then when the user returns to the A/C transfer flow, they hit the confirmation page with a wallet ID where a `Recipient` object is expected. The guard `if (!channel || !selectedRecipient)` redirects them but to the wrong step, losing all form progress.
+
+**Why it happens:**
+P2P feels like "just another transfer type" and developers reach for the existing store to avoid duplication.
+
+**Consequences:**
+- Corrupt store state bleeds between P2P and A/C flows across navigation
+- QR scan from the Scan tab populates the store inconsistently depending on which transfer mode is active
+- Passcode confirmation sheet receives wrong data shape, causing silent submission failures
+
+**How to avoid:**
+Create a dedicated `p2p-transfer-store.ts` with its own localStorage key (`wave-p2p-store`). The P2P flow reads and writes only to this store. The existing `useTransferStore` is untouched. Add a `reset()` call to each flow's entry point — both P2P and A/C — so stale state from the other flow cannot leak.
+
+**Warning signs:**
+- Transfer confirm page briefly renders `undefined` recipient name then redirects
+- Console shows `setChannel(null)` being called from the P2P path
+- QR scan navigates to `/transfer/recipient` instead of `/p2p/confirm`
+
+**Phase to address:** P2P Wallet Transfer phase (implement before or in parallel with QR scan refactor)
 
 ---
 
-### Pitfall 1: Supabase RLS Not Enabled on Sensitive Tables
+### Pitfall 2: iOS Safari Camera Re-Prompts on Every Page Navigation
 
-**What goes wrong:** Supabase creates tables with RLS disabled by default. Any table without explicit `ALTER TABLE ... ENABLE ROW LEVEL SECURITY` is fully readable by any authenticated client — including wallets, transactions, kyc_documents, recipients. In January 2025, 170+ apps with this exact mistake exposed 13,000 users' financial and identity data (CVE-2025-48757).
+**What goes wrong:**
+iOS Safari PWA does not persist camera permissions across page loads. Every time Next.js performs a client-side navigation to a new route while `getUserMedia` is active or re-requested, iOS will show the camera permission dialog again. This is a documented WebKit bug (WebKit bug #215884) that remains open as of April 2025. The v1.0 CLAUDE.md already flags this for eKYC — but v1.1 adds *two more* camera flows: Selfie/Liveness capture and the QR scanner (for P2P wallet ID entry). Both are new entry points that can trigger this re-prompt.
 
-**Why it happens:** Developers test in the SQL Editor, which runs as the `postgres` superuser and bypasses all RLS. Everything looks correct in development; the breach only appears in production.
+**Why it happens:**
+iOS Safari revokes camera access whenever the route changes (including hash changes and Next.js soft navigations that swap the document). The PWA standalone mode does not grant persistent camera access.
 
-**Consequences:** Any authenticated user can read every wallet balance, every transaction, every KYC document, and every recipient entry belonging to every other user. In a remittance app serving migrant workers, this is both a PDPA violation (Thailand) and a complete trust collapse.
+**Consequences:**
+- Liveness capture (selfie overlay) prompts for camera permission even if the user already granted it during document scan
+- QR scanner on the Scan tab triggers a re-prompt if the user navigated away then returned
+- Users on older iOS (pre-15) must re-grant every single time, causing drop-off
 
-**Prevention:**
-- Enable RLS on every table immediately at schema creation — treat it as a required migration step, not an afterthought
-- Create a CI check that queries `pg_tables` and fails the build if any table in the `public` schema has `rowsecurity = false`
-- Never test data access logic in the Supabase SQL editor; always test via the Supabase JS client with a real authenticated user session
-- Ensure all tables have at minimum a `user_id = auth.uid()` SELECT policy before any UI wires up to them
+**How to avoid:**
+- Implement Selfie/Liveness as a *continuation of the same page/component* where camera was already active — do not navigate to a new route between document capture and selfie capture. The KYC flow should be a single-page state machine (`captureStep` in `useKYCStore`) as it already is — never break this into separate routes
+- The QR scanner must initialize `getUserMedia` only once per component mount, not per render. Cache the MediaStream reference in a `useRef` and stop it only on unmount
+- On the Scan tab, keep the video element mounted in the background (not unmounted on tab switch) to avoid re-requesting permissions on re-entry — use CSS visibility instead of conditional rendering
 
-**Warning signs:** Data appears in the UI for rows you didn't create. Supabase Studio SQL editor returns rows that your app query also returns without any WHERE clause.
+**Warning signs:**
+- Users report "camera permission pops up twice"
+- QR scanner shows blank video frame on iOS after navigating away and back
+- Selfie step shows permission dialog even after document capture succeeded
 
-**Phase:** Address in Phase 1 (database schema and auth foundation) before any data-reading UI is wired.
-
----
-
-### Pitfall 2: RLS Policy Using Mutable `user_metadata`
-
-**What goes wrong:** Writing RLS policies that check `auth.jwt() -> 'user_metadata'` (e.g., `role`, `kyc_status`, `tier`) creates a privilege escalation vulnerability. Authenticated users can call `supabase.auth.updateUser({ data: { kyc_status: 'approved' } })` and modify their own metadata, bypassing KYC gates.
-
-**Why it happens:** `user_metadata` is the obvious place to store profile flags. The Supabase docs warn against this in security contexts, but it is easy to miss.
-
-**Consequences:** A user with a rejected KYC status sets `kyc_status: 'approved'` in their own JWT and gains access to transfer and withdrawal flows. For a mock service, this is an embarrassing demo failure. For a real deployment, it is fraud.
-
-**Prevention:**
-- Store KYC status, user tiers, and access flags in a server-controlled `user_profiles` table, not in `user_metadata`
-- Write RLS policies that JOIN against this table: `EXISTS (SELECT 1 FROM user_profiles WHERE user_profiles.user_id = auth.uid() AND user_profiles.kyc_status = 'approved')`
-- Only use `auth.uid()` (the user's immutable UUID) in RLS policies — never `auth.jwt() -> 'user_metadata'`
-- Use `auth.jwt() -> 'app_metadata'` (server-only, not user-modifiable) if you must embed flags in the JWT
-
-**Warning signs:** Any RLS policy referencing `user_metadata`. Any policy that can be satisfied by calling `updateUser()` from the client.
-
-**Phase:** Address in Phase 1 (auth schema design) and review in every phase that adds new RLS policies.
+**Phase to address:** Selfie/Liveness phase and QR Scanner refactor
 
 ---
 
-### Pitfall 3: Supabase Storage Buckets Set to Public for KYC Documents
+### Pitfall 3: Cash Pick-up Secret Code Generated Client-Side
 
-**What goes wrong:** Creating the `kyc-documents` storage bucket as "Public" means anyone with the file URL can download any user's passport, NRC, work permit, or selfie — no authentication required. Public buckets bypass all access controls for retrieval.
+**What goes wrong:**
+The cash pick-up channel requires a secret code the recipient presents at an agent to collect funds. If this code is generated on the client (e.g., `Math.random()` or even `crypto.getRandomValues()` in the browser), the code is never authoritatively stored before the user sees it. On a flaky 3G connection, the POST to record the transaction may fail *after* the client already showed the code to the user. Now the user has memorized (or screenshotted) a code that does not exist in the backend. Alternatively, if the code is generated in the frontend component and the user refreshes the receipt page, the component re-renders and generates a *different* code — but the backend has the original.
 
-**Why it happens:** Public buckets are simpler to implement (no signed URL generation needed), and developers reach for them during rapid scaffolding.
+**Why it happens:**
+Developers generate the code before the API call for display purposes, then pass it to the API. This feels simpler than a round-trip but creates a split-brain state.
 
-**Consequences:** KYC documents are biometric and identity data subject to Thailand's PDPA and Myanmar's equivalent laws. A public bucket is a regulatory violation and a catastrophic privacy breach.
+**Consequences:**
+- Recipient arrives at agent with a code that cannot be verified
+- Double-generation on refresh causes different codes on every page visit
+- No audit trail if the code is never persisted server-side
 
-**Prevention:**
-- Create `kyc-documents` as a **private** bucket from day one
-- Generate short-lived signed URLs server-side (via Supabase service role on an API route) for displaying documents — never expose permanent URLs to the client
-- Apply storage RLS policies: `bucket_id = 'kyc-documents' AND auth.uid()::text = (storage.foldername(name))[1]` — prefix all uploads with the user's UUID as the first path segment
-- Restrict upload to authenticated users only; restrict download to the document owner and backend service role only
+**How to avoid:**
+- Generate the secret code *server-side only* (in the mock-payment API route) using `crypto.randomBytes(4).toString('hex').toUpperCase()` — 8-character alphanumeric
+- The API response includes the code; the client only receives and displays it
+- Store the code in the transaction record in Supabase — never derive it from client state
+- The receipt page fetches the transaction by ID (from SWR) — it does not store the code in Zustand
 
-**Warning signs:** `isPublic: true` in any bucket creation migration. Storing file paths directly in the database without signed URL generation on read.
+**Warning signs:**
+- Code shown on confirmation page differs from code on receipt page
+- Refresh of receipt page shows a different code
+- No `secret_code` field in the transaction record from the API
 
-**Phase:** Address in Phase 2 (eKYC flow) when storage is first used.
-
----
-
-### Pitfall 4: Floating-Point Arithmetic for THB/MMK Currency Calculations
-
-**What goes wrong:** Using JavaScript `number` (IEEE 754 float) for currency math introduces silent precision errors. `0.1 + 0.2 = 0.30000000000000004`. In a remittance context, applying a 1.5% fee to 10,000 THB might yield `149.99999999999` instead of `150.00`, and when this is stored and displayed across multiple operations, errors compound.
-
-**Why it happens:** JavaScript's native number type is ubiquitous and "works" for display purposes. The precision errors only surface during multi-step fee calculation chains — exactly what a remittance app does.
-
-**Consequences:** Fee amounts that don't match receipts. Exchange rate calculations that differ between the preview screen and the confirmation screen. Potential regulatory issues if stored amounts don't reconcile.
-
-**Prevention:**
-- **Never use native JavaScript `number` for currency calculations.** Use integer arithmetic in the smallest unit (satang for THB, pya for MMK) throughout all calculation code
-- For display only, use `Intl.NumberFormat` with the correct locale and currency — this is a formatting tool, not a calculation tool
-- For complex fee calculations, use `dinero.js` (type-safe, immutable money arithmetic) or `big.js` (arbitrary precision decimal)
-- Store all monetary values in the database as `NUMERIC(20,0)` integers in the smallest unit, never as `FLOAT` or `DECIMAL` with floating precision
-- Write unit tests that verify `fee(10000) + fee(10000) === fee(20000)` (fee must be associative)
-
-**Warning signs:** Any calculation that multiplies or divides a raw JavaScript number by an exchange rate. Any `parseFloat()` in financial logic. Database columns typed as `FLOAT8` or `DOUBLE PRECISION` for amounts.
-
-**Phase:** Address in Phase 1 (data model design) and Phase 3 (transfer fee calculation engine).
+**Phase to address:** Cash Pick-up channel phase
 
 ---
 
-### Pitfall 5: Exchange Rate Staleness Creating Race Conditions at Confirmation
+### Pitfall 4: Bank Account Deletion with Pending Withdrawals
 
-**What goes wrong:** The rate displayed on the amount-entry screen is fetched once and cached. The user spends 3 minutes filling in recipient details, then confirms the transfer — but the rate shown in the confirmation summary is the stale value from 3 minutes ago, not the live rate. If rates are mock and deterministic, this seems harmless. When wired to real rates, users confirm at one rate and receive transfers calculated at another, creating disputes.
+**What goes wrong:**
+When a user deletes a saved bank account that has a pending withdrawal referencing it, the withdrawal record loses its destination. The existing `Recipient` type has `bank_name` and `account_no` fields — if bank accounts are managed as a separate entity (not embedded in recipients), the foreign key relationship must be handled. A hard delete cascades to the transaction reference and corrupts the audit trail. If there is no cascade and the FK is violated, the delete will throw a 23503 PostgreSQL error that surfaces as an unhandled exception in the UI.
 
-**Why it happens:** Developers fetch the rate on page load and use it for the entire multi-step flow without re-fetching or invalidating.
+**Why it happens:**
+Bank account CRUD is added as a new feature without checking for outstanding FK references in existing withdrawal records.
 
-**Consequences:** User sees "1 THB = 48.5 MMK" when they initiated; confirmation shows the same stale rate; actual processing uses a newer rate. User confusion, support tickets, trust erosion.
+**Consequences:**
+- Pending withdrawals reference a deleted bank account — agent cannot process
+- PostgreSQL FK violation crashes the delete operation with an unhelpful error message
+- Audit trail for regulatory compliance is broken
 
-**Prevention:**
-- Assign each exchange rate a TTL (e.g., 15 minutes) and a `rate_expires_at` timestamp
-- Display a countdown timer ("Rate valid for 14:23") on the amount-entry screen — the UI review already identified this as a UX need; treat it as a technical requirement too
-- Re-fetch the rate at the confirmation screen (before the user commits); if the rate changed by more than a configured threshold (e.g., 0.5%), show a "Rate Updated" alert and require re-confirmation
-- Lock the rate server-side when the user submits confirmation — the locked rate is what gets processed, regardless of subsequent market movement
-- For the mock service: expose a `rate_locked_at` and `rate_expires_at` in the API response to build this discipline into the mock from day one
+**How to avoid:**
+- Before allowing delete, query for pending/processing withdrawals that reference the account and block deletion with an explicit user message: "This account has a pending withdrawal. Please wait for it to complete."
+- Use soft delete (`deleted_at` timestamp) instead of hard delete — RLS policy filters `WHERE deleted_at IS NULL` from user queries but preserves records for the audit trail
+- Add a Supabase DB migration that enforces the FK constraint with `ON DELETE RESTRICT` so the database itself blocks deletions that would break referential integrity
 
-**Warning signs:** Exchange rate fetched in `useEffect` on component mount and stored in local state without expiry logic. No `rate_id` or `rate_expires_at` passed to the confirmation endpoint.
+**Warning signs:**
+- Delete succeeds but transaction history shows blank destination for a withdrawal
+- 500 error on delete with no user-facing message
+- Supabase logs show `ERROR: 23503 foreign key violation`
 
-**Phase:** Address in Phase 3 (transfer flow) when the amount-entry and confirmation screens are built.
-
----
-
-### Pitfall 6: iOS Safari Camera Access Failure in PWA Mode
-
-**What goes wrong:** When a user installs the Wave PWA to their iOS home screen (standalone mode), `getUserMedia()` and `navigator.mediaDevices` can fail silently or throw a `NotAllowedError` even after the user previously granted camera permission in Safari. This specifically breaks the eKYC document scanning and face verification flows.
-
-**Why it happens:** WebKit has a documented, long-standing bug (WebKit bug #185448) where camera access granted in Safari's browser does not carry over to the standalone PWA context. The PWA is treated as a separate origin for permission purposes.
-
-**Consequences:** Users who install the app (the desired outcome for a remittance PWA) cannot complete eKYC. The registration funnel breaks entirely for the most engaged users.
-
-**Prevention:**
-- Test the eKYC camera flow explicitly in iOS Safari in **both** browser mode and home-screen standalone mode during every sprint that touches the camera feature
-- Detect standalone mode: `window.matchMedia('(display-mode: standalone)').matches` — if true and camera fails, show a specific error: "For camera access, please open Wave in Safari directly"
-- Implement a fallback: allow document upload from the camera roll (`<input type="file" accept="image/*" capture="environment">`) — this works in all iOS contexts including standalone mode
-- Never rely solely on `getUserMedia()` for a flow that must complete on iOS PWA; always offer the file-input fallback
-- The mock eKYC service should accept file uploads as an alternate path to the live camera path
-
-**Warning signs:** Camera flow tested only in Chrome on desktop or Android. No test device running iOS in standalone mode. No file upload fallback for document capture.
-
-**Phase:** Address in Phase 2 (eKYC flow) before the camera overlay component is built.
+**Phase to address:** Bank Account Management phase
 
 ---
 
-### Pitfall 7: Myanmar Zawgyi/Unicode Font Collision
+### Pitfall 5: T&C Consent Step Breaks Registration Store State Machine
 
-**What goes wrong:** Myanmar script has two incompatible encoding systems: Zawgyi (a legacy non-Unicode encoding used on an estimated 90%+ of Myanmar devices) and Unicode (the standard). Text stored as Unicode renders as gibberish with a Zawgyi font, and vice versa. If the app stores user-entered names and recipients in Unicode (correct) but a user's device has Zawgyi set as the system font, every Myanmar-script name appears as scrambled characters.
+**What goes wrong:**
+The registration flow currently has steps 1–3 tracked in `useRegistrationStore` with a `step: 1 | 2 | 3` type. Inserting a T&C consent screen requires either: (a) renumbering all existing steps (breaking all step-guard logic), or (b) adding a separate boolean `tcAccepted` field and a new step value `0` or `4`. Option (a) is a regression risk — every `setStep(2)` call in the existing codebase would move to the wrong step. Option (b) requires updating the TypeScript union type and persisted schema, plus migrating any existing localStorage state that has `step: 1 | 2 | 3` to the new schema.
 
-**Why it happens:** Developers test with Unicode Myanmar fonts (Noto Sans Myanmar, Padauk) installed. Myanmar users in the field have Zawgyi as their system font or keyboard. The mismatch is invisible during development.
+**Why it happens:**
+Step numbers feel like a simple counter; adding a step feels like incrementing. The hidden cost is that step numbers are referenced by value throughout the routing guards.
 
-**Consequences:** Recipient names appear corrupted in the transaction list and receipt. Users cannot verify they are sending to the correct person — a critical trust and safety failure in a financial app.
+**Consequences:**
+- Users mid-registration when the deploy happens have stale `step: 1` in localStorage; after the deploy they are shown the wrong step
+- Back button navigation breaks (step 2 goes to step 1, skipping consent)
 
-**Prevention:**
-- Embed the Myanmar font explicitly in the app: load `Noto Sans Myanmar` or `Padauk` via `next/font` (or a self-hosted WOFF2) and apply it to all elements that render Myanmar-script text
-- Use `font-family: 'Noto Sans Myanmar', 'Padauk', sans-serif` in the CSS stack specifically for the `lang="my"` context — this overrides the system font
-- Store all text server-side in Unicode only; if user input arrives in Zawgyi (detectable via library), convert it server-side before storage
-- Use a Zawgyi-to-Unicode detection/conversion library (e.g., `myanmar-tools` from Google) on input fields to handle paste from Zawgyi keyboards
-- Test with a real Android device that has Zawgyi keyboard installed, not just with developer machines
+**How to avoid:**
+- Add T&C as a separate boolean field: `tcAccepted: boolean` to the store — not a renumbered step
+- Place T&C as the *first* screen *before* the numeric step flow starts, gated by the `tcAccepted` check in the layout or entry point
+- Add a Zustand `version` field to the persist middleware and increment it on schema change — this triggers `onRehydrateStorage` to clear stale state: `{ version: 2, migrate: (state, version) => version < 2 ? initialState : state }`
+- Do not reuse `step: 1 | 2 | 3` for the T&C screen
 
-**Warning signs:** Myanmar text displayed using `system-ui` or no explicit `font-family`. No self-hosted or `next/font` Myanmar font loaded. Input fields accepting Myanmar text without Zawgyi detection.
+**Warning signs:**
+- Users report being sent back to step 1 after already completing step 2
+- TypeScript complains about `step: 0` being assigned to `1 | 2 | 3`
+- Console shows hydration mismatch warnings after deploy
 
-**Phase:** Address in Phase 1 (design system, font loading) and Phase 4 (recipient management forms).
-
----
-
-### Pitfall 8: Thai Buddhist Era Year Mismatch in Date Formatting
-
-**What goes wrong:** When `lang` is set to `th` (Thai), `Intl.DateTimeFormat` and `date.toLocaleDateString('th-TH')` output years in the Buddhist Era (BE), which is 543 years ahead of Gregorian (2026 CE = 2569 BE). Components that mix Gregorian dates in state/storage with `th-TH` display formatting will show the correct month/day but a year 543 years in the future. Worse: date range pickers and calendar components may interpret user input in BE as Gregorian, creating off-by-543-year date filters in transaction history.
-
-**Why it happens:** Developers implement date formatting once with `new Date()` and `toLocaleDateString()`, test in English, and miss the Buddhist Era offset. Calendar components from libraries (shadcn Calendar, react-date-picker) are often not aware of Buddhist Era.
-
-**Consequences:** Transaction history date filters return wrong results for Thai-locale users. Receipts show year 2569 where a Thai user expects 2569 (correct) but backend queries in Gregorian (2026) — if the conversion isn't applied to the query parameters, the filter returns nothing.
-
-**Prevention:**
-- Always store dates in the database as UTC ISO 8601 (Gregorian) — never store Buddhist Era dates
-- For display in Thai locale: use `Intl.DateTimeFormat('th-TH-u-ca-gregory', {...})` (explicit `ca-gregory`) to display Gregorian years consistently, or `'th-TH-u-ca-buddhist'` to display Buddhist Era explicitly — never leave the calendar system implicit
-- Document which convention the app uses (the prototype uses Gregorian years in all visible dates — match this)
-- When building date range pickers for transaction history, always parse user input as Gregorian regardless of locale; apply locale formatting only for display
-- Write a unit test: `new Intl.DateTimeFormat('th-TH').format(new Date('2026-01-01'))` should be verified to produce the expected output and confirmed acceptable
-
-**Warning signs:** `toLocaleDateString('th-TH')` used anywhere without specifying `calendar` extension. Date range filter results empty for Thai-locale users. Year values > 2500 appearing in the UI.
-
-**Phase:** Address in Phase 1 (i18n setup) and Phase 5 (transaction history date filter).
+**Phase to address:** T&C / Pre-registration screens phase
 
 ---
 
-### Pitfall 9: Supabase Phone OTP Rate Limiting Causing Signup Failures
+### Pitfall 6: KYC State Machine Regression on Work Permit Update
 
-**What goes wrong:** Supabase Auth enforces a default rate limit of 30 SMS OTPs per hour globally and a per-user minimum interval of 60 seconds between sends. During any user acquisition event (campaign, referral spike), or if OTP delivery fails and users hit "Resend" repeatedly, the limit is hit quickly. The error manifests as a `429` response with a misleading generic error message in the UI.
+**What goes wrong:**
+The KYC status can be `not_started | pending | approved | rejected | expired`. The Work Permit update flow allows an `APPROVED` user to upload a new document. This is a legitimate update (work permit expires), but it must transition the status back to `PENDING` for re-review. The risk is a race condition: the user submits a transfer while the work permit upload is in-flight. If the status transitions to `PENDING` before the transfer is authorized, the transfer guard (`kyc_status === 'approved'`) will block a legitimate in-progress transfer. The reverse is also dangerous: if the guard is not added and the update is silently accepted without re-review, an expired or fraudulent work permit bypasses compliance checks.
 
-**A secondary edge case:** If a user's phone number is registered but their registration is incomplete (dropped off mid-flow), re-initiating OTP for the same number can conflict with the existing auth record. Supabase's phone auth creates or upserts users; incomplete users may be in a limbo state.
+**Why it happens:**
+The update flow is added as a UI feature without modeling the state transition as a deliberate, guarded operation.
 
-**Why it happens:** Rate limits are invisible in development (free tier) and only appear under real traffic patterns.
+**Consequences:**
+- In-flight transfers aborted by KYC status change mid-flow
+- Or: expired work permits accepted without re-verification (compliance failure)
+- `useKYCStore.kycStatus` in localStorage gets out of sync with the server-side status
 
-**Consequences:** Legitimate users cannot receive OTPs. Resend button appears to do nothing. Migrant workers on limited data plans may have already paid for the session.
+**How to avoid:**
+- The work permit update triggers a server-side status transition: `APPROVED → PENDING_UPDATE` (add this new status to the KYC state machine)
+- Existing transfers that are already in `processing` state are NOT affected — only new transfer initiations check the status
+- The transfer entry guard checks the *server-fetched* status (SWR), not the Zustand cache, to avoid stale-cache gating errors
+- Add a clear UI state: "Your KYC is being re-reviewed after document update. Transfers are temporarily paused."
 
-**Prevention:**
-- Expose a user-facing countdown timer for OTP resend (60 seconds) — never show the resend button as active before the interval expires
-- Catch `429` errors explicitly and show a specific message: "You've requested too many codes. Please wait 60 seconds before trying again."
-- For the mock OTP flow (dev/staging), auto-bypass OTP with a dev shortcode (e.g., `000000`) — do not burn real SMS quota during development
-- Configure OTP expiry to 300 seconds (5 minutes) minimum in Supabase dashboard — the default 60-second expiry is too short for users on slow connections who must switch apps to read the SMS
-- Plan the production Supabase tier's SMS limits against expected concurrent registrations at launch
+**Warning signs:**
+- User can initiate a transfer immediately after submitting a new work permit
+- `kycStatus` in localStorage shows `approved` but Supabase shows `pending`
+- Transfer confirm page does not re-check KYC status before passcode verification
 
-**Warning signs:** OTP resend button is enabled immediately after first send. No user-facing countdown. Generic "Something went wrong" error on OTP failure instead of a specific message.
-
-**Phase:** Address in Phase 1 (auth flow) and Phase 2 (registration).
-
----
-
-### Pitfall 10: NRC Number Validation Using Regex Only
-
-**What goes wrong:** Myanmar NRC (National Registration Card) numbers have a structured format: `[State]/[Township 6-char code]([Type])[5-6 digit number]` — e.g., `12/OUKAMA(N)123456`. However, the township codes are a finite, enumerated list (per official records). A regex like `/\d{1,2}\/[A-Z]{6}\((N|E|P|T|R|S)\)\d{5,6}/` accepts any 6-letter string — including completely fictional township codes that do not exist in Myanmar.
-
-**Why it happens:** The NRC structure looks regex-validatable, and the full township enumeration (hundreds of codes) is not well-known to non-Myanmar developers.
-
-**Consequences:** Users can accidentally (or intentionally) enter invalid NRC numbers that pass frontend validation but fail KYC review downstream. The rejection happens late in the flow, after the user has uploaded documents, waited for review, and received a confusing rejection reason.
-
-**Prevention:**
-- Use the `mm-nrc` npm package (or equivalent) which bundles the complete official list of NRC township codes and validates both the format and the legitimacy of the township code
-- Provide a structured NRC input component (state number selector + township dropdown + type selector + number field) rather than a free-text field — this eliminates the regex-vs-enumeration mismatch
-- The `react-mm-nrcform` library provides a React component for this exact UX pattern
-- For the mock eKYC service, validate NRC against the known township list and return a specific rejection reason for invalid township codes
-
-**Warning signs:** NRC input is a single `<input type="text">` with only a regex pattern attribute. No township code dropdown. Mock eKYC accepts any NRC that matches the pattern.
-
-**Phase:** Address in Phase 4 (recipient management) and Phase 2 (registration personal info, if NRC is collected there).
+**Phase to address:** Work Permit / Document Update phase
 
 ---
 
-## Moderate Pitfalls
+### Pitfall 7: FX Rate Staleness on Visa Card Payment
 
-Mistakes that degrade UX, create support load, or require significant rework.
+**What goes wrong:**
+The existing transfer flow has rate expiry logic and a `RateTimer` component — the Visa card payment flow is a *separate* flow that also involves FX conversion (THB to USD or MMK). If the Visa card payment flow does not reuse the same rate-refresh pattern and relies on a rate fetched at page load, the user could confirm a payment at a rate that is 5–10 minutes stale. More critically: if the user hits "Confirm" twice (double-tap on slow connection), and the idempotency key is not enforced, two charges are submitted. A refund flow does not exist in v1.1.
 
----
+**Why it happens:**
+Visa card payment feels like a different domain from the main transfer flow, so the rate-refresh pattern is not ported over. Double-submit is missed because the mock payment API does not enforce idempotency.
 
-### Pitfall 11: Supabase JWT Refresh Race Condition in Multi-Step Flows
+**Consequences:**
+- User charged at wrong exchange rate
+- Double charge on slow network retry — no undo mechanism
+- Rate shown in confirmation is different from rate used in processing
 
-**What goes wrong:** In Next.js App Router with Supabase SSR, multiple server-side requests (layout + page + nested server components) can simultaneously attempt to refresh an expired JWT. The first succeeds, invalidating the refresh token. The second fails with `AuthApiError: Invalid Refresh Token: Already Used`, signing the user out mid-flow — potentially in the middle of submitting a transfer.
+**How to avoid:**
+- Reuse `RateTimer` and the `handleRateExpired` callback from `transfer/confirm/page.tsx` in the Visa payment confirm step
+- Generate a `uuid()` idempotency key client-side when the user lands on the payment confirm page and pass it in every retry of the POST — the mock API must reject duplicate keys within a 5-minute window
+- Disable the "Confirm" button immediately on first tap and show a loading spinner — re-enable only on explicit error
+- Rate expiry check must run *immediately before* the passcode is accepted, not before the page renders
 
-**Prevention:**
-- Use `@supabase/ssr` with a single `createServerClient` instance scoped to the request (via cookies), not a shared module-level client
-- In the Next.js proxy.ts (middleware), refresh the token once at the edge before any route handler runs, so all downstream server components receive a fresh token
-- Test multi-step flows specifically when the JWT is about to expire (token age close to `JWT_EXPIRY`) by setting a short expiry in the dev Supabase project
+**Warning signs:**
+- Visa payment confirm page does not show a countdown timer
+- Two transactions appear in history after a slow-network submission
+- Rate shown on confirm differs from rate in the receipt
 
-**Phase:** Address in Phase 1 (auth architecture).
-
----
-
-### Pitfall 12: Hydration Mismatch from Locale-Dependent Rendering
-
-**What goes wrong:** Server renders a component using the server's locale/timezone (UTC). Client hydrates with the browser's locale (e.g., `th-TH`). If any component renders a formatted date, currency amount, or Buddhist Era year during the initial render, the server and client output differ, producing a React hydration error. This is particularly acute for the wallet balance (formatted with `Intl.NumberFormat`) and transaction timestamps.
-
-**Prevention:**
-- Wrap all locale-dependent rendering in `<Suspense>` with a skeleton fallback, or use the `useEffect` pattern to defer locale-specific formatting to client-only
-- For currency display, render the raw number on the server and apply `Intl.NumberFormat` formatting client-side only
-- iOS Safari additionally auto-detects phone numbers and converts them to links, causing hydration mismatches in transaction detail screens displaying phone numbers — add `<meta name="format-detection" content="telephone=no,date=no,address=no,email=no">` to the root layout
-
-**Phase:** Address in Phase 1 (root layout and design system) and Phase 3 (dashboard wallet card).
+**Phase to address:** Visa Card Payment phase
 
 ---
 
-### Pitfall 13: Touch Targets Below 44px on Low-End Android Devices
+### Pitfall 8: E-Receipt Image Export Fails on Cross-Origin Assets and Myanmar Script
 
-**What goes wrong:** The prototype's quick-action icons, country code selector, OTP digit boxes, and some list items render at approximately 36px — below the WCAG 2.5.8 Level AA minimum of 24px (recommended 44px). On low-end Android devices (screen density varies 160-480 dpi), CSS pixels do not map 1:1 to physical pixels predictably. Targets that appear tappable on a high-end device can be near-impossible to hit on a 5-year-old budget Android phone — exactly the device profile of the migrant worker target persona.
+**What goes wrong:**
+`html2canvas` (the standard choice for DOM-to-image) cannot capture cross-origin images without CORS headers. The receipt page renders: (a) a Supabase Storage avatar/profile image, (b) the Wave logo from `/public`, and (c) Myanmar Unicode text (Noto Sans Myanmar UI). If Supabase Storage is on a different origin and does not have CORS configured for `image/png` responses, `html2canvas` will render a blank rectangle where the image should be. Additionally, the Noto Sans Myanmar UI font must be loaded *and fully rendered* before the canvas capture — if the export is triggered before `document.fonts.ready` resolves, Myanmar script renders as boxes or falls back to a system font.
 
-**Prevention:**
-- Enforce a design system rule: all interactive elements have a minimum computed `height` and `width` of 44px (use CSS `min-height: 2.75rem` as a reset on interactive elements)
-- For icon-only buttons, use padding to expand the tap area while keeping the visual icon smaller: `padding: 10px; icon-size: 24px`
-- Test on a physical low-end Android device (Realme C-series, Samsung A0x) at each phase — emulator DPR does not reproduce real touch imprecision
-- The country code selector flag+code trigger is specifically called out in the UI review as HIGH severity — treat it as a component-level constraint, not a styling detail
+**Why it happens:**
+Developers test on desktop Chrome with fast font loading and same-origin assets; the issues surface only on mobile with remote images and non-Latin fonts.
 
-**Phase:** Address in Phase 1 (design system component creation) with enforcement in every subsequent phase.
+**Consequences:**
+- Receipt exports with blank logo — looks fraudulent
+- Myanmar script characters render as tofu (boxes) in the exported image
+- File size is unexpectedly large on high-DPI screens because `devicePixelRatio` is 3 on modern iPhones
 
----
+**How to avoid:**
+- Await `document.fonts.ready` before calling `html2canvas`
+- Set `{ useCORS: true, allowTaint: false, scale: 2 }` — scale 2 is sufficient for sharing, avoid `devicePixelRatio` directly (can be 3 on iPhone = 9x pixel area)
+- Configure Supabase Storage bucket CORS to allow `GET` from the app's origin
+- Consider `html-to-image` as an alternative — lighter weight and handles CSS custom properties better; but has identical CORS and font constraints
+- Provide a "Share via link" fallback for users where image export fails (Web Share API with a URL instead of a File)
 
-### Pitfall 14: PWA iOS Safari Storage and Service Worker Instability
+**Warning signs:**
+- White rectangle where logo should appear in downloaded image
+- Myanmar text looks correct in browser but garbled in the PNG
+- Exported image is > 2MB for a simple receipt (indicates scale too high)
 
-**What goes wrong:** Safari enforces a 50MB storage quota for PWA caches (significantly lower than Chrome). More critically, Safari purges PWA storage (IndexedDB, Cache API) when the app has not been used for an extended period — potentially clearing cached exchange rates, draft registration state, and offline fallback pages. Service worker cache in Safari is also documented to disappear unexpectedly between sessions.
-
-**Prevention:**
-- Keep the PWA cache budget lean: cache only the offline fallback pages, the design system CSS, and critical UI assets — not transaction data
-- Do not rely on IndexedDB for any data that must survive across sessions on iOS — use Supabase as the source of truth and treat the PWA cache as a temporary performance layer
-- For draft registration state (the UI review identifies no save/resume as HIGH risk), persist to Supabase (server-side) rather than localStorage or IndexedDB
-- Test specifically: install PWA → use for one session → leave for 48 hours → reopen → verify offline fallback still renders
-
-**Phase:** Address in Phase 1 (PWA manifest and service worker configuration) and Phase 2 (registration state persistence).
-
----
-
-### Pitfall 15: Mock Service Toggle Leaking Into Production
-
-**What goes wrong:** The mock eKYC and mock payment services are configured via environment variables (e.g., `MOCK_KYC_ENABLED=true`). If the production deployment inherits development environment variables — or if the default value of the flag is `true` — production users receive simulated approvals and zero-fee transfers.
-
-**Prevention:**
-- Default all mock flags to `false` at the application level; enable explicitly via env vars in dev/staging only
-- Validate mock flags at server startup: if `NODE_ENV === 'production'` and any mock flag is `true`, log a critical error and refuse to start
-- Use Vercel Environment Variables scoped per environment (Preview vs Production) — set mock vars only on Preview
-
-**Warning signs:** `MOCK_KYC_ENABLED` not present in `.env.example` with explicit instructions. Mock bypass code that checks `process.env.MOCK_KYC_ENABLED` with a fallback of `true`.
-
-**Phase:** Address in Phase 1 (project configuration) and validate at each deployment milestone.
+**Phase to address:** E-Receipt Share/Download phase
 
 ---
 
-## Minor Pitfalls
+### Pitfall 9: Biometric Login Uses Wrong Credential Storage on iOS PWA
 
-Technical debt and UX issues that create support tickets but not failures.
+**What goes wrong:**
+WebAuthn is supported in iOS Safari 13.3+ and works in PWA standalone mode. However, there are critical storage caveats: if credentials are stored using `document.cookie` (set from JavaScript), Safari's Intelligent Tracking Prevention caps cookie expiry at 7 days — the biometric credential association expires and the user is silently downgraded to passcode. The correct storage is the Credential Management API's `navigator.credentials.store()`, which persists in the system keychain. Additionally, if the PWA is not installed to the Home Screen (just opened in Safari), Face ID / Touch ID may not trigger the expected authenticator — the user sees a browser-level authentication prompt instead of the system biometric UI.
 
----
+**Why it happens:**
+Developers conflate WebAuthn credential IDs with session cookies and store the association in `localStorage` or `document.cookie` for convenience.
 
-### Pitfall 16: QR Code Expiration Not Enforced Client-Side
+**Consequences:**
+- Biometric login silently stops working after 7 days for Safari cookie storage
+- Users who open the app in Safari browser (not installed) get a confusing "Use passkey" dialog instead of Face ID
+- Zustand persist for the `biometricEnabled: boolean` flag survives but the underlying credential is gone — user sees a broken "Use biometrics" button
 
-**What goes wrong:** The generated payment QR code has a server-side validity window (typically 15 minutes), but the client displays it indefinitely. Users screenshot the QR, open it later, and attempt to pay — the QR fails at the payment provider but the error message is generic.
+**How to avoid:**
+- Store only the credential ID in the Supabase `user_preferences` table (server-side), not in localStorage or cookies
+- On biometric enable, register the credential via `navigator.credentials.create()` and save the `rawId` (as base64) to Supabase
+- Check `navigator.credentials.get()` availability before showing the biometric option — if unavailable (not installed as PWA), hide the toggle entirely
+- Add a `biometricEnabled` field to the user profile in Supabase, not just in Zustand — so the setting survives a Zustand store wipe
 
-**Prevention:** Display a countdown timer below the QR code. When the timer reaches zero, blur/overlay the QR with a "This QR has expired — Tap to generate a new one" state. Validate QR age server-side before processing.
+**Warning signs:**
+- "Use Touch ID" button appears but tapping it shows "No saved credentials" error
+- Biometric works on day 1 but fails on day 8
+- `localStorage` contains a credential ID but `navigator.credentials.get()` returns null
 
-**Phase:** Address in Phase 3 (add-money QR flow).
-
----
-
-### Pitfall 17: Balance Display Showing Stale Data After Transactions
-
-**What goes wrong:** The wallet balance on the home dashboard is fetched once on mount. After the user completes a transfer in another tab or the transfer flow navigates back to home, the balance still shows the pre-transfer amount until the user manually refreshes.
-
-**Prevention:** Use Supabase Realtime to subscribe to the `wallets` table for the authenticated user's row. Update the balance display reactively on any change. Invalidate the balance cache on navigation back to the home screen from any financial flow.
-
-**Phase:** Address in Phase 3 (home dashboard and transfer flow).
-
----
-
-### Pitfall 18: Language Switching Without Persistent Font Loading
-
-**What goes wrong:** When a user switches from English to Myanmar, the Myanmar font (`Noto Sans Myanmar`) may not be loaded yet (it is a large font file). The switch triggers a flash of unstyled/system-font text before the font downloads.
-
-**Prevention:** Preload the Myanmar font file as a `<link rel="preload">` in the document head, even when the initial language is English. Use `font-display: swap` with a fallback stack that keeps Myanmar text legible during load. Consider subsetting the Myanmar font to only the characters needed.
-
-**Phase:** Address in Phase 1 (font loading strategy).
+**Phase to address:** Biometric Login phase
 
 ---
 
-### Pitfall 19: `user_metadata` Write Conflict During Concurrent Registration Steps
+### Pitfall 10: 123 Service Barcode Uses Wrong Format or Is Unscanneable at Print Size
 
-**What goes wrong:** If a user somehow submits two registration steps concurrently (double-tap, network retry), the second `auth.updateUser()` call can overwrite the first. In multi-step registration, this can result in a user profile where Step 3 data overwrites Step 2 data.
+**What goes wrong:**
+The 123 Service / Bill Payment convenience store channel requires a *linear barcode* (Code 128 or Interleaved 2 of 5), not a QR code. The existing `react-qr-code` library generates QR codes only. If the developer reuses it for the 123 channel, the cashier's scanner cannot read it — convenience store scanners use laser scanners optimized for 1D barcodes, not 2D QR readers. Additionally, barcode quiet zones (whitespace on left/right) are mandatory for scanning — rendering the barcode at small size in a card component often clips these zones.
 
-**Prevention:** Use database transactions on the `user_profiles` table rather than sequential `auth.updateUser()` calls. Track registration step server-side; reject out-of-order step submissions. Use idempotency keys on API calls that mutate user data.
+**Why it happens:**
+"Barcode" and "QR code" are treated as interchangeable in the UI. The existing QR generation code is right there.
 
-**Phase:** Address in Phase 2 (registration flow API design).
+**Consequences:**
+- 123 Service payment cannot be processed — cashier cannot scan
+- User believes payment was initiated but nothing is recorded
+- Quiet zone clipping causes scan failures even with the correct library
+
+**How to avoid:**
+- Use `bwip-js` (`@bwip-js/browser`) for Code 128 barcode generation — it renders to a `<canvas>` element with configurable quiet zones
+- Set `includetext: true`, `textxalign: 'center'`, and ensure the barcode container has at least 10px left/right padding on white background
+- Minimum scannable width is 2cm at 96 DPI — on a 430px mobile screen at ~411 DPI, set the canvas width to at least 280px
+- Test by actually scanning with a phone camera or 1D laser scanner before shipping
+
+**Warning signs:**
+- 123 Service page shows a QR code, not a linear barcode
+- Barcode is flush to the card edge with no quiet zone
+- The barcode number is not visible as human-readable text beneath the bars
+
+**Phase to address:** 123 Service Top-up phase
 
 ---
 
-## Phase-Specific Warnings
+## Technical Debt Patterns
 
-| Phase Topic | Likely Pitfall | Mitigation |
-|---|---|---|
-| Database schema creation | RLS not enabled | Enable RLS in the same migration that creates the table — never in a separate later migration |
-| Auth flow (OTP) | Rate limiting during load testing | Use dev bypass code `000000` in non-production |
-| eKYC camera (iOS) | `getUserMedia` failure in standalone PWA | File-input fallback, detect standalone mode |
-| Font system (Myanmar) | Zawgyi/Unicode collision | Self-host Noto Sans Myanmar, detect and convert Zawgyi input |
-| i18n setup (Thai) | Buddhist Era year in date components | Explicitly specify `ca-gregory` or `ca-buddhist` in `Intl.DateTimeFormat` |
-| Transfer fee calculation | Floating-point precision | Integer arithmetic in smallest currency unit from day one |
-| Exchange rate display | Stale rate at confirmation | Re-fetch rate at confirmation step, enforce server-side rate lock |
-| Recipient form (NRC) | Invalid township codes passing validation | Use `mm-nrc` package for township enumeration validation |
-| Storage (KYC documents) | Public bucket exposure | Private bucket + signed URLs from day one |
-| Mock services | Mock flags defaulting to true | Default false, production startup check |
-| PWA service worker | iOS Safari cache purge | Persist registration state to Supabase, not IndexedDB |
-| Home dashboard | Stale wallet balance | Supabase Realtime subscription on wallets row |
-| JWT refresh | Race condition in App Router layouts | Single `createServerClient` per request via middleware |
-| Touch targets | Below 44px on budget Android | Design system min-height constraint, physical device testing |
+| Shortcut | Immediate Benefit | Long-term Cost | When Acceptable |
+|----------|-------------------|----------------|-----------------|
+| Reuse `useTransferStore` for P2P transfers | No new store to create | Flow state corruption across two incompatible flows | Never |
+| Generate secret code client-side | No API round-trip | Split-brain state; code shown ≠ code stored | Never for financial codes |
+| Hard-delete bank accounts | Simple SQL | FK violations; broken audit trail | Never in banking |
+| Store biometric credential ID in localStorage | Easy access | 7-day ITP expiry in Safari; silent failure | Never |
+| Use `Math.random()` for any financial reference | Fast | Predictable; not cryptographically secure | Never |
+| Skip font-ready check before html2canvas | Simpler export trigger | Myanmar script renders as boxes | Never for Myanmar locale |
+| Reuse QR code component for 1D barcodes | Reuse existing code | Unscannable at POS; payment failure | Never |
+| Step renumbering to insert T&C | Simple to reason about | Breaks all mid-flow users on deploy | Never in multi-step persisted flows |
+| Poll notifications on short interval (< 10s) | Near real-time feel | Battery drain on mobile; Supabase read quota | Use Supabase Realtime instead |
+| Check KYC status from Zustand cache for transfer gate | No extra fetch | Stale status allows transfers after KYC revision | Never for financial gates |
+
+---
+
+## Integration Gotchas
+
+| Integration | Common Mistake | Correct Approach |
+|-------------|----------------|------------------|
+| Supabase Storage (CORS) | Assets render in browser but blank in html2canvas | Add CORS policy to Storage bucket allowing GET from app origin |
+| Supabase Realtime (notifications) | Subscribe without cleanup on unmount | Always call `channel.unsubscribe()` in useEffect cleanup |
+| WebAuthn on iOS PWA | Show biometric option in browser Safari (not installed) | Gate on `window.matchMedia('(display-mode: standalone)')` |
+| SWR + Supabase session | SWR fetcher uses stale Supabase token after session refresh | Use `supabase.auth.onAuthStateChange` to call `mutate()` globally |
+| next-intl + registration step store | Step number stored in `localStorage`; locale changes cause re-render but step rehydrates from old store | Store locale preference separately; registration step store is locale-agnostic |
+| bwip-js (barcode) | Font files not copied to `public/` | Copy `node_modules/@bwip-js/browser/fonts/` to `public/bwip-fonts/` and set `fonturl` option |
+| ios camera + MediaStream | Stop tracks on component unmount is missed, camera stays on | Always call `stream.getTracks().forEach(t => t.stop())` in useEffect cleanup |
+| Supabase FK (soft delete) | RLS SELECT policy blocks the UPDATE that sets `deleted_at` | Use `SECURITY DEFINER` function or service role for soft-delete mutation |
+
+---
+
+## Performance Traps
+
+| Trap | Symptoms | Prevention | When It Breaks |
+|------|----------|------------|----------------|
+| Notification polling on 5s interval | Battery drain, Supabase read costs spike | Use Supabase Realtime subscriptions; poll at 30s fallback | Day 1 if polling interval is < 10s |
+| html2canvas on full viewport receipt | Export takes 3–5 seconds, UI freezes | Render receipt in a hidden fixed-position container at 390px wide; capture only that node | Any receipt with > 20 DOM nodes |
+| Myanmar address cascade loads all options upfront | 300+ options in a dropdown on mount | Load State list only; lazy-fetch Township on State select; lazy-fetch Ward on Township select | First render on 3G with full cascade |
+| SWR for recipient favourites re-fetches full list on every toggle | Visible flash; extra network round-trips | Use SWR `mutate` with optimistic update; revalidate only on error | > 20 recipients |
+| Large base64 images in Zustand localStorage (KYC) | localStorage quota exceeded (5MB iOS) | Store only image URLs after upload, not base64 strings | KYC with 3 images at 1MB each |
+
+---
+
+## Security Mistakes
+
+| Mistake | Risk | Prevention |
+|---------|------|------------|
+| Display secret pick-up code in URL params | Code visible in browser history, server logs | Store code in state/SWR only; never in URL |
+| Pass transfer amount in client-controlled POST body without server validation | Amount tampering (send 0 THB, backend records full amount) | Server-side fee and amount recalculation before processing |
+| Biometric credential ID stored in Zustand localStorage | Credential ID leaked if device storage is inspected | Store credential ID in Supabase user record only |
+| Cash pick-up code derived from transaction ID | Predictable — anyone with a transaction ID can guess the code | Generate server-side with `crypto.randomBytes` independently |
+| Referral code in URL with no expiry / rate-limit | Referral farming | Limit to one referral redemption per phone number at DB level |
+| Notification inbox shows sensitive transaction amounts without auth re-check | Push preview on lock screen shows financial data | Mark notification content as generic until user unlocks; detail only after passcode/biometric |
+
+---
+
+## UX Pitfalls
+
+| Pitfall | User Impact | Better Approach |
+|---------|-------------|-----------------|
+| Recipient favourites sort order inconsistent with search results | User cannot find favourite in search | Favourites appear first in unfiltered list; search returns all results ranked by favourite status |
+| Social share uses `navigator.share()` without Web Share API feature detection | "undefined is not a function" crash on older Android | `if (navigator.share) { ... } else { fallback to copy link }` |
+| Liveness selfie guide overlay covers the shutter button on small screens | Users cannot trigger capture | Test layout at 375px (iPhone SE); ensure overlay does not extend beyond `100dvh` |
+| Daily limit acknowledgment screen appears mid-transfer after KYC | Breaks user's mental model of "already registered" | Show daily limit screen during initial registration, not as a transfer gate |
+| Notification unread badge count does not reset on inbox open | Badge stays red even after reading all | Mark all as read on inbox mount; decrement SWR cache count optimistically |
+| Myanmar address cascade shows English state names to Myanmar-locale users | Confusing for low-literacy users | Store both `name_en` and `name_mm` in the address data source; render based on locale |
+
+---
+
+## "Looks Done But Isn't" Checklist
+
+- [ ] **P2P Transfer:** QR scan from Scan tab correctly routes to P2P confirm (not A/C transfer confirm) — verify the router.push target is `/p2p/confirm`, not `/transfer/confirm`
+- [ ] **Cash Pick-up:** Secret code is present in the transaction record in Supabase — verify the mock API returns `secret_code` in the response body and it is stored
+- [ ] **Biometric Login:** Biometric toggle is hidden in Safari browser (non-installed PWA) — verify `window.matchMedia('(display-mode: standalone)').matches` gate exists
+- [ ] **Bank Account Delete:** Delete is blocked when pending withdrawals exist — verify the guard query runs before the delete mutation
+- [ ] **Work Permit Update:** Transfer initiation is blocked while KYC status is `pending_update` — verify the transfer entry point checks server-fetched status, not Zustand cache
+- [ ] **E-Receipt Export:** Myanmar text renders correctly in the PNG — test on a device with Myanmar locale and Noto Sans Myanmar UI loaded
+- [ ] **123 Service Barcode:** A linear barcode (Code 128) is rendered, not a QR code — verify by scanning with a 1D barcode scanner app
+- [ ] **Visa Card Payment:** Double-tap "Confirm" does not submit two charges — verify the button is disabled after first tap and the mock API rejects duplicate idempotency keys
+- [ ] **Notification Inbox:** Unread badge disappears after opening inbox — verify badge count resets on `NotificationInbox` mount
+- [ ] **T&C Consent:** Mid-registration users on deploy do not lose progress — verify Zustand store version migration resets only `tcAccepted`, not the entire registration state
+- [ ] **Selfie/Liveness:** Camera permission is NOT re-prompted between document scan and selfie — verify both steps use the same component page, not separate routes
+- [ ] **Recipient Favourites:** Favourites filter correctly combines with date/status filters — verify the filter logic is AND (not OR) with other active filters
+
+---
+
+## Recovery Strategies
+
+| Pitfall | Recovery Cost | Recovery Steps |
+|---------|---------------|----------------|
+| P2P store collision causes corrupt transfer state | LOW | Add `reset()` call to both flow entry points; clear localStorage key `wave-transfer-store` on P2P entry |
+| Cash pick-up code split-brain | HIGH | Requires customer support to void transaction and re-initiate; prevent by server-side generation only |
+| Bank account deletion broke FK reference | MEDIUM | Restore soft-delete; backfill `deleted_at` for affected records; add DB constraint migration |
+| T&C step numbering broke mid-flow users | LOW | Bump Zustand `version` to trigger store clear; users restart registration (< 3 steps to redo) |
+| Biometric credential expired (7-day cookie) | LOW | UI detects null credential and prompts user to re-enable biometrics; no data loss |
+| html2canvas Myanmar font boxes | LOW | Await `document.fonts.ready` before capture; no data loss, just re-export needed |
+| 123 barcode unscanneable | MEDIUM | Switch to bwip-js on next deploy; affected users need to re-initiate top-up |
+
+---
+
+## Pitfall-to-Phase Mapping
+
+| Pitfall | Prevention Phase | Verification |
+|---------|------------------|--------------|
+| P2P / A/C store collision | P2P Wallet Transfer | QA: navigate P2P → A/C transfer; confirm confirm page shows correct recipient type |
+| iOS camera re-prompt on selfie | Selfie / Liveness Capture | QA: test on physical iPhone, grant camera on document scan, proceed to selfie without re-prompt |
+| Cash pick-up secret code | Cash Pick-up Channel | QA: refresh receipt page; verify code is unchanged and matches Supabase record |
+| Bank account deletion safety | Bank Account Management | QA: create pending withdrawal, attempt account delete; verify blocked |
+| T&C step number regression | Pre-Registration / T&C | QA: set localStorage `step: 2`, deploy, verify user is not sent to wrong step |
+| KYC state machine regression | Work Permit Update | QA: APPROVED user uploads new permit; verify transfer initiation is blocked; verify existing processing transfers complete |
+| FX rate staleness / double charge | Visa Card Payment | QA: wait for rate to expire on confirm page; verify rate refreshes. Double-tap confirm; verify single transaction |
+| E-receipt Myanmar font | E-Receipt Share/Download | QA: switch locale to Myanmar, generate receipt, export image, verify Myanmar script in PNG |
+| Biometric credential storage | Biometric Login | QA: enable biometrics, clear cookies, reopen app; verify biometric still works (credential in Supabase, not cookie) |
+| 123 barcode format | 123 Service Top-up | QA: render 123 barcode, scan with 1D barcode scanner app; verify successful scan |
 
 ---
 
 ## Sources
 
-- Supabase RLS Documentation: https://supabase.com/docs/guides/database/postgres/row-level-security
-- Supabase RLS Performance and Best Practices: https://supabase.com/docs/guides/troubleshooting/rls-performance-and-best-practices-Z5Jjwv
-- Supabase Production Checklist: https://supabase.com/docs/guides/deployment/going-into-prod
-- Supabase Storage Access Control: https://supabase.com/docs/guides/storage/security/access-control
-- CVE-2025-48757 / 170+ exposed Supabase apps: https://byteiota.com/supabase-security-flaw-170-apps-exposed-by-missing-rls/
-- Concurrent token refresh race condition: https://github.com/supabase/auth-js/issues/213
-- Camera access in iOS PWA (WebKit bug #185448): https://kb.strich.io/article/29-camera-access-issues-in-ios-pwa
-- PWA iOS limitations 2026: https://www.magicbell.com/blog/pwa-ios-limitations-safari-support-complete-guide
-- Zawgyi vs Unicode: https://www.globalapptesting.com/blog/zawgyi-vs-unicode
-- Myanmar NRC format: https://github.com/wai-lin/mm-nrc
-- Myanmar NRC React component: https://github.com/empiretylh/react-mm-nrcform
-- JavaScript currency precision: https://www.honeybadger.io/blog/currency-money-calculations-in-javascript/
-- JavaScript rounding errors in financial apps: https://www.robinwieruch.de/javascript-rounding-errors/
-- Thai Buddhist calendar in JS Intl: https://day.js.org/docs/en/plugin/buddhist-era
-- Thai year input/display mismatch: https://github.com/wojtekmaj/react-date-picker/issues/294
-- Touch target WCAG 2.5.8: https://www.w3.org/WAI/WCAG21/Understanding/target-size.html
-- Next.js hydration errors: https://nextjs.org/docs/messages/react-hydration-error
-- Supabase phone OTP rate limiting: https://supabase.com/docs/guides/auth/rate-limits
+- iOS PWA camera permission re-prompt: https://kb.strich.io/article/29-camera-access-issues-in-ios-pwa
+- WebKit bug #215884 (camera permission on hash change): https://bugs.webkit.org/show_bug.cgi?id=215884
+- WebAuthn iOS Safari ITP cookie 7-day cap: https://webkit.org/blog/11312/meet-face-id-and-touch-id-for-the-web/
+- Zustand persist hydration mismatch in Next.js: https://github.com/pmndrs/zustand/discussions/1382
+- html2canvas cross-origin and font pitfalls: https://blog.logrocket.com/export-react-components-as-images-html2canvas/
+- html-to-image as alternative: https://medium.com/better-programming/heres-why-i-m-replacing-html2canvas-with-html-to-image-in-our-react-app-d8da0b85eadf
+- Web Share API iOS limitations: https://web.dev/web-share/
+- Idempotency key double-charge prevention: https://medium.com/javarevisited/idempotency-strategies-for-modern-payment-systems-c285165382f4
+- Supabase soft delete with RLS: https://github.com/orgs/supabase/discussions/2799
+- bwip-js browser barcode generation: https://www.npmjs.com/package/@bwip-js/browser
+- Supabase Realtime with Next.js: https://supabase.com/docs/guides/realtime/realtime-with-nextjs
+- PWA iOS limitations 2025: https://www.magicbell.com/blog/pwa-ios-limitations-safari-support-complete-guide
+
+---
+*Pitfalls research for: 2C2P Wave v1.1 feature additions*
+*Researched: 2026-04-15*
