@@ -114,7 +114,14 @@ Plans:
   1. User can view referral stats (count of referred friends, total bonus earned) and share their referral link via WhatsApp, Line, or copy-to-clipboard
   2. User can open a notification inbox from the home screen bell icon; unread notifications display a badge count; user can mark individual or all notifications as read
   3. User can enrol a biometric credential (Face ID / Touch ID / Fingerprint) from profile settings and subsequently authenticate at login using only biometrics, with automatic fallback to passcode if biometrics fail or are unavailable
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 13-01-PLAN.md — Referral stats API + social share buttons (WhatsApp/Line/copy) on refer-friends page
+- [ ] 13-02-PLAN.md — Notifications API (GET/PATCH) + Notification type + i18n strings
+- [ ] 13-03-PLAN.md — Notification inbox page + TopHeader bell badge + navigation
+- [ ] 13-04-PLAN.md — WebAuthn API routes + profile biometrics toggle + passcode biometric button
+
 **UI hint**: yes
 
 ## Progress
@@ -133,4 +140,4 @@ Plans:
 | 10. Transfer Enhancements | v1.1 | 5/5 | Complete    | 2026-04-15 |
 | 11. Wallet Operations | v1.1 | 4/4 | Complete    | 2026-04-15 |
 | 12. Complex Flows | v1.1 | 4/4 | Complete    | 2026-04-15 |
-| 13. Engagement & Auth | v1.1 | 0/? | Not started | — |
+| 13. Engagement & Auth | v1.1 | 0/4 | Not started | — |
