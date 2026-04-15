@@ -2,6 +2,7 @@
   "screenTitles": {
     "addMoney": "เติมเงิน",
     "topupWithQr": "เติมเงินด้วย QR",
+    "topup123Service": "เติมเงินที่ 123 เซอร์วิส",
     "scanQrCode": "สแกน QR โค้ด",
     "transactionHistory": "ประวัติธุรกรรม",
     "withdraw": "ถอนเงิน",
@@ -34,6 +35,7 @@
     "withdraw": "ถอนเงิน",
     "close": "ปิด",
     "generateNewQr": "สร้าง QR ใหม่",
+    "generateNewBarcode": "สร้างบาร์โค้ดใหม่",
     "shareQr": "แชร์ QR"
   },
   "filters": {
@@ -57,6 +59,7 @@
     "withdrawalFailed": "การถอนเงินล้มเหลว กรุณาลองใหม่",
     "insufficientBalance": "ยอดเงินในกระเป๋าไม่เพียงพอ",
     "qrExpired": "QR โค้ดหมดอายุแล้ว กรุณาสร้างใหม่",
+    "barcodeExpired": "บาร์โค้ดหมดอายุแล้ว กรุณาสร้างใหม่",
     "belowMinimum": "จำนวนเงินเติมขั้นต่ำคือ 150 บาท",
     "aboveMaximum": "จำนวนเงินเติมสูงสุดคือ 25,000 บาท",
     "cameraAccessDenied": "ไม่ได้รับอนุญาตให้ใช้กล้อง กรุณาอนุญาตในการตั้งค่าอุปกรณ์",

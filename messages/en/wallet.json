@@ -2,6 +2,7 @@
   "screenTitles": {
     "addMoney": "Add Money",
     "topupWithQr": "Top-up with QR",
+    "topup123Service": "Top-up at 123 Service",
     "scanQrCode": "Scan QR Code",
     "transactionHistory": "Transaction History",
     "withdraw": "Withdraw",
@@ -34,6 +35,7 @@
     "withdraw": "Withdraw",
     "close": "Close",
     "generateNewQr": "Generate New QR",
+    "generateNewBarcode": "Generate New Barcode",
     "shareQr": "Share QR"
   },
   "filters": {
@@ -57,6 +59,7 @@
     "withdrawalFailed": "Withdrawal failed. Please try again.",
     "insufficientBalance": "Insufficient wallet balance.",
     "qrExpired": "QR code has expired. Please generate a new one.",
+    "barcodeExpired": "Barcode has expired. Please generate a new one.",
     "belowMinimum": "Minimum top-up amount is 150 THB.",
     "aboveMaximum": "Maximum top-up amount is 25,000 THB.",
     "cameraAccessDenied": "Camera access denied. Please allow camera access in your device settings.",

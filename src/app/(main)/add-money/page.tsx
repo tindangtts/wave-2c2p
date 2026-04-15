@@ -47,7 +47,11 @@ export default function AddMoneyPage() {
       return
     }
     setTopupChannel(channel)
-    router.push(`/add-money/qr?channel=${channel}&amount=${amountSatang}`)
+    if (channel === 'service_123') {
+      router.push(`/add-money/123-service?amount=${amountSatang}`)
+    } else {
+      router.push(`/add-money/qr?channel=${channel}&amount=${amountSatang}`)
+    }
   }
 
   return (
