@@ -76,12 +76,8 @@ export function CameraOverlay({
 
       {/* Center content */}
       <div className="flex-1 flex flex-col items-center justify-center px-4">
-        {variant === 'selfie' && (
-          <p className="text-base text-white text-center mb-6">{instruction}</p>
-        )}
-
         {variant === 'document' ? (
-          /* Document guide frame — 85.6:54 ratio */
+          /* Document guide frame — 85.6:54 ratio — UNCHANGED */
           <div className="relative w-full max-w-[calc(100vw-64px)]" style={{ aspectRatio: '85.6 / 54' }}>
             <div className="absolute inset-0 border-2 border-white/30 rounded-lg" />
             {/* Corner markers */}
@@ -91,17 +87,38 @@ export function CameraOverlay({
             <div className="absolute bottom-0 right-0 w-6 h-6 border-b-[3px] border-r-[3px] border-white rounded-br" />
           </div>
         ) : (
-          /* Selfie circle guide — yellow ring per Pencil design */
-          <div className="relative w-60 h-60">
-            {/* Yellow circle border — main guide */}
-            <div className="absolute inset-0 rounded-full border-[3px] border-[#FFE600]" />
-          </div>
-        )}
+          /* Selfie face guide — circular cutout with dashed border */
+          <div className="flex flex-col items-center">
+            {/* Outer dimming overlay + circular cutout */}
+            <div
+              className="relative animate-fade-in"
+              style={{ width: '240px', height: '240px' }}
+              aria-hidden="true"
+            >
+              {/* Dark semi-transparent background around the circle */}
+              <div
+                className="absolute inset-0 rounded-full"
+                style={{ boxShadow: '0 0 0 9999px rgba(0,0,0,0.55)' }}
+              />
+              {/* Dashed white circle border */}
+              <div
+                className="absolute inset-0 rounded-full"
+                style={{ border: '2px dashed rgba(255,255,255,0.85)' }}
+              />
+            </div>
 
-        {variant === 'selfie' && (
-          <div className="mt-6 text-center">
-            <h2 className="text-lg font-bold text-white mb-2">Take a Selfie</h2>
-            <p className="text-sm text-white/70">{helper}</p>
+            {/* Instruction text — below circle, xl gap (32px) */}
+            <p className="text-base text-white text-center mt-8 px-4">
+              {instruction}
+            </p>
+
+            {/* Helper text */}
+            <p
+              className="text-[12px] text-center mt-2 px-4"
+              style={{ color: 'rgba(255,255,255,0.75)' }}
+            >
+              {helper}
+            </p>
           </div>
         )}
       </div>
