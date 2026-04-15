@@ -140,4 +140,4 @@ Plans:
 | 10. Transfer Enhancements | v1.1 | 5/5 | Complete    | 2026-04-15 |
 | 11. Wallet Operations | v1.1 | 4/4 | Complete    | 2026-04-15 |
 | 12. Complex Flows | v1.1 | 4/4 | Complete    | 2026-04-15 |
-| 13. Engagement & Auth | v1.1 | 4/4 | Complete   | 2026-04-15 |
+| 13. Engagement & Auth | v1.1 | 4/4 | Complete    | 2026-04-15 |
