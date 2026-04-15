@@ -1,11 +1,12 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 // ---------------------------------------------------------------------------
-// Mocks — must be declared before importing the module under test
+// vi.hoisted ensures these are available when vi.mock factory runs
 // ---------------------------------------------------------------------------
-
-const mockGetUser = vi.fn()
-const mockFrom = vi.fn()
+const { mockGetUser, mockFrom } = vi.hoisted(() => ({
+  mockGetUser: vi.fn(),
+  mockFrom: vi.fn(),
+}))
 
 vi.mock('@/lib/supabase/server', () => ({
   createClient: vi.fn().mockResolvedValue({
@@ -49,10 +50,10 @@ function makeQueryChain(resolvedWith: { data: unknown; error: unknown }) {
   methods.forEach(m => {
     chain[m] = vi.fn().mockReturnValue(chain)
   })
-  // terminal calls return the resolved value
+  // terminal calls return resolved value
   ;(chain.maybeSingle as ReturnType<typeof vi.fn>).mockResolvedValue(resolvedWith)
   ;(chain.single as ReturnType<typeof vi.fn>).mockResolvedValue(resolvedWith)
-  // order also needs to be terminal for GET
+  // order is also terminal for GET (no further chaining)
   ;(chain.order as ReturnType<typeof vi.fn>).mockResolvedValue(resolvedWith)
   return chain
 }
@@ -159,7 +160,7 @@ describe('DELETE /api/bank-accounts', () => {
 
   it('returns 409 when pending withdrawal exists for bank account', async () => {
     mockGetUser.mockResolvedValue({ data: { user: mockUser }, error: null })
-    // First from() call: transactions check — returns a pending transaction
+    // transactions check returns a pending transaction
     const pendingChain = makeQueryChain({ data: { id: 'tx-uuid' }, error: null })
     mockFrom.mockReturnValue(pendingChain)
 
@@ -171,13 +172,25 @@ describe('DELETE /api/bank-accounts', () => {
 
   it('returns 200 on successful delete when no pending withdrawal', async () => {
     mockGetUser.mockResolvedValue({ data: { user: mockUser }, error: null })
-    // First call: transactions check — returns null (no pending)
+
+    // First from() call: transactions pending check — returns null (no pending tx)
     const noPendingChain = makeQueryChain({ data: null, error: null })
-    // Second call: delete — returns no error
-    const deleteChain = makeQueryChain({ data: null, error: null })
-    ;(deleteChain.eq as ReturnType<typeof vi.fn>)
-      .mockReturnValueOnce(deleteChain)
-      .mockResolvedValueOnce({ error: null })
+
+    // Second from() call: delete chain — final .eq() resolves with no error
+    const deleteChain: Record<string, unknown> = {}
+    const deleteMethods = ['delete', 'eq']
+    deleteMethods.forEach(m => {
+      deleteChain[m] = vi.fn().mockReturnValue(deleteChain)
+    })
+    // Second .eq() (the user_id eq) resolves with { error: null }
+    let eqCallCount = 0
+    ;(deleteChain.eq as ReturnType<typeof vi.fn>).mockImplementation(() => {
+      eqCallCount++
+      if (eqCallCount >= 2) {
+        return Promise.resolve({ error: null })
+      }
+      return deleteChain
+    })
 
     mockFrom
       .mockReturnValueOnce(noPendingChain)
