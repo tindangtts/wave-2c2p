@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 
 // In-memory map to track when each transaction was first requested
-// This simulates status progression: pending → processing → completed
+// This simulates status progression: pending → processing → success
 const transactionTimestamps = new Map<string, number>()
 
 export async function GET(
@@ -23,8 +23,8 @@ export async function GET(
   // Status progression per D-16:
   // < 1500ms  → pending
   // < 3000ms  → processing
-  // >= 3000ms → completed (or failed if MOCK_PAYMENT_FAIL=true)
-  let status: 'pending' | 'processing' | 'completed' | 'failed'
+  // >= 3000ms → success (or failed if MOCK_PAYMENT_FAIL=true)
+  let status: 'pending' | 'processing' | 'success' | 'failed'
 
   if (elapsed < 1500) {
     status = 'pending'
@@ -32,7 +32,7 @@ export async function GET(
     status = 'processing'
   } else {
     const mockFail = process.env.MOCK_PAYMENT_FAIL === 'true'
-    status = mockFail ? 'failed' : 'completed'
+    status = mockFail ? 'failed' : 'success'
   }
 
   return NextResponse.json({

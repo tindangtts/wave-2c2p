@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import type { Recipient, TransferChannel } from '@/types'
 
-export type TransferStatus = 'idle' | 'pending' | 'processing' | 'completed' | 'failed'
+export type TransferStatus = 'idle' | 'pending' | 'processing' | 'success' | 'failed'
 
 export interface TransferState {
   selectedRecipient: Recipient | null

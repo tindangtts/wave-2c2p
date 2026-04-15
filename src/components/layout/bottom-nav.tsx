@@ -32,6 +32,18 @@ function ScanIcon({ active }: { active: boolean }) {
   );
 }
 
+function AddMoneyIcon({ active }: { active: boolean }) {
+  const color = active ? "#FFE512" : "rgba(255,255,255,0.7)";
+  return (
+    <svg width="27" height="27" viewBox="0 0 28 28" fill="none">
+      <path d="M4 9a2 2 0 012-2h16a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V9z" stroke={color} strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M4 9V7a2 2 0 012-2h12l4 4" stroke={color} strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M20 14h-4m0 0l1.5-1.5M16 14l1.5 1.5" stroke={color} strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M8 17h4m0 0l-1.5-1.5M12 17l-1.5 1.5" stroke={color} strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
+
 function ProfileIcon({ active }: { active: boolean }) {
   const color = active ? "#FFE512" : "rgba(255,255,255,0.7)";
   return (
@@ -42,12 +54,20 @@ function ProfileIcon({ active }: { active: boolean }) {
   );
 }
 
-const navItems = [
+type NavItem = {
+  href: string;
+  label: string;
+  IconComponent: ((props: { active: boolean }) => React.ReactNode) | null;
+  isCenter: boolean;
+};
+
+const navItems: NavItem[] = [
   { href: "/home", label: "Home", IconComponent: HomeIcon, isCenter: false },
   { href: "/scan", label: "Scan", IconComponent: ScanIcon, isCenter: false },
-  { href: "/add-money", label: "Add Money", IconComponent: null, isCenter: true },
+  { href: "/transfer/recipient", label: "Transfer", IconComponent: null, isCenter: true },
+  { href: "/add-money", label: "Add Money", IconComponent: AddMoneyIcon, isCenter: false },
   { href: "/profile", label: "Profile", IconComponent: ProfileIcon, isCenter: false },
-] as const;
+];
 
 export function BottomNav() {
   const pathname = usePathname();
@@ -68,23 +88,20 @@ export function BottomNav() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  aria-label="Add Money"
-                  className="flex flex-col items-center gap-1 -mt-10 mx-4 min-h-[44px] justify-center"
+                  aria-label="Transfer"
+                  className="flex flex-col items-center -mt-10 mx-2 min-h-[44px] justify-center"
                 >
                   {/* Raised yellow circle with white border ring — Pencil design */}
-                  <div className="w-[78px] h-[78px] rounded-full bg-white p-[5px] shadow-lg">
-                    <div className="w-full h-full rounded-full bg-[#FFE512] flex items-center justify-center border-[5px] border-[#f7eb8b]">
+                  <div className="w-[78px] h-[78px] rounded-full bg-white p-[5px] shadow-lg animate-pulse-ring">
+                    <div className="w-full h-full rounded-full bg-[#FFE512] flex items-center justify-center border-[5px] border-[#f7eb8b] active:scale-90 transition-transform duration-100">
                       <Image
-                        src="/icons/nav-add-money.svg"
+                        src="/icons/nav-transfer.svg"
                         alt=""
-                        width={28}
-                        height={28}
+                        width={35}
+                        height={35}
                       />
                     </div>
                   </div>
-                  <span className="text-[0.6875rem] font-medium text-white">
-                    {item.label}
-                  </span>
                 </Link>
               );
             }
@@ -97,13 +114,13 @@ export function BottomNav() {
                 href={item.href}
                 aria-current={isActive ? "page" : undefined}
                 className={cn(
-                  "flex flex-col items-center gap-1 py-1 px-4 min-w-[60px] min-h-[44px] justify-center",
+                  "flex flex-col items-center gap-1 py-1 px-3 min-w-[60px] min-h-[44px] justify-center nav-item-press",
                   isActive ? "text-white" : "text-white/70"
                 )}
               >
                 <IconComp active={isActive} />
                 <span className={cn(
-                  "text-[0.6875rem] font-medium",
+                  "text-[11.5px]",
                   isActive ? "text-[#FFE512]" : "text-white"
                 )}>{item.label}</span>
               </Link>

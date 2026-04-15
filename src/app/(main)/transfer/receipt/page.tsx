@@ -40,7 +40,7 @@ export default function ReceiptPage() {
   // Status polling: every 2s until completed/failed, max 60 attempts (2 min)
   useEffect(() => {
     if (!transactionId) return
-    if (status === 'completed' || status === 'failed') return
+    if (status === 'success' || status === 'failed') return
 
     let pollCount = 0
     const MAX_POLLS = 60
@@ -58,10 +58,10 @@ export default function ReceiptPage() {
         })
         if (res.ok) {
           const data = await res.json()
-          if (data.status === 'completed' || data.status === 'failed' ||
+          if (data.status === 'success' || data.status === 'failed' ||
               data.status === 'processing' || data.status === 'pending') {
             setStatus(data.status)
-            if (data.status === 'completed' || data.status === 'failed') {
+            if (data.status === 'success' || data.status === 'failed') {
               clearInterval(intervalId)
             }
           }
@@ -120,7 +120,7 @@ export default function ReceiptPage() {
         )}
 
         {/* Completed state: show full receipt */}
-        {status === 'completed' && channel && selectedRecipient && (
+        {status === 'success' && channel && selectedRecipient && (
           <TransferReceipt
             transactionId={transactionId}
             amount={amountSatang}
