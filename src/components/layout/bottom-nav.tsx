@@ -69,8 +69,20 @@ const navItems: NavItem[] = [
   { href: "/profile", label: "Profile", IconComponent: ProfileIcon, isCenter: false },
 ];
 
+// Flow pages with their own sticky CTAs — hide bottom nav to prevent overlap
+const FLOW_PREFIXES = [
+  "/transfer/",
+  "/withdraw/",
+  "/add-money/",
+];
+
 export function BottomNav() {
   const pathname = usePathname();
+
+  // Hide on sub-flow pages that have their own fixed-bottom CTAs
+  if (FLOW_PREFIXES.some((prefix) => pathname.startsWith(prefix))) {
+    return null;
+  }
 
   return (
     <nav role="navigation" aria-label="Main" className="shrink-0 z-50 safe-bottom">
