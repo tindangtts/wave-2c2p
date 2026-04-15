@@ -7,6 +7,11 @@ const intlMiddleware = createIntlMiddleware(routing)
 
 export async function proxy(request: NextRequest) {
   try {
+    // Skip proxy for API routes — they don't need intl or session refresh
+    if (request.nextUrl.pathname.startsWith('/api')) {
+      return NextResponse.next()
+    }
+
     // 1. Refresh Supabase session (auth guards + session refresh)
     const sessionResponse = await updateSession(request)
 
@@ -15,15 +20,9 @@ export async function proxy(request: NextRequest) {
       return sessionResponse
     }
 
-    // 2. Run next-intl middleware — reads locale cookie, sets headers for requestLocale
-    const intlResponse = intlMiddleware(request)
-
-    // Merge session cookies (auth tokens) into the intl response
-    for (const cookie of sessionResponse.cookies.getAll()) {
-      intlResponse.cookies.set(cookie.name, cookie.value)
-    }
-
-    return intlResponse
+    // 2. Pass through with session cookies
+    // next-intl reads locale from requestLocale() which uses the cookie directly
+    return sessionResponse
   } catch (err) {
     console.error('[proxy] Error:', err)
     return NextResponse.next()
