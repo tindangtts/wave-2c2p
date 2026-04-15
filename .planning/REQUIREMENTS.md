@@ -10,7 +10,7 @@ Requirements for milestone v1.1 — Feature Completeness. Each maps to roadmap p
 ### Compliance & Registration
 
 - [ ] **COMP-01**: User must accept T&C and Privacy Policy before completing registration (consent logged with timestamp + version)
-- [ ] **COMP-02**: User sees pre-registration info screen explaining required documents before starting KYC
+- [x] **COMP-02**: User sees pre-registration info screen explaining required documents before starting KYC
 - [ ] **COMP-03**: User sees daily transfer limit acknowledgment screen during registration
 - [ ] **COMP-04**: User completes selfie/liveness capture with face guide overlay during eKYC
 - [ ] **COMP-05**: User can update work permit via standalone 2nd document verification flow (front + back capture)
@@ -108,7 +108,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | COMP-01 | Phase 9 | Pending |
-| COMP-02 | Phase 9 | Pending |
+| COMP-02 | Phase 9 | Complete |
 | COMP-03 | Phase 9 | Pending |
 | COMP-04 | Phase 9 | Pending |
 | COMP-05 | Phase 12 | Pending |
