@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { isDemoMode, DEMO_USER, DEMO_WALLET } from "@/lib/demo";
+import { db } from "@/db";
+import { wallets, transactions } from "@/db/schema";
+import { eq } from "drizzle-orm";
 
 // Duplicate transfer guard (TXN-11): same wallet+amount within 60s
 const recentTransfers = new Map<string, number>();
@@ -109,28 +112,28 @@ export async function POST(request: Request) {
       );
     }
 
-    // Fetch sender wallet
-    const { data: senderWallet, error: senderWalletError } = await supabase
-      .from("wallets")
-      .select("id, balance, user_id")
-      .eq("user_id", user.id)
-      .single();
+    // Fetch sender wallet via Drizzle
+    const [senderWallet] = await db
+      .select({ id: wallets.id, balance: wallets.balance, userId: wallets.userId })
+      .from(wallets)
+      .where(eq(wallets.userId, user.id))
+      .limit(1);
 
-    if (senderWalletError || !senderWallet) {
+    if (!senderWallet) {
       return NextResponse.json(
         { error: "Sender wallet not found" },
         { status: 404 }
       );
     }
 
-    // Fetch receiver wallet
-    const { data: receiverWallet, error: receiverWalletError } = await supabase
-      .from("wallets")
-      .select("id, balance, user_id")
-      .eq("id", receiver_wallet_id)
-      .single();
+    // Fetch receiver wallet via Drizzle (receiver_wallet_id is the wallet's id column)
+    const [receiverWallet] = await db
+      .select({ id: wallets.id, balance: wallets.balance, userId: wallets.userId })
+      .from(wallets)
+      .where(eq(wallets.id, receiver_wallet_id))
+      .limit(1);
 
-    if (receiverWalletError || !receiverWallet) {
+    if (!receiverWallet) {
       return NextResponse.json(
         { error: "Receiver wallet not found" },
         { status: 404 }
@@ -138,7 +141,7 @@ export async function POST(request: Request) {
     }
 
     // Validate sender !== receiver
-    if (senderWallet.user_id === receiverWallet.user_id) {
+    if (senderWallet.userId === receiverWallet.userId) {
       return NextResponse.json(
         { error: "Cannot transfer to your own wallet" },
         { status: 400 }
@@ -158,64 +161,35 @@ export async function POST(request: Request) {
 
     const referenceNumber = generateReference();
 
-    // Deduct sender balance
-    const { error: senderBalanceError } = await supabase
-      .from("wallets")
-      .update({ balance: senderWallet.balance - totalDeducted })
-      .eq("id", senderWallet.id);
-
-    if (senderBalanceError) {
+    // Atomic batch: deduct sender, credit receiver, insert transaction
+    let txId: string;
+    try {
+      const [, , [inserted]] = await db.batch([
+        db.update(wallets)
+          .set({ balance: senderWallet.balance - totalDeducted, updatedAt: new Date() })
+          .where(eq(wallets.id, senderWallet.id)),
+        db.update(wallets)
+          .set({ balance: receiverWallet.balance + amount, updatedAt: new Date() })
+          .where(eq(wallets.id, receiverWallet.id)),
+        db.insert(transactions)
+          .values({
+            userId: user.id,
+            type: "transfer",
+            status: "pending",
+            amount: totalDeducted,
+            fee,
+            currency: "THB",
+            channel: "p2p",
+            referenceNumber,
+            description: `P2P transfer to wallet ${receiver_wallet_id}`,
+            metadata: null,
+          })
+          .returning({ id: transactions.id }),
+      ] as const);
+      txId = inserted.id;
+    } catch {
       return NextResponse.json(
-        { error: "Failed to update sender wallet balance" },
-        { status: 500 }
-      );
-    }
-
-    // Add to receiver balance
-    const { error: receiverBalanceError } = await supabase
-      .from("wallets")
-      .update({ balance: receiverWallet.balance + amount })
-      .eq("id", receiverWallet.id);
-
-    if (receiverBalanceError) {
-      // Rollback sender deduction
-      await supabase
-        .from("wallets")
-        .update({ balance: senderWallet.balance })
-        .eq("id", senderWallet.id);
-      return NextResponse.json(
-        { error: "Failed to update receiver wallet balance" },
-        { status: 500 }
-      );
-    }
-
-    // Insert pending transaction
-    const { data: transaction, error: txError } = await supabase
-      .from("transactions")
-      .insert({
-        user_id: user.id,
-        type: "transfer",
-        status: "pending",
-        amount: totalDeducted,
-        currency: "THB",
-        reference_number: referenceNumber,
-        description: `P2P transfer to wallet ${receiver_wallet_id}`,
-      })
-      .select("id")
-      .single();
-
-    if (txError || !transaction) {
-      // Rollback both balance changes
-      await supabase
-        .from("wallets")
-        .update({ balance: senderWallet.balance })
-        .eq("id", senderWallet.id);
-      await supabase
-        .from("wallets")
-        .update({ balance: receiverWallet.balance })
-        .eq("id", receiverWallet.id);
-      return NextResponse.json(
-        { error: "Failed to create transaction" },
+        { error: "Failed to process P2P transfer" },
         { status: 500 }
       );
     }
@@ -225,14 +199,9 @@ export async function POST(request: Request) {
     // Auto-complete after 2s (mock behavior)
     setTimeout(async () => {
       try {
-        const { createClient: createBgClient } = await import(
-          "@/lib/supabase/server"
-        );
-        const bgSupabase = await createBgClient();
-        await bgSupabase
-          .from("transactions")
-          .update({ status: "success", updated_at: new Date().toISOString() })
-          .eq("id", transaction.id);
+        await db.update(transactions)
+          .set({ status: "success", updatedAt: new Date() })
+          .where(eq(transactions.id, txId));
       } catch {
         // Background update failure — not critical
       }
@@ -242,7 +211,7 @@ export async function POST(request: Request) {
       success: true,
       status: "pending",
       transfer: {
-        id: transaction.id,
+        id: txId,
         reference_number: referenceNumber,
         amount,
         fee,
