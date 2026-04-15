@@ -1,6 +1,8 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import useSWR from "swr";
 
 /* Custom bell icon matching Pencil design */
 function BellIcon() {
@@ -29,6 +31,9 @@ function BrandLogo() {
 
 export function TopHeader() {
   const t = useTranslations("home");
+  const router = useRouter();
+  const { data } = useSWR<{ notifications: Array<{ is_read: boolean }> }>('/api/notifications', { dedupingInterval: 30000 });
+  const unreadCount = data?.notifications?.filter(n => !n.is_read).length ?? 0;
 
   return (
     <header className="sticky top-0 z-40">
@@ -40,10 +45,19 @@ export function TopHeader() {
         <BrandLogo />
         {/* Notification bell with blue tinted bg pill — per Pencil design */}
         <button
-          aria-label={t("notifications")}
+          onClick={() => router.push('/home/notifications')}
+          aria-label={unreadCount > 0 ? t('notificationsBadge', { count: unreadCount }) : t('notifications')}
           className="relative w-11 h-11 flex items-center justify-center rounded-[10px] bg-[#019cdf1a] active:scale-90 transition-transform duration-100"
         >
           <BellIcon />
+          {unreadCount > 0 && (
+            <span
+              className="absolute top-1.5 right-1.5 min-w-[18px] h-[18px] rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center px-1 leading-none"
+              aria-hidden="true"
+            >
+              {unreadCount > 99 ? '99+' : unreadCount}
+            </span>
+          )}
         </button>
       </div>
     </header>
