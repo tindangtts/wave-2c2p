@@ -207,11 +207,15 @@ function OTPPageContent() {
           )}
         </div>
 
-        {/* Dev bypass notice */}
+        {/* Dev bypass — auto-fill 000000 and submit */}
         {isDev && (
-          <p className="text-xs text-[#767676] mt-4 text-center">
-            {t('otp.devBypass')}
-          </p>
+          <button
+            type="button"
+            onClick={() => { setOtp('000000'); setTimeout(() => handleVerify('000000'), 100) }}
+            className="mt-3 mx-auto px-3 py-1.5 rounded-lg bg-amber-50 border border-amber-200 text-xs text-amber-700"
+          >
+            Dev: use 000000
+          </button>
         )}
 
         {/* Spacer */}
