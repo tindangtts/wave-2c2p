@@ -24,7 +24,19 @@ export async function GET() {
       .orderBy(desc(notifications.createdAt))
       .limit(50)
 
-    return NextResponse.json({ notifications: rows ?? [] })
+    // Alias to snake_case for UI compatibility
+    const mapped = (rows ?? []).map(n => ({
+      id: n.id,
+      user_id: n.userId,
+      type: n.type,
+      title: n.title,
+      body: n.body,
+      is_read: n.isRead,
+      deep_link: n.deepLink,
+      created_at: n.createdAt,
+    }))
+
+    return NextResponse.json({ notifications: mapped })
   } catch {
     return NextResponse.json({ error: "Failed to fetch notifications" }, { status: 500 })
   }

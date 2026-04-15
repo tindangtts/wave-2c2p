@@ -35,9 +35,29 @@ export async function GET(request: Request) {
         )
       }
 
-      // Flatten join result to match existing { ...transaction, recipients: {...} } shape
+      // Flatten join result and alias to snake_case for UI compatibility
       const row = result[0]
-      const transaction = { ...row.transactions, recipients: row.recipients }
+      const t = row.transactions
+      const transaction = {
+        id: t.id,
+        user_id: t.userId,
+        type: t.type,
+        amount: t.amount,
+        currency: t.currency,
+        converted_amount: t.convertedAmount,
+        converted_currency: t.convertedCurrency,
+        exchange_rate: t.exchangeRate,
+        fee: t.fee,
+        status: t.status,
+        recipient_id: t.recipientId,
+        channel: t.channel,
+        reference_number: t.referenceNumber,
+        description: t.description,
+        metadata: t.metadata,
+        created_at: t.createdAt,
+        updated_at: t.updatedAt,
+        recipients: row.recipients,
+      }
       return NextResponse.json(transaction)
     }
 
@@ -63,7 +83,28 @@ export async function GET(request: Request) {
       .limit(limit)
       .offset(offset)
 
-    return NextResponse.json(rows ?? [])
+    // Alias to snake_case for UI compatibility
+    const mapped = (rows ?? []).map(t => ({
+      id: t.id,
+      user_id: t.userId,
+      type: t.type,
+      amount: t.amount,
+      currency: t.currency,
+      converted_amount: t.convertedAmount,
+      converted_currency: t.convertedCurrency,
+      exchange_rate: t.exchangeRate,
+      fee: t.fee,
+      status: t.status,
+      recipient_id: t.recipientId,
+      channel: t.channel,
+      reference_number: t.referenceNumber,
+      description: t.description,
+      metadata: t.metadata,
+      created_at: t.createdAt,
+      updated_at: t.updatedAt,
+    }))
+
+    return NextResponse.json(mapped)
   } catch {
     return NextResponse.json(
       { error: 'Internal server error' },
