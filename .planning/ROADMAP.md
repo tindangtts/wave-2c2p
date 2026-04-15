@@ -38,7 +38,7 @@
 - [x] **Phase 14: PWA & Offline** - Serwist service worker, caching strategies, install prompt, app manifest (completed 2026-04-15)
 - [x] **Phase 15: QR Scanner & WebAuthn Migration** - Real camera-based QR scanning and WebAuthn DB columns for deployed biometrics (completed 2026-04-15)
 - [x] **Phase 16: Test Coverage** - Vitest unit tests and Playwright E2E tests for critical flows (completed 2026-04-15)
-- [ ] **Phase 17: Features & Polish** - PDF statement download and user-configurable spending limits
+- [x] **Phase 17: Features & Polish** - PDF statement download and user-configurable spending limits (completed 2026-04-15)
 
 ## Phase Details
 
@@ -195,8 +195,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 17-01-PLAN.md — PDF statement download (jsPDF + statement API + download button on history page)
-- [ ] 17-02-PLAN.md — Spending limits (GET/PATCH API + SWR hook + tier selector page + profile menu update)
+- [x] 17-01-PLAN.md — PDF statement download (jsPDF + statement API + download button on history page)
+- [x] 17-02-PLAN.md — Spending limits (GET/PATCH API + SWR hook + tier selector page + profile menu update)
 
 **UI hint**: yes
 
@@ -220,4 +220,4 @@ Plans:
 | 14. PWA & Offline | v1.2 | 2/2 | Complete    | 2026-04-15 |
 | 15. QR Scanner & WebAuthn Migration | v1.2 | 3/3 | Complete    | 2026-04-15 |
 | 16. Test Coverage | v1.2 | 5/5 | Complete    | 2026-04-15 |
-| 17. Features & Polish | v1.2 | 0/2 | Not started | - |
+| 17. Features & Polish | v1.2 | 2/2 | Complete   | 2026-04-15 |

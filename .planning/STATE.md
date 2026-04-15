@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Production Readiness
 status: verifying
-stopped_at: Completed 16-05-PLAN.md (Transfer E2E test)
-last_updated: "2026-04-15T07:51:23.956Z"
+stopped_at: Completed 17-02-PLAN.md (Spending Limits)
+last_updated: "2026-04-15T08:13:48.066Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 9
-  completed_phases: 8
-  total_plans: 30
-  completed_plans: 30
+  completed_phases: 9
+  total_plans: 32
+  completed_plans: 32
   percent: 0
 ---
 
@@ -21,12 +21,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-15)
 
 **Core value:** Users can send money from Thailand to Myanmar quickly, affordably, and with full regulatory compliance
-**Current focus:** Phase 16 — Test Coverage
+**Current focus:** Phase 17 — Features & Polish
 
 ## Current Position
 
-Phase: 17
-Plan: Not started
+Phase: 17 (Features & Polish) — EXECUTING
+Plan: 2 of 2
 Status: Phase complete — ready for verification
 Last activity: 2026-04-15
 
@@ -59,6 +59,8 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 16-test-coverage P04 | 101s | 2 tasks | 4 files |
 | Phase 16-test-coverage P03 | 15min | 2 tasks | 4 files |
 | Phase 16-test-coverage P05 | 90s | 1 tasks | 2 files |
+| Phase 17-features-polish P01 | 276s | 2 tasks | 8 files |
+| Phase 17-features-polish P02 | 286s | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -82,6 +84,10 @@ Progress: [░░░░░░░░░░] 0%
 - [Phase 16-test-coverage]: Exclude src/e2e/** from vitest discovery — Playwright specs use test.describe() which errors in Vitest context
 - [Phase 16-test-coverage]: Exact button name match required in Playwright (name: 'Next', exact: true) — Next.js 16 dev mode injects a Dev Tools button matching /next/i
 - [Phase 16-test-coverage]: DEMO_MODE passcode verify accepts any 6-digit code — E2E tests use 123456
+- [Phase 17-features-polish]: jspdf-autotable installed as separate package (not bundled in jsPDF 4.x despite research claim)
+- [Phase 17-features-polish]: English-only PDF labels per research recommendation (no Thai/Myanmar font embedding)
+- [Phase 17-features-polish]: Dedicated /api/statement route (not reusing paginated /api/transactions)
+- [Phase 17-features-polish]: Tier detection from dailyLimitSatang value match — fallback to premium if no match
 
 ### Pending Todos
 
@@ -94,6 +100,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-15T07:47:47.597Z
-Stopped at: Completed 16-05-PLAN.md (Transfer E2E test)
+Last session: 2026-04-15T08:13:48.064Z
+Stopped at: Completed 17-02-PLAN.md (Spending Limits)
 Resume file: None

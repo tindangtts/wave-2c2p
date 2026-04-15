@@ -35,8 +35,8 @@ Requirements for milestone v1.2 — Production Readiness. Each maps to roadmap p
 
 ### Features
 
-- [ ] **FEAT-01**: User can download transaction statement as PDF for a date range
-- [ ] **FEAT-02**: User can view and edit personal spending limits from profile
+- [x] **FEAT-01**: User can download transaction statement as PDF for a date range
+- [x] **FEAT-02**: User can view and edit personal spending limits from profile
 
 ## v2 Requirements
 
@@ -84,8 +84,8 @@ Deferred to future release.
 | TEST-03 | Phase 16 | Complete |
 | TEST-04 | Phase 16 | Complete |
 | TEST-05 | Phase 16 | Complete |
-| FEAT-01 | Phase 17 | Pending |
-| FEAT-02 | Phase 17 | Pending |
+| FEAT-01 | Phase 17 | Complete |
+| FEAT-02 | Phase 17 | Complete |
 
 **Coverage:**
 - v1.2 requirements: 17 total
