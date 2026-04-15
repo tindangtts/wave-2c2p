@@ -4,7 +4,7 @@ milestone: v1.3
 milestone_name: Supabase Migration & Auth Hardening
 status: verifying
 stopped_at: Completed 20-03-PLAN.md
-last_updated: "2026-04-15T12:02:24.640Z"
+last_updated: "2026-04-15T12:03:15.003Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 14
@@ -25,8 +25,8 @@ See: .planning/PROJECT.md (updated 2026-04-15)
 
 ## Current Position
 
-Phase: 20 (new-tables-seed) — EXECUTING
-Plan: 3 of 3
+Phase: 21
+Plan: Not started
 Status: Phase complete — ready for verification
 Last activity: 2026-04-15
 
