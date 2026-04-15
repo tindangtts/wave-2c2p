@@ -5,51 +5,40 @@
   "title_channels": "Receiving Channels",
   "title_confirmation": "Confirmation",
   "title_receipt": "Transaction Detail",
-
   "create_new_recipient": "Create new recipient",
   "search_placeholder": "Search recipients...",
   "favorites_label": "Favorites",
   "all_label": "All Recipients",
-
   "cta_next": "Next",
   "cta_confirm": "Confirm",
   "cta_create_new": "Create New",
   "cta_close": "Close",
   "cta_share": "Share",
-
   "amount_min_error": "Minimum transfer amount is 100 THB",
   "amount_max_error": "Maximum transfer amount is 25,000 THB",
   "amount_balance_error": "Amount exceeds your wallet balance",
-
   "rate_expires": "Rate expires in {time}",
   "rate_expires_soon": "Rate expiring soon!",
   "rate_expired_toast": "Exchange rate expired. Refreshing...",
-
   "passcode_title": "Enter Passcode",
   "passcode_subtitle": "Enter your 6-digit passcode to confirm the transfer",
   "passcode_incorrect": "Incorrect passcode. Please try again.",
   "passcode_locked": "Too many attempts. Please try again in 30 minutes.",
-
   "receipt_success": "Success!",
   "receipt_brand": "2c2p WAVE",
   "receipt_ref": "Ref: {reference}",
-
   "empty_heading": "No recipients yet",
   "empty_body": "Add your first recipient to start sending money.",
   "search_no_results": "No recipients match your search.",
-
   "delete_confirm": "Are you sure you want to delete {name}?",
   "delete_cta": "Delete",
   "delete_cancel": "Cancel",
-
   "status_pending": "Pending",
   "status_processing": "Processing",
   "status_completed": "Completed",
   "status_failed": "Failed",
-
   "channel_hint": "Select how your recipient will receive the money",
   "network_error": "Connection error. Please check your internet and try again.",
-
   "label_transfer_type": "Transfer Type",
   "label_bank_name": "Bank Name",
   "label_account_no": "Account Number",
@@ -64,11 +53,9 @@
   "label_address2": "Address Line 2 (optional)",
   "label_city": "City / Township",
   "label_state": "State / Region",
-
   "required_field": "This field is required",
   "nrc_format_error": "Invalid NRC format. Example: 12/ABCDE(N)123456",
   "phone_myanmar_error": "Enter a valid Myanmar phone number starting with +959",
-
   "label_amount": "Amount",
   "label_fee": "Fee",
   "label_total": "Total",
@@ -76,29 +63,26 @@
   "label_from": "From",
   "label_to": "To",
   "label_note": "Note (optional)",
-
   "channel_wave_agent": "Wave Agent",
   "channel_wave_app": "Wave App",
   "channel_bank_transfer": "Bank Transfer",
   "channel_cash_pickup": "Cash Pickup",
-
   "occupation_employed": "Employed",
   "occupation_self_employed": "Self-Employed",
   "occupation_student": "Student",
   "occupation_retired": "Retired",
   "occupation_unemployed": "Unemployed",
   "occupation_other": "Other",
-
   "purpose_family_support": "Family Support",
   "purpose_education": "Education",
   "purpose_medical": "Medical",
   "purpose_business": "Business",
   "purpose_savings": "Savings",
   "purpose_other": "Other",
-
   "relationship_family": "Family",
   "relationship_friend": "Friend",
   "relationship_business_partner": "Business Partner",
   "relationship_employer": "Employer",
-  "relationship_other": "Other"
+  "relationship_other": "Other",
+  "sendToWallet": "Send to Wallet"
 }

@@ -5,51 +5,40 @@
   "title_channels": "ช่องทางรับเงิน",
   "title_confirmation": "ยืนยันการโอนเงิน",
   "title_receipt": "รายละเอียดธุรกรรม",
-
   "create_new_recipient": "สร้างผู้รับเงินใหม่",
   "search_placeholder": "ค้นหาผู้รับเงิน...",
   "favorites_label": "รายการโปรด",
   "all_label": "ผู้รับเงินทั้งหมด",
-
   "cta_next": "ถัดไป",
   "cta_confirm": "ยืนยัน",
   "cta_create_new": "สร้างใหม่",
   "cta_close": "ปิด",
   "cta_share": "แชร์",
-
   "amount_min_error": "จำนวนเงินขั้นต่ำในการโอนคือ 100 บาท",
   "amount_max_error": "จำนวนเงินสูงสุดในการโอนคือ 25,000 บาท",
   "amount_balance_error": "จำนวนเงินเกินยอดคงเหลือในกระเป๋าเงิน",
-
   "rate_expires": "อัตราแลกเปลี่ยนหมดอายุใน {time}",
   "rate_expires_soon": "อัตราแลกเปลี่ยนจะหมดอายุเร็วๆ นี้!",
   "rate_expired_toast": "อัตราแลกเปลี่ยนหมดอายุแล้ว กำลังรีเฟรช...",
-
   "passcode_title": "กรอกรหัสผ่าน",
   "passcode_subtitle": "กรอกรหัสผ่าน 6 หลักเพื่อยืนยันการโอนเงิน",
   "passcode_incorrect": "รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง",
   "passcode_locked": "พยายามมากเกินไป กรุณาลองใหม่ใน 30 นาที",
-
   "receipt_success": "สำเร็จ!",
   "receipt_brand": "2c2p WAVE",
   "receipt_ref": "อ้างอิง: {reference}",
-
   "empty_heading": "ยังไม่มีผู้รับเงิน",
   "empty_body": "เพิ่มผู้รับเงินรายแรกของคุณเพื่อเริ่มส่งเงิน",
   "search_no_results": "ไม่พบผู้รับเงินที่ตรงกับการค้นหา",
-
   "delete_confirm": "คุณแน่ใจหรือไม่ว่าต้องการลบ {name}?",
   "delete_cta": "ลบ",
   "delete_cancel": "ยกเลิก",
-
   "status_pending": "รอดำเนินการ",
   "status_processing": "กำลังดำเนินการ",
   "status_completed": "เสร็จสิ้น",
   "status_failed": "ล้มเหลว",
-
   "channel_hint": "เลือกวิธีที่ผู้รับเงินจะรับเงิน",
   "network_error": "เกิดข้อผิดพลาดในการเชื่อมต่อ กรุณาตรวจสอบอินเทอร์เน็ตและลองใหม่",
-
   "label_transfer_type": "ประเภทการโอน",
   "label_bank_name": "ชื่อธนาคาร",
   "label_account_no": "หมายเลขบัญชี",
@@ -64,11 +53,9 @@
   "label_address2": "ที่อยู่บรรทัดที่ 2 (ไม่บังคับ)",
   "label_city": "เมือง / ตำบล",
   "label_state": "รัฐ / ภาค",
-
   "required_field": "กรุณากรอกข้อมูลในช่องนี้",
   "nrc_format_error": "รูปแบบ NRC ไม่ถูกต้อง ตัวอย่าง: 12/ABCDE(N)123456",
   "phone_myanmar_error": "กรอกหมายเลขโทรศัพท์เมียนมาที่ถูกต้อง โดยเริ่มต้นด้วย +959",
-
   "label_amount": "จำนวนเงิน",
   "label_fee": "ค่าธรรมเนียม",
   "label_total": "ยอดรวม",
@@ -76,29 +63,26 @@
   "label_from": "จาก",
   "label_to": "ถึง",
   "label_note": "หมายเหตุ (ไม่บังคับ)",
-
   "channel_wave_agent": "Wave Agent",
   "channel_wave_app": "Wave App",
   "channel_bank_transfer": "โอนผ่านธนาคาร",
   "channel_cash_pickup": "รับเงินสด",
-
   "occupation_employed": "พนักงาน",
   "occupation_self_employed": "ประกอบอาชีพอิสระ",
   "occupation_student": "นักเรียน/นักศึกษา",
   "occupation_retired": "เกษียณแล้ว",
   "occupation_unemployed": "ว่างงาน",
   "occupation_other": "อื่นๆ",
-
   "purpose_family_support": "สนับสนุนครอบครัว",
   "purpose_education": "การศึกษา",
   "purpose_medical": "การรักษาพยาบาล",
   "purpose_business": "ธุรกิจ",
   "purpose_savings": "ออมทรัพย์",
   "purpose_other": "อื่นๆ",
-
   "relationship_family": "ครอบครัว",
   "relationship_friend": "เพื่อน",
   "relationship_business_partner": "หุ้นส่วนธุรกิจ",
   "relationship_employer": "นายจ้าง",
-  "relationship_other": "อื่นๆ"
+  "relationship_other": "อื่นๆ",
+  "sendToWallet": "ส่งไปยังกระเป๋าเงิน"
 }
