@@ -16,6 +16,7 @@ import {
   HelpCircle,
   FileText,
   Eye,
+  RefreshCw,
 } from "lucide-react";
 import { ProfileHeader } from "@/components/features/profile-header";
 import { ProfileMenuSection } from "@/components/features/profile-menu-section";
@@ -29,11 +30,13 @@ import { useWalletOpsStore } from "@/stores/wallet-ops-store";
 
 export default function ProfilePage() {
   const t = useTranslations("profile");
+  const tKyc = useTranslations("kyc");
   const router = useRouter();
   const locale = useLocale();
 
   const [biometricsEnabled, setBiometricsEnabled] = useState(false);
   const [userName, setUserName] = useState("User");
+  const [kycStatus, setKycStatus] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -42,7 +45,7 @@ export default function ProfilePage() {
       if (user) {
         const { data: profile } = await supabase
           .from("user_profiles")
-          .select("first_name, last_name")
+          .select("first_name, last_name, kyc_status")
           .eq("id", user.id)
           .single();
         if (profile) {
@@ -50,11 +53,15 @@ export default function ProfilePage() {
             .filter(Boolean)
             .join(" ");
           if (fullName) setUserName(fullName);
+          setKycStatus(profile.kyc_status ?? null);
         }
       }
     };
     fetchUser();
   }, []);
+
+  const needsWorkPermitUpdate =
+    kycStatus === "expired" || kycStatus === "pending_update";
 
   const handleLogout = async () => {
     const supabase = createClient();
@@ -96,6 +103,13 @@ export default function ProfilePage() {
 
         {/* Settings section */}
         <ProfileMenuSection heading={t("menu.settings")}>
+          {needsWorkPermitUpdate && (
+            <ProfileMenuItem
+              icon={RefreshCw}
+              label={tKyc("workPermitUpdate.title")}
+              onClick={() => router.push("/kyc/work-permit-update")}
+            />
+          )}
           <ProfileMenuItem
             icon={Info}
             label={t("menu.information")}
