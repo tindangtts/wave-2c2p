@@ -1,16 +1,16 @@
 ---
 gsd_state_version: 1.0
 milestone: v1.2
-milestone_name: production-readiness
-status: ready-to-plan
-stopped_at: Roadmap created — Phase 14 ready to plan
-last_updated: "2026-04-15"
-last_activity: 2026-04-15 -- v1.2 roadmap written (Phases 14-17)
+milestone_name: Production Readiness
+status: executing
+stopped_at: Completed 14-01-PLAN.md (Serwist service worker infrastructure)
+last_updated: "2026-04-15T06:47:40.671Z"
+last_activity: 2026-04-15
 progress:
-  total_phases: 4
-  completed_phases: 0
-  total_plans: 12
-  completed_plans: 0
+  total_phases: 9
+  completed_phases: 5
+  total_plans: 22
+  completed_plans: 21
   percent: 0
 ---
 
@@ -25,16 +25,17 @@ See: .planning/PROJECT.md (updated 2026-04-15)
 
 ## Current Position
 
-Phase: 14 of 17 (PWA & Offline)
-Plan: — (not started)
-Status: Ready to plan
-Last activity: 2026-04-15 — v1.2 roadmap created, Phase 14 ready to plan
+Phase: 14 (PWA & Offline) — EXECUTING
+Plan: 2 of 2
+Status: Ready to execute
+Last activity: 2026-04-15
 
 Progress: [░░░░░░░░░░] 0%
 
 ## Performance Metrics
 
 **Velocity:**
+
 - Total plans completed (v1.2): 0
 - Average duration: —
 - Total execution time: —
@@ -49,6 +50,7 @@ Progress: [░░░░░░░░░░] 0%
 | 17. Features & Polish | 0/2 | — | — |
 
 *Updated after each plan completion*
+| Phase 14-pwa-offline P01 | 252s | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -58,6 +60,8 @@ Progress: [░░░░░░░░░░] 0%
 - Serwist chosen over next-pwa (unmaintained, broken on Next.js 15+)
 - @yudiel/react-qr-scanner chosen for live QR; file-input fallback for iOS PWA camera limitations
 - Vitest for unit/RTL tests; Playwright for E2E against localhost:3000
+- [Phase 14-pwa-offline]: @serwist/next webpack plugin requires --webpack build flag in Next.js 16.2.3 (Turbopack default); added build:pwa script
+- [Phase 14-pwa-offline]: Serwist disabled in dev (NODE_ENV === development); Supabase routes use NetworkFirst with 0s timeout (never cache auth tokens)
 
 ### Pending Todos
 
@@ -70,6 +74,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-15
-Stopped at: Roadmap written, ready to plan Phase 14
+Last session: 2026-04-15T06:47:40.668Z
+Stopped at: Completed 14-01-PLAN.md (Serwist service worker infrastructure)
 Resume file: None

@@ -10,9 +10,9 @@ Requirements for milestone v1.2 — Production Readiness. Each maps to roadmap p
 ### PWA & Offline
 
 - [ ] **PWA-01**: App installs as PWA on mobile with proper manifest, icons, and splash screen
-- [ ] **PWA-02**: App shell (HTML/CSS/JS) is cached for offline access via service worker
-- [ ] **PWA-03**: Static assets (icons, fonts) use CacheFirst strategy with long TTL
-- [ ] **PWA-04**: API routes use NetworkFirst strategy with offline fallback message
+- [x] **PWA-02**: App shell (HTML/CSS/JS) is cached for offline access via service worker
+- [x] **PWA-03**: Static assets (icons, fonts) use CacheFirst strategy with long TTL
+- [x] **PWA-04**: API routes use NetworkFirst strategy with offline fallback message
 - [ ] **PWA-05**: User sees install prompt when visiting on mobile browser
 
 ### QR Scanner
@@ -71,9 +71,9 @@ Deferred to future release.
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | PWA-01 | Phase 14 | Pending |
-| PWA-02 | Phase 14 | Pending |
-| PWA-03 | Phase 14 | Pending |
-| PWA-04 | Phase 14 | Pending |
+| PWA-02 | Phase 14 | Complete |
+| PWA-03 | Phase 14 | Complete |
+| PWA-04 | Phase 14 | Complete |
 | PWA-05 | Phase 14 | Pending |
 | QR-01 | Phase 15 | Pending |
 | QR-02 | Phase 15 | Pending |
