@@ -12,33 +12,33 @@ Users can send money from Thailand to Myanmar quickly, affordably, and with full
 
 ### Validated
 
-(None yet — ship to validate)
+- ✓ Phone-based login with country code selector (+66 TH, +95 MM) and OTP verification — v1.0
+- ✓ Multi-step registration with personal info and ID details — v1.0
+- ✓ eKYC document scanning with camera overlay — mock service — v1.0
+- ✓ Face verification with liveness detection circular frame — mock service — v1.0
+- ✓ KYC status management (pending/approved/rejected/expired) with re-submission flow — v1.0
+- ✓ Home dashboard with wallet balance, quick actions grid, recent transactions, promo carousel — v1.0
+- ✓ Digital wallet with balance display, show/hide toggle, wallet ID — v1.0
+- ✓ Add money via bank/convenience store channels with QR code generation — v1.0
+- ✓ P2P money transfer with THB→MMK conversion, channel selection — v1.0
+- ✓ Fee calculation and display per receiving channel — mock payment service — v1.0
+- ✓ Recipient management (add/edit/delete with AML/EDD fields) — v1.0
+- ✓ Transfer confirmation with passcode and receipt generation — v1.0
+- ✓ Withdrawal flow with recipient selection, amount entry — v1.0
+- ✓ Transaction history with date range filter, status filter, detail view — v1.0
+- ✓ Virtual Visa card display with reveal/hide and freeze — v1.0
+- ✓ Profile settings (info, passcode change, phone number change) — v1.0
+- ✓ Refer friends with QR code and share link — v1.0
+- ✓ Contact us page — v1.0
+- ✓ Language switching (English/Thai/Myanmar) — v1.0
+- ✓ Bottom navigation matching prototype — v1.0
+- ✓ System state screens (maintenance, update required) — v1.0
+- ✓ Design system with shadcn/ui matching prototype aesthetic — v1.0
+- ✓ QR scanner page — v1.0
 
 ### Active
 
-- [ ] Phone-based login with country code selector (+66 TH, +95 MM) and OTP verification
-- [ ] Multi-step registration with personal info and ID details
-- [ ] eKYC document scanning (ID front/back, work permit) with camera overlay — mock service
-- [ ] Face verification with liveness detection circular frame — mock service
-- [ ] KYC status management (pending/approved/rejected/expired) with re-submission flow
-- [ ] Home dashboard with wallet balance, quick actions grid, recent transactions, promo carousel
-- [ ] Digital wallet with balance display, show/hide toggle, wallet ID
-- [ ] Add money via bank/convenience store channels with QR code generation
-- [ ] P2P money transfer with THB→MMK conversion, channel selection (Wave Agent/App/Bank/Cash Pickup)
-- [ ] Fee calculation and display per receiving channel — mock payment service
-- [ ] Recipient management (add/edit/delete with name, phone, NRC, occupation, purpose, relationship)
-- [ ] Transfer confirmation with passcode and receipt generation
-- [ ] Withdrawal flow with recipient selection, amount entry, bank selection
-- [ ] Transaction history with date range filter, status filter, detail/receipt view
-- [ ] Virtual Visa card display with card details reveal, balance, freeze
-- [ ] Profile settings (info, passcode change, phone number change, notifications)
-- [ ] Refer friends with QR code and share link, monthly referral tracking
-- [ ] Contact us page (call center, Messenger, Email, Viber, resources)
-- [ ] Language switching (English/Thai/Myanmar)
-- [ ] Bottom navigation (Home, Scan, Add Money, Profile) matching prototype
-- [ ] System state screens (maintenance, update required, profile rejected)
-- [ ] Design system with shadcn/ui components matching prototype aesthetic (yellow/blue brand)
-- [ ] QR scanner page for payment/transfer initiation
+(None — all v1.0 requirements validated. Define v1.1 requirements with `/gsd:new-milestone`)
 
 ### Out of Scope
 
@@ -54,14 +54,17 @@ Users can send money from Thailand to Myanmar quickly, affordably, and with full
 
 ## Context
 
-- **Prototype**: 24+ screens designed in Pencil (`/pencil-new.pen`), fully analyzed
-- **UI/UX Review**: Comprehensive analysis at `.planning/UI-UX-REVIEW.md` covering design system, 30+ components, accessibility audit, shadcn mapping, full CSS tokens
+**Shipped v1.0 MVP** on 2026-04-15 with 17,268 LOC TypeScript across 144 commits.
+
 - **Tech Stack**: Next.js 16.2.3 (App Router), Supabase (auth/DB/storage), shadcn/ui, Tailwind CSS v4, TypeScript
-- **Scaffold**: Project already scaffolded with 16 routes compiling, all shadcn components installed
 - **Brand**: Yellow #FFE600 primary, Blue #0091EA secondary, dark text #212121 on yellow (WCAG AA)
 - **Target**: Mobile-first PWA, 375-430px viewport, iOS-style chrome
 - **Markets**: Thailand ↔ Myanmar corridor, migrant worker primary persona
-- **Languages**: English, Thai, Myanmar (Burmese) — i18n required
+- **Languages**: English, Thai, Myanmar (Burmese) — fully implemented with next-intl
+- **Prototype**: 24+ screens designed in Pencil (`/pencil-new.pen`), fully implemented
+- **Mock Services**: eKYC and payment via env-var-configurable mock APIs
+- **Auth**: Phone OTP + PBKDF2 passcode with Supabase session management
+- **Integration**: 5/5 E2E flows verified (registration→KYC, transfer, add money, withdrawal, profile)
 
 ## Constraints
 
@@ -101,4 +104,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-14 after initialization*
+*Last updated: 2026-04-15 after v1.0 milestone*
