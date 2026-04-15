@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Supabase Migration & Auth Hardening
-status: verifying
-stopped_at: Completed 20-03-PLAN.md
-last_updated: "2026-04-15T12:03:15.003Z"
+status: executing
+stopped_at: Completed 21-02-PLAN.md
+last_updated: "2026-04-15T12:15:00.833Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 14
   completed_phases: 12
-  total_plans: 40
-  completed_plans: 40
+  total_plans: 42
+  completed_plans: 41
   percent: 0
 ---
 
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-15)
 
 **Core value:** Users can send money from Thailand to Myanmar quickly, affordably, and with full regulatory compliance
-**Current focus:** Phase 20 — new-tables-seed
+**Current focus:** Phase 21 — system-config-auth-gates
 
 ## Current Position
 
-Phase: 21
-Plan: Not started
-Status: Phase complete — ready for verification
+Phase: 21 (system-config-auth-gates) — EXECUTING
+Plan: 2 of 2
+Status: Ready to execute
 Last activity: 2026-04-15
 
 Progress: [░░░░░░░░░░] 0%
@@ -69,6 +69,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 20-new-tables-seed P02 | 84s | 2 tasks | 3 files |
 | Phase 20-new-tables-seed P01 | 98s | 2 tasks | 3 files |
 | Phase 20-new-tables-seed P03 | 103s | 2 tasks | 2 files |
+| Phase 21-system-config-auth-gates P02 | 189s | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -110,6 +111,8 @@ Progress: [░░░░░░░░░░] 0%
 - [Phase 20-new-tables-seed]: notifications table uses uuid PK with defaultRandom() matching wallets/transactions pattern; auth via supabase.auth.getUser(), data queries via Drizzle ORM consistent with transactions route
 - [Phase 20-new-tables-seed]: Fixed UUIDs used in seed.sql for idempotent re-runs; auth.users prerequisite documented in header comment
 - [Phase 20-new-tables-seed]: Hard-coded SEED-TXN-001..005 reference numbers satisfy transactions.reference_number UNIQUE constraint without random() re-insertion issues
+- [Phase 21-system-config-auth-gates]: permanently_rejected check uses admin client to bypass RLS — phone column stores local digits only (no country code prefix)
+- [Phase 21-system-config-auth-gates]: signOut('others') failure is non-fatal — session was created; old sessions expire naturally; warning logged
 
 ### Pending Todos
 
@@ -123,7 +126,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-15T12:02:24.637Z
-Stopped at: Completed 20-03-PLAN.md
+Last session: 2026-04-15T12:15:00.831Z
+Stopped at: Completed 21-02-PLAN.md
 Resume file: None
 Next step: `/gsd:plan-phase 18`
