@@ -69,9 +69,18 @@ export async function POST(request: Request) {
       )
     }
 
+    // Fetch user profile to get wallet_id (needed as ref1 for 123 Service)
+    const { data: profile } = await supabase
+      .from('user_profiles')
+      .select('wallet_id')
+      .eq('id', user.id)
+      .single()
+    const walletId = profile?.wallet_id ?? user.id.slice(0, 16).toUpperCase()
+
     const referenceNumber = generateReference()
     const amountInBaht = amount / 100
-    const expiresAt = new Date(Date.now() + 15 * 60 * 1000).toISOString()
+    const expiresMinutes = channel === 'service_123' ? 30 : 15
+    const expiresAt = new Date(Date.now() + expiresMinutes * 60 * 1000).toISOString()
 
     // Insert pending transaction
     const { data: transaction, error: txError } = await supabase
@@ -117,6 +126,21 @@ export async function POST(request: Request) {
         // Background update failure — not critical for response
       }
     }, delayMs)
+
+    if (channel === 'service_123') {
+      return NextResponse.json({
+        transaction_id: transaction.id,
+        barcode_data: {
+          barcodeValue: referenceNumber.replace(/[^0-9]/g, '').padStart(20, '0'),
+          ref1: walletId,
+          ref2: referenceNumber,
+          amount: amountInBaht,
+          expiresAt,
+          channel,
+        },
+        status: 'pending',
+      })
+    }
 
     return NextResponse.json({
       transaction_id: transaction.id,
