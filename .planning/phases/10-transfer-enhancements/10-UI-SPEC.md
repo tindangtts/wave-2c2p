@@ -56,7 +56,7 @@ Canonical values from `globals.css` `@theme inline` block (do not redefine):
 
 | Role | Size | Weight | Line Height | Letter Spacing | Usage in this phase |
 |------|------|--------|-------------|----------------|---------------------|
-| Display | 28px (1.75rem) | 700 | 1.2 | -0.02em | P2P wallet balance display on confirm screen |
+| Display | 28px (1.75rem) | 700 | 1.2 | -0.02em | P2P wallet balance display on confirm screen; secret code value |
 | Heading | 20px (1.25rem) | 700 | 1.3 | -0.01em | Screen titles ("Send to Wallet", "Select Channel") via `BackHeader` |
 | Body | 16px (1rem) | 400 | 1.5 | 0 | Receipt row labels, amount fields, recipient name; also secondary text (sub-labels, fee line items) using `text-base text-[#595959]` |
 | Caption | 12px (0.75rem) | 400 | 1.4 | 0.08em | Section divider labels ("FAVOURITES", "ALL RECIPIENTS") with `tracking-wide uppercase`; timestamps; ref number; transfer type sub-label; fee line item secondary text use `text-xs` |
@@ -159,7 +159,7 @@ Extend `TransferReceipt` component with two new surface areas:
 - Displayed between "Transfer" section and amount breakdown
 - Container: `bg-[#FFF9C4] rounded-xl px-4 py-3 mt-4`
 - Label: `text-xs font-bold text-[#595959] uppercase tracking-wide` — "SECRET CODE"
-- Code value: `text-2xl font-bold text-foreground tracking-[0.15em] font-mono` — "047532" style
+- Code value: `text-[1.75rem] font-bold text-foreground tracking-[0.15em] font-mono` — "047532" style
 - Copy button: `Copy` Lucide icon, 20px, `text-[#0091EA]`, touch target 44×44px, on tap → `toast.success("Code copied")`
 - Refresh button: `RefreshCw` Lucide icon, 20px, `text-[#595959]`, touch target 44×44px, placed to the right of copy button
 
