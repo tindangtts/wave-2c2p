@@ -40,7 +40,13 @@
   2. A new user must actively tick T&C and Privacy Policy checkboxes (no pre-ticked boxes) before advancing; consent is recorded with timestamp and version
   3. A new user sees the daily transfer limit acknowledgment screen and must confirm before proceeding
   4. During eKYC, a user completes selfie capture inside a circular face guide overlay without triggering iOS camera re-prompt between document capture and selfie steps
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 09-01-PLAN.md — Store extension + i18n strings + consent API route
+- [ ] 09-02-PLAN.md — Pre-reg info screen + T&C consent screen + OTP routing update
+- [ ] 09-03-PLAN.md — Daily limit acknowledgment screen + CameraOverlay face guide
+
 **UI hint**: yes
 
 ### Phase 10: Transfer Enhancements
@@ -101,7 +107,7 @@
 | 6. Wallet Operations | v1.0 | 4/4 | Complete | 2026-04-14 |
 | 7. Profile, Card & System States | v1.0 | 4/4 | Complete | 2026-04-14 |
 | 8. Integration Fixes | v1.0 | 1/1 | Complete | 2026-04-15 |
-| 9. Compliance & Registration | v1.1 | 0/? | Not started | — |
+| 9. Compliance & Registration | v1.1 | 0/3 | Not started | — |
 | 10. Transfer Enhancements | v1.1 | 0/? | Not started | — |
 | 11. Wallet Operations | v1.1 | 0/? | Not started | — |
 | 12. Complex Flows | v1.1 | 0/? | Not started | — |
