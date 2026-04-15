@@ -132,5 +132,5 @@ Plans:
 | 9. Compliance & Registration | v1.1 | 3/3 | Complete   | 2026-04-15 |
 | 10. Transfer Enhancements | v1.1 | 5/5 | Complete    | 2026-04-15 |
 | 11. Wallet Operations | v1.1 | 4/4 | Complete    | 2026-04-15 |
-| 12. Complex Flows | v1.1 | 4/4 | Complete   | 2026-04-15 |
+| 12. Complex Flows | v1.1 | 4/4 | Complete    | 2026-04-15 |
 | 13. Engagement & Auth | v1.1 | 0/? | Not started | — |
