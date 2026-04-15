@@ -50,7 +50,7 @@
 - [x] **Phase 19: Payment Write-Back** - Mock payment APIs insert real transactions and update wallet balance in DB (completed 2026-04-15)
 - [x] **Phase 20: New Tables & Seed** - Notifications and vouchers tables, plus a seed SQL file for fresh installs (completed 2026-04-15)
 - [x] **Phase 21: System Config & Auth Gates** - SystemConfig table, maintenance/version checks, rejected-number gate, single active session (completed 2026-04-15)
-- [ ] **Phase 22: Demo Mode Removal** - Delete demo.ts and remove all isDemoMode branches from the codebase
+- [x] **Phase 22: Demo Mode Removal** - Delete demo.ts and remove all isDemoMode branches from the codebase (completed 2026-04-15)
 
 ## Phase Details
 
@@ -315,4 +315,4 @@ Plans:
 | 19. Payment Write-Back | v1.3 | 2/2 | Complete    | 2026-04-15 |
 | 20. New Tables & Seed | v1.3 | 3/3 | Complete    | 2026-04-15 |
 | 21. System Config & Auth Gates | v1.3 | 2/2 | Complete    | 2026-04-15 |
-| 22. Demo Mode Removal | v1.3 | 1/5 | In Progress|  |
+| 22. Demo Mode Removal | v1.3 | 1/5 | Complete    | 2026-04-15 |
