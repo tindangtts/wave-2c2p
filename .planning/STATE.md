@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Feature Completeness
 status: executing
-stopped_at: Completed 13-engagement-auth-01-PLAN.md
-last_updated: "2026-04-15T05:20:34.398Z"
+stopped_at: Completed 13-engagement-auth-02-PLAN.md
+last_updated: "2026-04-15T05:21:21.557Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 5
   completed_phases: 4
   total_plans: 20
-  completed_plans: 17
+  completed_plans: 18
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-14)
 ## Current Position
 
 Phase: 13 (engagement-auth) — EXECUTING
-Plan: 2 of 4
+Plan: 3 of 4
 Status: Ready to execute
 Last activity: 2026-04-15
 
@@ -87,6 +87,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 12-complex-flows P03 | 5 | 2 tasks | 2 files |
 | Phase 12-complex-flows P04 | 110 | 2 tasks | 2 files |
 | Phase 13-engagement-auth P01 | 10 | 2 tasks | 5 files |
+| Phase 13-engagement-auth P02 | 5 | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -167,6 +168,8 @@ Recent decisions affecting current work:
 - [Phase 12-complex-flows]: tKyc alias in profile page avoids collision with existing t (profile namespace)
 - [Phase 13-engagement-auth]: Demo mode returns 3 referred friends and 30000 satang (300 THB) mock bonus for referral stats
 - [Phase 13-engagement-auth]: navigator.share() as primary mobile CTA; WhatsApp/Line/Copy as explicit secondary share row
+- [Phase 13-engagement-auth]: PATCH accepts { id } or { all: true } — single endpoint covers both mark-one and mark-all notification flows
+- [Phase 13-engagement-auth]: notificationInbox namespace in profile.json kept separate from notifications (settings toggle page namespace)
 
 ### Pending Todos
 
@@ -178,6 +181,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-15T05:20:34.395Z
-Stopped at: Completed 13-engagement-auth-01-PLAN.md
+Last session: 2026-04-15T05:21:21.554Z
+Stopped at: Completed 13-engagement-auth-02-PLAN.md
 Resume file: None

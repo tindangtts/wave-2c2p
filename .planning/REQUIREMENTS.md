@@ -61,11 +61,11 @@ Requirements for milestone v1.1 — Feature Completeness. Each maps to roadmap p
 
 ### Engagement
 
-- [ ] **REF-01**: User can see referral stats (count of referred friends, bonus earned)
-- [ ] **REF-02**: User can share referral via WhatsApp, Line, or copy link
-- [ ] **NOTIF-01**: User can view notification inbox from home screen bell icon
-- [ ] **NOTIF-02**: User sees unread badge count on notification bell
-- [ ] **NOTIF-03**: User can mark notifications as read
+- [x] **REF-01**: User can see referral stats (count of referred friends, bonus earned)
+- [x] **REF-02**: User can share referral via WhatsApp, Line, or copy link
+- [x] **NOTIF-01**: User can view notification inbox from home screen bell icon
+- [x] **NOTIF-02**: User sees unread badge count on notification bell
+- [x] **NOTIF-03**: User can mark notifications as read
 
 ### Authentication
 
@@ -135,11 +135,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | VISA-02 | Phase 12 | Complete |
 | VISA-03 | Phase 12 | Complete |
 | VISA-04 | Phase 12 | Complete |
-| REF-01 | Phase 13 | Pending |
-| REF-02 | Phase 13 | Pending |
-| NOTIF-01 | Phase 13 | Pending |
-| NOTIF-02 | Phase 13 | Pending |
-| NOTIF-03 | Phase 13 | Pending |
+| REF-01 | Phase 13 | Complete |
+| REF-02 | Phase 13 | Complete |
+| NOTIF-01 | Phase 13 | Complete |
+| NOTIF-02 | Phase 13 | Complete |
+| NOTIF-03 | Phase 13 | Complete |
 | AUTH-01 | Phase 13 | Pending |
 | AUTH-02 | Phase 13 | Pending |
 
