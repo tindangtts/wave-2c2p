@@ -2,10 +2,15 @@ import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { z } from 'zod/v4'
 
-const withdrawRequestSchema = z.object({
-  amount: z.number().int().positive('Amount must be greater than 0'),
-  recipient_id: z.string().min(1, 'recipient_id is required'),
-})
+const withdrawRequestSchema = z
+  .object({
+    amount: z.number().int().positive('Amount must be greater than 0'),
+    recipient_id: z.string().optional(),
+    bank_account_id: z.string().optional(),
+  })
+  .refine((d) => d.recipient_id || d.bank_account_id, {
+    message: 'Either recipient_id or bank_account_id is required',
+  })
 
 function generateReference(): string {
   const timestamp = Date.now()
@@ -38,7 +43,7 @@ export async function POST(request: Request) {
       )
     }
 
-    const { amount, recipient_id } = parseResult.data
+    const { amount, recipient_id, bank_account_id } = parseResult.data
 
     // Fetch wallet and validate balance
     const { data: wallet, error: walletError } = await supabase
@@ -58,16 +63,37 @@ export async function POST(request: Request) {
       )
     }
 
-    // Verify recipient belongs to user
-    const { data: recipient, error: recipientError } = await supabase
-      .from('recipients')
-      .select('id, full_name')
-      .eq('id', recipient_id)
-      .eq('user_id', user.id)
-      .single()
+    // Resolve description based on recipient or bank account
+    let description = 'Withdrawal'
 
-    if (recipientError || !recipient) {
-      return NextResponse.json({ error: 'Recipient not found' }, { status: 404 })
+    if (recipient_id) {
+      // Verify recipient belongs to user
+      const { data: recipient, error: recipientError } = await supabase
+        .from('recipients')
+        .select('id, full_name')
+        .eq('id', recipient_id)
+        .eq('user_id', user.id)
+        .single()
+
+      if (recipientError || !recipient) {
+        return NextResponse.json({ error: 'Recipient not found' }, { status: 404 })
+      }
+
+      description = `Withdrawal to ${recipient.full_name}`
+    } else if (bank_account_id) {
+      // Verify bank account belongs to user
+      const { data: bankAccount, error: bankAccountError } = await supabase
+        .from('bank_accounts')
+        .select('id, bank_name, account_name')
+        .eq('id', bank_account_id)
+        .eq('user_id', user.id)
+        .single()
+
+      if (bankAccountError || !bankAccount) {
+        return NextResponse.json({ error: 'Bank account not found' }, { status: 404 })
+      }
+
+      description = `Withdrawal to ${bankAccount.bank_name} (${bankAccount.account_name})`
     }
 
     const referenceNumber = generateReference()
@@ -85,6 +111,9 @@ export async function POST(request: Request) {
       )
     }
 
+    // Build metadata if bank_account_id provided
+    const metadata = bank_account_id ? { bank_account_id } : null
+
     // Insert pending transaction
     const { data: transaction, error: txError } = await supabase
       .from('transactions')
@@ -94,9 +123,10 @@ export async function POST(request: Request) {
         status: 'pending',
         amount,
         currency: 'THB',
-        recipient_id,
+        ...(recipient_id ? { recipient_id } : {}),
         reference_number: referenceNumber,
-        description: `Withdrawal to ${recipient.full_name}`,
+        description,
+        ...(metadata ? { metadata } : {}),
       })
       .select('id')
       .single()

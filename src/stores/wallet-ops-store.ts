@@ -8,6 +8,7 @@ export interface WalletOpsState {
 
   // Withdrawal flow state
   withdrawRecipientId: string | null
+  withdrawBankAccountId: string | null
   withdrawAmount: string
 }
 
@@ -19,6 +20,7 @@ interface WalletOpsActions {
 
   // Withdrawal actions
   setWithdrawRecipient: (recipientId: string | null) => void
+  setWithdrawBankAccount: (bankAccountId: string | null) => void
   setWithdrawAmount: (amount: string) => void
   resetWithdraw: () => void
 }
@@ -27,6 +29,7 @@ const initialState: WalletOpsState = {
   topupAmount: '',
   topupChannel: null,
   withdrawRecipientId: null,
+  withdrawBankAccountId: null,
   withdrawAmount: '',
 }
 
@@ -43,10 +46,12 @@ export const useWalletOpsStore = create<WalletOpsState & WalletOpsActions>()(
 
       // Withdrawal actions
       setWithdrawRecipient: (recipientId) => set({ withdrawRecipientId: recipientId }),
+      setWithdrawBankAccount: (bankAccountId) => set({ withdrawBankAccountId: bankAccountId }),
       setWithdrawAmount: (amount) => set({ withdrawAmount: amount }),
       resetWithdraw: () =>
         set({
           withdrawRecipientId: initialState.withdrawRecipientId,
+          withdrawBankAccountId: initialState.withdrawBankAccountId,
           withdrawAmount: initialState.withdrawAmount,
         }),
     }),
@@ -59,6 +64,7 @@ export const useWalletOpsStore = create<WalletOpsState & WalletOpsActions>()(
         topupAmount: state.topupAmount,
         topupChannel: state.topupChannel,
         withdrawRecipientId: state.withdrawRecipientId,
+        withdrawBankAccountId: state.withdrawBankAccountId,
         withdrawAmount: state.withdrawAmount,
       }),
     }
