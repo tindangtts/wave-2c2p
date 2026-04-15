@@ -3,151 +3,95 @@
 **Defined:** 2026-04-15
 **Core Value:** Users can send money from Thailand to Myanmar quickly, affordably, and with full regulatory compliance
 
-## v1.1 Requirements
+## v1.2 Requirements
 
-Requirements for milestone v1.1 — Feature Completeness. Each maps to roadmap phases.
+Requirements for milestone v1.2 — Production Readiness. Each maps to roadmap phases.
 
-### Compliance & Registration
+### PWA & Offline
 
-- [x] **COMP-01**: User must accept T&C and Privacy Policy before completing registration (consent logged with timestamp + version)
-- [x] **COMP-02**: User sees pre-registration info screen explaining required documents before starting KYC
-- [x] **COMP-03**: User sees daily transfer limit acknowledgment screen during registration
-- [x] **COMP-04**: User completes selfie/liveness capture with face guide overlay during eKYC
-- [x] **COMP-05**: User can update work permit via standalone 2nd document verification flow (front + back capture)
+- [ ] **PWA-01**: App installs as PWA on mobile with proper manifest, icons, and splash screen
+- [ ] **PWA-02**: App shell (HTML/CSS/JS) is cached for offline access via service worker
+- [ ] **PWA-03**: Static assets (icons, fonts) use CacheFirst strategy with long TTL
+- [ ] **PWA-04**: API routes use NetworkFirst strategy with offline fallback message
+- [ ] **PWA-05**: User sees install prompt when visiting on mobile browser
 
-### P2P Transfer
+### QR Scanner
 
-- [x] **P2P-01**: User can send THB to another wallet by entering receiver wallet ID
-- [x] **P2P-02**: User can send THB by scanning receiver's wallet QR code
-- [x] **P2P-03**: User sees confirmation screen with sender/receiver details, amount, and fees before passcode
-- [x] **P2P-04**: User receives transaction receipt after successful P2P transfer
+- [ ] **QR-01**: User can scan QR codes using live camera via @yudiel/react-qr-scanner
+- [ ] **QR-02**: Scanned QR auto-detects type (wallet ID for P2P, payment code for receive)
 
-### Transfer Channels
+### Database & Auth
 
-- [x] **CHAN-01**: User can select cash pick-up as a transfer channel
-- [x] **CHAN-02**: User sees system-generated secret code on receipt for cash pick-up transfers
-- [x] **CHAN-03**: User can copy and refresh cash pick-up secret code from receipt
+- [ ] **DB-01**: WebAuthn columns (credential_id, public_key, counter, challenge) applied to user_profiles
+- [ ] **DB-02**: Biometric enrollment works on deployed HTTPS domain with installed PWA
 
-### Add Money
+### Testing
 
-- [x] **TOPUP-01**: User can top up via 123 Service convenience store channel
-- [x] **TOPUP-02**: User sees barcode (Code 128) with Ref.1, Ref.2, amount, and pay-before timestamp for 123 Service
+- [ ] **TEST-01**: Vitest unit tests cover Zod schemas (auth, transfer, wallet, KYC)
+- [ ] **TEST-02**: Vitest unit tests cover currency formatting edge cases (THB/MMK)
+- [ ] **TEST-03**: Vitest + RTL tests cover form components (registration, recipient, amount)
+- [ ] **TEST-04**: Playwright E2E test covers registration → KYC happy path
+- [ ] **TEST-05**: Playwright E2E test covers transfer confirmation → receipt happy path
 
-### Bank Accounts
+### Features
 
-- [x] **BANK-01**: User can add a bank account (bank name, account number, account name) for withdrawal
-- [x] **BANK-02**: User can delete a saved bank account (with confirmation dialog)
-- [x] **BANK-03**: User can select from saved bank accounts during withdrawal flow
-- [x] **BANK-04**: System prevents deletion of bank account with pending withdrawal
-
-### Recipient Management
-
-- [x] **REC-01**: User can toggle favourite on recipients (star icon)
-- [ ] **REC-02**: User can filter recipient list by favourites
-- [ ] **REC-03**: Favourite recipients sort to top of the list
-- [x] **REC-04**: User can enter Myanmar address via cascading pickers (State → Township → Ward/Village)
-
-### Transaction History
-
-- [x] **HIST-01**: User can share e-receipt as image via native share sheet
-- [x] **HIST-02**: User can download e-receipt as PNG image
-
-### Visa Card
-
-- [x] **VISA-01**: User can request a Visa card from the card screen
-- [x] **VISA-02**: User can select delivery address (current or mailing) during card request
-- [x] **VISA-03**: User sees FX conversion details on card payment confirmation
-- [x] **VISA-04**: User sees success/fail modal after card payment attempt
-
-### Engagement
-
-- [x] **REF-01**: User can see referral stats (count of referred friends, bonus earned)
-- [x] **REF-02**: User can share referral via WhatsApp, Line, or copy link
-- [x] **NOTIF-01**: User can view notification inbox from home screen bell icon
-- [x] **NOTIF-02**: User sees unread badge count on notification bell
-- [x] **NOTIF-03**: User can mark notifications as read
-
-### Authentication
-
-- [x] **AUTH-01**: User can enable biometric login (Face ID / Touch ID / Fingerprint) from profile settings
-- [x] **AUTH-02**: User can authenticate with biometrics instead of passcode on login
+- [ ] **FEAT-01**: User can download transaction statement as PDF for a date range
+- [ ] **FEAT-02**: User can view and edit personal spending limits from profile
 
 ## v2 Requirements
 
-Deferred to future release. Tracked but not in current roadmap.
+Deferred to future release.
 
 ### Payments
 - **PAY-01**: User can pay bills via bill payment feature
-- **PAY-02**: User can download transaction statement as PDF
+- **PAY-02**: User can redeem promotional vouchers
 
 ### Support
 - **SUP-01**: User can chat with support in-app
 - **SUP-02**: User can browse FAQ with search
 
-### Marketing
-- **MKT-01**: User can redeem promotional vouchers
-- **MKT-02**: Admin can manage CMS-driven promotional banners
+### Infrastructure
+- **INFRA-01**: Real push notifications via FCM/APNs
+- **INFRA-02**: Admin dashboard for KYC review and user management
 
 ## Out of Scope
 
 | Feature | Reason |
 |---------|--------|
-| Real eKYC integration | Mock service only — configurable pass/fail via env vars |
-| Real payment processing | Mock service only — configurable delays/rates |
-| Real SMS/OTP delivery | Mock flow with auto-bypass for development |
-| Native mobile app | PWA only — no iOS/Android native builds |
-| Admin dashboard | User-facing app only |
-| Real Visa card issuance | UI mockup with fake data |
-| Real-time chat support | Deferred to v2 |
-| Bill payments | Placeholder page only — deferred to v2 |
+| Real eKYC integration | Mock service only — production integration is a separate project |
+| Real payment processing | Mock service only — requires 2C2P API contract |
+| Real SMS/OTP delivery | Mock flow — requires SMS gateway contract |
+| Native mobile app | PWA covers mobile needs |
+| Admin dashboard | Separate project scope |
+| In-app chat | Deferred to v2 |
+| Bill payments | Deferred to v2 |
 
 ## Traceability
 
-Which phases cover which requirements. Updated during roadmap creation.
-
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| COMP-01 | Phase 9 | Complete |
-| COMP-02 | Phase 9 | Complete |
-| COMP-03 | Phase 9 | Complete |
-| COMP-04 | Phase 9 | Complete |
-| COMP-05 | Phase 12 | Complete |
-| P2P-01 | Phase 10 | Complete |
-| P2P-02 | Phase 10 | Complete |
-| P2P-03 | Phase 10 | Complete |
-| P2P-04 | Phase 10 | Complete |
-| CHAN-01 | Phase 10 | Complete |
-| CHAN-02 | Phase 10 | Complete |
-| CHAN-03 | Phase 10 | Complete |
-| TOPUP-01 | Phase 11 | Complete |
-| TOPUP-02 | Phase 11 | Complete |
-| BANK-01 | Phase 11 | Complete |
-| BANK-02 | Phase 11 | Complete |
-| BANK-03 | Phase 11 | Complete |
-| BANK-04 | Phase 11 | Complete |
-| REC-01 | Phase 10 | Complete |
-| REC-02 | Phase 10 | Complete |
-| REC-03 | Phase 10 | Complete |
-| REC-04 | Phase 11 | Complete |
-| HIST-01 | Phase 10 | Complete |
-| HIST-02 | Phase 10 | Complete |
-| VISA-01 | Phase 12 | Complete |
-| VISA-02 | Phase 12 | Complete |
-| VISA-03 | Phase 12 | Complete |
-| VISA-04 | Phase 12 | Complete |
-| REF-01 | Phase 13 | Complete |
-| REF-02 | Phase 13 | Complete |
-| NOTIF-01 | Phase 13 | Complete |
-| NOTIF-02 | Phase 13 | Complete |
-| NOTIF-03 | Phase 13 | Complete |
-| AUTH-01 | Phase 13 | Complete |
-| AUTH-02 | Phase 13 | Complete |
+| PWA-01 | — | Pending |
+| PWA-02 | — | Pending |
+| PWA-03 | — | Pending |
+| PWA-04 | — | Pending |
+| PWA-05 | — | Pending |
+| QR-01 | — | Pending |
+| QR-02 | — | Pending |
+| DB-01 | — | Pending |
+| DB-02 | — | Pending |
+| TEST-01 | — | Pending |
+| TEST-02 | — | Pending |
+| TEST-03 | — | Pending |
+| TEST-04 | — | Pending |
+| TEST-05 | — | Pending |
+| FEAT-01 | — | Pending |
+| FEAT-02 | — | Pending |
 
 **Coverage:**
-- v1.1 requirements: 35 total
-- Mapped to phases: 35
-- Unmapped: 0 ✓
+- v1.2 requirements: 17 total
+- Mapped to phases: 0
+- Unmapped: 17 ⚠️
 
 ---
 *Requirements defined: 2026-04-15*
-*Last updated: 2026-04-15 after roadmap creation (v1.1 Phases 9-13)*
+*Last updated: 2026-04-15 after initial definition*
