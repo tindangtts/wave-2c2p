@@ -116,7 +116,7 @@ Plans:
 | 7. Profile, Card & System States | v1.0 | 4/4 | Complete | 2026-04-14 |
 | 8. Integration Fixes | v1.0 | 1/1 | Complete | 2026-04-15 |
 | 9. Compliance & Registration | v1.1 | 3/3 | Complete   | 2026-04-15 |
-| 10. Transfer Enhancements | v1.1 | 5/5 | Complete   | 2026-04-15 |
+| 10. Transfer Enhancements | v1.1 | 5/5 | Complete    | 2026-04-15 |
 | 11. Wallet Operations | v1.1 | 0/? | Not started | — |
 | 12. Complex Flows | v1.1 | 0/? | Not started | — |
 | 13. Engagement & Auth | v1.1 | 0/? | Not started | — |
