@@ -54,10 +54,10 @@ Requirements for milestone v1.1 — Feature Completeness. Each maps to roadmap p
 
 ### Visa Card
 
-- [ ] **VISA-01**: User can request a Visa card from the card screen
-- [ ] **VISA-02**: User can select delivery address (current or mailing) during card request
-- [ ] **VISA-03**: User sees FX conversion details on card payment confirmation
-- [ ] **VISA-04**: User sees success/fail modal after card payment attempt
+- [x] **VISA-01**: User can request a Visa card from the card screen
+- [x] **VISA-02**: User can select delivery address (current or mailing) during card request
+- [x] **VISA-03**: User sees FX conversion details on card payment confirmation
+- [x] **VISA-04**: User sees success/fail modal after card payment attempt
 
 ### Engagement
 
@@ -131,10 +131,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | REC-04 | Phase 11 | Complete |
 | HIST-01 | Phase 10 | Complete |
 | HIST-02 | Phase 10 | Complete |
-| VISA-01 | Phase 12 | Pending |
-| VISA-02 | Phase 12 | Pending |
-| VISA-03 | Phase 12 | Pending |
-| VISA-04 | Phase 12 | Pending |
+| VISA-01 | Phase 12 | Complete |
+| VISA-02 | Phase 12 | Complete |
+| VISA-03 | Phase 12 | Complete |
+| VISA-04 | Phase 12 | Complete |
 | REF-01 | Phase 13 | Pending |
 | REF-02 | Phase 13 | Pending |
 | NOTIF-01 | Phase 13 | Pending |
