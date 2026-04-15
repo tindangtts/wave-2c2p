@@ -83,19 +83,20 @@ Users can send money from Thailand to Myanmar quickly, affordably, and with full
 
 ## Context
 
-**Shipped v1.2 Production Readiness** on 2026-04-15 with PWA, QR scanner, test coverage, PDF statements, and spending limits.
+**Shipped v1.3 Supabase Migration & Auth Hardening** on 2026-04-15 — all demo data wired to real Supabase tables, auth gates implemented, DEMO_MODE fully removed.
 
-- **Tech Stack**: Next.js 16.2.3 (App Router), Supabase (auth/DB/storage), shadcn/ui, Tailwind CSS v4, TypeScript
+- **Tech Stack**: Next.js 16.2.3 (App Router), Supabase (auth/DB/storage), Drizzle ORM (data queries), shadcn/ui, Tailwind CSS v4, TypeScript
 - **Brand**: Yellow #FFE600 primary, Blue #0091EA secondary, dark text #212121 on yellow (WCAG AA)
 - **Target**: Mobile-first PWA, 375-430px viewport, iOS-style chrome
 - **Markets**: Thailand ↔ Myanmar corridor, migrant worker primary persona
 - **Languages**: English, Thai, Myanmar (Burmese) — fully implemented with next-intl
 - **Prototype**: All 150+ Pencil screens implemented — full design/PRD coverage
-- **Mock Services**: eKYC and payment via env-var-configurable mock APIs with demo mode (being removed in v1.3)
-- **Auth**: Phone OTP + PBKDF2 passcode + WebAuthn biometric (Face ID/Touch ID)
+- **Mock Services**: eKYC only (payment APIs now write real Supabase records via Drizzle db.batch())
+- **Auth**: Phone OTP + PBKDF2 passcode + WebAuthn biometric + maintenance mode gate + version gate + rejected number gate + single session
+- **ORM**: Drizzle with neon-http adapter, 8 table schemas, lazy Proxy singleton
 - **Testing**: 109 Vitest unit/RTL tests + 5 Playwright E2E tests
 - **PWA**: Serwist service worker with offline fallback and install prompt
-- **Data**: Most API routes still use hardcoded demo data — 72 files reference isDemoMode
+- **Data**: Zero isDemoMode references — all API routes use Supabase/Drizzle exclusively
 
 ## Constraints
 
@@ -140,4 +141,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-15 after v1.3 milestone start*
+*Last updated: 2026-04-15 after v1.3 milestone completion*

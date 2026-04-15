@@ -5,7 +5,7 @@
 - ✅ **v1.0 MVP** — Phases 1-8 (shipped 2026-04-15) → [Archive](milestones/v1.0-ROADMAP.md)
 - ✅ **v1.1 Feature Completeness** — Phases 9-13 (shipped 2026-04-15)
 - ✅ **v1.2 Production Readiness** — Phases 14-17 (shipped 2026-04-15)
-- 🔄 **v1.3 Supabase Migration & Auth Hardening** — Phases 18-22 (in progress)
+- ✅ **v1.3 Supabase Migration & Auth Hardening** — Phases 18-22 (shipped 2026-04-15) → [Archive](milestones/v1.3-ROADMAP.md)
 
 ## Phases
 
@@ -44,13 +44,16 @@
 
 </details>
 
-### v1.3 Supabase Migration & Auth Hardening
+<details>
+<summary>✅ v1.3 Supabase Migration & Auth Hardening (Phases 18-22) — SHIPPED 2026-04-15</summary>
 
-- [x] **Phase 18: Core Data Layer** - Wire wallet, transactions, and Visa card reads to Supabase tables (completed 2026-04-15)
-- [x] **Phase 19: Payment Write-Back** - Mock payment APIs insert real transactions and update wallet balance in DB (completed 2026-04-15)
-- [x] **Phase 20: New Tables & Seed** - Notifications and vouchers tables, plus a seed SQL file for fresh installs (completed 2026-04-15)
-- [x] **Phase 21: System Config & Auth Gates** - SystemConfig table, maintenance/version checks, rejected-number gate, single active session (completed 2026-04-15)
-- [x] **Phase 22: Demo Mode Removal** - Delete demo.ts and remove all isDemoMode branches from the codebase (completed 2026-04-15)
+- [x] Phase 18: Core Data Layer (3/3 plans) — completed 2026-04-15
+- [x] Phase 19: Payment Write-Back (2/2 plans) — completed 2026-04-15
+- [x] Phase 20: New Tables & Seed (3/3 plans) — completed 2026-04-15
+- [x] Phase 21: System Config & Auth Gates (2/2 plans) — completed 2026-04-15
+- [x] Phase 22: Demo Mode Removal (5/5 plans) — completed 2026-04-15
+
+</details>
 
 ## Phase Details
 

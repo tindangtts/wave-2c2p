@@ -1,5 +1,27 @@
 # Milestones: 2C2P Wave
 
+## v1.3 Supabase Migration & Auth Hardening (Shipped: 2026-04-15)
+
+**Phases completed:** 5 phases, 15 plans
+**Files changed:** ~108 | **LOC added:** ~7,546
+
+**Key accomplishments:**
+
+- Drizzle ORM: Schema definitions for 8 tables, neon-http adapter, lazy Proxy singleton
+- Core Data Layer: Wallet, transactions, and Visa card reads via Drizzle (replaced demo data)
+- Payment Write-Back: All 4 payment APIs (transfer, P2P, topup, withdraw) write real transactions with atomic db.batch()
+- New Tables: Notifications + vouchers tables with Drizzle API routes, comprehensive seed.sql
+- Auth Gates: SystemConfig table, maintenance mode modal, version gate (hard/soft), rejected number gate, single active session
+- Demo Mode Removal: Deleted demo.ts, stripped isDemoMode from 31 source files, zero references remaining
+
+### Archive
+
+- [v1.3-ROADMAP.md](milestones/v1.3-ROADMAP.md) — Full phase details
+- [v1.3-REQUIREMENTS.md](milestones/v1.3-REQUIREMENTS.md) — All 13 requirements with traceability
+- [v1.3-MILESTONE-AUDIT.md](../v1.3-MILESTONE-AUDIT.md) — Final audit report
+
+---
+
 ## v1.2 Production Readiness (Shipped: 2026-04-15)
 
 **Phases completed:** 4 phases, 12 plans
