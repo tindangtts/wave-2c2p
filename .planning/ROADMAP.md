@@ -58,7 +58,15 @@ Plans:
   2. User can select cash pick-up as a transfer channel; after a successful transfer the receipt displays a server-generated secret code that can be copied or refreshed
   3. User can export any transaction receipt as a PNG image via the native share sheet or download it directly to their device
   4. User can star/unstar a recipient and filter the recipient list to show only favourites; starred recipients appear at the top of all recipient lists
-**Plans**: TBD
+**Plans**: 5 plans
+
+Plans:
+- [ ] 10-01-PLAN.md — P2P store + P2P transfer API + secret code refresh API + recipients PATCH
+- [ ] 10-02-PLAN.md — P2P wallet ID entry screen + P2P amount entry screen
+- [ ] 10-03-PLAN.md — Transfer confirm P2P extension + TransferReceipt secret code chip
+- [ ] 10-04-PLAN.md — Recipient list filter tabs (All / Favourites)
+- [ ] 10-05-PLAN.md — PNG receipt export + upgraded share + scan page P2P detection
+
 **UI hint**: yes
 
 ### Phase 11: Wallet Operations
@@ -108,7 +116,7 @@ Plans:
 | 7. Profile, Card & System States | v1.0 | 4/4 | Complete | 2026-04-14 |
 | 8. Integration Fixes | v1.0 | 1/1 | Complete | 2026-04-15 |
 | 9. Compliance & Registration | v1.1 | 3/3 | Complete   | 2026-04-15 |
-| 10. Transfer Enhancements | v1.1 | 0/? | Not started | — |
+| 10. Transfer Enhancements | v1.1 | 0/5 | Not started | — |
 | 11. Wallet Operations | v1.1 | 0/? | Not started | — |
 | 12. Complex Flows | v1.1 | 0/? | Not started | — |
 | 13. Engagement & Auth | v1.1 | 0/? | Not started | — |
