@@ -147,3 +147,21 @@ export const notifications = pgTable('notifications', {
   deepLink: text('deep_link'),
   createdAt: timestamptz('created_at').notNull().defaultNow(),
 })
+
+// =========================================================================
+// vouchers
+// Mirrors: public.vouchers in supabase-schema.sql (Phase 20 migration)
+// amount stored as bigint (satang). redeemed_by nullable = unredeemed.
+// =========================================================================
+export const vouchers = pgTable('vouchers', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  code: text('code').notNull(),
+  type: text('type').notNull(),
+  amount: bigint('amount', { mode: 'number' }).notNull().default(0),
+  description: text('description').notNull().default(''),
+  active: boolean('active').notNull().default(true),
+  redeemedBy: uuid('redeemed_by'),
+  redeemedAt: timestamptz('redeemed_at'),
+  expiresAt: timestamptz('expires_at'),
+  createdAt: timestamptz('created_at').notNull().defaultNow(),
+})
