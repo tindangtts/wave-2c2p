@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Supabase Migration & Auth Hardening
-status: executing
-stopped_at: Completed 19-01-PLAN.md
-last_updated: "2026-04-15T11:44:58.383Z"
+status: verifying
+stopped_at: Completed 19-02-PLAN.md
+last_updated: "2026-04-15T11:45:56.234Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 14
-  completed_phases: 10
+  completed_phases: 11
   total_plans: 37
-  completed_plans: 36
+  completed_plans: 37
   percent: 0
 ---
 
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-04-15)
 
 Phase: 19 (payment-write-back) — EXECUTING
 Plan: 2 of 2
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-04-15
 
 Progress: [░░░░░░░░░░] 0%
@@ -65,6 +65,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 18-core-data-layer P01 | 134s | 1 tasks | 5 files |
 | Phase 18-core-data-layer P02 | 5min | 2 tasks | 3 files |
 | Phase 19-payment-write-back P01 | 117s | 2 tasks | 2 files |
+| Phase 19-payment-write-back P02 | 151s | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -100,6 +101,7 @@ Progress: [░░░░░░░░░░] 0%
 - [Phase 18-core-data-layer]: Paginated transactions list omits recipients join; only single fetch by ID uses leftJoin — reduces query cost for list views
 - [Phase 18-core-data-layer]: snake_case column aliases in Drizzle select preserve existing API contract consumed by client hooks (max_topup, first_name, wallet_id, created_at)
 - [Phase 19-payment-write-back]: db.batch() used for atomic wallet+transaction write in process-transfer and withdraw routes; neon-http driver does not support db.transaction()
+- [Phase 19-payment-write-back]: db.batch() used for atomicity in payment routes — neon-http adapter does not support db.transaction(); topup writes status:success immediately while response returns pending for UI compatibility
 
 ### Pending Todos
 
@@ -113,7 +115,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-15T11:44:58.381Z
-Stopped at: Completed 19-01-PLAN.md
+Last session: 2026-04-15T11:45:56.231Z
+Stopped at: Completed 19-02-PLAN.md
 Resume file: None
 Next step: `/gsd:plan-phase 18`

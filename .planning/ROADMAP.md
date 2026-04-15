@@ -47,7 +47,7 @@
 ### v1.3 Supabase Migration & Auth Hardening
 
 - [x] **Phase 18: Core Data Layer** - Wire wallet, transactions, and Visa card reads to Supabase tables (completed 2026-04-15)
-- [ ] **Phase 19: Payment Write-Back** - Mock payment APIs insert real transactions and update wallet balance in DB
+- [x] **Phase 19: Payment Write-Back** - Mock payment APIs insert real transactions and update wallet balance in DB (completed 2026-04-15)
 - [ ] **Phase 20: New Tables & Seed** - Notifications and vouchers tables, plus a seed SQL file for fresh installs
 - [ ] **Phase 21: System Config & Auth Gates** - SystemConfig table, maintenance/version checks, rejected-number gate, single active session
 - [ ] **Phase 22: Demo Mode Removal** - Delete demo.ts and remove all isDemoMode branches from the codebase
@@ -240,7 +240,7 @@ Plans:
 
 Plans:
 - [x] 19-01-PLAN.md — Wire process-transfer and withdraw to Drizzle atomic batch writes (debit operations)
-- [ ] 19-02-PLAN.md — Wire p2p-transfer and topup to Drizzle atomic batch writes (P2P + credit operations)
+- [x] 19-02-PLAN.md — Wire p2p-transfer and topup to Drizzle atomic batch writes (P2P + credit operations)
 
 ### Phase 20: New Tables & Seed
 **Goal**: Notifications and vouchers are stored in Supabase and can be queried per-user, and a fresh Supabase install has enough seed data to run the app without manual setup
@@ -296,7 +296,7 @@ Plans:
 | 16. Test Coverage | v1.2 | 5/5 | Complete | 2026-04-15 |
 | 17. Features & Polish | v1.2 | 2/2 | Complete | 2026-04-15 |
 | 18. Core Data Layer | v1.3 | 3/3 | Complete    | 2026-04-15 |
-| 19. Payment Write-Back | v1.3 | 1/2 | In Progress|  |
+| 19. Payment Write-Back | v1.3 | 2/2 | Complete   | 2026-04-15 |
 | 20. New Tables & Seed | v1.3 | 0/TBD | Not started | - |
 | 21. System Config & Auth Gates | v1.3 | 0/TBD | Not started | - |
 | 22. Demo Mode Removal | v1.3 | 0/TBD | Not started | - |
