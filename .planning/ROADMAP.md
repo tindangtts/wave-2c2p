@@ -26,7 +26,7 @@
 - [x] **Phase 9: Compliance & Registration** - T&C consent, pre-registration info, daily limit acknowledgment, selfie/liveness capture (completed 2026-04-15)
 - [x] **Phase 10: Transfer Enhancements** - P2P wallet transfer, cash pick-up channel, e-receipt share, recipient favourites (completed 2026-04-15)
 - [x] **Phase 11: Wallet Operations** - 123 Service top-up, bank account CRUD, Myanmar address cascade (completed 2026-04-15)
-- [ ] **Phase 12: Complex Flows** - Visa card request + payment, work permit document update
+- [x] **Phase 12: Complex Flows** - Visa card request + payment, work permit document update (completed 2026-04-15)
 - [ ] **Phase 13: Engagement & Auth** - Referral stats + social share, notification inbox, biometric login
 
 ## Phase Details
@@ -101,8 +101,8 @@ Plans:
 Plans:
 - [x] 12-01-PLAN.md — Visa card mock payment API + i18n strings (en/th/mm)
 - [x] 12-02-PLAN.md — Work permit update mock KYC API + i18n strings (en/th/mm)
-- [ ] 12-03-PLAN.md — Visa card request UI (address selection + confirm + result modals)
-- [ ] 12-04-PLAN.md — Work permit update capture page + profile menu entry
+- [x] 12-03-PLAN.md — Visa card request UI (address selection + confirm + result modals)
+- [x] 12-04-PLAN.md — Work permit update capture page + profile menu entry
 
 **UI hint**: yes
 
@@ -132,5 +132,5 @@ Plans:
 | 9. Compliance & Registration | v1.1 | 3/3 | Complete   | 2026-04-15 |
 | 10. Transfer Enhancements | v1.1 | 5/5 | Complete    | 2026-04-15 |
 | 11. Wallet Operations | v1.1 | 4/4 | Complete    | 2026-04-15 |
-| 12. Complex Flows | v1.1 | 2/4 | In Progress|  |
+| 12. Complex Flows | v1.1 | 4/4 | Complete   | 2026-04-15 |
 | 13. Engagement & Auth | v1.1 | 0/? | Not started | — |

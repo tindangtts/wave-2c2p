@@ -13,7 +13,7 @@ Requirements for milestone v1.1 — Feature Completeness. Each maps to roadmap p
 - [x] **COMP-02**: User sees pre-registration info screen explaining required documents before starting KYC
 - [x] **COMP-03**: User sees daily transfer limit acknowledgment screen during registration
 - [x] **COMP-04**: User completes selfie/liveness capture with face guide overlay during eKYC
-- [ ] **COMP-05**: User can update work permit via standalone 2nd document verification flow (front + back capture)
+- [x] **COMP-05**: User can update work permit via standalone 2nd document verification flow (front + back capture)
 
 ### P2P Transfer
 
@@ -111,7 +111,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | COMP-02 | Phase 9 | Complete |
 | COMP-03 | Phase 9 | Complete |
 | COMP-04 | Phase 9 | Complete |
-| COMP-05 | Phase 12 | Pending |
+| COMP-05 | Phase 12 | Complete |
 | P2P-01 | Phase 10 | Complete |
 | P2P-02 | Phase 10 | Complete |
 | P2P-03 | Phase 10 | Complete |

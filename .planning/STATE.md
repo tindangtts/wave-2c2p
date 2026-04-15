@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Feature Completeness
 status: executing
-stopped_at: Completed 12-complex-flows-01-PLAN.md
-last_updated: "2026-04-15T04:44:37.287Z"
+stopped_at: Completed 12-complex-flows-03-PLAN.md
+last_updated: "2026-04-15T04:48:40.986Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 5
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 16
-  completed_plans: 13
+  completed_plans: 16
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-14)
 ## Current Position
 
 Phase: 12 (complex-flows) — EXECUTING
-Plan: 2 of 4
+Plan: 4 of 4
 Status: Ready to execute
 Last activity: 2026-04-15
 
@@ -84,6 +84,8 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 11-wallet-operations P04 | 166 | 2 tasks | 4 files |
 | Phase 11-wallet-operations P03 | 179 | 2 tasks | 6 files |
 | Phase 12-complex-flows P01 | 2 | 2 tasks | 4 files |
+| Phase 12-complex-flows P03 | 5 | 2 tasks | 2 files |
+| Phase 12-complex-flows P04 | 110 | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -157,6 +159,11 @@ Recent decisions affecting current work:
 - [Phase 11-wallet-operations]: Withdraw page fully replaces recipient list with bank account list — no backward compat needed for UI since users withdraw to their own accounts
 - [Phase 11-wallet-operations]: withdraw API uses .refine() to require either recipient_id or bank_account_id — backward compat with any legacy callers
 - [Phase 12-complex-flows]: Passed amount_satang + fee_satang from client not hardcoded server-side — server validates and deducts only
+- [Phase 12-complex-flows]: Request Card button placed below card info section, outside white rounded-xl block — matches natural scroll order
+- [Phase 12-complex-flows]: BackHeader onBack prop used on confirm step to go back to address step (not router.back) — preserves two-step navigation
+- [Phase 12-complex-flows]: AlertDialog controlled by resultModal?.type check — two separate AlertDialogs for success/fail clarity
+- [Phase 12-complex-flows]: Work permit update page uses local state (not KYCStore) to isolate re-verification from onboarding state
+- [Phase 12-complex-flows]: tKyc alias in profile page avoids collision with existing t (profile namespace)
 
 ### Pending Todos
 
@@ -168,6 +175,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-15T04:44:37.283Z
-Stopped at: Completed 12-complex-flows-01-PLAN.md
+Last session: 2026-04-15T04:48:40.984Z
+Stopped at: Completed 12-complex-flows-03-PLAN.md
 Resume file: None
