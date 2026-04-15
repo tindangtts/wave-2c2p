@@ -20,6 +20,22 @@ describe('formatCurrency', () => {
     const result = formatCurrency(0, 'MMK')
     expect(result).toContain('0')
   })
+
+  it('formats large THB amount with commas', () => {
+    const result = formatCurrency(100000000, 'THB')
+    expect(result).toContain('1,000,000.00')
+  })
+
+  it('formats large MMK amount with commas', () => {
+    const result = formatCurrency(10000000000, 'MMK')
+    expect(result).toContain('100,000,000')
+  })
+
+  it('formats negative THB amount with minus sign', () => {
+    const result = formatCurrency(-10000, 'THB')
+    expect(result).toContain('-')
+    expect(result).toContain('100.00')
+  })
 })
 
 describe('convertSatangToPya', () => {
@@ -34,6 +50,10 @@ describe('convertSatangToPya', () => {
   it('handles zero', () => {
     expect(convertSatangToPya(0, 58.148)).toBe(0)
   })
+
+  it('handles large conversion without overflow', () => {
+    expect(convertSatangToPya(2500000, 58.148)).toBe(145370000)
+  })
 })
 
 describe('toSmallestUnit', () => {
@@ -44,6 +64,14 @@ describe('toSmallestUnit', () => {
   it('converts kyat to pya', () => {
     expect(toSmallestUnit(5815, 'MMK')).toBe(581500)
   })
+
+  it('converts fractional baht to satang', () => {
+    expect(toSmallestUnit(100.50, 'THB')).toBe(10050)
+  })
+
+  it('rounds fractional kyat to nearest pya', () => {
+    expect(toSmallestUnit(100.999, 'MMK')).toBe(10100)
+  })
 })
 
 describe('fromSmallestUnit', () => {
@@ -53,5 +81,9 @@ describe('fromSmallestUnit', () => {
 
   it('converts pya to kyat', () => {
     expect(fromSmallestUnit(581500, 'MMK')).toBe(5815)
+  })
+
+  it('converts 1 satang to 0.01 baht', () => {
+    expect(fromSmallestUnit(1, 'THB')).toBe(0.01)
   })
 })
