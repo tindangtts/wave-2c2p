@@ -94,7 +94,7 @@ function OTPPageContent() {
         if (data.isNewUser || !data.registrationComplete) {
           const step = data.registrationStep ?? 1
           if (step === 1 || data.isNewUser) {
-            router.push('/register/personal-info')
+            router.push('/register/pre-reg-info')
           } else if (step === 2) {
             router.push('/register/id-details')
           } else if (step === 3) {
