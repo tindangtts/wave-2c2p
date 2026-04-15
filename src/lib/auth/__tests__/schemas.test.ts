@@ -57,9 +57,12 @@ describe('phoneSchema', () => {
 describe('personalInfoSchema', () => {
   it('accepts valid personal info', () => {
     const result = personalInfoSchema.safeParse({
+      title: 'mr',
       firstName: 'John',
       lastName: 'Doe',
+      gender: 'male',
       dateOfBirth: '01/01/1990',
+      email: 'john@example.com',
       nationality: 'thai',
     })
     expect(result.success).toBe(true)
@@ -67,9 +70,12 @@ describe('personalInfoSchema', () => {
 
   it('rejects empty firstName', () => {
     const result = personalInfoSchema.safeParse({
+      title: 'mr',
       firstName: '',
       lastName: 'Doe',
+      gender: 'male',
       dateOfBirth: '01/01/1990',
+      email: '',
       nationality: 'thai',
     })
     expect(result.success).toBe(false)
@@ -81,9 +87,12 @@ describe('personalInfoSchema', () => {
 
   it('rejects empty lastName', () => {
     const result = personalInfoSchema.safeParse({
+      title: 'mr',
       firstName: 'John',
       lastName: '',
+      gender: 'male',
       dateOfBirth: '01/01/1990',
+      email: '',
       nationality: 'thai',
     })
     expect(result.success).toBe(false)
@@ -95,9 +104,12 @@ describe('personalInfoSchema', () => {
 
   it('rejects invalid dateOfBirth format', () => {
     const result = personalInfoSchema.safeParse({
+      title: 'mr',
       firstName: 'John',
       lastName: 'Doe',
+      gender: 'male',
       dateOfBirth: '1990-01-01',
+      email: '',
       nationality: 'thai',
     })
     expect(result.success).toBe(false)
@@ -106,9 +118,12 @@ describe('personalInfoSchema', () => {
   it('accepts all nationality enum values', () => {
     for (const nationality of ['thai', 'myanmar', 'other'] as const) {
       const result = personalInfoSchema.safeParse({
+        title: 'ms',
         firstName: 'John',
         lastName: 'Doe',
+        gender: 'female',
         dateOfBirth: '01/01/1990',
+        email: '',
         nationality,
       })
       expect(result.success).toBe(true)
