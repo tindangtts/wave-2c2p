@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { NextResponse } from 'next/server'
+import { isDemoMode, DEMO_RECIPIENTS } from '@/lib/demo'
 import { recipientFormSchema } from '@/lib/transfer/schemas'
 
 export async function PUT(
@@ -7,6 +8,15 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    if (isDemoMode) {
+      const { id } = await params
+      const recipient = DEMO_RECIPIENTS.find((r) => r.id === id)
+      if (!recipient) {
+        return NextResponse.json({ error: 'Recipient not found' }, { status: 404 })
+      }
+      return NextResponse.json({ recipient })
+    }
+
     const supabase = await createClient()
 
     const {
@@ -100,6 +110,10 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    if (isDemoMode) {
+      return NextResponse.json({ success: true })
+    }
+
     const supabase = await createClient()
 
     const {
@@ -154,6 +168,16 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    if (isDemoMode) {
+      const { id } = await params
+      const body = await request.json()
+      const recipient = DEMO_RECIPIENTS.find((r) => r.id === id)
+      if (!recipient) {
+        return NextResponse.json({ error: 'Recipient not found' }, { status: 404 })
+      }
+      return NextResponse.json({ recipient: { ...recipient, ...body } })
+    }
+
     const supabase = await createClient()
 
     const {

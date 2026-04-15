@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { isDemoMode } from '@/lib/demo'
 import { z } from 'zod/v4'
 
 const withdrawRequestSchema = z
@@ -22,6 +23,22 @@ function generateReference(): string {
 
 export async function POST(request: Request) {
   try {
+    if (isDemoMode) {
+      const body = await request.json()
+      const parseResult = withdrawRequestSchema.safeParse(body)
+      if (!parseResult.success) {
+        return NextResponse.json(
+          { error: 'Validation failed', details: parseResult.error },
+          { status: 400 }
+        )
+      }
+      return NextResponse.json({
+        transaction_id: 'demo-tx-withdraw',
+        status: 'pending',
+        reference_number: generateReference(),
+      })
+    }
+
     const supabase = await createClient()
 
     const {

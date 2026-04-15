@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/auth/admin'
 import { createClient } from '@/lib/supabase/server'
+import { isDemoMode } from '@/lib/demo'
 import { kycSubmitRequestSchema } from '@/lib/kyc/schemas'
 
 const REJECTION_REASONS = [
@@ -12,6 +13,14 @@ const REJECTION_REASONS = [
 
 export async function POST(request: Request) {
   try {
+    if (isDemoMode) {
+      return NextResponse.json({
+        success: true,
+        status: 'pending',
+        verification_id: `KYC-${Date.now()}`,
+      })
+    }
+
     // Auth check — get session from Supabase
     const supabase = await createClient()
     const {

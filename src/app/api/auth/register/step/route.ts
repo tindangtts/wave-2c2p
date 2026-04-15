@@ -1,9 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { isDemoMode } from '@/lib/demo'
 import { personalInfoSchema, idDetailsSchema } from '@/lib/auth/schemas'
 
 export async function POST(request: NextRequest) {
   try {
+    if (isDemoMode) {
+      const body = await request.json()
+      const { step } = body as { step: 1 | 2 | 3 }
+      return NextResponse.json({ success: true, nextStep: step < 3 ? step + 1 : undefined })
+    }
+
     const body = await request.json()
     const { step, data } = body as { step: 1 | 2 | 3; data: Record<string, unknown> }
 

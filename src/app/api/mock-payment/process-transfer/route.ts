@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { isDemoMode } from "@/lib/demo";
 import type { TransferChannel } from "@/types";
 
 const channelFees: Record<TransferChannel, number> = {
@@ -20,6 +21,33 @@ function generateReference(): string {
 
 export async function POST(request: Request) {
   try {
+    if (isDemoMode) {
+      const body = await request.json();
+      const { amount, currency = "THB", channel } = body;
+      const exchangeRate = parseFloat(process.env.MOCK_EXCHANGE_RATE ?? "133.0");
+      const fee = channelFees[channel as TransferChannel] ?? 1000;
+      const referenceNumber = generateReference();
+      return NextResponse.json({
+        success: true,
+        status: "pending",
+        transfer: {
+          id: "demo-tx-transfer",
+          reference_number: referenceNumber,
+          amount,
+          currency,
+          fee,
+          total_deducted: amount + fee,
+          converted_amount: Math.round(amount * exchangeRate),
+          converted_currency: "MMK",
+          exchange_rate: exchangeRate,
+          channel,
+          recipient_id: body.recipient_id,
+          estimated_arrival: "Within 30 minutes",
+          created_at: new Date().toISOString(),
+        },
+      });
+    }
+
     const supabase = await createClient();
 
     const {
