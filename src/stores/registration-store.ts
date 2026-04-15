@@ -19,6 +19,10 @@ export interface RegistrationState {
   idType: 'national_id' | 'passport' | 'work_permit' | 'other' | ''
   idNumber: string
   idExpiry: string
+
+  // Compliance consent (Phase 9)
+  tcAcceptedAt: string   // ISO timestamp or '' if not yet accepted
+  tcVersion: string      // e.g. "1.0" or '' if not yet accepted
 }
 
 interface RegistrationActions {
@@ -35,6 +39,7 @@ interface RegistrationActions {
     idNumber: string
     idExpiry: string
   }) => void
+  setConsent: (acceptedAt: string, version: string) => void
   clearAll: () => void
 }
 
@@ -49,6 +54,8 @@ const initialState: RegistrationState = {
   idType: '',
   idNumber: '',
   idExpiry: '',
+  tcAcceptedAt: '',
+  tcVersion: '',
 }
 
 export const useRegistrationStore = create<RegistrationState & RegistrationActions>()(
@@ -66,10 +73,12 @@ export const useRegistrationStore = create<RegistrationState & RegistrationActio
       setIdDetails: ({ idType, idNumber, idExpiry }) =>
         set({ idType, idNumber, idExpiry }),
 
+      setConsent: (acceptedAt, version) => set({ tcAcceptedAt: acceptedAt, tcVersion: version }),
+
       clearAll: () => set({ ...initialState }),
     }),
     {
-      name: 'wave-registration-state',
+      name: 'wave-registration-state-v2',
       storage: createJSONStorage(() => localStorage),
       // Exclude action functions from persisted state
       partialize: (state) => ({
@@ -83,6 +92,8 @@ export const useRegistrationStore = create<RegistrationState & RegistrationActio
         idType: state.idType,
         idNumber: state.idNumber,
         idExpiry: state.idExpiry,
+        tcAcceptedAt: state.tcAcceptedAt,
+        tcVersion: state.tcVersion,
       }),
     }
   )
