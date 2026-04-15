@@ -159,7 +159,7 @@ Plans:
   2. When a scanned QR code contains a wallet ID the app navigates to the P2P transfer flow pre-filled with that wallet ID; when it contains a payment code the app navigates to the receive/add-money flow
   3. A developer running the production migration can apply the WebAuthn columns (credential_id, public_key, counter, challenge) to user_profiles without data loss
   4. A user on a deployed HTTPS domain with an installed PWA can enrol Face ID / Touch ID and subsequently authenticate using biometrics
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
 - [ ] 15-01-PLAN.md — Install @yudiel/react-qr-scanner, replace mock scan page with live scanner component, iOS playsInline + permission handling
