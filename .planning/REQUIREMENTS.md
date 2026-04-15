@@ -35,10 +35,10 @@ Requirements for milestone v1.1 — Feature Completeness. Each maps to roadmap p
 
 ### Bank Accounts
 
-- [ ] **BANK-01**: User can add a bank account (bank name, account number, account name) for withdrawal
-- [ ] **BANK-02**: User can delete a saved bank account (with confirmation dialog)
+- [x] **BANK-01**: User can add a bank account (bank name, account number, account name) for withdrawal
+- [x] **BANK-02**: User can delete a saved bank account (with confirmation dialog)
 - [ ] **BANK-03**: User can select from saved bank accounts during withdrawal flow
-- [ ] **BANK-04**: System prevents deletion of bank account with pending withdrawal
+- [x] **BANK-04**: System prevents deletion of bank account with pending withdrawal
 
 ### Recipient Management
 
@@ -121,10 +121,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CHAN-03 | Phase 10 | Complete |
 | TOPUP-01 | Phase 11 | Complete |
 | TOPUP-02 | Phase 11 | Complete |
-| BANK-01 | Phase 11 | Pending |
-| BANK-02 | Phase 11 | Pending |
+| BANK-01 | Phase 11 | Complete |
+| BANK-02 | Phase 11 | Complete |
 | BANK-03 | Phase 11 | Pending |
-| BANK-04 | Phase 11 | Pending |
+| BANK-04 | Phase 11 | Complete |
 | REC-01 | Phase 10 | Complete |
 | REC-02 | Phase 10 | Pending |
 | REC-03 | Phase 10 | Pending |
