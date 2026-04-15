@@ -120,6 +120,7 @@ Users can send money from Thailand to Myanmar quickly, affordably, and with full
 | html-to-image for receipt export | Lighter than html2canvas, better SVG/font handling | ✓ Good — v1.1 |
 | WebAuthn for biometric | Platform-native Face ID/Touch ID via browser API | ✓ Good — v1.1 |
 | react-barcode for 123 Service | Code 128 SVG for convenience store POS scanners | ✓ Good — v1.1 |
+| Drizzle ORM over raw Supabase client | Type-safe schema, migrations, query builder; lighter than Prisma | Pending — v1.3 |
 
 ## Evolution
 

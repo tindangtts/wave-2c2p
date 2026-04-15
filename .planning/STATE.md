@@ -2,12 +2,12 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Supabase Migration & Auth Hardening
-status: defining_requirements
-stopped_at: Milestone v1.3 started
+status: roadmap_created
+stopped_at: Roadmap created — Phase 18 ready to plan
 last_updated: "2026-04-15T10:00:00.000Z"
 last_activity: 2026-04-15
 progress:
-  total_phases: 0
+  total_phases: 5
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -21,15 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-15)
 
 **Core value:** Users can send money from Thailand to Myanmar quickly, affordably, and with full regulatory compliance
-**Current focus:** Defining requirements for v1.3
+**Current focus:** v1.3 — Wire all demo/mock data to real Supabase tables, implement missing PRD auth requirements, and remove DEMO_MODE fallback
 
 ## Current Position
 
-Phase: Not started (defining requirements)
+Phase: 18 — Core Data Layer (not started)
 Plan: —
-Status: Defining requirements
-Last activity: 2026-04-15 — Milestone v1.3 started
-Last activity: 2026-04-15
+Status: Roadmap created, ready to plan Phase 18
+Last activity: 2026-04-15 — v1.3 roadmap created (5 phases, 13 requirements mapped)
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -37,18 +36,19 @@ Progress: [░░░░░░░░░░] 0%
 
 **Velocity:**
 
-- Total plans completed (v1.2): 0
-- Average duration: —
-- Total execution time: —
+- Total plans completed (v1.2): 12
+- Average duration: ~4 min/plan
+- Total execution time: ~48 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 14. PWA & Offline | 0/2 | — | — |
-| 15. QR Scanner & WebAuthn | 0/3 | — | — |
-| 16. Test Coverage | 0/5 | — | — |
-| 17. Features & Polish | 0/2 | — | — |
+| 18. Core Data Layer | 0/TBD | — | — |
+| 19. Payment Write-Back | 0/TBD | — | — |
+| 20. New Tables & Seed | 0/TBD | — | — |
+| 21. System Config & Auth Gates | 0/TBD | — | — |
+| 22. Demo Mode Removal | 0/TBD | — | — |
 
 *Updated after each plan completion*
 | Phase 14-pwa-offline P01 | 252s | 2 tasks | 5 files |
@@ -89,6 +89,9 @@ Progress: [░░░░░░░░░░] 0%
 - [Phase 17-features-polish]: English-only PDF labels per research recommendation (no Thai/Myanmar font embedding)
 - [Phase 17-features-polish]: Dedicated /api/statement route (not reusing paginated /api/transactions)
 - [Phase 17-features-polish]: Tier detection from dailyLimitSatang value match — fallback to premium if no match
+- [v1.3 roadmap]: DATA-08 (demo mode removal) is the final phase — all 72 isDemoMode files must be wired to Supabase first
+- [v1.3 roadmap]: Missing tables notifications + vouchers + system_config must be created via SQL migration in Phase 20/21
+- [v1.3 roadmap]: AUTH-01 (SystemConfig table) executes before AUTH-02/03 (which read from it) — both in Phase 21
 
 ### Pending Todos
 
@@ -98,9 +101,11 @@ None yet.
 
 - DB-01/DB-02: WebAuthn SQL migration requires a deployed HTTPS domain — local dev cannot fully verify biometric enrollment
 - Phase 16 E2E tests (TEST-04, TEST-05) require a running dev server; CI pipeline setup may be needed
+- Phase 21 AUTH-05 (single active session): Supabase `auth.admin.signOut(userId, 'others')` requires service role key — confirm env var is set
 
 ## Session Continuity
 
-Last session: 2026-04-15T08:13:48.064Z
-Stopped at: Completed 17-02-PLAN.md (Spending Limits)
+Last session: 2026-04-15T10:00:00.000Z
+Stopped at: v1.3 roadmap created
 Resume file: None
+Next step: `/gsd:plan-phase 18`

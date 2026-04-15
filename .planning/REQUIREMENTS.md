@@ -60,25 +60,25 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DATA-01 | — | Pending |
-| DATA-02 | — | Pending |
-| DATA-03 | — | Pending |
-| DATA-04 | — | Pending |
-| DATA-05 | — | Pending |
-| DATA-06 | — | Pending |
-| DATA-07 | — | Pending |
-| DATA-08 | — | Pending |
-| AUTH-01 | — | Pending |
-| AUTH-02 | — | Pending |
-| AUTH-03 | — | Pending |
-| AUTH-04 | — | Pending |
-| AUTH-05 | — | Pending |
+| DATA-01 | Phase 18 | Pending |
+| DATA-02 | Phase 18 | Pending |
+| DATA-06 | Phase 18 | Pending |
+| DATA-03 | Phase 19 | Pending |
+| DATA-04 | Phase 20 | Pending |
+| DATA-05 | Phase 20 | Pending |
+| DATA-07 | Phase 20 | Pending |
+| AUTH-01 | Phase 21 | Pending |
+| AUTH-02 | Phase 21 | Pending |
+| AUTH-03 | Phase 21 | Pending |
+| AUTH-04 | Phase 21 | Pending |
+| AUTH-05 | Phase 21 | Pending |
+| DATA-08 | Phase 22 | Pending |
 
 **Coverage:**
 - v1.3 requirements: 13 total
-- Mapped to phases: 0
-- Unmapped: 13 ⚠️
+- Mapped to phases: 13
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-04-15*
-*Last updated: 2026-04-15 after initial definition*
+*Last updated: 2026-04-15 after v1.3 roadmap creation*

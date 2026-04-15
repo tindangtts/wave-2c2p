@@ -5,6 +5,7 @@
 - ✅ **v1.0 MVP** — Phases 1-8 (shipped 2026-04-15) → [Archive](milestones/v1.0-ROADMAP.md)
 - ✅ **v1.1 Feature Completeness** — Phases 9-13 (shipped 2026-04-15)
 - ✅ **v1.2 Production Readiness** — Phases 14-17 (shipped 2026-04-15)
+- 🔄 **v1.3 Supabase Migration & Auth Hardening** — Phases 18-22 (in progress)
 
 ## Phases
 
@@ -42,6 +43,14 @@
 - [x] Phase 17: Features & Polish (2/2 plans) — completed 2026-04-15
 
 </details>
+
+### v1.3 Supabase Migration & Auth Hardening
+
+- [ ] **Phase 18: Core Data Layer** - Wire wallet, transactions, and Visa card reads to Supabase tables
+- [ ] **Phase 19: Payment Write-Back** - Mock payment APIs insert real transactions and update wallet balance in DB
+- [ ] **Phase 20: New Tables & Seed** - Notifications and vouchers tables, plus a seed SQL file for fresh installs
+- [ ] **Phase 21: System Config & Auth Gates** - SystemConfig table, maintenance/version checks, rejected-number gate, single active session
+- [ ] **Phase 22: Demo Mode Removal** - Delete demo.ts and remove all isDemoMode branches from the codebase
 
 ## Phase Details
 
@@ -203,6 +212,59 @@ Plans:
 
 **UI hint**: yes
 
+### Phase 18: Core Data Layer
+**Goal**: The home screen, transaction history, and Visa card page reflect real user data from Supabase — no hardcoded balances or demo records
+**Depends on**: Phase 17
+**Requirements**: DATA-01, DATA-02, DATA-06
+**Success Criteria** (what must be TRUE):
+  1. The home screen wallet balance reflects the value stored in the user's `wallets` row in Supabase, and updating that row via the DB console is reflected on next page load
+  2. The transaction history page fetches from the `transactions` table with cursor-based pagination — scrolling past the first page loads older records from the database
+  3. The Visa card page displays card number, expiry, and freeze status from the `cards` table; a card with `is_frozen = true` in the DB shows the frozen state without a hardcoded override
+**Plans**: TBD
+
+### Phase 19: Payment Write-Back
+**Goal**: Every money movement initiated through the app creates a permanent record in Supabase and updates the user's wallet balance atomically
+**Depends on**: Phase 18
+**Requirements**: DATA-03
+**Success Criteria** (what must be TRUE):
+  1. After a successful transfer (A/C, P2P, or cash pick-up), a new row appears in the `transactions` table with the correct type, amount, fee, status, and recipient reference
+  2. After a top-up completes, the user's `wallets.balance` increases by the deposited amount and the corresponding `add_money` transaction is visible in history
+  3. After a withdrawal, the wallet balance decreases by the withdrawn amount and a `withdraw` transaction record is created
+  4. If a payment API call fails mid-flight, the wallet balance remains unchanged (no partial writes)
+**Plans**: TBD
+
+### Phase 20: New Tables & Seed
+**Goal**: Notifications and vouchers are stored in Supabase and can be queried per-user, and a fresh Supabase install has enough seed data to run the app without manual setup
+**Depends on**: Phase 18
+**Requirements**: DATA-04, DATA-05, DATA-07
+**Success Criteria** (what must be TRUE):
+  1. The notification inbox fetches rows from the `notifications` table scoped to the logged-in user; marking a notification as read updates `is_read = true` in the DB and the badge count decrements
+  2. A voucher code entered by the user is validated against the `vouchers` table; a valid unredeemed code updates `redeemed_at` and credits the wallet; an already-redeemed code returns an error
+  3. Running the seed SQL against a blank Supabase project populates wallets, transactions, cards, notifications, and vouchers with enough demo records that all screens render without empty-state fallbacks
+**Plans**: TBD
+
+### Phase 21: System Config & Auth Gates
+**Goal**: The app enforces maintenance windows and version requirements on every open, blocks permanently rejected users before they can log in, and ensures only one active session exists per user
+**Depends on**: Phase 20
+**Requirements**: AUTH-01, AUTH-02, AUTH-03, AUTH-04, AUTH-05
+**Success Criteria** (what must be TRUE):
+  1. Setting `maintenance_mode = true` in the `system_config` table causes every app open to show a blocking maintenance modal; clearing the flag allows normal access without a redeploy
+  2. Setting `min_version` in `system_config` to a value higher than the current app version forces a hard-update modal that blocks all navigation; a `recommended_version` mismatch shows a dismissible soft-update banner
+  3. A user whose `user_profiles` record has `kyc_status = 'permanently_rejected'` (or equivalent flag) sees a rejection modal at the phone-entry step and cannot proceed to OTP
+  4. Logging in on a second device invalidates the previous session token; the first device is redirected to the login screen on the next authenticated API call
+**Plans**: TBD
+
+### Phase 22: Demo Mode Removal
+**Goal**: The codebase contains no DEMO_MODE conditional branches — every API route reads from and writes to Supabase exclusively
+**Depends on**: Phase 21
+**Requirements**: DATA-08
+**Success Criteria** (what must be TRUE):
+  1. `src/lib/demo.ts` does not exist in the repository and no file imports it
+  2. A full-text search for `isDemoMode` across the codebase returns zero matches
+  3. Running `npm run build` with `DEMO_MODE` unset (or set to `false`) completes without type errors or missing-variable warnings
+  4. The home screen, transfer flow, and transaction history all operate correctly using only Supabase data after demo code removal
+**Plans**: TBD
+
 ## Progress
 
 | Phase | Milestone | Plans Complete | Status | Completed |
@@ -220,7 +282,12 @@ Plans:
 | 11. Wallet Operations | v1.1 | 4/4 | Complete | 2026-04-15 |
 | 12. Complex Flows | v1.1 | 4/4 | Complete | 2026-04-15 |
 | 13. Engagement & Auth | v1.1 | 4/4 | Complete | 2026-04-15 |
-| 14. PWA & Offline | v1.2 | 2/2 | Complete    | 2026-04-15 |
-| 15. QR Scanner & WebAuthn Migration | v1.2 | 3/3 | Complete    | 2026-04-15 |
-| 16. Test Coverage | v1.2 | 5/5 | Complete    | 2026-04-15 |
-| 17. Features & Polish | v1.2 | 2/2 | Complete    | 2026-04-15 |
+| 14. PWA & Offline | v1.2 | 2/2 | Complete | 2026-04-15 |
+| 15. QR Scanner & WebAuthn Migration | v1.2 | 3/3 | Complete | 2026-04-15 |
+| 16. Test Coverage | v1.2 | 5/5 | Complete | 2026-04-15 |
+| 17. Features & Polish | v1.2 | 2/2 | Complete | 2026-04-15 |
+| 18. Core Data Layer | v1.3 | 0/TBD | Not started | - |
+| 19. Payment Write-Back | v1.3 | 0/TBD | Not started | - |
+| 20. New Tables & Seed | v1.3 | 0/TBD | Not started | - |
+| 21. System Config & Auth Gates | v1.3 | 0/TBD | Not started | - |
+| 22. Demo Mode Removal | v1.3 | 0/TBD | Not started | - |
