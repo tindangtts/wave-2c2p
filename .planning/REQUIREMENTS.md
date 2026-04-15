@@ -17,16 +17,16 @@ Requirements for milestone v1.1 — Feature Completeness. Each maps to roadmap p
 
 ### P2P Transfer
 
-- [ ] **P2P-01**: User can send THB to another wallet by entering receiver wallet ID
+- [x] **P2P-01**: User can send THB to another wallet by entering receiver wallet ID
 - [ ] **P2P-02**: User can send THB by scanning receiver's wallet QR code
-- [ ] **P2P-03**: User sees confirmation screen with sender/receiver details, amount, and fees before passcode
+- [x] **P2P-03**: User sees confirmation screen with sender/receiver details, amount, and fees before passcode
 - [ ] **P2P-04**: User receives transaction receipt after successful P2P transfer
 
 ### Transfer Channels
 
-- [ ] **CHAN-01**: User can select cash pick-up as a transfer channel
-- [ ] **CHAN-02**: User sees system-generated secret code on receipt for cash pick-up transfers
-- [ ] **CHAN-03**: User can copy and refresh cash pick-up secret code from receipt
+- [x] **CHAN-01**: User can select cash pick-up as a transfer channel
+- [x] **CHAN-02**: User sees system-generated secret code on receipt for cash pick-up transfers
+- [x] **CHAN-03**: User can copy and refresh cash pick-up secret code from receipt
 
 ### Add Money
 
@@ -42,7 +42,7 @@ Requirements for milestone v1.1 — Feature Completeness. Each maps to roadmap p
 
 ### Recipient Management
 
-- [ ] **REC-01**: User can toggle favourite on recipients (star icon)
+- [x] **REC-01**: User can toggle favourite on recipients (star icon)
 - [ ] **REC-02**: User can filter recipient list by favourites
 - [ ] **REC-03**: Favourite recipients sort to top of the list
 - [ ] **REC-04**: User can enter Myanmar address via cascading pickers (State → Township → Ward/Village)
@@ -112,20 +112,20 @@ Which phases cover which requirements. Updated during roadmap creation.
 | COMP-03 | Phase 9 | Complete |
 | COMP-04 | Phase 9 | Complete |
 | COMP-05 | Phase 12 | Pending |
-| P2P-01 | Phase 10 | Pending |
+| P2P-01 | Phase 10 | Complete |
 | P2P-02 | Phase 10 | Pending |
-| P2P-03 | Phase 10 | Pending |
+| P2P-03 | Phase 10 | Complete |
 | P2P-04 | Phase 10 | Pending |
-| CHAN-01 | Phase 10 | Pending |
-| CHAN-02 | Phase 10 | Pending |
-| CHAN-03 | Phase 10 | Pending |
+| CHAN-01 | Phase 10 | Complete |
+| CHAN-02 | Phase 10 | Complete |
+| CHAN-03 | Phase 10 | Complete |
 | TOPUP-01 | Phase 11 | Pending |
 | TOPUP-02 | Phase 11 | Pending |
 | BANK-01 | Phase 11 | Pending |
 | BANK-02 | Phase 11 | Pending |
 | BANK-03 | Phase 11 | Pending |
 | BANK-04 | Phase 11 | Pending |
-| REC-01 | Phase 10 | Pending |
+| REC-01 | Phase 10 | Complete |
 | REC-02 | Phase 10 | Pending |
 | REC-03 | Phase 10 | Pending |
 | REC-04 | Phase 11 | Pending |
