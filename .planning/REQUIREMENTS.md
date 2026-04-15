@@ -22,8 +22,8 @@ Requirements for milestone v1.2 — Production Readiness. Each maps to roadmap p
 
 ### Database & Auth
 
-- [ ] **DB-01**: WebAuthn columns (credential_id, public_key, counter, challenge) applied to user_profiles
-- [ ] **DB-02**: Biometric enrollment works on deployed HTTPS domain with installed PWA
+- [x] **DB-01**: WebAuthn columns (credential_id, public_key, counter, challenge) applied to user_profiles
+- [x] **DB-02**: Biometric enrollment works on deployed HTTPS domain with installed PWA
 
 ### Testing
 
@@ -77,8 +77,8 @@ Deferred to future release.
 | PWA-05 | Phase 14 | Pending |
 | QR-01 | Phase 15 | Pending |
 | QR-02 | Phase 15 | Pending |
-| DB-01 | Phase 15 | Pending |
-| DB-02 | Phase 15 | Pending |
+| DB-01 | Phase 15 | Complete |
+| DB-02 | Phase 15 | Complete |
 | TEST-01 | Phase 16 | Pending |
 | TEST-02 | Phase 16 | Pending |
 | TEST-03 | Phase 16 | Pending |
