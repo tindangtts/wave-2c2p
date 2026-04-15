@@ -236,3 +236,15 @@ ALTER TABLE public.user_profiles
   ADD COLUMN IF NOT EXISTS webauthn_public_key text,
   ADD COLUMN IF NOT EXISTS webauthn_counter bigint DEFAULT 0,
   ADD COLUMN IF NOT EXISTS webauthn_challenge text;
+
+-- =============================================================================
+-- Phase 17: Spending Limits columns
+-- =============================================================================
+-- Run in Supabase SQL Editor after deploying Phase 17.
+-- Adds personal daily/monthly spending limit columns to user_profiles.
+-- Defaults match SPENDING_TIERS.premium (highest limit tier).
+-- Idempotent: safe to re-run via ADD COLUMN IF NOT EXISTS
+-- =============================================================================
+ALTER TABLE public.user_profiles
+  ADD COLUMN IF NOT EXISTS daily_limit_satang bigint DEFAULT 5000000,
+  ADD COLUMN IF NOT EXISTS monthly_limit_satang bigint DEFAULT 20000000;
