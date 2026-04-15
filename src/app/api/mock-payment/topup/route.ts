@@ -3,6 +3,9 @@ import { createClient } from '@/lib/supabase/server'
 import { topupAmountSchema, topupChannelSchema } from '@/lib/wallet/schemas'
 import { isDemoMode, DEMO_USER, DEMO_WALLET } from '@/lib/demo'
 import { z } from 'zod/v4'
+import { db } from '@/db'
+import { wallets, transactions } from '@/db/schema'
+import { eq } from 'drizzle-orm'
 
 const topupRequestSchema = z.object({
   amount: z.number().int().positive(),
@@ -96,18 +99,18 @@ export async function POST(request: Request) {
       )
     }
 
-    // Fetch wallet and check max_topup
-    const { data: wallet, error: walletError } = await supabase
-      .from('wallets')
-      .select('id, balance, max_topup')
-      .eq('user_id', user.id)
-      .single()
+    // Fetch wallet via Drizzle and check maxTopup
+    const [wallet] = await db
+      .select({ id: wallets.id, balance: wallets.balance, maxTopup: wallets.maxTopup })
+      .from(wallets)
+      .where(eq(wallets.userId, user.id))
+      .limit(1)
 
-    if (walletError || !wallet) {
+    if (!wallet) {
       return NextResponse.json({ error: 'Wallet not found' }, { status: 404 })
     }
 
-    if (amount > wallet.max_topup) {
+    if (amount > wallet.maxTopup) {
       return NextResponse.json(
         { error: 'Amount exceeds maximum top-up limit' },
         { status: 400 }
@@ -127,54 +130,39 @@ export async function POST(request: Request) {
     const expiresMinutes = channel === 'service_123' ? 30 : 15
     const expiresAt = new Date(Date.now() + expiresMinutes * 60 * 1000).toISOString()
 
-    // Insert pending transaction
-    const { data: transaction, error: txError } = await supabase
-      .from('transactions')
-      .insert({
-        user_id: user.id,
-        type: 'add_money',
-        status: 'pending',
-        amount,
-        currency: 'THB',
-        channel,
-        reference_number: referenceNumber,
-        description: `Top-up via ${channel.toUpperCase()}`,
-      })
-      .select('id')
-      .single()
-
-    if (txError || !transaction) {
+    // Atomic batch: update wallet balance + insert transaction (immediate, no deferred setTimeout)
+    let txId: string
+    try {
+      const [, [inserted]] = await db.batch([
+        db.update(wallets)
+          .set({ balance: wallet.balance + amount, updatedAt: new Date() })
+          .where(eq(wallets.id, wallet.id)),
+        db.insert(transactions)
+          .values({
+            userId: user.id,
+            type: 'add_money',
+            status: 'success',   // Immediate success — atomic write, no deferred update needed
+            amount,
+            fee: 0,
+            currency: 'THB',
+            channel,
+            referenceNumber,
+            description: `Top-up via ${channel.toUpperCase()}`,
+            metadata: null,
+          })
+          .returning({ id: transactions.id }),
+      ] as const)
+      txId = inserted.id
+    } catch {
       return NextResponse.json(
-        { error: 'Failed to create transaction' },
+        { error: 'Failed to process top-up' },
         { status: 500 }
       )
     }
 
-    // Fire-and-forget: simulate async completion after configurable delay
-    const delayMs = parseInt(process.env.MOCK_TOPUP_DELAY_MS ?? '5000', 10)
-    setTimeout(async () => {
-      try {
-        // Create a new server client for the background update
-        const { createClient: createBgClient } = await import('@/lib/supabase/server')
-        const bgSupabase = await createBgClient()
-
-        await bgSupabase
-          .from('transactions')
-          .update({ status: 'success', updated_at: new Date().toISOString() })
-          .eq('id', transaction.id)
-
-        await bgSupabase
-          .from('wallets')
-          .update({ balance: wallet.balance + amount })
-          .eq('id', wallet.id)
-      } catch {
-        // Background update failure — not critical for response
-      }
-    }, delayMs)
-
     if (channel === 'service_123') {
       return NextResponse.json({
-        transaction_id: transaction.id,
+        transaction_id: txId,
         barcode_data: {
           barcodeValue: referenceNumber.replace(/[^0-9]/g, '').padStart(20, '0'),
           ref1: walletId,
@@ -183,12 +171,12 @@ export async function POST(request: Request) {
           expiresAt,
           channel,
         },
-        status: 'pending',
+        status: 'pending',   // Keep 'pending' in response for UI compatibility
       })
     }
 
     return NextResponse.json({
-      transaction_id: transaction.id,
+      transaction_id: txId,
       qr_data: {
         paymentCode: '9300596914',
         amount: amountInBaht,
@@ -197,7 +185,7 @@ export async function POST(request: Request) {
         channel,
         referenceNumber,
       },
-      status: 'pending',
+      status: 'pending',   // Keep 'pending' in response for UI compatibility
     })
   } catch (err) {
     if (err instanceof z.ZodError) {
