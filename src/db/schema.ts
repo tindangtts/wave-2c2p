@@ -125,6 +125,9 @@ export const recipients = pgTable('recipients', {
   fullName: text('full_name').notNull(),
   phone: text('phone').notNull(),
   countryCode: text('country_code').notNull().default('+95'),
+  transferType: text('transfer_type'),
+  bankName: text('bank_name'),
+  accountNo: text('account_no'),
   nrc: text('nrc'),
   occupation: text('occupation'),
   transferPurpose: text('transfer_purpose'),
@@ -133,6 +136,19 @@ export const recipients = pgTable('recipients', {
   isFavorite: boolean('is_favorite').notNull().default(false),
   createdAt: timestamptz('created_at').notNull().defaultNow(),
   updatedAt: timestamptz('updated_at').notNull().defaultNow(),
+})
+
+// =========================================================================
+// bankAccounts
+// Mirrors: public.bank_accounts in supabase-schema.sql (Phase 11 migration)
+// =========================================================================
+export const bankAccounts = pgTable('bank_accounts', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  userId: uuid('user_id').notNull(),
+  bankName: text('bank_name').notNull(),
+  accountNumber: text('account_number').notNull(),
+  accountName: text('account_name').notNull(),
+  createdAt: timestamptz('created_at').notNull().defaultNow(),
 })
 
 // =========================================================================
