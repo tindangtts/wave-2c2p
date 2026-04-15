@@ -54,7 +54,19 @@ Users can send money from Thailand to Myanmar quickly, affordably, and with full
 
 ### Active
 
-(None — all v1.1 requirements validated. Define v1.2 requirements with `/gsd:new-milestone`)
+<!-- v1.2 Production Readiness -->
+
+- [ ] PWA service worker with Serwist (offline caching, install prompt, app shell)
+- [ ] Real QR scanner integration (@yudiel/react-qr-scanner)
+- [ ] WebAuthn SQL migration for real biometric auth
+- [ ] Vitest unit tests for critical paths (auth, currency, transfer schemas)
+- [ ] Playwright E2E tests for critical flows (registration, transfer, add money)
+- [ ] Statement download as PDF
+- [ ] Editable spending limits (user-configurable tiers)
+
+## Current Milestone: v1.2 Production Readiness
+
+**Goal:** Make the app production-ready with offline support, real QR scanning, test coverage, and remaining technical gaps.
 
 ### Out of Scope
 
@@ -125,4 +137,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-15 after v1.1 milestone complete*
+*Last updated: 2026-04-15 after v1.2 milestone start*
