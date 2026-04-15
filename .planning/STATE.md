@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Production Readiness
 status: executing
-stopped_at: Completed 16-04-PLAN.md (Playwright E2E setup)
-last_updated: "2026-04-15T07:41:57.242Z"
+stopped_at: Completed 16-03-PLAN.md (RTL form component tests)
+last_updated: "2026-04-15T07:42:45.099Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 9
   completed_phases: 7
   total_plans: 30
-  completed_plans: 28
+  completed_plans: 29
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-15)
 ## Current Position
 
 Phase: 16 (Test Coverage) — EXECUTING
-Plan: 4 of 5
+Plan: 5 of 5
 Status: Ready to execute
 Last activity: 2026-04-15
 
@@ -57,6 +57,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 16-test-coverage P01 | 3min | 1 tasks | 5 files |
 | Phase 16-test-coverage P02 | 8min | 2 tasks | 4 files |
 | Phase 16-test-coverage P04 | 101s | 2 tasks | 4 files |
+| Phase 16-test-coverage P03 | 15min | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -76,6 +77,8 @@ Progress: [░░░░░░░░░░] 0%
 - [Phase 16-test-coverage]: Pre-existing new-recipient.test.tsx failure logged to deferred-items.md (out of scope for 16-02 — scope boundary rule applied)
 - [Phase 16-test-coverage]: DEMO_MODE middleware redirects /login /otp /register to /home — E2E tests for registration form require DEMO_MODE=false with real Supabase or test instance
 - [Phase 16-test-coverage]: Playwright E2E tests scoped to DEMO_MODE-accessible paths: auto-auth redirect, home render, KYC document selection, capture navigation
+- [Phase 16-test-coverage]: AmountInput is a custom keypad; RTL tests interact via aria-label button clicks, not native input typing
+- [Phase 16-test-coverage]: Exclude src/e2e/** from vitest discovery — Playwright specs use test.describe() which errors in Vitest context
 
 ### Pending Todos
 
@@ -88,6 +91,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-15T07:41:57.239Z
-Stopped at: Completed 16-04-PLAN.md (Playwright E2E setup)
+Last session: 2026-04-15T07:42:45.097Z
+Stopped at: Completed 16-03-PLAN.md (RTL form component tests)
 Resume file: None
