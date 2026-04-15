@@ -1,0 +1,153 @@
+# Requirements: 2C2P Wave
+
+**Defined:** 2026-04-15
+**Core Value:** Users can send money from Thailand to Myanmar quickly, affordably, and with full regulatory compliance
+
+## v1.1 Requirements
+
+Requirements for milestone v1.1 — Feature Completeness. Each maps to roadmap phases.
+
+### Compliance & Registration
+
+- [ ] **COMP-01**: User must accept T&C and Privacy Policy before completing registration (consent logged with timestamp + version)
+- [ ] **COMP-02**: User sees pre-registration info screen explaining required documents before starting KYC
+- [ ] **COMP-03**: User sees daily transfer limit acknowledgment screen during registration
+- [ ] **COMP-04**: User completes selfie/liveness capture with face guide overlay during eKYC
+- [ ] **COMP-05**: User can update work permit via standalone 2nd document verification flow (front + back capture)
+
+### P2P Transfer
+
+- [ ] **P2P-01**: User can send THB to another wallet by entering receiver wallet ID
+- [ ] **P2P-02**: User can send THB by scanning receiver's wallet QR code
+- [ ] **P2P-03**: User sees confirmation screen with sender/receiver details, amount, and fees before passcode
+- [ ] **P2P-04**: User receives transaction receipt after successful P2P transfer
+
+### Transfer Channels
+
+- [ ] **CHAN-01**: User can select cash pick-up as a transfer channel
+- [ ] **CHAN-02**: User sees system-generated secret code on receipt for cash pick-up transfers
+- [ ] **CHAN-03**: User can copy and refresh cash pick-up secret code from receipt
+
+### Add Money
+
+- [ ] **TOPUP-01**: User can top up via 123 Service convenience store channel
+- [ ] **TOPUP-02**: User sees barcode (Code 128) with Ref.1, Ref.2, amount, and pay-before timestamp for 123 Service
+
+### Bank Accounts
+
+- [ ] **BANK-01**: User can add a bank account (bank name, account number, account name) for withdrawal
+- [ ] **BANK-02**: User can delete a saved bank account (with confirmation dialog)
+- [ ] **BANK-03**: User can select from saved bank accounts during withdrawal flow
+- [ ] **BANK-04**: System prevents deletion of bank account with pending withdrawal
+
+### Recipient Management
+
+- [ ] **REC-01**: User can toggle favourite on recipients (star icon)
+- [ ] **REC-02**: User can filter recipient list by favourites
+- [ ] **REC-03**: Favourite recipients sort to top of the list
+- [ ] **REC-04**: User can enter Myanmar address via cascading pickers (State → Township → Ward/Village)
+
+### Transaction History
+
+- [ ] **HIST-01**: User can share e-receipt as image via native share sheet
+- [ ] **HIST-02**: User can download e-receipt as PNG image
+
+### Visa Card
+
+- [ ] **VISA-01**: User can request a Visa card from the card screen
+- [ ] **VISA-02**: User can select delivery address (current or mailing) during card request
+- [ ] **VISA-03**: User sees FX conversion details on card payment confirmation
+- [ ] **VISA-04**: User sees success/fail modal after card payment attempt
+
+### Engagement
+
+- [ ] **REF-01**: User can see referral stats (count of referred friends, bonus earned)
+- [ ] **REF-02**: User can share referral via WhatsApp, Line, or copy link
+- [ ] **NOTIF-01**: User can view notification inbox from home screen bell icon
+- [ ] **NOTIF-02**: User sees unread badge count on notification bell
+- [ ] **NOTIF-03**: User can mark notifications as read
+
+### Authentication
+
+- [ ] **AUTH-01**: User can enable biometric login (Face ID / Touch ID / Fingerprint) from profile settings
+- [ ] **AUTH-02**: User can authenticate with biometrics instead of passcode on login
+
+## v2 Requirements
+
+Deferred to future release. Tracked but not in current roadmap.
+
+### Payments
+- **PAY-01**: User can pay bills via bill payment feature
+- **PAY-02**: User can download transaction statement as PDF
+
+### Support
+- **SUP-01**: User can chat with support in-app
+- **SUP-02**: User can browse FAQ with search
+
+### Marketing
+- **MKT-01**: User can redeem promotional vouchers
+- **MKT-02**: Admin can manage CMS-driven promotional banners
+
+## Out of Scope
+
+| Feature | Reason |
+|---------|--------|
+| Real eKYC integration | Mock service only — configurable pass/fail via env vars |
+| Real payment processing | Mock service only — configurable delays/rates |
+| Real SMS/OTP delivery | Mock flow with auto-bypass for development |
+| Native mobile app | PWA only — no iOS/Android native builds |
+| Admin dashboard | User-facing app only |
+| Real Visa card issuance | UI mockup with fake data |
+| Real-time chat support | Deferred to v2 |
+| Bill payments | Placeholder page only — deferred to v2 |
+
+## Traceability
+
+Which phases cover which requirements. Updated during roadmap creation.
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| COMP-01 | — | Pending |
+| COMP-02 | — | Pending |
+| COMP-03 | — | Pending |
+| COMP-04 | — | Pending |
+| COMP-05 | — | Pending |
+| P2P-01 | — | Pending |
+| P2P-02 | — | Pending |
+| P2P-03 | — | Pending |
+| P2P-04 | — | Pending |
+| CHAN-01 | — | Pending |
+| CHAN-02 | — | Pending |
+| CHAN-03 | — | Pending |
+| TOPUP-01 | — | Pending |
+| TOPUP-02 | — | Pending |
+| BANK-01 | — | Pending |
+| BANK-02 | — | Pending |
+| BANK-03 | — | Pending |
+| BANK-04 | — | Pending |
+| REC-01 | — | Pending |
+| REC-02 | — | Pending |
+| REC-03 | — | Pending |
+| REC-04 | — | Pending |
+| HIST-01 | — | Pending |
+| HIST-02 | — | Pending |
+| VISA-01 | — | Pending |
+| VISA-02 | — | Pending |
+| VISA-03 | — | Pending |
+| VISA-04 | — | Pending |
+| REF-01 | — | Pending |
+| REF-02 | — | Pending |
+| NOTIF-01 | — | Pending |
+| NOTIF-02 | — | Pending |
+| NOTIF-03 | — | Pending |
+| AUTH-01 | — | Pending |
+| AUTH-02 | — | Pending |
+
+**Coverage:**
+- v1.1 requirements: 35 total
+- Mapped to phases: 0
+- Unmapped: 35 ⚠️
+
+---
+*Requirements defined: 2026-04-15*
+*Last updated: 2026-04-15 after initial definition*
