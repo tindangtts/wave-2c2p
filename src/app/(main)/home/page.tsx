@@ -3,6 +3,7 @@ import { WalletCard } from "@/components/features/wallet-card";
 import { QuickActions } from "@/components/features/quick-actions";
 import { RecentHistory } from "@/components/features/recent-history";
 import { PromoCarousel } from "@/components/features/promo-carousel";
+import { InstallPrompt } from "@/components/pwa/install-prompt";
 
 export default function HomePage() {
   return (
@@ -36,6 +37,9 @@ export default function HomePage() {
           <div className="px-4 mt-6 mb-4 animate-fade-up stagger-5">
             <PromoCarousel />
           </div>
+
+          {/* PWA Install Prompt */}
+          <InstallPrompt />
         </div>
       </div>
     </>

@@ -27,7 +27,11 @@ const notoSansMyanmar = Noto_Sans_Myanmar({
 export const metadata: Metadata = {
   title: "2C2P Wave",
   description: "Mobile banking and cross-border remittance",
-  manifest: "/manifest.json",
+  icons: {
+    apple: [
+      { url: '/icons/icon-180.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
