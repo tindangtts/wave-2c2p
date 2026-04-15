@@ -315,4 +315,4 @@ Plans:
 | 19. Payment Write-Back | v1.3 | 2/2 | Complete    | 2026-04-15 |
 | 20. New Tables & Seed | v1.3 | 3/3 | Complete    | 2026-04-15 |
 | 21. System Config & Auth Gates | v1.3 | 2/2 | Complete    | 2026-04-15 |
-| 22. Demo Mode Removal | v1.3 | 0/5 | In progress | - |
+| 22. Demo Mode Removal | v1.3 | 1/5 | In progress | - |
