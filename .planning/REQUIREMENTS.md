@@ -16,7 +16,7 @@ Requirements for Supabase Migration & Auth Hardening milestone. Each maps to roa
 - [x] **DATA-05**: Voucher codes stored in new `vouchers` table with redemption tracking
 - [x] **DATA-06**: Visa card data reads from `cards` table instead of hardcoded mock
 - [x] **DATA-07**: Seed SQL file populates all tables with initial data for fresh installs
-- [ ] **DATA-08**: Remove `demo.ts` and all `isDemoMode` branches from entire codebase
+- [x] **DATA-08**: Remove `demo.ts` and all `isDemoMode` branches from entire codebase
 
 ### Auth Hardening
 
@@ -72,7 +72,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | AUTH-03 | Phase 21 | Complete |
 | AUTH-04 | Phase 21 | Complete |
 | AUTH-05 | Phase 21 | Complete |
-| DATA-08 | Phase 22 | Pending |
+| DATA-08 | Phase 22 | Complete |
 
 **Coverage:**
 - v1.3 requirements: 13 total
