@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Supabase Migration & Auth Hardening
-status: executing
-stopped_at: Completed 20-01-PLAN.md
-last_updated: "2026-04-15T11:58:51.487Z"
+status: verifying
+stopped_at: Completed 20-03-PLAN.md
+last_updated: "2026-04-15T12:02:24.640Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 14
-  completed_phases: 11
+  completed_phases: 12
   total_plans: 40
-  completed_plans: 39
+  completed_plans: 40
   percent: 0
 ---
 
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-04-15)
 
 Phase: 20 (new-tables-seed) — EXECUTING
 Plan: 3 of 3
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-04-15
 
 Progress: [░░░░░░░░░░] 0%
@@ -68,6 +68,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 19-payment-write-back P02 | 151s | 2 tasks | 2 files |
 | Phase 20-new-tables-seed P02 | 84s | 2 tasks | 3 files |
 | Phase 20-new-tables-seed P01 | 98s | 2 tasks | 3 files |
+| Phase 20-new-tables-seed P03 | 103s | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -107,6 +108,8 @@ Progress: [░░░░░░░░░░] 0%
 - [Phase 20-new-tables-seed]: db.batch() used for atomic voucher redeem+wallet credit (neon-http does not support db.transaction())
 - [Phase 20-new-tables-seed]: isDemoMode branch in voucher route preserved with in-memory VALID_VOUCHERS — no DB call in demo mode
 - [Phase 20-new-tables-seed]: notifications table uses uuid PK with defaultRandom() matching wallets/transactions pattern; auth via supabase.auth.getUser(), data queries via Drizzle ORM consistent with transactions route
+- [Phase 20-new-tables-seed]: Fixed UUIDs used in seed.sql for idempotent re-runs; auth.users prerequisite documented in header comment
+- [Phase 20-new-tables-seed]: Hard-coded SEED-TXN-001..005 reference numbers satisfy transactions.reference_number UNIQUE constraint without random() re-insertion issues
 
 ### Pending Todos
 
@@ -120,7 +123,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-15T11:58:51.484Z
-Stopped at: Completed 20-01-PLAN.md
+Last session: 2026-04-15T12:02:24.637Z
+Stopped at: Completed 20-03-PLAN.md
 Resume file: None
 Next step: `/gsd:plan-phase 18`

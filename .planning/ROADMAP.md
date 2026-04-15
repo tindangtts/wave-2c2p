@@ -48,7 +48,7 @@
 
 - [x] **Phase 18: Core Data Layer** - Wire wallet, transactions, and Visa card reads to Supabase tables (completed 2026-04-15)
 - [x] **Phase 19: Payment Write-Back** - Mock payment APIs insert real transactions and update wallet balance in DB (completed 2026-04-15)
-- [ ] **Phase 20: New Tables & Seed** - Notifications and vouchers tables, plus a seed SQL file for fresh installs
+- [x] **Phase 20: New Tables & Seed** - Notifications and vouchers tables, plus a seed SQL file for fresh installs (completed 2026-04-15)
 - [ ] **Phase 21: System Config & Auth Gates** - SystemConfig table, maintenance/version checks, rejected-number gate, single active session
 - [ ] **Phase 22: Demo Mode Removal** - Delete demo.ts and remove all isDemoMode branches from the codebase
 
@@ -255,7 +255,7 @@ Plans:
 Plans:
 - [x] 20-01-PLAN.md — Notifications table: Drizzle schema + SQL migration + API route rewrite
 - [x] 20-02-PLAN.md — Vouchers table: Drizzle schema + SQL migration + atomic redemption route
-- [ ] 20-03-PLAN.md — Seed SQL for all tables + schema doc update
+- [x] 20-03-PLAN.md — Seed SQL for all tables + schema doc update
 
 ### Phase 21: System Config & Auth Gates
 **Goal**: The app enforces maintenance windows and version requirements on every open, blocks permanently rejected users before they can log in, and ensures only one active session exists per user
@@ -302,6 +302,6 @@ Plans:
 | 17. Features & Polish | v1.2 | 2/2 | Complete | 2026-04-15 |
 | 18. Core Data Layer | v1.3 | 3/3 | Complete    | 2026-04-15 |
 | 19. Payment Write-Back | v1.3 | 2/2 | Complete    | 2026-04-15 |
-| 20. New Tables & Seed | v1.3 | 2/3 | In Progress|  |
+| 20. New Tables & Seed | v1.3 | 3/3 | Complete   | 2026-04-15 |
 | 21. System Config & Auth Gates | v1.3 | 0/TBD | Not started | - |
 | 22. Demo Mode Removal | v1.3 | 0/TBD | Not started | - |
