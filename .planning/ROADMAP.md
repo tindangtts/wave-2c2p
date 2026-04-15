@@ -160,10 +160,30 @@ Plans:
 
 **UI hint**: yes
 
+### Phase 8: Integration Fixes & Navigation Wiring
+**Goal**: All cross-phase navigation links, i18n keys, and status vocabulary are correct — the Transfer flow is reachable from home, Visa Card quick action works, and stale routes are removed
+**Depends on**: Phase 7
+**Requirements**: XFER-01, HOME-03, HOME-05, CARD-01, WTHD-01, XFER-08, HIST-02, EKYC-07
+**Gap Closure**: Closes NEW-01 through NEW-07 from v1.0-MILESTONE-AUDIT.md
+**Success Criteria** (what must be TRUE):
+  1. Bottom nav Transfer button navigates to /transfer/recipient (Phase 5 entry point)
+  2. Quick actions grid includes Transfer linking to /transfer/recipient
+  3. Visa Card quick action navigates to /profile/card (not /visa-card)
+  4. No stale placeholder pages remain at /transfer, /withdrawal, or /card
+  5. Transaction status vocabulary is consistent between process-transfer API and transaction history
+  6. All i18n keys resolve without MISSING_MESSAGE in MM and TH locales
+  7. Orphaned /api/mock-payment/calculate-fees route is removed
+**Plans**: 1 plan
+
+Plans:
+- [ ] 08-01-PLAN.md — Fix navigation wiring, remove stale routes, align status vocabulary, add missing i18n keys
+
+**UI hint**: no
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
+Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -174,3 +194,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 5. Transfer & Recipients | 4/4 | Complete   | 2026-04-14 |
 | 6. Wallet Operations | 4/4 | Complete   | 2026-04-14 |
 | 7. Profile, Card & System States | 4/4 | Complete   | 2026-04-14 |
+| 8. Integration Fixes | 0/1 | Not started | - |
