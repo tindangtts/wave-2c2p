@@ -182,7 +182,7 @@ Plans:
 - [x] 16-01-PLAN.md — Vitest + RTL setup (vitest.config.ts, jsdom environment, test utilities, mock Supabase client)
 - [x] 16-02-PLAN.md — Zod schema unit tests (auth, transfer, wallet, KYC) + currency formatter unit tests
 - [ ] 16-03-PLAN.md — Form component RTL tests (registration, recipient, amount entry)
-- [ ] 16-04-PLAN.md — Playwright setup (playwright.config.ts, global setup for auth state) + registration → KYC E2E test
+- [x] 16-04-PLAN.md — Playwright setup (playwright.config.ts, global setup for auth state) + registration → KYC E2E test
 - [ ] 16-05-PLAN.md — Transfer confirmation → receipt E2E test
 
 ### Phase 17: Features & Polish
@@ -219,5 +219,5 @@ Plans:
 | 13. Engagement & Auth | v1.1 | 4/4 | Complete | 2026-04-15 |
 | 14. PWA & Offline | v1.2 | 2/2 | Complete    | 2026-04-15 |
 | 15. QR Scanner & WebAuthn Migration | v1.2 | 3/3 | Complete    | 2026-04-15 |
-| 16. Test Coverage | v1.2 | 2/5 | In Progress|  |
+| 16. Test Coverage | v1.2 | 3/5 | In Progress|  |
 | 17. Features & Polish | v1.2 | 0/2 | Not started | - |
