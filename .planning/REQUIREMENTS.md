@@ -107,47 +107,47 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| COMP-01 | — | Pending |
-| COMP-02 | — | Pending |
-| COMP-03 | — | Pending |
-| COMP-04 | — | Pending |
-| COMP-05 | — | Pending |
-| P2P-01 | — | Pending |
-| P2P-02 | — | Pending |
-| P2P-03 | — | Pending |
-| P2P-04 | — | Pending |
-| CHAN-01 | — | Pending |
-| CHAN-02 | — | Pending |
-| CHAN-03 | — | Pending |
-| TOPUP-01 | — | Pending |
-| TOPUP-02 | — | Pending |
-| BANK-01 | — | Pending |
-| BANK-02 | — | Pending |
-| BANK-03 | — | Pending |
-| BANK-04 | — | Pending |
-| REC-01 | — | Pending |
-| REC-02 | — | Pending |
-| REC-03 | — | Pending |
-| REC-04 | — | Pending |
-| HIST-01 | — | Pending |
-| HIST-02 | — | Pending |
-| VISA-01 | — | Pending |
-| VISA-02 | — | Pending |
-| VISA-03 | — | Pending |
-| VISA-04 | — | Pending |
-| REF-01 | — | Pending |
-| REF-02 | — | Pending |
-| NOTIF-01 | — | Pending |
-| NOTIF-02 | — | Pending |
-| NOTIF-03 | — | Pending |
-| AUTH-01 | — | Pending |
-| AUTH-02 | — | Pending |
+| COMP-01 | Phase 9 | Pending |
+| COMP-02 | Phase 9 | Pending |
+| COMP-03 | Phase 9 | Pending |
+| COMP-04 | Phase 9 | Pending |
+| COMP-05 | Phase 12 | Pending |
+| P2P-01 | Phase 10 | Pending |
+| P2P-02 | Phase 10 | Pending |
+| P2P-03 | Phase 10 | Pending |
+| P2P-04 | Phase 10 | Pending |
+| CHAN-01 | Phase 10 | Pending |
+| CHAN-02 | Phase 10 | Pending |
+| CHAN-03 | Phase 10 | Pending |
+| TOPUP-01 | Phase 11 | Pending |
+| TOPUP-02 | Phase 11 | Pending |
+| BANK-01 | Phase 11 | Pending |
+| BANK-02 | Phase 11 | Pending |
+| BANK-03 | Phase 11 | Pending |
+| BANK-04 | Phase 11 | Pending |
+| REC-01 | Phase 10 | Pending |
+| REC-02 | Phase 10 | Pending |
+| REC-03 | Phase 10 | Pending |
+| REC-04 | Phase 11 | Pending |
+| HIST-01 | Phase 10 | Pending |
+| HIST-02 | Phase 10 | Pending |
+| VISA-01 | Phase 12 | Pending |
+| VISA-02 | Phase 12 | Pending |
+| VISA-03 | Phase 12 | Pending |
+| VISA-04 | Phase 12 | Pending |
+| REF-01 | Phase 13 | Pending |
+| REF-02 | Phase 13 | Pending |
+| NOTIF-01 | Phase 13 | Pending |
+| NOTIF-02 | Phase 13 | Pending |
+| NOTIF-03 | Phase 13 | Pending |
+| AUTH-01 | Phase 13 | Pending |
+| AUTH-02 | Phase 13 | Pending |
 
 **Coverage:**
 - v1.1 requirements: 35 total
-- Mapped to phases: 0
-- Unmapped: 35 ⚠️
+- Mapped to phases: 35
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-04-15*
-*Last updated: 2026-04-15 after initial definition*
+*Last updated: 2026-04-15 after roadmap creation (v1.1 Phases 9-13)*
