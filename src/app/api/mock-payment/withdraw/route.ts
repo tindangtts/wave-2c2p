@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { isDemoMode } from '@/lib/demo'
 import { z } from 'zod/v4'
+import { db } from '@/db'
+import { wallets, transactions } from '@/db/schema'
+import { eq } from 'drizzle-orm'
 
 const withdrawRequestSchema = z
   .object({
@@ -62,14 +65,14 @@ export async function POST(request: Request) {
 
     const { amount, recipient_id, bank_account_id } = parseResult.data
 
-    // Fetch wallet and validate balance
-    const { data: wallet, error: walletError } = await supabase
-      .from('wallets')
-      .select('id, balance')
-      .eq('user_id', user.id)
-      .single()
+    // Fetch wallet via Drizzle and validate balance
+    const [wallet] = await db
+      .select({ id: wallets.id, balance: wallets.balance })
+      .from(wallets)
+      .where(eq(wallets.userId, user.id))
+      .limit(1)
 
-    if (walletError || !wallet) {
+    if (!wallet) {
       return NextResponse.json({ error: 'Wallet not found' }, { status: 404 })
     }
 
@@ -81,6 +84,7 @@ export async function POST(request: Request) {
     }
 
     // Resolve description based on recipient or bank account
+    // recipients and bank_accounts tables are not yet in Drizzle schema — keep Supabase for these lookups
     let description = 'Withdrawal'
 
     if (recipient_id) {
@@ -114,69 +118,48 @@ export async function POST(request: Request) {
     }
 
     const referenceNumber = generateReference()
+    const newBalance = wallet.balance - amount
+    const metadataStr = bank_account_id ? JSON.stringify({ bank_account_id }) : null
 
-    // Deduct balance immediately
-    const { error: balanceError } = await supabase
-      .from('wallets')
-      .update({ balance: wallet.balance - amount })
-      .eq('id', wallet.id)
-
-    if (balanceError) {
-      return NextResponse.json(
-        { error: 'Failed to update wallet balance' },
-        { status: 500 }
-      )
-    }
-
-    // Build metadata if bank_account_id provided
-    const metadata = bank_account_id ? { bank_account_id } : null
-
-    // Insert pending transaction
-    const { data: transaction, error: txError } = await supabase
-      .from('transactions')
-      .insert({
-        user_id: user.id,
-        type: 'withdraw',
-        status: 'pending',
-        amount,
-        currency: 'THB',
-        ...(recipient_id ? { recipient_id } : {}),
-        reference_number: referenceNumber,
-        description,
-        ...(metadata ? { metadata } : {}),
-      })
-      .select('id')
-      .single()
-
-    if (txError || !transaction) {
-      // Rollback balance deduction on transaction insert failure
-      await supabase
-        .from('wallets')
-        .update({ balance: wallet.balance })
-        .eq('id', wallet.id)
-      return NextResponse.json(
-        { error: 'Failed to create transaction' },
-        { status: 500 }
-      )
+    let txId: string
+    try {
+      const [, [inserted]] = await db.batch([
+        db.update(wallets)
+          .set({ balance: newBalance, updatedAt: new Date() })
+          .where(eq(wallets.id, wallet.id)),
+        db.insert(transactions)
+          .values({
+            userId: user.id,
+            type: 'withdraw',
+            status: 'pending',
+            amount,
+            currency: 'THB',
+            fee: 0,
+            ...(recipient_id ? { recipientId: recipient_id } : {}),
+            referenceNumber,
+            description,
+            ...(metadataStr ? { metadata: metadataStr } : {}),
+          })
+          .returning({ id: transactions.id }),
+      ] as const)
+      txId = inserted.id
+    } catch {
+      return NextResponse.json({ error: 'Failed to process withdrawal' }, { status: 500 })
     }
 
     // Fire-and-forget: auto-complete after 2s delay (mock behavior)
     setTimeout(async () => {
       try {
-        const { createClient: createBgClient } = await import('@/lib/supabase/server')
-        const bgSupabase = await createBgClient()
-
-        await bgSupabase
-          .from('transactions')
-          .update({ status: 'success', updated_at: new Date().toISOString() })
-          .eq('id', transaction.id)
+        await db.update(transactions)
+          .set({ status: 'success', updatedAt: new Date() })
+          .where(eq(transactions.id, txId))
       } catch {
         // Background update failure — not critical for response
       }
     }, 2000)
 
     return NextResponse.json({
-      transaction_id: transaction.id,
+      transaction_id: txId,
       status: 'pending',
       reference_number: referenceNumber,
     })
