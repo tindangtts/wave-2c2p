@@ -236,7 +236,11 @@ Plans:
   2. After a top-up completes, the user's `wallets.balance` increases by the deposited amount and the corresponding `add_money` transaction is visible in history
   3. After a withdrawal, the wallet balance decreases by the withdrawn amount and a `withdraw` transaction record is created
   4. If a payment API call fails mid-flight, the wallet balance remains unchanged (no partial writes)
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 19-01-PLAN.md — Wire process-transfer and withdraw to Drizzle atomic batch writes (debit operations)
+- [ ] 19-02-PLAN.md — Wire p2p-transfer and topup to Drizzle atomic batch writes (P2P + credit operations)
 
 ### Phase 20: New Tables & Seed
 **Goal**: Notifications and vouchers are stored in Supabase and can be queried per-user, and a fresh Supabase install has enough seed data to run the app without manual setup
@@ -292,7 +296,7 @@ Plans:
 | 16. Test Coverage | v1.2 | 5/5 | Complete | 2026-04-15 |
 | 17. Features & Polish | v1.2 | 2/2 | Complete | 2026-04-15 |
 | 18. Core Data Layer | v1.3 | 3/3 | Complete    | 2026-04-15 |
-| 19. Payment Write-Back | v1.3 | 0/TBD | Not started | - |
+| 19. Payment Write-Back | v1.3 | 0/2 | Not started | - |
 | 20. New Tables & Seed | v1.3 | 0/TBD | Not started | - |
 | 21. System Config & Auth Gates | v1.3 | 0/TBD | Not started | - |
 | 22. Demo Mode Removal | v1.3 | 0/TBD | Not started | - |
