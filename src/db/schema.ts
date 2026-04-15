@@ -132,3 +132,18 @@ export const recipients = pgTable('recipients', {
   createdAt: timestamptz('created_at').notNull().defaultNow(),
   updatedAt: timestamptz('updated_at').notNull().defaultNow(),
 })
+
+// =========================================================================
+// notifications
+// Mirrors: public.notifications in supabase-schema.sql (Phase 20 migration)
+// =========================================================================
+export const notifications = pgTable('notifications', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  userId: uuid('user_id').notNull(),
+  type: text('type').notNull(),
+  title: text('title').notNull(),
+  body: text('body').notNull(),
+  isRead: boolean('is_read').notNull().default(false),
+  deepLink: text('deep_link'),
+  createdAt: timestamptz('created_at').notNull().defaultNow(),
+})
