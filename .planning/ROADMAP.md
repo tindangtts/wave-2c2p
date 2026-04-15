@@ -220,4 +220,4 @@ Plans:
 | 14. PWA & Offline | v1.2 | 2/2 | Complete    | 2026-04-15 |
 | 15. QR Scanner & WebAuthn Migration | v1.2 | 3/3 | Complete    | 2026-04-15 |
 | 16. Test Coverage | v1.2 | 5/5 | Complete    | 2026-04-15 |
-| 17. Features & Polish | v1.2 | 2/2 | Complete   | 2026-04-15 |
+| 17. Features & Polish | v1.2 | 2/2 | Complete    | 2026-04-15 |
