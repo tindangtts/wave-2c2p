@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { isDemoMode } from "@/lib/demo";
 import type { TransferChannel } from "@/types";
+import { db } from "@/db";
+import { wallets, transactions } from "@/db/schema";
+import { eq } from "drizzle-orm";
 
 // Duplicate transfer guard (TXN-11): same recipient+amount within 60s
 const recentTransfers = new Map<string, number>();
@@ -117,14 +120,14 @@ export async function POST(request: Request) {
       });
     }
 
-    // Fetch wallet and validate balance
-    const { data: wallet, error: walletError } = await supabase
-      .from("wallets")
-      .select("id, balance")
-      .eq("user_id", user.id)
-      .single();
+    // Fetch wallet via Drizzle and validate balance
+    const [wallet] = await db
+      .select({ id: wallets.id, balance: wallets.balance })
+      .from(wallets)
+      .where(eq(wallets.userId, user.id))
+      .limit(1);
 
-    if (walletError || !wallet) {
+    if (!wallet) {
       return NextResponse.json({ error: "Wallet not found" }, { status: 404 });
     }
 
@@ -140,46 +143,36 @@ export async function POST(request: Request) {
 
     const referenceNumber = generateReference();
     const convertedAmount = Math.round(amount * exchangeRate);
+    const newBalance = wallet.balance - totalDeducted;
 
-    // Deduct balance immediately
-    const { error: balanceError } = await supabase
-      .from("wallets")
-      .update({ balance: wallet.balance - totalDeducted })
-      .eq("id", wallet.id);
-
-    if (balanceError) {
-      return NextResponse.json(
-        { error: "Failed to update wallet balance" },
-        { status: 500 }
-      );
-    }
-
-    // Insert pending transaction
-    const { data: transaction, error: txError } = await supabase
-      .from("transactions")
-      .insert({
-        user_id: user.id,
-        type: "transfer",
-        status: "pending",
-        amount: totalDeducted,
-        currency,
-        recipient_id,
-        reference_number: referenceNumber,
-        description: note || `Transfer to recipient via ${channel}`,
-      })
-      .select("id")
-      .single();
-
-    if (txError || !transaction) {
-      // Rollback balance deduction on failure
-      await supabase
-        .from("wallets")
-        .update({ balance: wallet.balance })
-        .eq("id", wallet.id);
-      return NextResponse.json(
-        { error: "Failed to create transaction" },
-        { status: 500 }
-      );
+    let txId: string;
+    try {
+      const [, [inserted]] = await db.batch([
+        db.update(wallets)
+          .set({ balance: newBalance, updatedAt: new Date() })
+          .where(eq(wallets.id, wallet.id)),
+        db.insert(transactions)
+          .values({
+            userId: user.id,
+            type: "transfer",
+            status: "pending",
+            amount: totalDeducted,
+            fee,
+            currency,
+            convertedAmount,
+            convertedCurrency: "MMK",
+            exchangeRate: String(exchangeRate),
+            recipientId: recipient_id ?? null,
+            channel,
+            referenceNumber,
+            description: note || `Transfer to recipient via ${channel}`,
+            metadata: null,
+          })
+          .returning({ id: transactions.id }),
+      ] as const);
+      txId = inserted.id;
+    } catch {
+      return NextResponse.json({ error: "Failed to process transfer" }, { status: 500 });
     }
 
     recordTransfer(user.id, recipient_id ?? "unknown", amount);
@@ -187,14 +180,9 @@ export async function POST(request: Request) {
     // Auto-complete after 2s (mock behavior)
     setTimeout(async () => {
       try {
-        const { createClient: createBgClient } = await import(
-          "@/lib/supabase/server"
-        );
-        const bgSupabase = await createBgClient();
-        await bgSupabase
-          .from("transactions")
-          .update({ status: "success", updated_at: new Date().toISOString() })
-          .eq("id", transaction.id);
+        await db.update(transactions)
+          .set({ status: "success", updatedAt: new Date() })
+          .where(eq(transactions.id, txId));
       } catch {
         // Background update failure — not critical
       }
@@ -204,7 +192,7 @@ export async function POST(request: Request) {
       success: true,
       status: "pending",
       transfer: {
-        id: transaction.id,
+        id: txId,
         reference_number: referenceNumber,
         amount,
         currency,
