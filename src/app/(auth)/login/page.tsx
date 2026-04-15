@@ -261,6 +261,17 @@ export default function LoginPage() {
           )}
         </Button>
 
+        {/* Sample account info */}
+        {process.env.NODE_ENV === 'development' && (
+          <button
+            type="button"
+            onClick={() => { setCountryCode('+66'); setPhone('992345678'); setTouched(true) }}
+            className="mt-3 mx-auto px-3 py-1.5 rounded-lg bg-amber-50 border border-amber-200 text-xs text-amber-700"
+          >
+            Demo: +66 992345678
+          </button>
+        )}
+
         {/* Need Help link — design: yellow icon + blue text */}
         <div className="flex items-center justify-center gap-2 mt-4">
           <span className="text-lg">💬</span>
