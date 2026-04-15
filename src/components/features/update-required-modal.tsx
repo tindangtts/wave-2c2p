@@ -11,9 +11,11 @@ import {
 
 interface UpdateRequiredModalProps {
   open: boolean
+  soft?: boolean         // true = dismissible soft update
+  onDismiss?: () => void // called when user dismisses soft update
 }
 
-export function UpdateRequiredModal({ open }: UpdateRequiredModalProps) {
+export function UpdateRequiredModal({ open, soft = false, onDismiss }: UpdateRequiredModalProps) {
   return (
     <AlertDialog open={open}>
       <AlertDialogContent
@@ -26,15 +28,33 @@ export function UpdateRequiredModal({ open }: UpdateRequiredModalProps) {
             Software Update
           </AlertDialogTitle>
           <p className="text-xs font-normal text-[#595959] mb-6">
-            A software update is required to continue using the app.
+            {soft
+              ? 'A new version is available. Update now for the best experience.'
+              : 'A software update is required to continue using the app.'}
           </p>
           <div className="flex gap-3 w-full">
-            <AlertDialogCancel className="flex-1 h-12 rounded-full border-border text-foreground">
-              Quit
-            </AlertDialogCancel>
-            <AlertDialogAction className="flex-1 h-12 rounded-full bg-[#FFE600] text-foreground hover:bg-[#FFE600]/90">
-              Now
-            </AlertDialogAction>
+            {soft ? (
+              <>
+                <AlertDialogCancel
+                  className="flex-1 h-12 rounded-full border-border text-foreground"
+                  onClick={onDismiss}
+                >
+                  Later
+                </AlertDialogCancel>
+                <AlertDialogAction className="flex-1 h-12 rounded-full bg-[#FFE600] text-foreground hover:bg-[#FFE600]/90">
+                  Update
+                </AlertDialogAction>
+              </>
+            ) : (
+              <>
+                <AlertDialogCancel className="flex-1 h-12 rounded-full border-border text-foreground">
+                  Quit
+                </AlertDialogCancel>
+                <AlertDialogAction className="flex-1 h-12 rounded-full bg-[#FFE600] text-foreground hover:bg-[#FFE600]/90">
+                  Now
+                </AlertDialogAction>
+              </>
+            )}
           </div>
         </div>
       </AlertDialogContent>
