@@ -16,6 +16,7 @@ export const kycStatusSchema = z.enum([
   'approved',
   'rejected',
   'expired',
+  'pending_update',
 ])
 
 export type KYCStatusValue = z.infer<typeof kycStatusSchema>

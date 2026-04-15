@@ -104,5 +104,25 @@
     "documentFront": "Document Front",
     "documentBack": "Document Back",
     "selfie": "Selfie"
+  },
+  "workPermitUpdate": {
+    "title": "Update Work Permit",
+    "subtitle": "Capture the front and back of your new work permit",
+    "frontInstruction": "Place work permit (front) into the box",
+    "backInstruction": "Place work permit (back) into the box",
+    "submitCta": "Submit for Verification",
+    "submittingLabel": "Submitting...",
+    "successTitle": "Documents Submitted",
+    "successBody": "Your work permit is under review. You can continue using transfers while we verify.",
+    "successCta": "Back to Profile",
+    "failTitle": "Submission Failed",
+    "failBody": "Could not submit your documents. Please try again.",
+    "failCta": "Try Again",
+    "cancelDialog": {
+      "title": "Cancel update?",
+      "description": "Your captured photos will be lost.",
+      "cancel": "Continue",
+      "confirm": "Cancel Update"
+    }
   }
 }
