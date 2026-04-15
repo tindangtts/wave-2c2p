@@ -19,6 +19,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 5: Transfer & Recipients** - Users can send money to Myanmar with full confirmation flow (completed 2026-04-14)
 - [x] **Phase 6: Wallet Operations** - Users can top up, withdraw, scan QR, and review transaction history (completed 2026-04-14)
 - [x] **Phase 7: Profile, Card & System States** - Users can manage settings, view virtual card, and see system state screens (completed 2026-04-14)
+- [x] **Phase 8: Integration Fixes & Navigation Wiring** - All cross-phase navigation links, i18n keys, and status vocabulary are correct (completed 2026-04-15)
 
 ## Phase Details
 
@@ -176,7 +177,7 @@ Plans:
 **Plans**: 1 plan
 
 Plans:
-- [ ] 08-01-PLAN.md — Fix navigation wiring, remove stale routes, align status vocabulary, add missing i18n keys
+- [x] 08-01-PLAN.md — Fix navigation wiring, remove stale routes, align status vocabulary, add missing i18n keys
 
 **UI hint**: no
 
@@ -194,4 +195,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 | 5. Transfer & Recipients | 4/4 | Complete   | 2026-04-14 |
 | 6. Wallet Operations | 4/4 | Complete   | 2026-04-14 |
 | 7. Profile, Card & System States | 4/4 | Complete   | 2026-04-14 |
-| 8. Integration Fixes | 0/1 | Not started | - |
+| 8. Integration Fixes | 1/1 | Complete | 2026-04-15 |
