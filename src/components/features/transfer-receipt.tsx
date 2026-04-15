@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-import { CheckCircle, Share2, Copy, RefreshCw } from 'lucide-react'
+import { useRef, useState } from 'react'
+import { CheckCircle, Share2, Copy, RefreshCw, Download, Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { formatCurrency } from '@/lib/currency'
 import type { TransferChannel } from '@/types'
@@ -63,6 +63,8 @@ export function TransferReceipt({
   const totalSatang = amount + fee
   const [displayCode, setDisplayCode] = useState(secretCode ?? '')
   const [isRefreshing, setIsRefreshing] = useState(false)
+  const [isSavingImage, setIsSavingImage] = useState(false)
+  const receiptRef = useRef<HTMLDivElement>(null)
 
   async function handleRefreshCode() {
     setIsRefreshing(true)
@@ -83,17 +85,55 @@ export function TransferReceipt({
     }
   }
 
+  async function handleSaveImage() {
+    if (!receiptRef.current) return
+    setIsSavingImage(true)
+    try {
+      const { toPng } = await import('html-to-image')
+      const dataUrl = await toPng(receiptRef.current, { quality: 0.95 })
+      const link = document.createElement('a')
+      link.download = `receipt-${transactionId}.png`
+      link.href = dataUrl
+      link.click()
+    } catch {
+      toast.error('Could not save image. Try the Share option instead.')
+    } finally {
+      setIsSavingImage(false)
+    }
+  }
+
   async function handleShare() {
     const thbAmount = formatCurrency(amount, 'THB')
     const shareText = `Transfer of ${thbAmount} to ${recipientName} completed. Ref: ${transactionId}. 2c2p WAVE`
 
+    // Try to capture receipt as PNG for image share
+    let pngFile: File | undefined
+    if (receiptRef.current) {
+      try {
+        const { toPng } = await import('html-to-image')
+        const dataUrl = await toPng(receiptRef.current, { quality: 0.95 })
+        const res = await fetch(dataUrl)
+        const blob = await res.blob()
+        pngFile = new File([blob], `receipt-${transactionId}.png`, { type: 'image/png' })
+      } catch {
+        // PNG capture failed — fall through to text share
+      }
+    }
+
     if (typeof navigator !== 'undefined' && navigator.share) {
       try {
-        await navigator.share({ text: shareText })
+        if (pngFile && navigator.canShare?.({ files: [pngFile] })) {
+          await navigator.share({ files: [pngFile], title: '2c2p WAVE Receipt', text: shareText })
+        } else {
+          await navigator.share({ text: shareText })
+        }
+        return
       } catch {
-        // User cancelled or share failed — fall through to clipboard
+        // User cancelled or share failed — fall through
       }
-    } else if (typeof navigator !== 'undefined' && navigator.clipboard) {
+    }
+
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
       try {
         await navigator.clipboard.writeText(shareText)
         toast.success('Receipt copied to clipboard')
@@ -104,7 +144,7 @@ export function TransferReceipt({
   }
 
   return (
-    <div className="mx-4 mt-4 bg-white rounded-xl border border-border p-4">
+    <div ref={receiptRef} id="transfer-receipt-export" className="mx-4 mt-4 bg-white rounded-xl border border-border p-4">
       {/* Success area */}
       <div className="flex flex-col items-center pb-4 border-b border-gray-100">
         <CheckCircle className="w-12 h-12 text-[#00C853] mb-2" />
@@ -225,8 +265,8 @@ export function TransferReceipt({
         </div>
       )}
 
-      {/* Share button */}
-      <div className="mt-6 flex justify-center">
+      {/* Share and Save as Image buttons */}
+      <div className="mt-6 flex justify-center gap-4 flex-wrap">
         <button
           type="button"
           onClick={handleShare}
@@ -235,6 +275,16 @@ export function TransferReceipt({
         >
           <Share2 className="w-5 h-5" />
           Share
+        </button>
+        <button
+          type="button"
+          onClick={handleSaveImage}
+          disabled={isSavingImage}
+          aria-label="Save receipt as image"
+          className="flex items-center gap-2 text-[#0091EA] text-base min-h-[44px] min-w-[44px] px-4 disabled:opacity-50"
+        >
+          {isSavingImage ? <Loader2 className="w-5 h-5 animate-spin" /> : <Download className="w-5 h-5" />}
+          Save as Image
         </button>
       </div>
     </div>
