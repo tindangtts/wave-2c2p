@@ -126,8 +126,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | BANK-03 | Phase 11 | Complete |
 | BANK-04 | Phase 11 | Complete |
 | REC-01 | Phase 10 | Complete |
-| REC-02 | Phase 10 | Pending |
-| REC-03 | Phase 10 | Pending |
+| REC-02 | Phase 10 | Complete |
+| REC-03 | Phase 10 | Complete |
 | REC-04 | Phase 11 | Complete |
 | HIST-01 | Phase 10 | Complete |
 | HIST-02 | Phase 10 | Complete |
