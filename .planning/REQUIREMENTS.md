@@ -20,7 +20,7 @@ Requirements for milestone v1.1 — Feature Completeness. Each maps to roadmap p
 - [x] **P2P-01**: User can send THB to another wallet by entering receiver wallet ID
 - [x] **P2P-02**: User can send THB by scanning receiver's wallet QR code
 - [x] **P2P-03**: User sees confirmation screen with sender/receiver details, amount, and fees before passcode
-- [ ] **P2P-04**: User receives transaction receipt after successful P2P transfer
+- [x] **P2P-04**: User receives transaction receipt after successful P2P transfer
 
 ### Transfer Channels
 
@@ -49,8 +49,8 @@ Requirements for milestone v1.1 — Feature Completeness. Each maps to roadmap p
 
 ### Transaction History
 
-- [ ] **HIST-01**: User can share e-receipt as image via native share sheet
-- [ ] **HIST-02**: User can download e-receipt as PNG image
+- [x] **HIST-01**: User can share e-receipt as image via native share sheet
+- [x] **HIST-02**: User can download e-receipt as PNG image
 
 ### Visa Card
 
@@ -115,7 +115,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | P2P-01 | Phase 10 | Complete |
 | P2P-02 | Phase 10 | Complete |
 | P2P-03 | Phase 10 | Complete |
-| P2P-04 | Phase 10 | Pending |
+| P2P-04 | Phase 10 | Complete |
 | CHAN-01 | Phase 10 | Complete |
 | CHAN-02 | Phase 10 | Complete |
 | CHAN-03 | Phase 10 | Complete |
@@ -129,8 +129,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | REC-02 | Phase 10 | Pending |
 | REC-03 | Phase 10 | Pending |
 | REC-04 | Phase 11 | Pending |
-| HIST-01 | Phase 10 | Pending |
-| HIST-02 | Phase 10 | Pending |
+| HIST-01 | Phase 10 | Complete |
+| HIST-02 | Phase 10 | Complete |
 | VISA-01 | Phase 12 | Pending |
 | VISA-02 | Phase 12 | Pending |
 | VISA-03 | Phase 12 | Pending |

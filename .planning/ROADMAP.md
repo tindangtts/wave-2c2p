@@ -24,7 +24,7 @@
 ### v1.1 Feature Completeness
 
 - [x] **Phase 9: Compliance & Registration** - T&C consent, pre-registration info, daily limit acknowledgment, selfie/liveness capture (completed 2026-04-15)
-- [ ] **Phase 10: Transfer Enhancements** - P2P wallet transfer, cash pick-up channel, e-receipt share, recipient favourites
+- [x] **Phase 10: Transfer Enhancements** - P2P wallet transfer, cash pick-up channel, e-receipt share, recipient favourites (completed 2026-04-15)
 - [ ] **Phase 11: Wallet Operations** - 123 Service top-up, bank account CRUD, Myanmar address cascade
 - [ ] **Phase 12: Complex Flows** - Visa card request + payment, work permit document update
 - [ ] **Phase 13: Engagement & Auth** - Referral stats + social share, notification inbox, biometric login
@@ -65,7 +65,7 @@ Plans:
 - [x] 10-02-PLAN.md — P2P wallet ID entry screen + P2P amount entry screen
 - [x] 10-03-PLAN.md — Transfer confirm P2P extension + TransferReceipt secret code chip
 - [x] 10-04-PLAN.md — Recipient list filter tabs (All / Favourites)
-- [ ] 10-05-PLAN.md — PNG receipt export + upgraded share + scan page P2P detection
+- [x] 10-05-PLAN.md — PNG receipt export + upgraded share + scan page P2P detection
 
 **UI hint**: yes
 
@@ -116,7 +116,7 @@ Plans:
 | 7. Profile, Card & System States | v1.0 | 4/4 | Complete | 2026-04-14 |
 | 8. Integration Fixes | v1.0 | 1/1 | Complete | 2026-04-15 |
 | 9. Compliance & Registration | v1.1 | 3/3 | Complete   | 2026-04-15 |
-| 10. Transfer Enhancements | v1.1 | 4/5 | In Progress|  |
+| 10. Transfer Enhancements | v1.1 | 5/5 | Complete   | 2026-04-15 |
 | 11. Wallet Operations | v1.1 | 0/? | Not started | — |
 | 12. Complex Flows | v1.1 | 0/? | Not started | — |
 | 13. Engagement & Auth | v1.1 | 0/? | Not started | — |
