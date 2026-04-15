@@ -18,6 +18,8 @@ import {
   Eye,
   RefreshCw,
 } from "lucide-react";
+import { startRegistration } from "@simplewebauthn/browser";
+import { toast } from "sonner";
 import { ProfileHeader } from "@/components/features/profile-header";
 import { ProfileMenuSection } from "@/components/features/profile-menu-section";
 import { ProfileMenuItem } from "@/components/features/profile-menu-item";
@@ -45,7 +47,7 @@ export default function ProfilePage() {
       if (user) {
         const { data: profile } = await supabase
           .from("user_profiles")
-          .select("first_name, last_name, kyc_status")
+          .select("first_name, last_name, kyc_status, webauthn_credential_id")
           .eq("id", user.id)
           .single();
         if (profile) {
@@ -54,6 +56,7 @@ export default function ProfilePage() {
             .join(" ");
           if (fullName) setUserName(fullName);
           setKycStatus(profile.kyc_status ?? null);
+          setBiometricsEnabled(!!profile.webauthn_credential_id);
         }
       }
     };
@@ -62,6 +65,54 @@ export default function ProfilePage() {
 
   const needsWorkPermitUpdate =
     kycStatus === "expired" || kycStatus === "pending_update";
+
+  async function handleBiometricToggle(enabled: boolean) {
+    const supabase = createClient();
+    if (!enabled) {
+      // Disable: clear credential from user_profiles
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        await supabase
+          .from("user_profiles")
+          .update({
+            webauthn_credential_id: null,
+            webauthn_public_key: null,
+            webauthn_counter: 0,
+          })
+          .eq("id", user.id);
+      }
+      setBiometricsEnabled(false);
+      return;
+    }
+    // Enable: check availability first
+    const available = await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable().catch(() => false);
+    if (!available) {
+      toast.error(t("menu.biometricsUnavailable"));
+      return;
+    }
+    try {
+      const optRes = await fetch("/api/auth/webauthn/register", { method: "POST" });
+      const { options, mock } = await optRes.json();
+      let credential = null;
+      if (!mock) {
+        credential = await startRegistration({ optionsJSON: options });
+      }
+      const verifyRes = await fetch("/api/auth/webauthn/register/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ credential }),
+      });
+      const { enrolled } = await verifyRes.json();
+      if (enrolled) {
+        setBiometricsEnabled(true);
+        toast.success(t("menu.biometricsEnrolled"));
+      } else {
+        toast.error(t("menu.biometricsEnrollFailed"));
+      }
+    } catch {
+      toast.error(t("menu.biometricsEnrollFailed"));
+    }
+  }
 
   const handleLogout = async () => {
     const supabase = createClient();
@@ -94,7 +145,7 @@ export default function ProfilePage() {
             </span>
             <Switch
               checked={biometricsEnabled}
-              onCheckedChange={setBiometricsEnabled}
+              onCheckedChange={handleBiometricToggle}
               aria-label={t("menu.enableBiometrics")}
               className="data-[state=checked]:bg-[#0091EA]"
             />

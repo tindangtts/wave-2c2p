@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
+import { Fingerprint } from 'lucide-react'
+import { startAuthentication } from '@simplewebauthn/browser'
 import { PasscodeKeypad } from '@/components/features/passcode-keypad'
 import { createClient } from '@/lib/supabase/client'
 import {
@@ -25,6 +27,7 @@ export default function PasscodePage() {
   const [error, setError] = useState<string | undefined>(undefined)
   const [isLoading, setIsLoading] = useState(false)
   const [userName, setUserName] = useState<string>('User')
+  const [biometricAvailable, setBiometricAvailable] = useState(false)
 
   // Fetch user name on mount
   useEffect(() => {
@@ -42,12 +45,21 @@ export default function PasscodePage() {
 
         const { data: profile } = await supabase
           .from('user_profiles')
-          .select('first_name')
+          .select('first_name, webauthn_credential_id')
           .eq('id', user.id)
           .single()
 
         if (profile?.first_name) {
           setUserName(profile.first_name)
+        }
+
+        // Check biometric enrollment + platform availability
+        if (profile?.webauthn_credential_id) {
+          const platformAvailable =
+            await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable().catch(
+              () => false
+            )
+          setBiometricAvailable(platformAvailable)
         }
       } catch {
         // Keep default 'User' on error
@@ -112,6 +124,36 @@ export default function PasscodePage() {
     }
   }
 
+  async function handleBiometricLogin() {
+    setIsLoading(true)
+    setError(undefined)
+    try {
+      const optRes = await fetch('/api/auth/webauthn/authenticate', {
+        method: 'POST',
+      })
+      const { options, mock } = await optRes.json()
+      let credential = null
+      if (!mock) {
+        credential = await startAuthentication({ optionsJSON: options })
+      }
+      const verifyRes = await fetch('/api/auth/webauthn/authenticate/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ credential }),
+      })
+      if (verifyRes.ok) {
+        router.push('/home')
+      } else {
+        setError(t('passcode.biometricFailed'))
+        setBiometricAvailable(false) // hide button after failure
+      }
+    } catch {
+      setError(t('passcode.biometricFailed'))
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   async function handleLogout() {
     const supabase = createClient()
     await supabase.auth.signOut()
@@ -136,6 +178,19 @@ export default function PasscodePage() {
       <p className="text-base text-[#595959] mt-2 text-center">
         {t('passcode.instruction')}
       </p>
+
+      {/* Biometric login button */}
+      {biometricAvailable && (
+        <button
+          type="button"
+          onClick={handleBiometricLogin}
+          disabled={isLoading}
+          className="w-full h-14 rounded-full bg-[#0091EA] text-white font-semibold text-base flex items-center justify-center gap-2 disabled:opacity-60 mt-6"
+        >
+          <Fingerprint className="w-5 h-5" />
+          {t('passcode.biometricCta')}
+        </button>
+      )}
 
       {/* Passcode keypad */}
       <div className="w-full mt-8">

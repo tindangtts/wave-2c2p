@@ -16,7 +16,10 @@
     "limitsFees": "Limits and Fees",
     "faq": "Q&A Session",
     "terms": "Terms and Conditions",
-    "privacy": "Privacy and Policy"
+    "privacy": "Privacy and Policy",
+    "biometricsEnrolled": "Biometrics enabled",
+    "biometricsEnrollFailed": "Could not enable biometrics. Please try again.",
+    "biometricsUnavailable": "Biometrics not available on this device"
   },
   "information": {
     "title": "Information",
