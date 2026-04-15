@@ -58,6 +58,7 @@ export function RecipientList({
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [deleteTarget, setDeleteTarget] = useState<Recipient | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [activeFilter, setActiveFilter] = useState<"all" | "favourites">("all");
 
   // 200ms debounce for search filter
   useEffect(() => {
@@ -73,8 +74,13 @@ export function RecipientList({
       )
     : recipients;
 
-  const favorites = filtered.filter((r) => r.is_favorite);
-  const all = [...filtered].sort((a, b) =>
+  const displayedRecipients =
+    activeFilter === "favourites"
+      ? filtered.filter((r) => r.is_favorite)
+      : filtered;
+
+  const favorites = displayedRecipients.filter((r) => r.is_favorite);
+  const all = [...displayedRecipients].sort((a, b) =>
     a.full_name.localeCompare(b.full_name)
   );
 
@@ -123,6 +129,25 @@ export function RecipientList({
 
   return (
     <div className="flex flex-col flex-1">
+      {/* Filter tabs */}
+      <div className="flex gap-2 px-4 pt-3 pb-1">
+        {(["all", "favourites"] as const).map((tab) => (
+          <button
+            key={tab}
+            type="button"
+            aria-pressed={activeFilter === tab}
+            onClick={() => setActiveFilter(tab)}
+            className={`h-8 px-4 rounded-full text-xs font-normal transition-colors ${
+              activeFilter === tab
+                ? "bg-[#FFE600] text-foreground"
+                : "bg-secondary text-[#595959]"
+            }`}
+          >
+            {tab === "all" ? "All" : "Favourites"}
+          </button>
+        ))}
+      </div>
+
       {/* Search bar */}
       <div className="px-4 py-3">
         <div className="relative">
@@ -182,6 +207,20 @@ export function RecipientList({
               </p>
             </div>
           )}
+
+          {/* Favourites-only empty state */}
+          {activeFilter === "favourites" &&
+            displayedRecipients.length === 0 &&
+            recipients.length > 0 && (
+              <div className="flex flex-col items-center justify-center flex-1 py-12 px-8 text-center">
+                <p className="text-base font-bold text-foreground mb-2">
+                  No favourites yet
+                </p>
+                <p className="text-xs text-[#595959]">
+                  Tap the star next to a recipient to add them here.
+                </p>
+              </div>
+            )}
 
           {/* Search no results */}
           {recipients.length > 0 && filtered.length === 0 && (
