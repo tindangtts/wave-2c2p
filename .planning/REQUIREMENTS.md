@@ -18,7 +18,7 @@ Requirements for milestone v1.1 — Feature Completeness. Each maps to roadmap p
 ### P2P Transfer
 
 - [x] **P2P-01**: User can send THB to another wallet by entering receiver wallet ID
-- [ ] **P2P-02**: User can send THB by scanning receiver's wallet QR code
+- [x] **P2P-02**: User can send THB by scanning receiver's wallet QR code
 - [x] **P2P-03**: User sees confirmation screen with sender/receiver details, amount, and fees before passcode
 - [ ] **P2P-04**: User receives transaction receipt after successful P2P transfer
 
@@ -113,7 +113,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | COMP-04 | Phase 9 | Complete |
 | COMP-05 | Phase 12 | Pending |
 | P2P-01 | Phase 10 | Complete |
-| P2P-02 | Phase 10 | Pending |
+| P2P-02 | Phase 10 | Complete |
 | P2P-03 | Phase 10 | Complete |
 | P2P-04 | Phase 10 | Pending |
 | CHAN-01 | Phase 10 | Complete |

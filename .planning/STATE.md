@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Feature Completeness
 status: executing
-last_updated: "2026-04-15T03:49:14.676Z"
+last_updated: "2026-04-15T03:52:11.891Z"
 last_activity: 2026-04-15
 progress:
   total_phases: 5
   completed_phases: 1
   total_plans: 8
-  completed_plans: 4
+  completed_plans: 6
   percent: 0
 ---
 
@@ -25,7 +25,7 @@ See: .planning/PROJECT.md (updated 2026-04-15)
 ## Current Position
 
 Phase: 10 (transfer-enhancements) — EXECUTING
-Plan: 2 of 5
+Plan: 3 of 5
 Status: Ready to execute
 Last activity: 2026-04-15
 
@@ -56,6 +56,8 @@ Recent decisions affecting current work:
 - [Phase 10-transfer-enhancements]: P2P store key wave-p2p-store isolates from wave-transfer-store to prevent localStorage collision
 - [Phase 10-transfer-enhancements]: P2P fee is 0 satang (wallet-to-wallet, instant, no intermediary cost per product decision)
 - [Phase 10-transfer-enhancements]: refresh-secret-code is stateless mock — generates code on demand without DB persistence
+- [Phase 10]: Avatar initials on receiver chip use last 2 chars of wallet ID (W-NNNNNN format)
+- [Phase 10]: P2P confirm navigation uses ?type=p2p query param so confirm page can branch between remittance and P2P flows
 
 ### Pending Todos
 
