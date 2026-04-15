@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { BackHeader } from "@/components/layout/back-header";
 import { VisaCardDisplay } from "@/components/features/visa-card-display";
@@ -13,6 +15,8 @@ const MOCK_EXPIRY = "12/28";
 const MOCK_HOLDER_NAME = "LALITA TUNGTRAKUL";
 
 export default function CardPage() {
+  const router = useRouter();
+  const t = useTranslations("profile");
   const [revealed, setRevealed] = useState(false);
   const [frozen, setFrozen] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -116,6 +120,14 @@ export default function CardPage() {
             )}
           </div>
         </div>
+
+        {/* Request Card CTA */}
+        <button
+          onClick={() => router.push('/profile/card/request')}
+          className="mt-6 w-full h-12 rounded-full bg-[#FFE600] text-foreground font-semibold text-sm hover:bg-[#FFE600]/90 active:bg-[#FFE600]/80 transition-colors"
+        >
+          {t('card.request.cardRequestCta')}
+        </button>
       </div>
     </div>
   );
