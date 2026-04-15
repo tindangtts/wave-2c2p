@@ -17,7 +17,7 @@ export function QuickActions() {
   const t = useTranslations("home");
 
   return (
-    <div className="flex items-start justify-center gap-5">
+    <div className="flex items-start justify-start overflow-x-auto gap-5">
       {actions.map((action) => (
         <Link
           key={action.href}
