@@ -1,8 +1,9 @@
 'use client'
 
-import { CheckCircle, Share2 } from 'lucide-react'
+import { useState } from 'react'
+import { CheckCircle, Share2, Copy, RefreshCw } from 'lucide-react'
 import { toast } from 'sonner'
-import { formatCurrency, convertSatangToPya } from '@/lib/currency'
+import { formatCurrency } from '@/lib/currency'
 import type { TransferChannel } from '@/types'
 
 function formatReceiptDate(isoString: string): string {
@@ -23,6 +24,7 @@ function channelLabel(channel: TransferChannel): string {
     case 'wave_app': return 'Wave App'
     case 'bank_transfer': return 'Bank Transfer'
     case 'cash_pickup': return 'Cash Pickup'
+    case 'p2p': return '2C2P WAVE (P2P)'
     default: return channel
   }
 }
@@ -31,8 +33,8 @@ export interface TransferReceiptProps {
   transactionId: string
   amount: number        // satang
   fee: number           // satang
-  convertedPya: number  // pya
-  rate: number
+  convertedPya: number  // pya (0 for p2p)
+  rate: number          // (1 for p2p)
   channel: TransferChannel
   senderName: string
   senderPhone: string
@@ -40,6 +42,7 @@ export interface TransferReceiptProps {
   recipientType: string
   note?: string
   createdAt: string     // ISO string
+  secretCode?: string   // cash_pickup channel only — initial code value
 }
 
 export function TransferReceipt({
@@ -55,8 +58,30 @@ export function TransferReceipt({
   recipientType,
   note,
   createdAt,
+  secretCode,
 }: TransferReceiptProps) {
   const totalSatang = amount + fee
+  const [displayCode, setDisplayCode] = useState(secretCode ?? '')
+  const [isRefreshing, setIsRefreshing] = useState(false)
+
+  async function handleRefreshCode() {
+    setIsRefreshing(true)
+    try {
+      const res = await fetch('/api/mock-payment/refresh-secret-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ transaction_id: transactionId }),
+      })
+      if (res.ok) {
+        const data = await res.json()
+        setDisplayCode(data.secret_code)
+      }
+    } catch {
+      // Silent fail — user can retry
+    } finally {
+      setIsRefreshing(false)
+    }
+  }
 
   async function handleShare() {
     const thbAmount = formatCurrency(amount, 'THB')
@@ -117,6 +142,42 @@ export function TransferReceipt({
         </div>
       </div>
 
+      {/* Secret code chip — cash_pickup channel only */}
+      {channel === 'cash_pickup' && displayCode && (
+        <div className="bg-[#FFF9C4] rounded-xl px-4 py-3 mt-4">
+          <p className="text-xs font-bold text-[#595959] uppercase tracking-wide mb-2">SECRET CODE</p>
+          <div className="flex items-center justify-between">
+            <span
+              aria-live="polite"
+              className="text-[1.75rem] font-bold text-foreground tracking-[0.15em] font-mono"
+            >
+              {isRefreshing ? '···' : displayCode}
+            </span>
+            <div className="flex gap-1">
+              <button
+                type="button"
+                aria-label="Copy secret code"
+                onClick={() => {
+                  navigator.clipboard.writeText(displayCode).then(() => toast.success('Code copied'))
+                }}
+                className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[#0091EA]"
+              >
+                <Copy className="w-5 h-5" />
+              </button>
+              <button
+                type="button"
+                aria-label="Refresh secret code"
+                onClick={handleRefreshCode}
+                disabled={isRefreshing}
+                className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[#595959]"
+              >
+                <RefreshCw className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Separator */}
       <div className="border-t border-border my-4" />
 
@@ -136,12 +197,15 @@ export function TransferReceipt({
           </span>
         </div>
 
-        <div className="flex justify-between items-baseline">
-          <span className="text-base text-[#595959]">Converted</span>
-          <span className="text-base text-[#595959]">
-            {formatCurrency(convertedPya, 'MMK')}
-          </span>
-        </div>
+        {/* Converted row — hidden for P2P */}
+        {channel !== 'p2p' && (
+          <div className="flex justify-between items-baseline">
+            <span className="text-base text-[#595959]">Converted</span>
+            <span className="text-base text-[#595959]">
+              {formatCurrency(convertedPya, 'MMK')}
+            </span>
+          </div>
+        )}
 
         <div className="border-t border-border my-2" />
 

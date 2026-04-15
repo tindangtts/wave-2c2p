@@ -1,34 +1,58 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
-import { useRouter } from 'next/navigation'
+import { useEffect, useState, useCallback, Suspense } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { X, XCircle } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { BackHeader } from '@/components/layout/back-header'
 import { TransferReceipt } from '@/components/features/transfer-receipt'
 import { useTransferStore } from '@/stores/transfer-store'
+import { useP2PStore } from '@/stores/p2p-store'
 import { useWallet } from '@/hooks/use-wallet'
 import { convertSatangToPya } from '@/lib/currency'
 
-export default function ReceiptPage() {
+function ReceiptPageInner() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const isP2P = searchParams.get('type') === 'p2p'
   const t = useTranslations('transfer')
   const { mutate: mutateWallet, data: walletData } = useWallet()
 
+  // Standard transfer store
   const {
-    transactionId,
-    amountSatang,
-    feeSatang,
-    rate,
-    channel,
+    transactionId: stdTransactionId,
+    amountSatang: stdAmountSatang,
+    feeSatang: stdFeeSatang,
+    rate: stdRate,
+    channel: stdChannel,
     selectedRecipient,
     note,
-    status,
-    setStatus,
-    reset,
+    status: stdStatus,
+    setStatus: stdSetStatus,
+    reset: stdReset,
   } = useTransferStore()
 
+  // P2P store
+  const {
+    transactionId: p2pTransactionId,
+    amountSatang: p2pAmountSatang,
+    status: p2pStatus,
+    setStatus: p2pSetStatus,
+    reset: p2pReset,
+    receiverWalletId,
+  } = useP2PStore()
+
+  // Resolved values based on flow
+  const transactionId = isP2P ? p2pTransactionId : stdTransactionId
+  const amountSatang = isP2P ? p2pAmountSatang : stdAmountSatang
+  const feeSatang = isP2P ? 0 : stdFeeSatang
+  const rate = isP2P ? 1 : stdRate
+  const channel = isP2P ? ('p2p' as const) : stdChannel
+  const status = isP2P ? p2pStatus : stdStatus
+  const setStatus = isP2P ? p2pSetStatus : stdSetStatus
+
   const [createdAt] = useState(() => new Date().toISOString())
+  const [secretCode, setSecretCode] = useState<string | undefined>(undefined)
 
   // Guard: redirect if no transaction ID
   useEffect(() => {
@@ -61,6 +85,10 @@ export default function ReceiptPage() {
           if (data.status === 'success' || data.status === 'failed' ||
               data.status === 'processing' || data.status === 'pending') {
             setStatus(data.status)
+            // Capture secret_code from status response if present (cash_pickup)
+            if (data.secret_code) {
+              setSecretCode(data.secret_code)
+            }
             if (data.status === 'success' || data.status === 'failed') {
               clearInterval(intervalId)
             }
@@ -78,15 +106,20 @@ export default function ReceiptPage() {
   }, [transactionId, status, setStatus])
 
   const handleClose = useCallback(() => {
-    reset()
+    if (isP2P) {
+      p2pReset()
+    } else {
+      stdReset()
+    }
     mutateWallet()
     router.push('/home')
-  }, [reset, mutateWallet, router])
+  }, [isP2P, p2pReset, stdReset, mutateWallet, router])
 
   if (!transactionId) return null
 
-  const convertedPya = convertSatangToPya(amountSatang, rate)
+  const convertedPya = isP2P ? 0 : convertSatangToPya(amountSatang, rate)
   const senderName = walletData?.profile?.first_name ?? 'You'
+  const recipientName = isP2P ? receiverWalletId : (selectedRecipient?.full_name ?? '')
 
   return (
     <div className="flex flex-col min-h-screen bg-muted">
@@ -120,7 +153,7 @@ export default function ReceiptPage() {
         )}
 
         {/* Completed state: show full receipt */}
-        {status === 'success' && channel && selectedRecipient && (
+        {status === 'success' && channel && (isP2P || selectedRecipient) && (
           <TransferReceipt
             transactionId={transactionId}
             amount={amountSatang}
@@ -130,10 +163,11 @@ export default function ReceiptPage() {
             channel={channel}
             senderName={senderName}
             senderPhone=""
-            recipientName={selectedRecipient.full_name}
+            recipientName={recipientName}
             recipientType={channel}
-            note={note || undefined}
+            note={isP2P ? undefined : (note || undefined)}
             createdAt={createdAt}
+            secretCode={channel === 'cash_pickup' ? secretCode : undefined}
           />
         )}
 
@@ -160,5 +194,13 @@ export default function ReceiptPage() {
         </button>
       </div>
     </div>
+  )
+}
+
+export default function ReceiptPage() {
+  return (
+    <Suspense>
+      <ReceiptPageInner />
+    </Suspense>
   )
 }
