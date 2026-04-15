@@ -20,6 +20,7 @@ const CHANNEL_FEES_THB: Record<TransferChannel, number> = {
   wave_app: 10,
   bank_transfer: 50,
   cash_pickup: 30,
+  p2p: 0,
 }
 
 const CHANNEL_ORDER: TransferChannel[] = [
@@ -54,6 +55,7 @@ export default function ChannelPage() {
     wave_app: t('channel_wave_app'),
     bank_transfer: t('channel_bank_transfer'),
     cash_pickup: t('channel_cash_pickup'),
+    p2p: t('channel_p2p'),
   }
 
   function handleNext() {

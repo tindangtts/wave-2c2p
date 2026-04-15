@@ -7,6 +7,7 @@ const channelFees: Record<TransferChannel, number> = {
   wave_app: 1000,      // 10.00 THB in satang
   bank_transfer: 5000, // 50.00 THB in satang (D-14)
   cash_pickup: 3000,   // 30.00 THB in satang (D-14)
+  p2p: 0,              // 0 THB for P2P wallet-to-wallet
 };
 
 function generateReference(): string {

@@ -84,7 +84,7 @@ export default function EditRecipientPage({
       if (found) {
         setRecipient(found);
         form.reset({
-          transfer_type: found.transfer_type ?? "wave_app",
+          transfer_type: (found.transfer_type === 'p2p' ? 'wave_app' : found.transfer_type) ?? "wave_app",
           bank_name: found.bank_name ?? "",
           account_no: found.account_no ?? "",
           first_name: found.first_name ?? "",

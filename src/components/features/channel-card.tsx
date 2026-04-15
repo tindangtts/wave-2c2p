@@ -20,6 +20,7 @@ const CHANNEL_CONFIG: Record<
   wave_app: { Icon: Smartphone, bgColor: '#E3F2FD' },
   bank_transfer: { Icon: Landmark, bgColor: '#F3E5F5' },
   cash_pickup: { Icon: Banknote, bgColor: '#FFF3E0' },
+  p2p: { Icon: Smartphone, bgColor: '#E3F2FD' },
 }
 
 export function ChannelCard({

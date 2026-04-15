@@ -14,7 +14,7 @@ export type KYCStatus = "pending" | "approved" | "rejected" | "expired" | "not_s
 export type Language = "en" | "th" | "mm";
 export type TransactionStatus = "success" | "pending" | "rejected" | "processing" | "failed";
 export type TransactionType = "add_money" | "send_money" | "withdraw" | "receive" | "bill_payment";
-export type TransferChannel = "wave_agent" | "wave_app" | "bank_transfer" | "cash_pickup";
+export type TransferChannel = "wave_agent" | "wave_app" | "bank_transfer" | "cash_pickup" | "p2p";
 
 // Wallet
 export interface Wallet {
@@ -39,6 +39,7 @@ export interface Transaction {
   status: TransactionStatus;
   recipient_id?: string;
   channel?: TransferChannel;
+  secretCode?: string;  // cash_pickup channel only
   reference_number: string;
   description: string;
   created_at: string;
