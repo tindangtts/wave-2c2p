@@ -9,17 +9,43 @@ import { VisaCardDisplay } from "@/components/features/visa-card-display";
 import { CardRevealButton } from "@/components/features/card-reveal-button";
 import { FreezeCardToggle } from "@/components/features/freeze-card-toggle";
 
-// Mock card data (D-10)
-const MOCK_CARD_NUMBER = "4532019876543210";
-const MOCK_EXPIRY = "12/28";
-const MOCK_HOLDER_NAME = "LALITA TUNGTRAKUL";
+interface CardData {
+  id: string;
+  card_number_masked: string;
+  expiry_month: number;
+  expiry_year: number;
+  balance: number;
+  is_frozen: boolean;
+  status: string;
+}
 
 export default function CardPage() {
   const router = useRouter();
   const t = useTranslations("profile");
   const [revealed, setRevealed] = useState(false);
   const [frozen, setFrozen] = useState(false);
+  const [cardData, setCardData] = useState<CardData | null>(null);
+  const [loading, setLoading] = useState(true);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    fetch("/api/cards")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.cards?.length > 0) {
+          const card = data.cards[0] as CardData;
+          setCardData(card);
+          setFrozen(card.is_frozen);
+        }
+      })
+      .catch(() => {
+        toast.error("Failed to load card data.", {
+          duration: 3000,
+          position: "bottom-center",
+        });
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
   // Auto-hide after 10 seconds when revealed
   useEffect(() => {
@@ -53,10 +79,27 @@ export default function CardPage() {
     }
   };
 
-  const last4 = MOCK_CARD_NUMBER.slice(-4);
-  const formattedFull = MOCK_CARD_NUMBER.replace(/(.{4})/g, "$1 ").trim();
-  const maskedDisplay = `•••• •••• •••• ${last4}`;
-  const cardInfoNumber = revealed ? formattedFull : maskedDisplay;
+  // Derive display values from fetched data (with fallbacks during loading)
+  const maskedNumber = cardData?.card_number_masked ?? "•••• •••• •••• ••••";
+  const expiry = cardData
+    ? `${String(cardData.expiry_month).padStart(2, "0")}/${String(cardData.expiry_year).slice(-2)}`
+    : "--/--";
+  const holderName = "CARD HOLDER";
+
+  // For the card number display: DB only stores masked number.
+  // In reveal mode we show the masked number (full number not stored client-side for security).
+  const cardInfoNumber = maskedNumber;
+
+  if (loading) {
+    return (
+      <div className="flex flex-col min-h-screen bg-muted">
+        <BackHeader title="Visa Card" />
+        <div className="flex-1 flex items-center justify-center">
+          <div className="animate-pulse w-[358px] h-[226px] bg-gray-200 rounded-2xl" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col min-h-screen bg-muted">
@@ -65,9 +108,9 @@ export default function CardPage() {
       <div className="flex-1 overflow-y-auto px-4 pt-6 pb-8">
         {/* Card face */}
         <VisaCardDisplay
-          cardNumber={MOCK_CARD_NUMBER}
-          holderName={MOCK_HOLDER_NAME}
-          expiry={MOCK_EXPIRY}
+          cardNumber={maskedNumber}
+          holderName={holderName}
+          expiry={expiry}
           revealed={revealed}
           frozen={frozen}
         />
@@ -95,7 +138,7 @@ export default function CardPage() {
           {/* Expiry row */}
           <div className="flex items-center justify-between">
             <span className="text-xs font-normal text-[#767676]">Expiry Date</span>
-            <span className="text-xs font-normal text-foreground">{MOCK_EXPIRY}</span>
+            <span className="text-xs font-normal text-foreground">{expiry}</span>
           </div>
 
           <div className="border-t border-border my-3" />
@@ -123,10 +166,10 @@ export default function CardPage() {
 
         {/* Request Card CTA */}
         <button
-          onClick={() => router.push('/profile/card/request')}
+          onClick={() => router.push("/profile/card/request")}
           className="mt-6 w-full h-12 rounded-full bg-[#FFE600] text-foreground font-semibold text-sm hover:bg-[#FFE600]/90 active:bg-[#FFE600]/80 transition-colors"
         >
-          {t('card.request.cardRequestCta')}
+          {t("card.request.cardRequestCta")}
         </button>
       </div>
     </div>
