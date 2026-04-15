@@ -239,7 +239,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 19-01-PLAN.md — Wire process-transfer and withdraw to Drizzle atomic batch writes (debit operations)
+- [x] 19-01-PLAN.md — Wire process-transfer and withdraw to Drizzle atomic batch writes (debit operations)
 - [ ] 19-02-PLAN.md — Wire p2p-transfer and topup to Drizzle atomic batch writes (P2P + credit operations)
 
 ### Phase 20: New Tables & Seed
@@ -296,7 +296,7 @@ Plans:
 | 16. Test Coverage | v1.2 | 5/5 | Complete | 2026-04-15 |
 | 17. Features & Polish | v1.2 | 2/2 | Complete | 2026-04-15 |
 | 18. Core Data Layer | v1.3 | 3/3 | Complete    | 2026-04-15 |
-| 19. Payment Write-Back | v1.3 | 0/2 | Not started | - |
+| 19. Payment Write-Back | v1.3 | 1/2 | In Progress|  |
 | 20. New Tables & Seed | v1.3 | 0/TBD | Not started | - |
 | 21. System Config & Auth Gates | v1.3 | 0/TBD | Not started | - |
 | 22. Demo Mode Removal | v1.3 | 0/TBD | Not started | - |
