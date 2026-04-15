@@ -1,5 +1,32 @@
 # Milestones: 2C2P Wave
 
+## v1.1 Feature Completeness (Shipped: 2026-04-15)
+
+**Phases completed:** 5 phases, 20 plans, 27 tasks
+
+**Key accomplishments:**
+
+- One-liner:
+- One-liner:
+- P2P Zustand store, wallet-to-wallet transfer API with balance debit/credit, stateless secret-code refresh, and TransferChannel extended with "p2p"
+- P2P wallet ID entry and amount screens wired to p2p-store, with regex validation, balance guard, and sticky yellow CTAs following existing transfer screen patterns
+- One-liner:
+- One-liner:
+- One-liner:
+- Code 128 barcode top-up screen for 123 Service convenience stores using react-barcode, with Ref.1/Ref.2 refs, 30-minute expiry timer, and regenerate flow
+- One-liner:
+- One-liner:
+- myanmar-address-data.ts
+- One-liner:
+- Address selection step:
+- One-liner:
+- Referral stats API (/api/referral/stats) + refer-friends page with 2-card stats display and WhatsApp/Line/Copy social share buttons wired to live data
+- GET/PATCH /api/notifications with demo data, Notification TypeScript type, and full i18n strings across 3 locales — data layer ready for Plan 03 inbox UI
+- Bell icon with live unread badge and /home/notifications inbox with optimistic mark-one/mark-all-read via PATCH /api/notifications
+- Profile page (`src/app/(main)/profile/page.tsx`):
+
+---
+
 ## v1.0 MVP — Shipped 2026-04-15
 
 **Phases:** 8 | **Plans:** 27 | **Requirements:** 63/63

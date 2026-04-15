@@ -36,46 +36,25 @@ Users can send money from Thailand to Myanmar quickly, affordably, and with full
 - ✓ Design system with shadcn/ui matching prototype aesthetic — v1.0
 - ✓ QR scanner page — v1.0
 
+- ✓ T&C / Privacy consent screen with PDPA-compliant timestamp logging — v1.1
+- ✓ Pre-registration info + daily limit acknowledgment screens — v1.1
+- ✓ Selfie/liveness capture with circular face guide overlay — v1.1
+- ✓ P2P wallet-to-wallet transfer (wallet ID entry + QR scan) — v1.1
+- ✓ Cash pick-up transfer channel with server-generated secret code — v1.1
+- ✓ E-receipt share/download as PNG via Web Share API — v1.1
+- ✓ Recipient favourites toggle + filter tabs — v1.1
+- ✓ 123 Service convenience store top-up with Code 128 barcode — v1.1
+- ✓ Bank account management for withdrawals (add/delete/select) — v1.1
+- ✓ Myanmar address cascade (State → Township → Ward/Village) — v1.1
+- ✓ Visa card request + payment flow (address, FX, success/fail) — v1.1
+- ✓ Work permit / 2nd document update flow — v1.1
+- ✓ Referral stats + social share buttons (WhatsApp, Line, copy link) — v1.1
+- ✓ Notification inbox with unread badge — v1.1
+- ✓ Biometric login (WebAuthn Face ID / Touch ID / Fingerprint) — v1.1
+
 ### Active
 
-<!-- v1.1 Feature Completeness — close all Pencil/PRD gaps -->
-
-- [ ] P2P wallet-to-wallet transfer (wallet ID entry + QR scan)
-- [ ] Bank account management for withdrawals (add/delete saved accounts)
-- [ ] Cash pick-up transfer channel with secret code generation
-- [ ] T&C / Privacy consent screen during registration
-- [ ] Selfie/liveness capture with face guide overlay
-- [ ] 123 Service convenience store top-up channel
-- [ ] Visa card request + payment flow (address selection, FX, success/fail)
-- [ ] Work permit / 2nd document update flow
-- [ ] Myanmar address cascade (State → Township → Ward/Village)
-- [ ] E-receipt share/download as image
-- [ ] Recipient favourites toggle + filter
-- [ ] Referral stats + social share buttons (WhatsApp, Line, copy link)
-- [ ] Pre-registration info + daily limit acknowledgment screens
-- [ ] Biometric login option (Face ID / Touch ID / Fingerprint)
-- [ ] Notification inbox with unread badge
-
-## Current Milestone: v1.1 Feature Completeness
-
-**Goal:** Close all remaining gaps between Pencil design / PRD and the shipped codebase — deliver every designed screen and specified feature.
-
-**Target features:**
-- P2P wallet-to-wallet transfer (wallet ID + QR)
-- Bank account CRUD for withdrawals
-- Cash pick-up channel with secret code
-- T&C consent during registration
-- Selfie/liveness capture
-- 123 Service top-up
-- Visa card request + payment flow
-- Work permit update flow
-- Myanmar address cascade
-- E-receipt share/download
-- Recipient favourites
-- Referral stats + social sharing
-- Pre-registration + daily limit screens
-- Biometric login
-- Notification inbox
+(None — all v1.1 requirements validated. Define v1.2 requirements with `/gsd:new-milestone`)
 
 ### Out of Scope
 
@@ -91,17 +70,18 @@ Users can send money from Thailand to Myanmar quickly, affordably, and with full
 
 ## Context
 
-**Shipped v1.0 MVP** on 2026-04-15 with 17,268 LOC TypeScript across 144 commits.
+**Shipped v1.1 Feature Completeness** on 2026-04-15 with 21,601 LOC TypeScript across 198 source files and ~250 commits.
 
 - **Tech Stack**: Next.js 16.2.3 (App Router), Supabase (auth/DB/storage), shadcn/ui, Tailwind CSS v4, TypeScript
 - **Brand**: Yellow #FFE600 primary, Blue #0091EA secondary, dark text #212121 on yellow (WCAG AA)
 - **Target**: Mobile-first PWA, 375-430px viewport, iOS-style chrome
 - **Markets**: Thailand ↔ Myanmar corridor, migrant worker primary persona
 - **Languages**: English, Thai, Myanmar (Burmese) — fully implemented with next-intl
-- **Prototype**: 24+ screens designed in Pencil (`/pencil-new.pen`), fully implemented
-- **Mock Services**: eKYC and payment via env-var-configurable mock APIs
-- **Auth**: Phone OTP + PBKDF2 passcode with Supabase session management
-- **Integration**: 5/5 E2E flows verified (registration→KYC, transfer, add money, withdrawal, profile)
+- **Prototype**: All 150+ Pencil screens implemented — full design/PRD coverage
+- **Mock Services**: eKYC and payment via env-var-configurable mock APIs with demo mode
+- **Auth**: Phone OTP + PBKDF2 passcode + WebAuthn biometric (Face ID/Touch ID)
+- **Integration**: 7/7 E2E flows verified (registration, transfer, P2P, withdraw, receipt share, notifications, profile)
+- **New in v1.1**: P2P wallet transfer, 123 Service barcode top-up, bank account management, cash pick-up with secret code, Visa card request, work permit update, notification inbox, biometric login, recipient favourites, Myanmar address cascade, e-receipt PNG export, referral stats + social sharing, T&C consent, selfie face guide
 
 ## Constraints
 
@@ -116,12 +96,16 @@ Users can send money from Thailand to Myanmar quickly, affordably, and with full
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Next.js 16 with App Router | Latest stable, Server Components, proxy.ts pattern | — Pending |
-| Supabase over custom backend | Phone auth built-in, RLS policies, real-time, fast setup | — Pending |
-| shadcn/ui over custom components | Consistent design system, accessible defaults, easy theming | — Pending |
-| Mock eKYC/payment services | Avoid real integrations for MVP, configurable for demos | — Pending |
-| PWA over native app | Wider reach, single codebase, installable on mobile | — Pending |
-| proxy.ts over middleware.ts | Next.js 16 convention, full Node.js runtime | — Pending |
+| Next.js 16 with App Router | Latest stable, Server Components, proxy.ts pattern | ✓ Good |
+| Supabase over custom backend | Phone auth built-in, RLS policies, real-time, fast setup | ✓ Good |
+| shadcn/ui over custom components | Consistent design system, accessible defaults, easy theming | ✓ Good |
+| Mock eKYC/payment services | Avoid real integrations for MVP, configurable for demos | ✓ Good |
+| PWA over native app | Wider reach, single codebase, installable on mobile | ✓ Good |
+| proxy.ts over middleware.ts | Next.js 16 convention, full Node.js runtime | ✓ Good |
+| Separate P2P store | Avoid collision with A/C transfer store | ✓ Good — v1.1 |
+| html-to-image for receipt export | Lighter than html2canvas, better SVG/font handling | ✓ Good — v1.1 |
+| WebAuthn for biometric | Platform-native Face ID/Touch ID via browser API | ✓ Good — v1.1 |
+| react-barcode for 123 Service | Code 128 SVG for convenience store POS scanners | ✓ Good — v1.1 |
 
 ## Evolution
 
@@ -141,4 +125,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-15 after v1.1 milestone start*
+*Last updated: 2026-04-15 after v1.1 milestone complete*
