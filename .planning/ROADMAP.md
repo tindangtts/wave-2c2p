@@ -192,11 +192,11 @@ Plans:
 **Success Criteria** (what must be TRUE):
   1. User can select a date range on the transaction history screen and tap a download button; the browser downloads or shares a PDF file containing transactions for that range, formatted with amounts in THB and MMK
   2. User can navigate to a spending limits screen in profile settings, see their current daily and monthly limits, and edit them within the allowed tier options; changes persist across sessions
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 17-01-PLAN.md — PDF generation (jsPDF or similar), statement API route, date range picker integration, download/share action
-- [ ] 17-02-PLAN.md — Spending limits API (GET/PATCH), profile menu entry, spending limits screen with tier selector
+- [ ] 17-01-PLAN.md — PDF statement download (jsPDF + statement API + download button on history page)
+- [ ] 17-02-PLAN.md — Spending limits (GET/PATCH API + SWR hook + tier selector page + profile menu update)
 
 **UI hint**: yes
 
