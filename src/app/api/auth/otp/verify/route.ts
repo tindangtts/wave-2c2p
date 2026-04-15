@@ -40,7 +40,6 @@ export async function POST(request: NextRequest) {
     }
 
     const fullPhone = countryCode + phone
-    const derivedPassword = generateDerivedPassword(fullPhone)
     const admin = createAdminClient()
 
     // Check if user already exists by phone
@@ -48,7 +47,6 @@ export async function POST(request: NextRequest) {
     let isNewUser = true
 
     try {
-      // listUsers doesn't support filter natively — fetch first page and check phone
       const { data: usersData } = await admin.auth.admin.listUsers({ perPage: 1000 })
       const match = usersData?.users?.find((u) => u.phone === fullPhone)
       if (match) {
@@ -60,11 +58,15 @@ export async function POST(request: NextRequest) {
     }
 
     if (!userId) {
-      // Create new user with confirmed phone
+      // Create new user with confirmed phone and an email-based password for session creation
+      const demoEmail = `${phone.replace(/\D/g, '')}@wave-demo.local`
+      const derivedPassword = generateDerivedPassword(fullPhone)
       const { data: newUser, error: createError } =
         await admin.auth.admin.createUser({
+          email: demoEmail,
           phone: fullPhone,
           phone_confirm: true,
+          email_confirm: true,
           password: derivedPassword,
         })
 
@@ -77,18 +79,11 @@ export async function POST(request: NextRequest) {
       }
       userId = newUser.user.id
       isNewUser = true
-    } else {
-      // Update password for existing user to keep it consistent
-      await admin.auth.admin.updateUserById(userId, {
-        password: derivedPassword,
-      })
     }
 
-    // Build a response object so we can attach Set-Cookie headers via @supabase/ssr
-    const response = NextResponse.json({ success: true }) // placeholder — replaced below
-
-    // Create a server client that writes session cookies into the response
-    let sessionResponse: NextResponse | null = null
+    // Sign in with email + derived password to create a real session
+    const demoEmail = `${phone.replace(/\D/g, '')}@wave-demo.local`
+    const derivedPassword = generateDerivedPassword(fullPhone)
     const cookiesToSet: Array<{ name: string; value: string; options: Record<string, unknown> }> = []
 
     const supabase = createServerClient(
@@ -108,14 +103,12 @@ export async function POST(request: NextRequest) {
       }
     )
 
-    // Sign in with the derived password to create a real session
-    const { data: signInData, error: signInError } =
-      await supabase.auth.signInWithPassword({
-        phone: fullPhone,
-        password: derivedPassword,
-      })
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email: demoEmail,
+      password: derivedPassword,
+    })
 
-    if (signInError || !signInData?.session) {
+    if (signInError) {
       console.error('[otp/verify] signInWithPassword error:', signInError)
       return NextResponse.json(
         { error: 'Failed to create session' },
@@ -130,23 +123,15 @@ export async function POST(request: NextRequest) {
       .eq('id', userId)
       .single()
 
-    const profileExists = !!profile
-
-    // Create user_profiles row if it doesn't exist
-    if (!profileExists) {
-      const { error: insertError } = await admin.from('user_profiles').insert({
+    if (!profile) {
+      await admin.from('user_profiles').insert({
         id: userId,
         full_name: '',
         phone,
         country_code: countryCode,
         registration_complete: false,
         registration_step: 1,
-      })
-
-      if (insertError) {
-        console.error('[otp/verify] user_profiles insert error:', insertError)
-        // Non-fatal — session was created successfully
-      }
+      }).then(() => {})
     }
 
     const registrationComplete = profile?.registration_complete ?? false
@@ -154,26 +139,23 @@ export async function POST(request: NextRequest) {
 
     // AUTH-05: Invalidate all other sessions for this user
     try {
-      await admin.auth.admin.signOut(userId, 'others')
+      await admin.auth.admin.signOut(userId!, 'others')
     } catch (err) {
-      // Non-fatal — session was created; old sessions will expire naturally
       console.warn('[otp/verify] signOut others failed:', err)
     }
 
-    // Build final response with cookie headers
-    sessionResponse = NextResponse.json({
+    // Build response with cookie headers
+    const sessionResponse = NextResponse.json({
       success: true,
       isNewUser,
       registrationComplete,
       registrationStep,
     })
 
-    // Apply cookies from the @supabase/ssr client to the response
     cookiesToSet.forEach(({ name, value, options }) => {
-      sessionResponse!.cookies.set(name, value, options as Parameters<typeof sessionResponse.cookies.set>[2])
+      sessionResponse.cookies.set(name, value, options as Parameters<typeof sessionResponse.cookies.set>[2])
     })
 
-    void response // suppress unused var warning
     return sessionResponse
   }
 
