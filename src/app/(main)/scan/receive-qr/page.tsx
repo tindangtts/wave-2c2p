@@ -41,10 +41,10 @@ export default function ReceiveQRPage() {
         {/* QR Card */}
         <div className="w-full bg-white rounded-2xl shadow-md p-6 flex flex-col items-center">
           {/* Logo placeholder */}
-          <p className="text-sm font-bold text-[#0091EA] mb-1">2C2P WAVE</p>
+          <p className="text-sm font-bold text-accent mb-1">2C2P WAVE</p>
 
           {/* Wallet ID label */}
-          <p className="text-xs font-normal text-[#595959] mb-4">Your Wallet ID</p>
+          <p className="text-xs font-normal text-muted-foreground mb-4">Your Wallet ID</p>
 
           {/* QR code */}
           {isLoading ? (
@@ -53,7 +53,7 @@ export default function ReceiveQRPage() {
             <QRCode value={walletId} size={200} />
           ) : (
             <div className="w-[200px] h-[200px] flex items-center justify-center bg-secondary rounded-xl">
-              <p className="text-xs text-[#595959] text-center px-4">
+              <p className="text-xs text-muted-foreground text-center px-4">
                 Wallet ID not available
               </p>
             </div>
@@ -76,7 +76,7 @@ export default function ReceiveQRPage() {
           type="button"
           onClick={handleShare}
           disabled={isLoading || !walletId}
-          className="mt-6 w-full h-14 rounded-full bg-[#FFE600] text-foreground text-base font-bold active:scale-[0.98] transition-transform disabled:opacity-50"
+          className="mt-6 w-full h-14 rounded-full bg-primary text-foreground text-base font-bold active:scale-[0.98] transition-transform disabled:opacity-50"
         >
           Share QR
         </button>

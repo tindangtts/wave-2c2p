@@ -48,7 +48,7 @@ export function NotificationToggleList({ onChange }: NotificationToggleListProps
             <p className="text-base font-normal text-foreground leading-tight">
               {t(item.labelKey as Parameters<typeof t>[0])}
             </p>
-            <p className="text-xs text-[#595959] leading-tight mt-0.5">
+            <p className="text-xs text-muted-foreground leading-tight mt-0.5">
               {t(item.descKey as Parameters<typeof t>[0])}
             </p>
           </div>
@@ -56,7 +56,7 @@ export function NotificationToggleList({ onChange }: NotificationToggleListProps
             checked={toggles[item.key]}
             onCheckedChange={(value) => handleToggle(item.key, value)}
             aria-label={t(item.labelKey as Parameters<typeof t>[0])}
-            className="data-[state=checked]:bg-[#0091EA]"
+            className="data-[state=checked]:bg-accent"
           />
         </div>
       ))}

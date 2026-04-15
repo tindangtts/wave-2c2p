@@ -91,7 +91,7 @@ export default function VoucherPage() {
               type="button"
               onClick={handleRedeem}
               disabled={isRedeeming || !code.trim()}
-              className="h-12 px-5 rounded-xl bg-[#FFE600] text-foreground font-bold text-sm active:scale-95 transition-transform disabled:opacity-50 flex-shrink-0"
+              className="h-12 px-5 rounded-xl bg-primary text-foreground font-bold text-sm active:scale-95 transition-transform disabled:opacity-50 flex-shrink-0"
             >
               {isRedeeming ? t('voucher.redeeming') : t('voucher.redeem')}
             </button>
@@ -108,16 +108,16 @@ export default function VoucherPage() {
                   key={v.code}
                   className="bg-white rounded-xl border border-border p-4 flex items-center gap-3"
                 >
-                  <div className="w-10 h-10 rounded-full bg-[#E8F5E9] flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 rounded-full bg-wave-success-light flex items-center justify-center flex-shrink-0">
                     {v.type === 'cashback' ? (
-                      <Gift className="w-5 h-5 text-[#00C853]" />
+                      <Gift className="w-5 h-5 text-wave-success" />
                     ) : (
-                      <Ticket className="w-5 h-5 text-[#00C853]" />
+                      <Ticket className="w-5 h-5 text-wave-success" />
                     )}
                   </div>
                   <div className="flex-1">
                     <p className="text-sm font-bold text-foreground">{v.code}</p>
-                    <p className="text-xs text-[#00C853]">
+                    <p className="text-xs text-wave-success">
                       {v.type === 'cashback'
                         ? t('voucher.discount', { amount: (v.amount / 100).toString() })
                         : t('voucher.freeTransfer')}
@@ -132,9 +132,9 @@ export default function VoucherPage() {
         {/* Empty state */}
         {redeemed.length === 0 && (
           <div className="mt-12 flex flex-col items-center justify-center gap-2">
-            <Tag className="w-12 h-12 text-[#E0E0E0]" />
+            <Tag className="w-12 h-12 text-border" aria-hidden="true" />
             <p className="text-base font-bold text-foreground">{t('voucher.noVouchers')}</p>
-            <p className="text-sm text-[#595959] text-center">{t('voucher.noVouchersBody')}</p>
+            <p className="text-sm text-muted-foreground text-center">{t('voucher.noVouchersBody')}</p>
           </div>
         )}
       </div>

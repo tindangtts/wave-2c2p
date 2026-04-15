@@ -82,7 +82,7 @@ export default function ChannelPage() {
       </div>
 
       {/* Hint text */}
-      <p className="mx-4 mt-2 text-xs text-[#595959]">
+      <p className="mx-4 mt-2 text-xs text-muted-foreground">
         {t('channel_hint')}
       </p>
 
@@ -117,11 +117,7 @@ export default function ChannelPage() {
           type="button"
           onClick={handleNext}
           disabled={isNextDisabled}
-          className="w-full h-14 rounded-full text-base font-bold transition-colors"
-          style={{
-            backgroundColor: isNextDisabled ? '#E0E0E0' : '#FFE600',
-            color: isNextDisabled ? '#767676' : '#212121',
-          }}
+          className={`w-full h-14 rounded-full text-base font-bold transition-colors ${isNextDisabled ? 'bg-border text-muted-foreground' : 'bg-primary text-foreground'}`}
         >
           {t('cta_next')}
         </button>

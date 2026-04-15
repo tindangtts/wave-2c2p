@@ -88,8 +88,8 @@ function Service123Content() {
       <div className="flex-1 px-4 py-6 flex flex-col gap-6">
         {loading ? (
           <div className="flex-1 flex flex-col items-center justify-center gap-4">
-            <Loader2 className="w-10 h-10 text-[#0091EA] animate-spin" />
-            <p className="text-sm text-[#595959]">Generating barcode...</p>
+            <Loader2 className="w-10 h-10 text-accent animate-spin" />
+            <p className="text-sm text-muted-foreground">Generating barcode...</p>
           </div>
         ) : barcodeData ? (
           <>
@@ -106,19 +106,19 @@ function Service123Content() {
               </div>
               <div className="w-full space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-[#595959]">Ref.1</span>
+                  <span className="text-muted-foreground">Ref.1</span>
                   <span className="font-medium text-foreground font-mono">{barcodeData.ref1}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#595959]">Ref.2</span>
+                  <span className="text-muted-foreground">Ref.2</span>
                   <span className="font-medium text-foreground font-mono">{barcodeData.ref2}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#595959]">{t('labels.amountThb')}</span>
+                  <span className="text-muted-foreground">{t('labels.amountThb')}</span>
                   <span className="font-bold text-foreground">{barcodeData.amount.toFixed(2)} THB</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#595959]">{t('labels.pleasePayBefore')}</span>
+                  <span className="text-muted-foreground">{t('labels.pleasePayBefore')}</span>
                   <span className="font-medium text-foreground text-xs">
                     {format(new Date(barcodeData.expiresAt), 'dd MMM yyyy HH:mm')}
                   </span>
@@ -137,7 +137,7 @@ function Service123Content() {
             <button
               type="button"
               onClick={handleGenerateNew}
-              className="w-full h-14 rounded-full bg-[#FFE600] text-foreground font-semibold text-base active:opacity-80 transition-opacity"
+              className="w-full h-14 rounded-full bg-primary text-foreground font-semibold text-base active:opacity-80 transition-opacity"
             >
               {t('ctas.generateNewBarcode')}
             </button>
@@ -145,7 +145,7 @@ function Service123Content() {
           <button
             type="button"
             onClick={handleDone}
-            className="w-full h-14 rounded-full bg-[#FFE600] text-foreground font-semibold text-base active:opacity-80 transition-opacity"
+            className="w-full h-14 rounded-full bg-primary text-foreground font-semibold text-base active:opacity-80 transition-opacity"
           >
             {t('ctas.done')}
           </button>
@@ -162,7 +162,7 @@ export default function AddMoney123ServicePage() {
         <div className="flex flex-col min-h-full">
           <BackHeader title="123 Service" />
           <div className="flex-1 flex items-center justify-center">
-            <Loader2 className="w-10 h-10 text-[#0091EA] animate-spin" />
+            <Loader2 className="w-10 h-10 text-accent animate-spin" />
           </div>
         </div>
       }

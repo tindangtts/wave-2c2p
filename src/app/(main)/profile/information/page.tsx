@@ -15,7 +15,7 @@ interface UserProfile {
 function FieldRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex flex-col h-14 justify-center px-4 border-b border-border">
-      <span className="text-xs font-normal text-[#767676]">{label}</span>
+      <span className="text-xs font-normal text-muted-foreground">{label}</span>
       <span className="text-base font-normal text-foreground">
         {value || "—"}
       </span>

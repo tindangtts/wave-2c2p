@@ -50,13 +50,13 @@ export default function NotificationsPage() {
   }, [markRead, router])
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F5F5F5]">
+    <div className="flex flex-col min-h-screen bg-muted">
       <BackHeader title={t('notificationInbox.title')} onBack={() => router.push('/home')} />
 
       {/* Mark all read button — only shown when there are unread */}
       {unreadCount > 0 && (
         <div className="px-4 pt-3 flex justify-end">
-          <button onClick={markAllRead} className="text-sm text-[#0091EA] font-medium">
+          <button onClick={markAllRead} className="text-sm text-accent font-medium">
             {t('notificationInbox.markAllRead')}
           </button>
         </div>
@@ -65,9 +65,9 @@ export default function NotificationsPage() {
       {/* Empty state */}
       {notifications.length === 0 && (
         <div className="flex-1 flex flex-col items-center justify-center gap-3 px-6">
-          <Bell className="w-12 h-12 text-[#E0E0E0]" />
+          <Bell className="w-12 h-12 text-border" />
           <p className="text-base font-semibold text-foreground">{t('notificationInbox.empty')}</p>
-          <p className="text-sm text-[#595959] text-center">{t('notificationInbox.emptyBody')}</p>
+          <p className="text-sm text-muted-foreground text-center">{t('notificationInbox.emptyBody')}</p>
         </div>
       )}
 
@@ -81,25 +81,25 @@ export default function NotificationsPage() {
                 onClick={() => handleNotificationPress(n)}
                 className={[
                   "w-full text-left px-4 py-3 flex items-start gap-3",
-                  idx < notifications.length - 1 ? "border-b border-[#F0F0F0]" : "",
-                  !n.is_read ? "bg-[#E3F2FD]" : "bg-white",
+                  idx < notifications.length - 1 ? "border-b border-border" : "",
+                  !n.is_read ? "bg-brand-blue-light" : "bg-white",
                 ].join(' ')}
               >
                 {/* Unread indicator dot */}
-                <div className={["w-2 h-2 rounded-full mt-1.5 shrink-0", !n.is_read ? "bg-[#0091EA]" : "bg-transparent"].join(' ')} />
+                <div className={["w-2 h-2 rounded-full mt-1.5 shrink-0", !n.is_read ? "bg-accent" : "bg-transparent"].join(' ')} />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-2">
-                    <p className={["text-sm font-semibold truncate", !n.is_read ? "text-foreground" : "text-[#595959]"].join(' ')}>
+                    <p className={["text-sm font-semibold truncate", !n.is_read ? "text-foreground" : "text-muted-foreground"].join(' ')}>
                       {n.title}
                     </p>
                     {!n.is_read && (
-                      <span className="shrink-0 text-[10px] font-bold text-white bg-[#0091EA] rounded-full px-1.5 py-0.5">
+                      <span className="shrink-0 text-[10px] font-bold text-white bg-accent rounded-full px-1.5 py-0.5">
                         {t('notificationInbox.unreadBadge')}
                       </span>
                     )}
                   </div>
-                  <p className="text-xs text-[#767676] mt-0.5 line-clamp-2">{n.body}</p>
-                  <p className="text-[10px] text-[#AAAAAA] mt-1">
+                  <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">{n.body}</p>
+                  <p className="text-[10px] text-muted-foreground mt-1">
                     {new Date(n.created_at).toLocaleDateString()}
                   </p>
                 </div>

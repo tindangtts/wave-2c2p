@@ -16,9 +16,9 @@ const typeLabel: Record<TransactionType, string> = {
 }
 
 const statusConfig: Record<TransactionStatus, { bg: string; text: string; label: string }> = {
-  success: { bg: 'bg-[#E8F5E9]', text: 'text-[#00C853]', label: 'Success' },
-  pending: { bg: 'bg-[#FFF3E0]', text: 'text-[#FF9800]', label: 'Pending' },
-  processing: { bg: 'bg-[#FFF3E0]', text: 'text-[#FF9800]', label: 'Processing' },
+  success: { bg: 'bg-[#E8F5E9]', text: 'text-wave-success', label: 'Success' },
+  pending: { bg: 'bg-[#FFF3E0]', text: 'text-wave-warning', label: 'Pending' },
+  processing: { bg: 'bg-[#FFF3E0]', text: 'text-wave-warning', label: 'Processing' },
   rejected: { bg: 'bg-[#FFEBEE]', text: 'text-destructive', label: 'Rejected' },
   failed: { bg: 'bg-[#FFEBEE]', text: 'text-destructive', label: 'Failed' },
 }
@@ -32,9 +32,9 @@ interface ReceiptRowProps {
 function ReceiptRow({ label, value, mono }: ReceiptRowProps) {
   return (
     <div className="flex items-baseline justify-between gap-4 py-1">
-      <span className="text-base text-[#595959] flex-shrink-0">{label}</span>
+      <span className="text-base text-muted-foreground flex-shrink-0">{label}</span>
       <span
-        className={`text-base font-bold text-foreground text-right ${mono ? 'font-mono text-xs text-[#595959]' : ''}`}
+        className={`text-base font-bold text-foreground text-right ${mono ? 'font-mono text-xs text-muted-foreground' : ''}`}
       >
         {value}
       </span>
@@ -82,7 +82,7 @@ export function TransactionDetail({ transaction }: TransactionDetailProps) {
       <div className="mx-4 bg-white rounded-2xl shadow-sm border border-border p-4">
         {/* Logo placeholder */}
         <div className="flex items-center justify-center h-8 mb-4">
-          <span className="text-base font-bold text-[#0091EA] tracking-wide">2C2P WAVE</span>
+          <span className="text-base font-bold text-accent tracking-wide">2C2P WAVE</span>
         </div>
 
         {/* Breakdown rows */}
@@ -106,15 +106,15 @@ export function TransactionDetail({ transaction }: TransactionDetailProps) {
         {/* Amount breakdown */}
         <div className="space-y-1">
           <div className="flex items-baseline justify-between gap-4 py-1">
-            <span className="text-base text-[#595959]">Amount</span>
-            <span className={`text-base font-bold ${isCredit ? 'text-[#00C853]' : 'text-foreground'}`}>
+            <span className="text-base text-muted-foreground">Amount</span>
+            <span className={`text-base font-bold ${isCredit ? 'text-wave-success' : 'text-foreground'}`}>
               {formatCurrency(transaction.amount, transaction.currency as CurrencyCode)}
             </span>
           </div>
 
           {fee > 0 && (
             <div className="flex items-baseline justify-between gap-4 py-1">
-              <span className="text-base text-[#595959]">Fee</span>
+              <span className="text-base text-muted-foreground">Fee</span>
               <span className="text-base font-bold text-destructive">
                 {formatCurrency(fee, 'THB')}
               </span>
@@ -123,8 +123,8 @@ export function TransactionDetail({ transaction }: TransactionDetailProps) {
 
           {transaction.converted_amount && transaction.converted_currency && (
             <div className="flex items-baseline justify-between gap-4 py-1">
-              <span className="text-base text-[#595959]">Converted</span>
-              <span className="text-base text-[#595959]">
+              <span className="text-base text-muted-foreground">Converted</span>
+              <span className="text-base text-muted-foreground">
                 {formatCurrency(
                   transaction.converted_amount,
                   transaction.converted_currency as CurrencyCode

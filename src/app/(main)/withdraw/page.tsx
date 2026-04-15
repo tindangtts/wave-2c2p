@@ -38,11 +38,11 @@ function SkeletonList() {
 function EmptyState() {
   return (
     <div className="flex flex-col items-center justify-center py-16 text-center">
-      <div className="w-16 h-16 rounded-full bg-[#E3F2FD] flex items-center justify-center mb-4">
-        <Building2 className="w-8 h-8 text-[#0091EA]" />
+      <div className="w-16 h-16 rounded-full bg-brand-blue-light flex items-center justify-center mb-4">
+        <Building2 className="w-8 h-8 text-accent" />
       </div>
       <p className="text-base font-semibold text-foreground mb-1">No bank accounts saved</p>
-      <p className="text-sm text-[#595959]">Add a bank account to start withdrawing</p>
+      <p className="text-sm text-muted-foreground">Add a bank account to start withdrawing</p>
     </div>
   )
 }
@@ -67,8 +67,8 @@ function BankAccountRow({ account, isLast, onSelect, onDelete }: BankAccountRowP
       tabIndex={0}
       onKeyDown={(e) => e.key === 'Enter' && onSelect()}
     >
-      <div className="w-10 h-10 rounded-full bg-[#E3F2FD] flex items-center justify-center flex-shrink-0">
-        <span className="text-xs font-bold text-[#0091EA]">
+      <div className="w-10 h-10 rounded-full bg-brand-blue-light flex items-center justify-center flex-shrink-0">
+        <span className="text-xs font-bold text-accent">
           {account.bank_name.slice(0, 3).toUpperCase()}
         </span>
       </div>
@@ -76,7 +76,7 @@ function BankAccountRow({ account, isLast, onSelect, onDelete }: BankAccountRowP
         <p className="text-sm font-semibold text-foreground">
           {account.bank_name} {maskedNumber}
         </p>
-        <p className="text-xs text-[#595959] truncate">{account.account_name}</p>
+        <p className="text-xs text-muted-foreground truncate">{account.account_name}</p>
       </div>
       <button
         type="button"
@@ -87,7 +87,7 @@ function BankAccountRow({ account, isLast, onSelect, onDelete }: BankAccountRowP
         className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-red-50 active:bg-red-100 transition-colors flex-shrink-0"
         aria-label={`Delete ${account.bank_name} account`}
       >
-        <Trash2 className="w-4 h-4 text-[#595959]" />
+        <Trash2 className="w-4 h-4 text-muted-foreground" />
       </button>
     </div>
   )
@@ -136,7 +136,7 @@ export default function WithdrawPage() {
         <button
           type="button"
           onClick={() => router.push('/withdraw/add-bank')}
-          className="w-full flex items-center gap-3 px-4 py-3 bg-white rounded-xl border border-dashed border-[#0091EA] text-[#0091EA] font-medium text-sm mb-4 active:bg-blue-50 transition-colors"
+          className="w-full flex items-center gap-3 px-4 py-3 bg-white rounded-xl border border-dashed border-accent text-accent font-medium text-sm mb-4 active:bg-blue-50 transition-colors"
         >
           <Plus className="w-5 h-5" />
           Add Bank Account

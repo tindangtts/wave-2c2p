@@ -66,7 +66,7 @@ export default function TransactionDetailPage({ params }: TransactionDetailPageP
         ) : error || !transaction ? (
           <div className="flex flex-col items-center justify-center py-16 px-6 gap-2">
             <p className="text-base font-bold text-foreground">Transaction not found</p>
-            <p className="text-sm text-[#595959] text-center">
+            <p className="text-sm text-muted-foreground text-center">
               This transaction could not be loaded.
             </p>
           </div>
@@ -80,7 +80,7 @@ export default function TransactionDetailPage({ params }: TransactionDetailPageP
         <button
           type="button"
           onClick={() => router.push('/history')}
-          className="w-full h-14 rounded-full bg-[#FFE600] text-foreground text-base font-bold transition-colors active:bg-[#FFD600]"
+          className="w-full h-14 rounded-full bg-primary text-foreground text-base font-bold transition-colors active:bg-brand-yellow-dark"
         >
           {t('ctas.close')}
         </button>

@@ -8,18 +8,18 @@ import type { CurrencyCode } from '@/lib/currency'
 import type { Transaction, TransactionType, TransactionStatus } from '@/types'
 
 // Type config matching UI-SPEC D-15 (send_money blue per plan, add_money green, withdraw orange, receive green)
-const typeConfig: Record<TransactionType, { icon: React.ElementType; bg: string; color: string }> = {
-  send_money: { icon: ArrowUpRight, bg: '#E3F2FD', color: '#0091EA' },
-  add_money: { icon: Plus, bg: '#E8F5E9', color: '#00C853' },
-  withdraw: { icon: Minus, bg: '#FFF3E0', color: '#FF9800' },
-  receive: { icon: ArrowDownLeft, bg: '#E8F5E9', color: '#00C853' },
-  bill_payment: { icon: ArrowUpRight, bg: '#E3F2FD', color: '#0091EA' },
+const typeConfig: Record<TransactionType, { icon: React.ElementType; bgClass: string; colorClass: string }> = {
+  send_money: { icon: ArrowUpRight, bgClass: 'bg-brand-blue-light', colorClass: 'text-accent' },
+  add_money: { icon: Plus, bgClass: 'bg-wave-success-light', colorClass: 'text-wave-success' },
+  withdraw: { icon: Minus, bgClass: 'bg-[#FFF3E0]', colorClass: 'text-wave-warning' },
+  receive: { icon: ArrowDownLeft, bgClass: 'bg-wave-success-light', colorClass: 'text-wave-success' },
+  bill_payment: { icon: ArrowUpRight, bgClass: 'bg-brand-blue-light', colorClass: 'text-accent' },
 }
 
 const statusConfig: Record<TransactionStatus, { bg: string; text: string; label: string }> = {
-  success: { bg: 'bg-[#E8F5E9]', text: 'text-[#00C853]', label: 'Success' },
-  pending: { bg: 'bg-[#FFF3E0]', text: 'text-[#FF9800]', label: 'Pending' },
-  processing: { bg: 'bg-[#FFF3E0]', text: 'text-[#FF9800]', label: 'Processing' },
+  success: { bg: 'bg-wave-success-light', text: 'text-wave-success', label: 'Success' },
+  pending: { bg: 'bg-[#FFF3E0]', text: 'text-wave-warning', label: 'Pending' },
+  processing: { bg: 'bg-[#FFF3E0]', text: 'text-wave-warning', label: 'Processing' },
   rejected: { bg: 'bg-[#FFEBEE]', text: 'text-destructive', label: 'Rejected' },
   failed: { bg: 'bg-[#FFEBEE]', text: 'text-destructive', label: 'Failed' },
 }
@@ -42,7 +42,7 @@ export function TransactionRow({ transaction, onClick }: TransactionRowProps) {
 
   const isCredit = creditTypes.includes(transaction.type)
   const amountPrefix = isCredit ? '+' : '-'
-  const amountColor = isCredit ? 'text-[#00C853]' : 'text-destructive'
+  const amountColor = isCredit ? 'text-wave-success' : 'text-destructive'
 
   const formattedAmount = formatCurrency(
     transaction.amount,
@@ -65,10 +65,9 @@ export function TransactionRow({ transaction, onClick }: TransactionRowProps) {
     >
       {/* Left: type icon circle */}
       <div
-        className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
-        style={{ backgroundColor: tCfg.bg }}
+        className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${tCfg.bgClass}`}
       >
-        <TypeIcon className="w-5 h-5" style={{ color: tCfg.color }} />
+        <TypeIcon className={`w-5 h-5 ${tCfg.colorClass}`} />
       </div>
 
       {/* Center: description + date */}
@@ -76,7 +75,7 @@ export function TransactionRow({ transaction, onClick }: TransactionRowProps) {
         <span className="text-base text-foreground truncate leading-snug">
           {transaction.description}
         </span>
-        <span className="text-xs text-[#767676] mt-0.5">
+        <span className="text-xs text-muted-foreground mt-0.5">
           {dateLabel}
         </span>
       </div>

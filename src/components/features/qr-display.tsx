@@ -24,11 +24,11 @@ export function QRDisplay({ paymentCode, amount, merchantName, expiresAt, expire
     <div className="bg-white rounded-2xl shadow-md p-6 flex flex-col items-center gap-4">
       {/* 2C2P logo placeholder */}
       <div className="h-8 flex items-center justify-center mb-2">
-        <span className="text-base font-bold text-[#0091EA] tracking-wide">2C2P WAVE</span>
+        <span className="text-base font-bold text-accent tracking-wide">2C2P WAVE</span>
       </div>
 
       {/* Merchant name */}
-      <p className="text-xs font-normal text-[#595959] text-center -mt-2">
+      <p className="text-xs font-normal text-muted-foreground text-center -mt-2">
         {merchantName}
       </p>
 
@@ -38,7 +38,7 @@ export function QRDisplay({ paymentCode, amount, merchantName, expiresAt, expire
           value={paymentCode}
           size={200}
           bgColor="#FFFFFF"
-          fgColor="#212121"
+          fgColor="var(--color-foreground)"
         />
         {expired && (
           <div className="absolute inset-0 flex items-center justify-center">
@@ -50,16 +50,16 @@ export function QRDisplay({ paymentCode, amount, merchantName, expiresAt, expire
       </div>
 
       {/* Divider */}
-      <div className="w-full h-px bg-[#E0E0E0]" />
+      <div className="w-full h-px bg-border" />
 
       {/* Payment details */}
       <div className="w-full space-y-2">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-normal text-[#595959]">Payment Code:</span>
+          <span className="text-xs font-normal text-muted-foreground">Payment Code:</span>
           <span className="text-xs font-medium text-foreground">{paymentCode}</span>
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-xs font-normal text-[#595959]">Amount (THB):</span>
+          <span className="text-xs font-normal text-muted-foreground">Amount (THB):</span>
           <span className="text-sm font-bold text-foreground">
             {formatCurrency(amountSatang, 'THB')}
           </span>
@@ -67,10 +67,10 @@ export function QRDisplay({ paymentCode, amount, merchantName, expiresAt, expire
       </div>
 
       {/* Divider */}
-      <div className="w-full h-px bg-[#E0E0E0]" />
+      <div className="w-full h-px bg-border" />
 
       {/* Expiry info */}
-      <p className="text-xs font-normal text-[#595959] text-center">
+      <p className="text-xs font-normal text-muted-foreground text-center">
         Please pay before {formatExpiryTime(expiresAt)}
       </p>
     </div>

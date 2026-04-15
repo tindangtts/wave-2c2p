@@ -20,24 +20,24 @@ export default function DailyLimitPage() {
       <div className="flex-1 flex flex-col px-4 pt-8 pb-[64px]">
         {/* Limit info card */}
         <div
-          className="border border-[#E0E0E0] rounded-xl p-4 bg-white shadow-sm animate-fade-up stagger-1"
+          className="border border-border rounded-xl p-4 bg-white shadow-sm animate-fade-up stagger-1"
           role="region"
           aria-label="Daily transfer limits"
         >
-          <h2 className="text-base font-semibold text-[#212121] mb-4">
+          <h2 className="text-base font-semibold text-foreground mb-4">
             {t('compliance.dailyLimit.cardHeading')}
           </h2>
 
           {/* KYC Pending tier */}
           <div className="flex items-center justify-between py-2">
-            <span className="text-[12px] text-[#595959]">
+            <span className="text-[12px] text-muted-foreground">
               {t('compliance.dailyLimit.tier1Label')}
             </span>
             <div className="flex items-baseline gap-1">
-              <span className="text-[20px] font-bold text-[#212121]">
+              <span className="text-[20px] font-bold text-foreground">
                 {t('compliance.dailyLimit.tier1Amount')}
               </span>
-              <span className="text-[12px] text-[#595959]">
+              <span className="text-[12px] text-muted-foreground">
                 {t('compliance.dailyLimit.tier1Currency')}
               </span>
             </div>
@@ -47,14 +47,14 @@ export default function DailyLimitPage() {
 
           {/* KYC Approved tier */}
           <div className="flex items-center justify-between py-2">
-            <span className="text-[12px] text-[#595959]">
+            <span className="text-[12px] text-muted-foreground">
               {t('compliance.dailyLimit.tier2Label')}
             </span>
             <div className="flex items-baseline gap-1">
-              <span className="text-[20px] font-bold text-[#212121]">
+              <span className="text-[20px] font-bold text-foreground">
                 {t('compliance.dailyLimit.tier2Amount')}
               </span>
-              <span className="text-[12px] text-[#595959]">
+              <span className="text-[12px] text-muted-foreground">
                 {t('compliance.dailyLimit.tier2Currency')}
               </span>
             </div>
@@ -62,7 +62,7 @@ export default function DailyLimitPage() {
         </div>
 
         {/* Disclaimer */}
-        <p className="text-[12px] text-[#595959] text-center mt-4 px-2">
+        <p className="text-[12px] text-muted-foreground text-center mt-4 px-2">
           {t('compliance.dailyLimit.disclaimer')}
         </p>
 
@@ -73,7 +73,7 @@ export default function DailyLimitPage() {
       <div className="px-4 pb-8">
         <Button
           onClick={() => router.push('/register/personal-info')}
-          className="w-full h-12 rounded-full bg-[#FFE600] text-[#212121] font-semibold text-base hover:bg-[#FFD600]"
+          className="w-full h-12 rounded-full bg-primary text-foreground font-semibold text-base hover:bg-primary/90"
         >
           {t('compliance.dailyLimit.cta')}
         </Button>

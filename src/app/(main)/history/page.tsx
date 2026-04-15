@@ -138,7 +138,7 @@ export default function HistoryPage() {
             <p className="text-base font-bold text-foreground text-center">
               {hasActiveFilters ? t('empty.noTransactions') : t('empty.noTransactionsYet')}
             </p>
-            <p className="text-sm text-[#595959] text-center">
+            <p className="text-sm text-muted-foreground text-center">
               {hasActiveFilters
                 ? t('empty.noTransactionsBody')
                 : t('empty.noTransactionsYetBody')}
@@ -151,7 +151,7 @@ export default function HistoryPage() {
               <div key={date}>
                 {/* Date group header — sticky */}
                 <div className="sticky top-[88px] z-10 mx-4 py-2 bg-white">
-                  <span className="text-xs text-[#767676]">
+                  <span className="text-xs text-muted-foreground">
                     {formatGroupHeader(items[0]?.created_at ?? date)}
                   </span>
                 </div>

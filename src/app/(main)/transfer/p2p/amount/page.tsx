@@ -56,12 +56,12 @@ export default function P2PAmountPage() {
 
       {/* Receiver chip */}
       <div className="mx-4 mt-4 mb-4 flex items-center gap-3 bg-secondary rounded-xl px-4 py-3">
-        <div className="w-8 h-8 rounded-full bg-[#FFE600] flex items-center justify-center flex-shrink-0">
+        <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
           <span className="text-xs font-bold text-foreground">{avatarLabel}</span>
         </div>
         <div>
           <p className="text-sm font-bold text-foreground">{receiverWalletId}</p>
-          <p className="text-xs text-[#595959]">2C2P WAVE Wallet</p>
+          <p className="text-xs text-muted-foreground">2C2P WAVE Wallet</p>
         </div>
       </div>
 
@@ -69,12 +69,11 @@ export default function P2PAmountPage() {
       <div className="flex flex-col items-center pt-8 pb-6 px-4">
         <div className="flex items-baseline gap-2">
           <span
-            className="text-5xl font-bold leading-none"
-            style={{ color: amountStr ? '#212121' : '#767676' }}
+            className={`text-5xl font-bold leading-none ${amountStr ? 'text-foreground' : 'text-muted-foreground'}`}
           >
             {amountStr || '0'}
           </span>
-          <span className="text-base text-[#595959]">THB</span>
+          <span className="text-base text-muted-foreground">THB</span>
         </div>
 
         {/* Validation error */}
@@ -96,11 +95,7 @@ export default function P2PAmountPage() {
           type="button"
           onClick={handleReview}
           disabled={isCtaDisabled}
-          className="w-full h-14 rounded-xl text-base font-bold transition-colors"
-          style={{
-            backgroundColor: isCtaDisabled ? '#E0E0E0' : '#FFE600',
-            color: isCtaDisabled ? '#767676' : '#212121',
-          }}
+          className={`w-full h-14 rounded-xl text-base font-bold transition-colors ${isCtaDisabled ? 'bg-border text-muted-foreground' : 'bg-primary text-foreground'}`}
         >
           Review Transfer
         </button>

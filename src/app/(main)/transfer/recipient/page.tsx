@@ -36,7 +36,7 @@ export default function RecipientPage() {
         <button
           type="button"
           onClick={() => router.push("/transfer/p2p")}
-          className="mx-4 mt-3 mb-1 flex items-center gap-3 rounded-xl border border-dashed border-[#0091EA] px-4 py-3 text-[#0091EA] active:opacity-70 transition-opacity"
+          className="mx-4 mt-3 mb-1 flex items-center gap-3 rounded-xl border border-dashed border-accent px-4 py-3 text-accent active:opacity-70 transition-opacity"
         >
           <Wallet className="w-5 h-5" />
           <span className="text-sm font-medium">{t("sendToWallet")}</span>

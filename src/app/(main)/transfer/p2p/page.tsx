@@ -70,7 +70,7 @@ export default function P2PWalletIdPage() {
             placeholder="Enter wallet ID (e.g. W-123456)"
             className={[
               'h-14 rounded-xl bg-secondary text-base',
-              error ? 'border-[#F44336] focus-visible:ring-[#F44336]' : '',
+              error ? 'border-destructive focus-visible:ring-destructive' : '',
             ].join(' ')}
             aria-invalid={!!error}
             aria-describedby={error ? 'wallet-id-error' : undefined}
@@ -82,7 +82,7 @@ export default function P2PWalletIdPage() {
           <p
             id="wallet-id-error"
             role="alert"
-            className="text-xs text-[#F44336] mt-1"
+            className="text-xs text-destructive mt-1"
           >
             {error}
           </p>
@@ -91,7 +91,7 @@ export default function P2PWalletIdPage() {
         {/* OR divider */}
         <div className="flex items-center gap-3 my-4">
           <div className="flex-1 border-t border-gray-200" />
-          <span className="text-sm text-[#595959]">OR</span>
+          <span className="text-sm text-muted-foreground">OR</span>
           <div className="flex-1 border-t border-gray-200" />
         </div>
 
@@ -99,7 +99,7 @@ export default function P2PWalletIdPage() {
         <button
           type="button"
           onClick={handleScanQR}
-          className="w-full h-12 rounded-xl border border-[#0091EA] text-[#0091EA] flex items-center justify-center gap-2 font-medium text-sm"
+          className="w-full h-12 rounded-xl border border-accent text-accent flex items-center justify-center gap-2 font-medium text-sm"
         >
           <ScanLine className="w-4 h-4" />
           Scan Wallet QR
@@ -112,7 +112,7 @@ export default function P2PWalletIdPage() {
           type="button"
           onClick={handleContinue}
           disabled={isDisabled}
-          className="w-full h-14 rounded-xl bg-[#FFE600] text-foreground font-bold text-base disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full h-14 rounded-xl bg-primary text-foreground font-bold text-base disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Enter Amount
         </button>

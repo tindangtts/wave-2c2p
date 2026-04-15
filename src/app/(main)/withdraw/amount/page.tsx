@@ -91,8 +91,8 @@ function WithdrawAmountContent() {
           </div>
         ) : bankAccount ? (
           <div className="flex items-center gap-3 bg-secondary rounded-xl px-4 py-3 mb-6">
-            <div className="w-10 h-10 rounded-full bg-[#E3F2FD] flex items-center justify-center flex-shrink-0">
-              <span className="text-xs font-bold text-[#0091EA]">
+            <div className="w-10 h-10 rounded-full bg-brand-blue-light flex items-center justify-center flex-shrink-0">
+              <span className="text-xs font-bold text-accent">
                 {bankAccount.bank_name.slice(0, 3).toUpperCase()}
               </span>
             </div>
@@ -100,7 +100,7 @@ function WithdrawAmountContent() {
               <p className="text-base font-bold text-foreground truncate">
                 {bankAccount.bank_name}
               </p>
-              <p className="text-xs text-[#595959]">
+              <p className="text-xs text-muted-foreground">
                 {bankAccount.account_name} · ****{bankAccount.account_number.slice(-4)}
               </p>
             </div>
@@ -112,11 +112,11 @@ function WithdrawAmountContent() {
           <p className="text-5xl font-bold text-foreground leading-tight">
             {amount || '0'}
           </p>
-          <p className="text-base text-[#595959]">THB</p>
+          <p className="text-base text-muted-foreground">THB</p>
         </div>
 
         {/* Balance line */}
-        <p className="text-xs text-[#595959] text-center mb-1">
+        <p className="text-xs text-muted-foreground text-center mb-1">
           {walletLoading
             ? 'Loading balance...'
             : `Available: ${formatCurrency(balanceSatang, 'THB')}`}
@@ -141,7 +141,7 @@ function WithdrawAmountContent() {
           type="button"
           onClick={handleWithdraw}
           disabled={isCTADisabled}
-          className="w-full h-14 rounded-full bg-[#FFE600] text-foreground text-base font-bold active:scale-[0.98] transition-transform disabled:opacity-50"
+          className="w-full h-14 rounded-full bg-primary text-foreground text-base font-bold active:scale-[0.98] transition-transform disabled:opacity-50"
         >
           {isSubmitting ? 'Processing...' : 'Withdraw'}
         </button>
@@ -164,7 +164,7 @@ export default function WithdrawAmountPage() {
         <div className="flex flex-col min-h-screen bg-muted">
           <BackHeader title="Withdraw" />
           <div className="flex-1 flex items-center justify-center">
-            <div className="w-6 h-6 rounded-full border-2 border-[#0091EA] border-t-transparent animate-spin" />
+            <div className="w-6 h-6 rounded-full border-2 border-accent border-t-transparent animate-spin" />
           </div>
         </div>
       }

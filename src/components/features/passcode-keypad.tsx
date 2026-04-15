@@ -43,7 +43,7 @@ export function PasscodeKeypad({
     }
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  })
+  }, [isLoading, value])
 
   function handleDigit(digit: string) {
     if (value.length >= 6 || isLoading) return
@@ -84,7 +84,7 @@ export function PasscodeKeypad({
               className={[
                 'w-3 h-3 rounded-full border-2 transition-colors duration-200',
                 filled
-                  ? 'bg-[#FFE600] border-transparent'
+                  ? 'bg-primary border-transparent'
                   : 'border-border bg-transparent',
               ].join(' ')}
               aria-hidden="true"
@@ -103,7 +103,7 @@ export function PasscodeKeypad({
             onClick={() => handleDigit(digit)}
             disabled={isLoading}
             aria-label={digit}
-            className="w-16 h-16 bg-secondary rounded-full text-xl font-bold text-foreground active:bg-[#E0E0E0] transition-colors disabled:opacity-50 flex items-center justify-center"
+            className="w-16 h-16 bg-secondary rounded-full text-xl font-bold text-foreground active:bg-border transition-colors disabled:opacity-50 flex items-center justify-center"
           >
             {digit}
           </button>
@@ -118,7 +118,7 @@ export function PasscodeKeypad({
           onClick={() => handleDigit('0')}
           disabled={isLoading}
           aria-label="0"
-          className="w-16 h-16 bg-secondary rounded-full text-xl font-bold text-foreground active:bg-[#E0E0E0] transition-colors disabled:opacity-50 flex items-center justify-center"
+          className="w-16 h-16 bg-secondary rounded-full text-xl font-bold text-foreground active:bg-border transition-colors disabled:opacity-50 flex items-center justify-center"
         >
           0
         </button>
@@ -129,7 +129,7 @@ export function PasscodeKeypad({
           onClick={handleBackspace}
           disabled={isLoading}
           aria-label="Delete digit"
-          className="w-16 h-16 bg-secondary rounded-full active:bg-[#E0E0E0] transition-colors disabled:opacity-50 flex items-center justify-center"
+          className="w-16 h-16 bg-secondary rounded-full active:bg-border transition-colors disabled:opacity-50 flex items-center justify-center"
         >
           <Delete className="w-6 h-6 text-foreground" />
         </button>

@@ -203,12 +203,12 @@ function ConfirmPageInner() {
       <div className="flex-1 overflow-y-auto px-4 pt-4 pb-32">
         {/* Transfer summary header */}
         <div className="text-center">
-          <p className="text-xs text-[#595959]">Transfer</p>
+          <p className="text-xs text-muted-foreground">Transfer</p>
           <p className="text-[1.75rem] font-bold text-foreground mt-1">
             {formatCurrency(displayAmount, 'THB')}
           </p>
           {!isP2P && (
-            <p className="text-base text-[#595959] mt-1">
+            <p className="text-base text-muted-foreground mt-1">
               {formatCurrency(convertedPya, 'MMK')}
             </p>
           )}
@@ -227,7 +227,7 @@ function ConfirmPageInner() {
         <div className="mt-4 bg-white rounded-xl border border-border p-4">
           {/* Sender */}
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-[#E3F2FD] flex items-center justify-center flex-shrink-0">
+            <div className="w-12 h-12 rounded-full bg-brand-blue-light flex items-center justify-center flex-shrink-0">
               <span className="text-base font-bold text-foreground">
                 {getInitials(senderName)}
               </span>
@@ -235,19 +235,19 @@ function ConfirmPageInner() {
             <div className="flex-1 min-w-0">
               <p className="text-base font-bold text-foreground truncate">{senderName}</p>
               {senderPhone && (
-                <p className="text-xs text-[#595959]">{senderPhone}</p>
+                <p className="text-xs text-muted-foreground">{senderPhone}</p>
               )}
             </div>
           </div>
 
           {/* Arrow */}
           <div className="flex justify-center my-2">
-            <ArrowDown className="w-6 h-6 text-[#E0E0E0]" />
+            <ArrowDown className="w-6 h-6 text-border" aria-hidden="true" />
           </div>
 
           {/* Receiver */}
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-[#FFE600] flex items-center justify-center flex-shrink-0">
+            <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
               <span className="text-base font-bold text-foreground">
                 {getInitials(displayRecipientName)}
               </span>
@@ -256,7 +256,7 @@ function ConfirmPageInner() {
               <p className="text-base font-bold text-foreground truncate">
                 {displayRecipientName}
               </p>
-              <p className="text-xs text-[#595959]">
+              <p className="text-xs text-muted-foreground">
                 {isP2P ? '2C2P WAVE (P2P)' : (displayChannel ?? '').replace(/_/g, ' ')}
               </p>
             </div>
@@ -267,7 +267,7 @@ function ConfirmPageInner() {
         <div className="mt-4 bg-white rounded-xl border border-border p-4">
           {/* Amount row */}
           <div className="flex items-center justify-between">
-            <span className="text-base text-[#595959]">Amount</span>
+            <span className="text-base text-muted-foreground">Amount</span>
             <span className="text-base font-bold text-foreground">
               {formatCurrency(displayAmount, 'THB')}
             </span>
@@ -275,7 +275,7 @@ function ConfirmPageInner() {
 
           {/* Fee row */}
           <div className="flex items-center justify-between mt-2">
-            <span className="text-base text-[#595959]">Fee</span>
+            <span className="text-base text-muted-foreground">Fee</span>
             <span className="text-base font-bold text-destructive">
               {formatCurrency(displayFee, 'THB')}
             </span>
@@ -284,8 +284,8 @@ function ConfirmPageInner() {
           {/* Exchange Rate row — hidden for P2P */}
           {!isP2P && (
             <div className="flex items-center justify-between mt-2">
-              <span className="text-base text-[#595959]">Exchange Rate</span>
-              <span className="text-base text-[#595959]">
+              <span className="text-base text-muted-foreground">Exchange Rate</span>
+              <span className="text-base text-muted-foreground">
                 1 THB = {displayRate.toFixed(2)} MMK
               </span>
             </div>
@@ -294,8 +294,8 @@ function ConfirmPageInner() {
           {/* Converted Amount row — hidden for P2P */}
           {!isP2P && (
             <div className="flex items-center justify-between mt-2">
-              <span className="text-base text-[#595959]">Converted Amount</span>
-              <span className="text-base text-[#595959]">
+              <span className="text-base text-muted-foreground">Converted Amount</span>
+              <span className="text-base text-muted-foreground">
                 {formatCurrency(convertedPya, 'MMK')}
               </span>
             </div>
@@ -304,9 +304,9 @@ function ConfirmPageInner() {
           {/* Transfer Type row — P2P only */}
           {isP2P && (
             <div className="flex items-center justify-between mt-2">
-              <span className="text-base text-[#595959]">Type</span>
+              <span className="text-base text-muted-foreground">Type</span>
               <span className="flex items-center gap-1 text-base font-bold text-foreground">
-                <Wallet className="w-4 h-4 text-[#0091EA]" />
+                <Wallet className="w-4 h-4 text-accent" aria-hidden="true" />
                 Wallet Transfer
               </span>
             </div>
@@ -335,7 +335,7 @@ function ConfirmPageInner() {
             value={isP2P ? '' : note}
             onChange={(e) => { if (!isP2P) setNote(e.target.value) }}
             placeholder="Add a note for your recipient..."
-            className="w-full rounded-xl border border-border px-3 py-2 text-sm text-foreground placeholder:text-[#767676] focus:border-[#0091EA] focus:outline-none resize-none"
+            className="w-full rounded-xl border border-border px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none resize-none"
           />
         </div>
       </div>
@@ -346,7 +346,7 @@ function ConfirmPageInner() {
           type="button"
           disabled={isSubmitting}
           onClick={() => setPasscodeOpen(true)}
-          className="w-full h-14 rounded-full bg-[#FFE600] text-foreground text-base font-bold active:scale-[0.98] transition-transform disabled:opacity-50"
+          className="w-full h-14 rounded-full bg-primary text-foreground text-base font-bold active:scale-[0.98] transition-transform disabled:opacity-50"
         >
           {isSubmitting ? 'Processing...' : 'Confirm'}
         </button>
@@ -376,7 +376,7 @@ function ConfirmPageInner() {
                 setForceConfirm(true)
                 setPasscodeOpen(true)
               }}
-              className="bg-[#FFE600] text-foreground hover:bg-[#FFD600]"
+              className="bg-primary text-foreground hover:bg-brand-yellow-dark"
             >
               {t('duplicateTransfer.confirm')}
             </AlertDialogAction>

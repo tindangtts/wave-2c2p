@@ -55,7 +55,7 @@ export default function SpendingLimitsPage() {
       <div className="flex-1 bg-white overflow-y-auto pb-24">
         {/* Description */}
         <div className="px-4 pt-4 pb-2">
-          <p className="text-sm text-[#595959]">
+          <p className="text-sm text-muted-foreground">
             {t("spendingLimits.description")}
           </p>
         </div>
@@ -65,7 +65,7 @@ export default function SpendingLimitsPage() {
           <span className="text-base font-normal text-foreground">
             {t("spendingLimits.dailyLimit")}
           </span>
-          <span className="text-base font-normal text-[#595959]">
+          <span className="text-base font-normal text-muted-foreground">
             {isLoading ? "—" : formatCurrency(dailyLimitSatang, "THB")}
           </span>
         </div>
@@ -73,7 +73,7 @@ export default function SpendingLimitsPage() {
           <span className="text-base font-normal text-foreground">
             {t("spendingLimits.monthlyLimit")}
           </span>
-          <span className="text-base font-normal text-[#595959]">
+          <span className="text-base font-normal text-muted-foreground">
             {isLoading ? "—" : formatCurrency(monthlyLimitSatang, "THB")}
           </span>
         </div>
@@ -100,7 +100,7 @@ export default function SpendingLimitsPage() {
               }}
               className={`mx-4 mb-3 p-4 rounded-xl border-2 cursor-pointer transition-colors ${
                 isSelected
-                  ? "border-[#0091EA] bg-[#E3F2FD]"
+                  ? "border-accent bg-brand-blue-light"
                   : "border-border bg-white"
               }`}
             >
@@ -109,11 +109,11 @@ export default function SpendingLimitsPage() {
                   <span className="text-base font-bold text-foreground">
                     {t(`spendingLimits.${tier.id}`)}
                   </span>
-                  <span className="text-sm text-[#595959]">
+                  <span className="text-sm text-muted-foreground">
                     {formatCurrency(tier.daily, "THB")}{" "}
                     {t("spendingLimits.perDay")}
                   </span>
-                  <span className="text-sm text-[#595959]">
+                  <span className="text-sm text-muted-foreground">
                     {formatCurrency(tier.monthly, "THB")}{" "}
                     {t("spendingLimits.perMonth")}
                   </span>
@@ -121,11 +121,11 @@ export default function SpendingLimitsPage() {
                 {/* Radio indicator */}
                 <div
                   className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                    isSelected ? "border-[#0091EA]" : "border-[#BDBDBD]"
+                    isSelected ? "border-accent" : "border-border"
                   }`}
                 >
                   {isSelected && (
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#0091EA]" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-accent" />
                   )}
                 </div>
               </div>
@@ -136,7 +136,7 @@ export default function SpendingLimitsPage() {
         {/* Save button */}
         <div className="px-4 mt-6">
           <Button
-            className="w-full h-12 rounded-full bg-[#FFE600] text-[#212121] font-bold text-base hover:bg-[#FFE600]/90 disabled:opacity-50"
+            className="w-full h-12 rounded-full bg-primary text-foreground font-bold text-base hover:bg-primary/90 disabled:opacity-50"
             disabled={selectedTier === currentTier || isSaving}
             onClick={handleSave}
           >

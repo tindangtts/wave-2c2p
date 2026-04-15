@@ -25,7 +25,7 @@ export function ConversionCard({ amountSatang, convertedPya, rate }: ConversionC
         </div>
 
         {/* Arrow */}
-        <ArrowRight className="w-5 h-5 text-[#595959] flex-shrink-0" />
+        <ArrowRight className="w-5 h-5 text-muted-foreground flex-shrink-0" />
 
         {/* Right: MMK */}
         <div className="flex items-center gap-2 flex-1 min-w-0 justify-end">
@@ -39,7 +39,7 @@ export function ConversionCard({ amountSatang, convertedPya, rate }: ConversionC
       </div>
 
       {/* Rate line */}
-      <p className="mt-2 text-xs text-[#595959] text-center">
+      <p className="mt-2 text-xs text-muted-foreground text-center">
         1 THB = {rate.toFixed(1)} MMK
       </p>
     </div>

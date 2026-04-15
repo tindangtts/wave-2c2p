@@ -78,7 +78,7 @@ export default function CreatePasscodePage() {
       <StepIndicator currentStep={3} />
 
       <div className="flex flex-col flex-1 px-4 pt-8 pb-8 items-center">
-        <p className="text-base text-[#595959] text-center mb-8">
+        <p className="text-base text-muted-foreground text-center mb-8">
           {step === 'create'
             ? t('register.step3Instruction')
             : t('register.step3ConfirmInstruction')}

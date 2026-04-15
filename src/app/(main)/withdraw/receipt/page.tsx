@@ -68,29 +68,29 @@ function WithdrawReceiptContent() {
         <div className="mx-4 mt-4 bg-white rounded-xl border border-border p-4">
           {/* Success header */}
           <div className="flex flex-col items-center pb-4 border-b border-gray-100">
-            <CheckCircle className="w-12 h-12 text-[#00C853] mb-2" />
-            <p className="text-base font-bold text-[#00C853]">Completed</p>
-            <p className="text-sm text-[#595959] mt-1">2C2P WAVE</p>
-            <p className="text-xs text-[#595959] mt-1">
+            <CheckCircle className="w-12 h-12 text-wave-success mb-2" />
+            <p className="text-base font-bold text-wave-success">Completed</p>
+            <p className="text-sm text-muted-foreground mt-1">2C2P WAVE</p>
+            <p className="text-xs text-muted-foreground mt-1">
               {formatReceiptDate(receiptDate)}
             </p>
           </div>
 
           {/* Reference number */}
-          <p className="text-xs text-[#595959] text-center mt-3">
+          <p className="text-xs text-muted-foreground text-center mt-3">
             Ref: {transactionId}
           </p>
 
           {/* Details section */}
           <div className="mt-4 space-y-3">
             <div className="flex justify-between items-center">
-              <span className="text-xs text-[#595959]">Type</span>
+              <span className="text-xs text-muted-foreground">Type</span>
               <span className="text-sm font-bold text-foreground">Withdrawal</span>
             </div>
 
             {recipientName && (
               <div className="flex justify-between items-center">
-                <span className="text-xs text-[#595959]">Recipient</span>
+                <span className="text-xs text-muted-foreground">Recipient</span>
                 <span className="text-sm font-bold text-foreground text-right max-w-[180px] truncate">
                   {recipientName}
                 </span>
@@ -100,14 +100,14 @@ function WithdrawReceiptContent() {
             <div className="border-t border-border my-2" />
 
             <div className="flex justify-between items-center">
-              <span className="text-base text-[#595959]">Amount</span>
+              <span className="text-base text-muted-foreground">Amount</span>
               <span className="text-base font-bold text-foreground">
                 {formatCurrency(amountSatang, 'THB')}
               </span>
             </div>
 
             <div className="flex justify-between items-center">
-              <span className="text-base text-[#595959]">Fee</span>
+              <span className="text-base text-muted-foreground">Fee</span>
               <span className="text-base font-bold text-foreground">
                 {formatCurrency(0, 'THB')}
               </span>
@@ -130,7 +130,7 @@ function WithdrawReceiptContent() {
         <button
           type="button"
           onClick={handleDone}
-          className="w-full h-14 rounded-full bg-[#FFE600] text-foreground text-base font-bold active:scale-[0.98] transition-transform"
+          className="w-full h-14 rounded-full bg-primary text-foreground text-base font-bold active:scale-[0.98] transition-transform"
         >
           Done
         </button>
@@ -143,7 +143,7 @@ export default function WithdrawReceiptPage() {
   return (
     <Suspense fallback={
       <div className="flex flex-col min-h-screen bg-muted items-center justify-center">
-        <div className="w-6 h-6 rounded-full border-2 border-[#0091EA] border-t-transparent animate-spin" />
+        <div className="w-6 h-6 rounded-full border-2 border-accent border-t-transparent animate-spin" />
       </div>
     }>
       <WithdrawReceiptContent />

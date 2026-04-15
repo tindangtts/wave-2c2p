@@ -143,8 +143,8 @@ function ReceiptPageInner() {
         {/* Pending / Processing state */}
         {(status === 'pending' || status === 'processing') && (
           <div className="flex flex-col items-center justify-center pt-16 px-4">
-            <div className="w-6 h-6 rounded-full border-2 border-[#0091EA] border-t-transparent animate-spin mb-4" />
-            <p className="text-base text-[#595959] text-center">
+            <div className="w-6 h-6 rounded-full border-2 border-accent border-t-transparent animate-spin mb-4" />
+            <p className="text-base text-muted-foreground text-center">
               {t('status_processing')}
               {' — '}
               Processing your transfer...
@@ -176,7 +176,7 @@ function ReceiptPageInner() {
           <div className="flex flex-col items-center justify-center pt-16 px-4 text-center">
             <XCircle className="w-12 h-12 text-destructive mb-4" />
             <p className="text-xl font-bold text-foreground">Transfer failed</p>
-            <p className="text-sm text-[#595959] mt-2">
+            <p className="text-sm text-muted-foreground mt-2">
               Please contact support for assistance.
             </p>
           </div>
@@ -188,7 +188,7 @@ function ReceiptPageInner() {
         <button
           type="button"
           onClick={handleClose}
-          className="w-full h-14 rounded-full bg-[#FFE600] text-foreground text-base font-bold active:scale-[0.98] transition-transform"
+          className="w-full h-14 rounded-full bg-primary text-foreground text-base font-bold active:scale-[0.98] transition-transform"
         >
           {t('cta_close')}
         </button>

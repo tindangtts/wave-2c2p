@@ -64,9 +64,9 @@ export default function ScanPage() {
   return (
     <div className="fixed inset-0 flex flex-col bg-black">
       {/* Header */}
-      <div className="relative z-10 pt-11 px-4 h-14 flex items-center justify-between bg-[#FFE600]">
+      <div className="relative z-10 pt-11 px-4 h-14 flex items-center justify-between bg-primary">
         <div className="w-6" />
-        <h1 className="text-xl font-bold text-[#0091EA]">Scan QR Code</h1>
+        <h1 className="text-xl font-bold text-accent">Scan QR Code</h1>
         <button
           type="button"
           onClick={handleClose}
@@ -88,7 +88,7 @@ export default function ScanPage() {
         <div className="relative flex-1 overflow-hidden">
           <div className="absolute inset-0 bg-black" />
           <div className="absolute inset-0 flex flex-col items-center justify-center px-8">
-            <p className="text-sm text-[#595959] text-center">
+            <p className="text-sm text-muted-foreground text-center">
               Camera access denied. Use gallery to scan.
             </p>
           </div>
@@ -120,7 +120,7 @@ export default function ScanPage() {
         <button
           type="button"
           onClick={handleReceiveMoney}
-          className="w-full h-12 rounded-full bg-[#FFE600] text-foreground text-base font-bold active:scale-[0.98] transition-transform"
+          className="w-full h-12 rounded-full bg-primary text-foreground text-base font-bold active:scale-[0.98] transition-transform"
         >
           Receive Money with QR
         </button>

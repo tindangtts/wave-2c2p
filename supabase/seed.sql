@@ -55,6 +55,7 @@ insert into public.user_profiles (
   date_of_birth,
   registration_complete,
   registration_step,
+  passcode_hash,
   passcode_attempts,
   created_at,
   updated_at
@@ -72,6 +73,7 @@ values (
   '1995-03-15',
   true,
   6,
+  'pbkdf2:7e1b8487fbed066bdd9056438a334192:c7aec0095171d9d70c1d24a5cac61efdb0a010b30fd384a0c9cf413abefac064',
   0,
   '2024-06-01T10:00:00Z',
   '2024-12-01T10:00:00Z'

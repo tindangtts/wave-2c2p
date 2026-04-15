@@ -106,11 +106,11 @@ export async function POST(request: Request) {
 
     let txId: string
     try {
-      const [, [inserted]] = await db.batch([
-        db.update(wallets)
+      txId = await db.transaction(async (tx) => {
+        await tx.update(wallets)
           .set({ balance: newBalance, updatedAt: new Date() })
-          .where(eq(wallets.id, wallet.id)),
-        db.insert(transactions)
+          .where(eq(wallets.id, wallet.id));
+        const [inserted] = await tx.insert(transactions)
           .values({
             userId: user.id,
             type: 'withdraw',
@@ -123,9 +123,9 @@ export async function POST(request: Request) {
             description,
             ...(metadataStr ? { metadata: metadataStr } : {}),
           })
-          .returning({ id: transactions.id }),
-      ] as const)
-      txId = inserted.id
+          .returning({ id: transactions.id });
+        return inserted.id;
+      })
     } catch {
       return NextResponse.json({ error: 'Failed to process withdrawal' }, { status: 500 })
     }

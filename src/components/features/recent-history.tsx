@@ -4,7 +4,7 @@ import Link from "next/link";
 /* Custom circle-plus icon matching Pencil design */
 function CirclePlusIcon({ className }: { className?: string }) {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className={className}>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
       <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
       <line x1="12" y1="8" x2="12" y2="16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
       <line x1="8" y1="12" x2="16" y2="12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
@@ -25,15 +25,15 @@ type StatusConfig = {
 
 const statusConfig: Record<TransactionStatus, StatusConfig> = {
   success: {
-    text: "text-[#00C853]",
+    text: "text-wave-success",
     label: "Success",
   },
   pending: {
-    text: "text-[#FF9800]",
+    text: "text-wave-warning",
     label: "Pending",
   },
   processing: {
-    text: "text-[#FF9800]",
+    text: "text-wave-warning",
     label: "Processing",
   },
   rejected: {
@@ -69,10 +69,10 @@ export function RecentHistory() {
     return (
       <div>
         <div className="flex items-center justify-between mb-3">
-          <h3 className="text-base font-bold text-[#000000]">
+          <h3 className="text-base font-bold text-foreground">
             {t("recentHistory.title")}
           </h3>
-          <CirclePlusIcon className="text-[#000000]" />
+          <CirclePlusIcon className="text-foreground" />
         </div>
         <div className="flex flex-col gap-0">
           {Array.from({ length: 5 }).map((_, i) => (
@@ -87,13 +87,13 @@ export function RecentHistory() {
     return (
       <div>
         <div className="flex items-center justify-between mb-3">
-          <h3 className="text-base font-bold text-[#000000]">
+          <h3 className="text-base font-bold text-foreground">
             {t("recentHistory.title")}
           </h3>
         </div>
         <button
           onClick={() => mutate()}
-          className="w-full text-sm text-[#595959] py-4 text-center"
+          className="w-full text-sm text-muted-foreground py-4 text-center"
         >
           {t("errors.transactionFetch")}
         </button>
@@ -107,21 +107,21 @@ export function RecentHistory() {
     <div>
       {/* Section header */}
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-base font-bold text-[#000000]">
+        <h3 className="text-base font-bold text-foreground">
           {t("recentHistory.title")}
         </h3>
         <Link href="/history" aria-label="View all history">
-          <CirclePlusIcon className="text-[#000000]" />
+          <CirclePlusIcon className="text-foreground" />
         </Link>
       </div>
 
       {transactions.length === 0 ? (
         /* Empty state */
         <div className="flex flex-col items-center py-8 gap-2">
-          <p className="text-base font-bold text-[#000000]">
+          <p className="text-base font-bold text-foreground">
             {t("recentHistory.empty.heading")}
           </p>
-          <p className="text-sm text-[#595959] text-center">
+          <p className="text-sm text-muted-foreground text-center">
             {t("recentHistory.empty.body")}
           </p>
         </div>
@@ -144,16 +144,16 @@ export function RecentHistory() {
               >
                 {/* Top row: description + amount */}
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-[#000000] truncate flex-1 min-w-0">
+                  <span className="text-sm text-foreground truncate flex-1 min-w-0">
                     {tx.description}
                   </span>
-                  <span className="text-sm font-medium text-[#000000] ml-2 whitespace-nowrap">
+                  <span className="text-sm font-medium text-foreground ml-2 whitespace-nowrap">
                     {amountPrefix}{formattedAmount}
                   </span>
                 </div>
                 {/* Bottom row: date + status */}
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-[#595959]">
+                  <span className="text-xs text-muted-foreground">
                     {formatDate(tx.created_at)}
                   </span>
                   <span className={`text-xs font-medium ${sCfg.text}`}>

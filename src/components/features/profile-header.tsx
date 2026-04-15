@@ -16,17 +16,17 @@ export function ProfileHeader({ name, title = "Profile Setting" }: ProfileHeader
   const initials = getInitials(name || "");
 
   return (
-    <div className="bg-[#FFE600] pb-8 px-4">
+    <div className="bg-primary pb-8 px-4">
       {/* Status bar space */}
       <div className="h-11 safe-top" />
       {/* Title */}
-      <h1 className="text-xl font-bold text-[#0091EA] text-center pt-2">
+      <h1 className="text-xl font-bold text-accent text-center pt-2">
         {title}
       </h1>
       {/* Avatar */}
       <div className="flex flex-col items-center mt-4">
         <div
-          className="w-[72px] h-[72px] rounded-full bg-[#FFE600] border-2 border-[#212121] flex items-center justify-center"
+          className="w-[72px] h-[72px] rounded-full bg-primary border-2 border-foreground flex items-center justify-center"
           aria-label={`Avatar for ${name}`}
         >
           <span className="text-2xl font-bold text-foreground leading-none">

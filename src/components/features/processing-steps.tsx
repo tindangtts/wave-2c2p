@@ -20,9 +20,9 @@ export function ProcessingSteps({ steps }: ProcessingStepsProps) {
           <div
             className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
               step.status === 'complete'
-                ? 'bg-[#00C853]'
+                ? 'bg-wave-success'
                 : step.status === 'active'
-                  ? 'bg-[#FFE600]'
+                  ? 'bg-primary'
                   : 'bg-secondary'
             }`}
           >
@@ -38,10 +38,10 @@ export function ProcessingSteps({ steps }: ProcessingStepsProps) {
           <span
             className={`text-base ${
               step.status === 'complete'
-                ? 'text-[#595959]'
+                ? 'text-muted-foreground'
                 : step.status === 'active'
                   ? 'text-foreground'
-                  : 'text-[#767676]'
+                  : 'text-muted-foreground'
             }`}
           >
             {step.label}

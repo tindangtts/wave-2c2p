@@ -164,12 +164,12 @@ export default function AddBankPage() {
       </div>
 
       {/* Sticky submit button */}
-      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] bg-muted px-4 py-4 safe-bottom border-t border-[#F0F0F0]">
+      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] bg-muted px-4 py-4 safe-bottom border-t border-border">
         <button
           type="button"
           onClick={handleSubmit(onSubmit)}
           disabled={isSubmitting}
-          className="w-full h-14 rounded-full bg-[#FFE600] text-foreground text-base font-bold active:scale-[0.98] transition-transform disabled:opacity-50"
+          className="w-full h-14 rounded-full bg-primary text-foreground text-base font-bold active:scale-[0.98] transition-transform disabled:opacity-50"
         >
           {isSubmitting ? t('addBank.saving') : t('addBank.saveCta')}
         </button>

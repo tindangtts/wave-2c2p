@@ -77,10 +77,10 @@ export default function ChatPage() {
       <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 pt-4 pb-4">
         {/* Agent header */}
         <div className="flex items-center justify-center gap-2 mb-4">
-          <div className="w-10 h-10 rounded-full bg-[#0091EA] flex items-center justify-center">
+          <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center">
             <Headphones className="w-5 h-5 text-white" />
           </div>
-          <span className="text-sm font-medium text-[#595959]">{t('chat.agentName')}</span>
+          <span className="text-sm font-medium text-muted-foreground">{t('chat.agentName')}</span>
         </div>
 
         {/* Quick actions — shown if only welcome message */}
@@ -110,7 +110,7 @@ export default function ChatPage() {
                 className={[
                   'max-w-[80%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed',
                   msg.sender === 'user'
-                    ? 'bg-[#0091EA] text-white rounded-br-md'
+                    ? 'bg-accent text-white rounded-br-md'
                     : 'bg-white text-foreground border border-border rounded-bl-md',
                 ].join(' ')}
               >
@@ -135,13 +135,13 @@ export default function ChatPage() {
               }
             }}
             placeholder={t('chat.inputPlaceholder')}
-            className="flex-1 h-11 px-4 rounded-full bg-secondary border-none text-sm text-foreground placeholder:text-[#767676] focus:outline-none focus:ring-2 focus:ring-[#0091EA]"
+            className="flex-1 h-11 px-4 rounded-full bg-secondary border-none text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent"
           />
           <button
             type="button"
             onClick={handleSend}
             disabled={!input.trim()}
-            className="w-11 h-11 rounded-full bg-[#0091EA] flex items-center justify-center flex-shrink-0 disabled:opacity-50 active:scale-95 transition-transform"
+            className="w-11 h-11 rounded-full bg-accent flex items-center justify-center flex-shrink-0 disabled:opacity-50 active:scale-95 transition-transform"
             aria-label={t('chat.send')}
           >
             <Send className="w-5 h-5 text-white" />

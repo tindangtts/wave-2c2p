@@ -124,8 +124,8 @@ export default function AddMoneyQRPage() {
         {/* QR area */}
         {loading ? (
           <div className="flex-1 flex flex-col items-center justify-center gap-4">
-            <Loader2 className="w-10 h-10 text-[#0091EA] animate-spin" />
-            <p className="text-sm text-[#595959]">Generating QR code...</p>
+            <Loader2 className="w-10 h-10 text-accent animate-spin" aria-hidden="true" />
+            <p className="text-sm text-muted-foreground">Generating QR code...</p>
           </div>
         ) : qrData ? (
           <>
@@ -153,14 +153,14 @@ export default function AddMoneyQRPage() {
             <button
               type="button"
               onClick={handleGenerateNew}
-              className="w-full h-14 rounded-full bg-[#FFE600] text-foreground font-semibold text-base active:opacity-80 transition-opacity"
+              className="w-full h-14 rounded-full bg-primary text-foreground font-semibold text-base active:opacity-80 transition-opacity"
             >
               {t('ctas.generateNewQr')}
             </button>
           ) : (
             <button
               type="button"
-              className="w-full h-14 rounded-full border border-[#0091EA] text-[#0091EA] font-semibold text-base active:bg-[#E3F2FD] transition-colors"
+              className="w-full h-14 rounded-full border border-accent text-accent font-semibold text-base active:bg-brand-blue-light transition-colors"
             >
               {t('ctas.viewInstructions')}
             </button>
@@ -169,7 +169,7 @@ export default function AddMoneyQRPage() {
           <button
             type="button"
             onClick={handleDone}
-            className="w-full h-14 rounded-full bg-[#FFE600] text-foreground font-semibold text-base active:opacity-80 transition-opacity"
+            className="w-full h-14 rounded-full bg-primary text-foreground font-semibold text-base active:opacity-80 transition-opacity"
           >
             {t('ctas.done')}
           </button>

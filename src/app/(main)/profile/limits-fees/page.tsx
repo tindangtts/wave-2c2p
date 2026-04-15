@@ -12,7 +12,7 @@ function LimitRow({ label, value }: LimitRowProps) {
   return (
     <div className="flex items-center justify-between px-4 h-14 border-b border-border">
       <span className="text-base font-normal text-foreground">{label}</span>
-      <span className="text-base font-normal text-[#595959]">{value}</span>
+      <span className="text-base font-normal text-muted-foreground">{value}</span>
     </div>
   );
 }

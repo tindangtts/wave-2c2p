@@ -146,7 +146,7 @@ function OTPPageContent() {
 
       <div className="flex-1 flex flex-col px-4 pt-8 pb-8">
         {/* Instruction — phone number highlighted in blue per Pencil design */}
-        <p className="text-base text-[#0091EA]">
+        <p className="text-base text-accent">
           {t('otp.instruction', { phone: '' })}
           <br />
           <span className="font-semibold">({countryCode}){rawPhone}</span>
@@ -180,13 +180,13 @@ function OTPPageContent() {
         </div>
 
         {/* Ref Code — per Pencil design */}
-        <p className="text-xs text-[#767676] text-center mt-3">
+        <p className="text-xs text-muted-foreground text-center mt-3">
           Ref Code: {Math.random().toString(36).substring(2, 6).toUpperCase()}
         </p>
 
         {/* Error message */}
         {error && (
-          <p role="alert" className="text-xs text-destructive mt-2 text-center">
+          <p role="alert" aria-live="polite" className="text-xs text-destructive mt-2 text-center">
             {error}
           </p>
         )}
@@ -196,12 +196,12 @@ function OTPPageContent() {
           {canResend ? (
             <button
               onClick={handleResend}
-              className="text-xs text-[#0091EA]"
+              className="text-xs text-accent"
             >
               {t('otp.resendLink')}
             </button>
           ) : (
-            <p className="text-xs text-[#595959]">
+            <p className="text-xs text-muted-foreground">
               {t('otp.resendTimer', { time: formatTime(timeLeft) })}
             </p>
           )}
@@ -226,7 +226,7 @@ function OTPPageContent() {
           onClick={() => handleVerify(otp)}
           disabled={otp.length !== 6 || isLoading}
           aria-busy={isLoading}
-          className="w-full h-12 rounded-full bg-[#FFE600] text-foreground font-semibold text-base hover:bg-[#FFD600] disabled:opacity-50"
+          className="w-full h-12 rounded-full bg-primary text-foreground font-semibold text-base hover:bg-primary/90 disabled:opacity-50"
         >
           {isLoading ? (
             <>

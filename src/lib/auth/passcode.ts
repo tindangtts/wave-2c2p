@@ -23,7 +23,8 @@ export function hashPasscode(passcode: string): string {
  * Verify a passcode against a stored PBKDF2 hash.
  * Uses timingSafeEqual to prevent timing-based side-channel attacks.
  */
-export function verifyPasscode(passcode: string, stored: string): boolean {
+export function verifyPasscode(passcode: string, stored: string | null): boolean {
+  if (!stored) return false
   const parts = stored.split(':')
   if (parts.length !== 3 || parts[0] !== 'pbkdf2') {
     return false

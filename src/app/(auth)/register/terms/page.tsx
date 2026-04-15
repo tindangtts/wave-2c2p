@@ -65,17 +65,17 @@ export default function TermsPage() {
         <div
           role="region"
           aria-label="Terms and Conditions text"
-          className="overflow-y-auto border border-[#E0E0E0] rounded-xl p-4 animate-fade-in"
+          className="overflow-y-auto border border-border rounded-xl p-4 animate-fade-in"
           style={{ maxHeight: 'calc(100vh - 380px)' }}
         >
-          <p className="text-base text-[#212121] leading-relaxed">
+          <p className="text-base text-foreground leading-relaxed">
             {/* Placeholder T&C body — production will load from CMS/static file */}
             By using 2C2P Wave, you agree to our{' '}
-            <a href="#" className="text-[#0091EA] underline">
+            <a href="#" className="text-accent underline">
               Terms &amp; Conditions
             </a>{' '}
             and{' '}
-            <a href="#" className="text-[#0091EA] underline">
+            <a href="#" className="text-accent underline">
               Privacy Policy
             </a>
             . These terms govern your use of the application and our cross-border remittance services between Thailand and Myanmar. Please read them carefully before proceeding.
@@ -94,7 +94,7 @@ export default function TermsPage() {
               aria-checked={tcChecked}
               className="mt-0.5 shrink-0"
             />
-            <span className="text-base text-[#212121] leading-snug">
+            <span className="text-base text-foreground leading-snug">
               {t('compliance.terms.checkbox1')}
             </span>
           </label>
@@ -109,7 +109,7 @@ export default function TermsPage() {
               aria-checked={privacyChecked}
               className="mt-0.5 shrink-0"
             />
-            <span className="text-base text-[#212121] leading-snug">
+            <span className="text-base text-foreground leading-snug">
               {t('compliance.terms.checkbox2')}
             </span>
           </label>
@@ -131,7 +131,7 @@ export default function TermsPage() {
           onClick={handleAgree}
           disabled={!bothChecked || isLoading}
           aria-disabled={!bothChecked || isLoading}
-          className="w-full h-12 rounded-full bg-[#FFE600] text-[#212121] font-semibold text-base hover:bg-[#FFD600] disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full h-12 rounded-full bg-primary text-foreground font-semibold text-base hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isLoading ? (
             <>

@@ -143,18 +143,18 @@ export default function ChangePasscodePage() {
       <div className="flex flex-col min-h-screen px-4 pt-16 pb-8 items-center">
         <div className="flex-1 flex flex-col items-center justify-center gap-4">
           <div className="w-20 h-20 bg-[#E8F5E9] rounded-full flex items-center justify-center">
-            <CheckCircle2 className="w-10 h-10 text-[#4CAF50]" />
+            <CheckCircle2 className="w-10 h-10 text-wave-success" />
           </div>
           <h2 className="text-xl font-bold text-foreground text-center">
             {t('changePasscode.successHeading')}
           </h2>
-          <p className="text-sm text-[#595959] text-center">
+          <p className="text-sm text-muted-foreground text-center">
             {t('changePasscode.successBody')}
           </p>
         </div>
         <Button
           onClick={() => router.push('/profile')}
-          className="w-full h-14 rounded-full bg-[#FFE600] text-foreground font-semibold text-base hover:bg-[#FFD600]"
+          className="w-full h-14 rounded-full bg-primary text-foreground font-semibold text-base hover:bg-primary/90"
         >
           {t('changePasscode.successCta')}
         </Button>
@@ -185,13 +185,13 @@ export default function ChangePasscodePage() {
         </h1>
 
         {/* Instruction */}
-        <p className="text-sm text-[#595959] mt-2 text-center">
+        <p className="text-sm text-muted-foreground mt-2 text-center">
           {stepInstruction[step as 1 | 2 | 3]}
         </p>
 
         {isLoading && (
           <div className="flex items-center gap-2 mt-4">
-            <Loader2 className="w-4 h-4 animate-spin text-[#595959]" />
+            <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />
           </div>
         )}
 

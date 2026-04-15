@@ -23,8 +23,8 @@ function BellIcon() {
 function BrandLogo() {
   return (
     <svg width="144" height="20" viewBox="0 0 144 20" fill="none" aria-label="2c2p WAVE">
-      <text x="0" y="16" fontFamily="'Arial Black', 'Helvetica Neue', Arial, sans-serif" fontWeight="900" fontSize="18" fill="#044F5C" letterSpacing="-0.5">2c2p</text>
-      <text x="56" y="16" fontFamily="'Arial Black', 'Helvetica Neue', Arial, sans-serif" fontWeight="900" fontSize="18" fill="#0091C7" letterSpacing="0.5">WAVE</text>
+      <text x="0" y="16" fontFamily="'Arial Black', 'Helvetica Neue', Arial, sans-serif" fontWeight="900" fontSize="18" fill="var(--color-foreground)" letterSpacing="-0.5">2c2p</text>
+      <text x="56" y="16" fontFamily="'Arial Black', 'Helvetica Neue', Arial, sans-serif" fontWeight="900" fontSize="18" fill="var(--color-accent)" letterSpacing="0.5">WAVE</text>
     </svg>
   );
 }
@@ -38,16 +38,16 @@ export function TopHeader() {
   return (
     <header className="sticky top-0 z-40">
       {/* Status bar area — design: yellow extends into status bar for logged-in */}
-      <div className="bg-[#FFE512] h-11 safe-top" />
+      <div className="bg-primary h-11 safe-top" />
       {/* Brand header */}
-      <div className="bg-[#FFE512] h-14 px-4 flex items-center justify-between">
+      <div className="bg-primary h-14 px-4 flex items-center justify-between">
         {/* 2c2p WAVE logo — custom SVG matching Pencil design */}
         <BrandLogo />
         {/* Notification bell with blue tinted bg pill — per Pencil design */}
         <button
           onClick={() => router.push('/home/notifications')}
           aria-label={unreadCount > 0 ? t('notificationsBadge', { count: unreadCount }) : t('notifications')}
-          className="relative w-11 h-11 flex items-center justify-center rounded-[10px] bg-[#019cdf1a] active:scale-90 transition-transform duration-100"
+          className="relative w-11 h-11 flex items-center justify-center rounded-[10px] bg-accent/10 active:scale-90 transition-transform duration-100"
         >
           <BellIcon />
           {unreadCount > 0 && (

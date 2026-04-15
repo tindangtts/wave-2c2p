@@ -59,7 +59,7 @@ export default function BillsPage() {
                 className={[
                   'flex flex-col items-center gap-2 py-4 px-2 rounded-xl border transition-colors',
                   isActive
-                    ? 'bg-[#FFE600] border-[#FFE600]'
+                    ? 'bg-primary border-primary'
                     : 'bg-white border-border hover:bg-secondary',
                 ].join(' ')}
               >
@@ -114,9 +114,9 @@ export default function BillsPage() {
         {/* Recent bills empty state */}
         {!selectedCategory && (
           <div className="mt-8 flex flex-col items-center justify-center gap-2 py-8">
-            <FileText className="w-12 h-12 text-[#E0E0E0]" />
+            <FileText className="w-12 h-12 text-border" aria-hidden="true" />
             <p className="text-base font-bold text-foreground">{t('bills.noBills')}</p>
-            <p className="text-sm text-[#595959] text-center">{t('bills.noBillsBody')}</p>
+            <p className="text-sm text-muted-foreground text-center">{t('bills.noBillsBody')}</p>
           </div>
         )}
       </div>
@@ -128,7 +128,7 @@ export default function BillsPage() {
             type="button"
             onClick={handlePay}
             disabled={isPaying || !accountNo || !amount}
-            className="w-full h-14 rounded-full bg-[#FFE600] text-foreground text-base font-bold active:scale-[0.98] transition-transform disabled:opacity-50"
+            className="w-full h-14 rounded-full bg-primary text-foreground text-base font-bold active:scale-[0.98] transition-transform disabled:opacity-50"
           >
             {isPaying ? t('bills.paying') : t('bills.payNow')}
           </button>

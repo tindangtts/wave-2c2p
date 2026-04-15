@@ -11,7 +11,7 @@ export default function HomePage() {
       <TopHeader />
       <div className="flex-1 flex flex-col">
         {/* Yellow header content area — wallet + quick actions (Pencil: y=90..373) */}
-        <div className="bg-[#FFE512] px-4 pt-2 pb-10">
+        <div className="bg-primary px-4 pt-2 pb-10">
           <div className="animate-fade-up stagger-1">
             <WalletCard />
           </div>
@@ -25,7 +25,7 @@ export default function HomePage() {
         <div className="bg-white flex-1 -mt-9 rounded-t-[15px] relative z-10 shadow-[0_-1.5px_3.3px_rgba(128,128,128,0.15)] animate-slide-up stagger-3">
           {/* Drag handle indicator */}
           <div className="flex justify-center pt-3">
-            <div className="w-[40px] h-[5px] bg-[#000000] rounded-full" />
+            <div className="w-[40px] h-[5px] bg-foreground rounded-full" />
           </div>
 
           {/* Recent History */}

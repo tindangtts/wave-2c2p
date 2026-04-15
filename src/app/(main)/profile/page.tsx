@@ -147,7 +147,7 @@ export default function ProfilePage() {
               checked={biometricsEnabled}
               onCheckedChange={handleBiometricToggle}
               aria-label={t("menu.enableBiometrics")}
-              className="data-[state=checked]:bg-[#0091EA]"
+              className="data-[state=checked]:bg-accent"
             />
           </div>
         </ProfileMenuSection>
@@ -233,11 +233,11 @@ export default function ProfilePage() {
           <button
             type="button"
             onClick={handleLogout}
-            className="w-full h-12 rounded-full border-2 border-[#F44336] text-base font-bold text-destructive bg-white hover:bg-[#FFF5F5] transition-colors"
+            className="w-full h-12 rounded-full border-2 border-destructive text-base font-bold text-destructive bg-white hover:bg-[#FFF5F5] transition-colors"
           >
             {t("logout")}
           </button>
-          <p className="text-xs text-[#767676]">{t("version")}</p>
+          <p className="text-xs text-muted-foreground">{t("version")}</p>
         </div>
       </div>
     </div>

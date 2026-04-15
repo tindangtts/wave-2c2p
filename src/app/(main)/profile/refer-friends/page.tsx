@@ -75,7 +75,7 @@ export default function ReferFriendsPage() {
         onBack={() => router.push('/profile')}
       />
       <div className="flex-1 flex flex-col px-4 pt-6 pb-8 gap-4">
-        <p className="text-sm text-[#595959]">
+        <p className="text-sm text-muted-foreground">
           {t('referFriends.instruction')}
         </p>
 
@@ -83,15 +83,15 @@ export default function ReferFriendsPage() {
         <div className="grid grid-cols-2 gap-3">
           <div className="bg-white rounded-xl p-4 shadow-sm text-center">
             <p className="text-2xl font-bold text-foreground">{referredCount}</p>
-            <p className="text-xs text-[#595959]">
+            <p className="text-xs text-muted-foreground">
               {t('referFriends.referredCount', { n: referredCount })}
             </p>
           </div>
           <div className="bg-white rounded-xl p-4 shadow-sm text-center">
-            <p className="text-2xl font-bold text-[#0091EA]">
+            <p className="text-2xl font-bold text-accent">
               {t('referFriends.bonusValue', { amount: totalBonusTHB })}
             </p>
-            <p className="text-xs text-[#595959]">{t('referFriends.totalBonus')}</p>
+            <p className="text-xs text-muted-foreground">{t('referFriends.totalBonus')}</p>
           </div>
         </div>
 
@@ -102,7 +102,7 @@ export default function ReferFriendsPage() {
         {/* Primary share button (navigator.share on mobile) */}
         <Button
           onClick={handleShare}
-          className="w-full h-14 rounded-full bg-[#FFE600] text-foreground font-semibold text-base hover:bg-[#FFD600]"
+          className="w-full h-14 rounded-full bg-primary text-foreground font-semibold text-base hover:bg-primary/90"
         >
           {t('referFriends.shareCta')}
         </Button>
@@ -125,7 +125,7 @@ export default function ReferFriendsPage() {
 
         <button
           onClick={handleCopyLink}
-          className="w-full h-12 rounded-full bg-[#FFE600] text-foreground font-semibold text-sm flex items-center justify-center"
+          className="w-full h-12 rounded-full bg-primary text-foreground font-semibold text-sm flex items-center justify-center"
         >
           {t('referFriends.copyLink')}
         </button>

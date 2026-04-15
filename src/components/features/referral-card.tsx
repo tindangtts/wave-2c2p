@@ -14,7 +14,7 @@ export function ReferralCard({ referralCode, monthlyCount = 0 }: ReferralCardPro
   return (
     <div className="bg-white rounded-2xl shadow-md p-6 flex flex-col items-center gap-4">
       {/* Code label */}
-      <p className="text-xs text-[#767676] text-center">
+      <p className="text-xs text-muted-foreground text-center">
         {t('referFriends.codeLabel')}
       </p>
 
@@ -28,14 +28,14 @@ export function ReferralCard({ referralCode, monthlyCount = 0 }: ReferralCardPro
         <QRCode
           value={referralCode}
           size={160}
-          fgColor="#212121"
+          fgColor="var(--color-foreground)"
           bgColor="#FFFFFF"
           level="M"
         />
       </div>
 
       {/* Monthly count */}
-      <p className="text-xs text-[#595959] text-center">
+      <p className="text-xs text-muted-foreground text-center">
         {t('referFriends.monthlyCount', { n: monthlyCount })}
       </p>
     </div>

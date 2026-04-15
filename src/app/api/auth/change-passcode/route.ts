@@ -77,6 +77,14 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Guard: passcode not yet set up
+    if (!profile.passcode_hash) {
+      return NextResponse.json(
+        { error: 'Passcode not set up. Complete registration first.' },
+        { status: 400 }
+      )
+    }
+
     // Verify current passcode against stored hash
     const isCorrect = verifyPasscode(currentPasscode, profile.passcode_hash)
 

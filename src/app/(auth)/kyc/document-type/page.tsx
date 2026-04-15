@@ -60,7 +60,7 @@ export default function DocumentTypePage() {
         <h2 className="text-xl font-bold text-foreground mb-2">
           {t('selectDocType.title')}
         </h2>
-        <p className="text-base text-[#595959] mb-6">
+        <p className="text-base text-muted-foreground mb-6">
           {t('selectDocType.subtitle')}
         </p>
 
@@ -86,7 +86,7 @@ export default function DocumentTypePage() {
         <Button
           onClick={handleContinue}
           disabled={!selectedType}
-          className="w-full h-12 rounded-full bg-[#FFE600] text-foreground hover:bg-[#FFE600]/90 disabled:opacity-50"
+          className="w-full h-12 rounded-full bg-primary text-foreground hover:bg-primary/90 disabled:opacity-50"
         >
           {t('cta.continue')}
         </Button>

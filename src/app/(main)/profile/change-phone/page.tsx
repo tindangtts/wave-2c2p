@@ -177,18 +177,18 @@ export default function ChangePhonePage() {
         />
         <div className="flex-1 flex flex-col items-center justify-center px-4 pb-8 gap-4">
           <div className="w-20 h-20 bg-[#E8F5E9] rounded-full flex items-center justify-center">
-            <CheckCircle2 className="w-10 h-10 text-[#4CAF50]" />
+            <CheckCircle2 className="w-10 h-10 text-wave-success" />
           </div>
           <h2 className="text-xl font-bold text-foreground text-center">
             {t('changePhone.successHeading')}
           </h2>
-          <p className="text-sm text-[#595959] text-center">
+          <p className="text-sm text-muted-foreground text-center">
             {t('changePhone.successBody')}
           </p>
           <div className="flex-1" />
           <Button
             onClick={() => router.push('/profile')}
-            className="w-full h-14 rounded-full bg-[#FFE600] text-foreground font-semibold text-base hover:bg-[#FFD600]"
+            className="w-full h-14 rounded-full bg-primary text-foreground font-semibold text-base hover:bg-primary/90"
           >
             {t('changePhone.successCta')}
           </Button>
@@ -249,12 +249,12 @@ export default function ChangePhonePage() {
             {canResend ? (
               <button
                 onClick={handleResend}
-                className="text-xs text-[#0091EA]"
+                className="text-xs text-accent"
               >
                 {t('changePhone.resendCode')}
               </button>
             ) : (
-              <p className="text-xs text-[#595959]">
+              <p className="text-xs text-muted-foreground">
                 {t('changePhone.resendIn', { n: timeLeft })}
               </p>
             )}
@@ -266,7 +266,7 @@ export default function ChangePhonePage() {
             onClick={() => handleVerifyOtp(otp)}
             disabled={otp.length !== 6 || isLoading}
             aria-busy={isLoading}
-            className="w-full h-14 rounded-full bg-[#FFE600] text-foreground font-semibold text-base hover:bg-[#FFD600] disabled:opacity-50"
+            className="w-full h-14 rounded-full bg-primary text-foreground font-semibold text-base hover:bg-primary/90 disabled:opacity-50"
           >
             {isLoading ? (
               <>
@@ -290,7 +290,7 @@ export default function ChangePhonePage() {
         onBack={() => router.push('/profile')}
       />
       <div className="flex-1 flex flex-col px-4 pt-8 pb-8">
-        <p className="text-base text-[#595959] mb-6">
+        <p className="text-base text-muted-foreground mb-6">
           {t('changePhone.step1Instruction')}
         </p>
 
@@ -337,7 +337,7 @@ export default function ChangePhonePage() {
           onClick={handleSendOtp}
           disabled={!isStep1CtaEnabled}
           aria-busy={isLoading}
-          className="w-full h-14 rounded-full bg-[#FFE600] text-foreground font-semibold text-base hover:bg-[#FFD600] disabled:opacity-50"
+          className="w-full h-14 rounded-full bg-primary text-foreground font-semibold text-base hover:bg-primary/90 disabled:opacity-50"
         >
           {isLoading ? (
             <>

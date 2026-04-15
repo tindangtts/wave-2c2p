@@ -115,7 +115,7 @@ export default function ResubmitPage() {
         <h2 className="text-xl font-bold text-foreground mb-2">
           {t('resubmit.sectionTitle')}
         </h2>
-        <p className="text-base text-[#595959] mb-6">
+        <p className="text-base text-muted-foreground mb-6">
           {t('resubmit.subtitle')}
         </p>
 
@@ -167,8 +167,8 @@ export default function ResubmitPage() {
           <div className="mt-6">
             {rejectionReasons.map((reason, index) => (
               <div key={index} className="flex items-start gap-2 mb-2">
-                <AlertTriangle className="w-4 h-4 text-[#FF9800] mt-0.5 shrink-0" />
-                <span className="text-xs text-[#595959]">{reason}</span>
+                <AlertTriangle className="w-4 h-4 text-[#FF9800] mt-0.5 shrink-0" aria-hidden="true" />
+                <span className="text-xs text-muted-foreground">{reason}</span>
               </div>
             ))}
           </div>
@@ -179,7 +179,7 @@ export default function ResubmitPage() {
         <Button
           onClick={handleResubmit}
           disabled={!allRetaken}
-          className="w-full h-12 rounded-full bg-[#FFE600] text-foreground hover:bg-[#FFE600]/90 disabled:opacity-50"
+          className="w-full h-12 rounded-full bg-primary text-foreground hover:bg-primary/90 disabled:opacity-50"
         >
           {t('resubmit.cta')}
         </Button>

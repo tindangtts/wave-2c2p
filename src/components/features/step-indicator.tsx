@@ -40,20 +40,20 @@ export function StepIndicator({
               {/* Step dot */}
               {isCompleted && (
                 <div
-                  className={`w-2 h-2 rounded-full ${isDark ? 'bg-white' : 'bg-[#0091EA]'}`}
+                  className={`w-2 h-2 rounded-full ${isDark ? 'bg-white' : 'bg-accent'}`}
                   aria-label={`Step ${step} complete`}
                 />
               )}
               {isActive && (
                 <div
-                  className="w-3 h-3 rounded-full bg-[#FFE600] ring-2 ring-[#FFE600]/30"
+                  className="w-3 h-3 rounded-full bg-primary ring-2 ring-primary/30"
                   aria-current="step"
                   aria-label={`Step ${step} current`}
                 />
               )}
               {isUpcoming && (
                 <div
-                  className={`w-2 h-2 rounded-full ${isDark ? 'bg-white/40' : 'bg-[#E0E0E0]'}`}
+                  className={`w-2 h-2 rounded-full ${isDark ? 'bg-white/40' : 'bg-border'}`}
                   aria-label={`Step ${step} upcoming`}
                 />
               )}
@@ -65,10 +65,10 @@ export function StepIndicator({
                     connectorBlue
                       ? isDark
                         ? 'bg-white'
-                        : 'bg-[#0091EA]'
+                        : 'bg-accent'
                       : isDark
                         ? 'bg-white/40'
-                        : 'bg-[#E0E0E0]'
+                        : 'bg-border'
                   }`}
                 />
               )}
@@ -76,7 +76,7 @@ export function StepIndicator({
           )
         })}
       </div>
-      <p className={`text-xs uppercase tracking-widest text-center mt-1 ${isDark ? 'text-white/70' : 'text-[#595959]'}`}>
+      <p className={`text-xs uppercase tracking-widest text-center mt-1 ${isDark ? 'text-white/70' : 'text-muted-foreground'}`}>
         {t('stepLabel', { current: currentStep, total: totalSteps })}
       </p>
     </div>

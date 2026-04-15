@@ -165,7 +165,7 @@ export default function PasscodePage() {
   return (
     <div className="flex flex-col min-h-svh px-4 pt-16 pb-8 items-center">
       {/* Avatar circle */}
-      <div className="w-14 h-14 bg-[#FFE600] text-foreground rounded-full flex items-center justify-center text-xl font-bold">
+      <div className="w-14 h-14 bg-primary text-foreground rounded-full flex items-center justify-center text-xl font-bold">
         {initial}
       </div>
 
@@ -175,7 +175,7 @@ export default function PasscodePage() {
       </h1>
 
       {/* Instruction */}
-      <p className="text-base text-[#595959] mt-2 text-center">
+      <p className="text-base text-muted-foreground mt-2 text-center">
         {t('passcode.instruction')}
       </p>
 
@@ -185,9 +185,9 @@ export default function PasscodePage() {
           type="button"
           onClick={handleBiometricLogin}
           disabled={isLoading}
-          className="w-full h-14 rounded-full bg-[#0091EA] text-white font-semibold text-base flex items-center justify-center gap-2 disabled:opacity-60 mt-6"
+          className="w-full h-14 rounded-full bg-accent text-white font-semibold text-base flex items-center justify-center gap-2 disabled:opacity-60 mt-6"
         >
-          <Fingerprint className="w-5 h-5" />
+          <Fingerprint className="w-5 h-5" aria-hidden="true" />
           {t('passcode.biometricCta')}
         </button>
       )}
@@ -206,7 +206,7 @@ export default function PasscodePage() {
       {/* Logout link with confirmation dialog */}
       <AlertDialog>
         <AlertDialogTrigger
-          className="text-xs text-[#595959] underline mt-8 text-center"
+          className="text-xs text-muted-foreground underline mt-8 text-center"
         >
           {t('passcode.logoutLink')}
         </AlertDialogTrigger>

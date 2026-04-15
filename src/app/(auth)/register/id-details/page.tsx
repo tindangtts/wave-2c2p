@@ -101,7 +101,7 @@ export default function IdDetailsPage() {
       <StepIndicator currentStep={2} />
 
       <div className="flex-1 flex flex-col px-4 pt-6 pb-8">
-        <p className="text-base text-[#595959] mb-6">{t('register.step2Subtitle')}</p>
+        <p className="text-base text-muted-foreground mb-6">{t('register.step2Subtitle')}</p>
 
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col flex-1" noValidate>
           <div className="flex flex-col gap-6">
@@ -125,6 +125,7 @@ export default function IdDetailsPage() {
                 <SelectTrigger
                   id="idType"
                   className="h-12"
+                  aria-required="true"
                   aria-invalid={!!errors.idType}
                   aria-describedby={errors.idType ? 'idType-error' : undefined}
                 >
@@ -141,6 +142,7 @@ export default function IdDetailsPage() {
                 <p
                   id="idType-error"
                   role="alert"
+                  aria-live="polite"
                   className="text-xs text-destructive mt-1"
                 >
                   {errors.idType.message}
@@ -160,6 +162,7 @@ export default function IdDetailsPage() {
                 id="idNumber"
                 {...form.register('idNumber')}
                 className="h-12"
+                aria-required="true"
                 aria-invalid={!!errors.idNumber}
                 aria-describedby={errors.idNumber ? 'idNumber-error' : undefined}
                 autoComplete="off"
@@ -168,6 +171,7 @@ export default function IdDetailsPage() {
                 <p
                   id="idNumber-error"
                   role="alert"
+                  aria-live="polite"
                   className="text-xs text-destructive mt-1"
                 >
                   {errors.idNumber.message}
@@ -188,6 +192,7 @@ export default function IdDetailsPage() {
                 {...form.register('idExpiry')}
                 placeholder={t('fields.dobPlaceholder')}
                 className="h-12"
+                aria-required="true"
                 aria-invalid={!!errors.idExpiry}
                 aria-describedby={errors.idExpiry ? 'idExpiry-error' : undefined}
                 autoComplete="off"
@@ -197,6 +202,7 @@ export default function IdDetailsPage() {
                 <p
                   id="idExpiry-error"
                   role="alert"
+                  aria-live="polite"
                   className="text-xs text-destructive mt-1"
                 >
                   {errors.idExpiry.message}
@@ -211,7 +217,7 @@ export default function IdDetailsPage() {
             type="submit"
             disabled={isLoading}
             aria-busy={isLoading}
-            className="w-full h-12 rounded-full bg-[#FFE600] text-foreground font-semibold text-base hover:bg-[#FFE600]/90 disabled:opacity-50"
+            className="w-full h-12 rounded-full bg-primary text-foreground font-semibold text-base hover:bg-primary/90 disabled:opacity-50"
           >
             {isLoading ? (
               <>

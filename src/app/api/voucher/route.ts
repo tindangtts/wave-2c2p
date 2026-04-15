@@ -49,16 +49,16 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Wallet not found' }, { status: 404 })
     }
 
-    // Atomic batch: mark voucher redeemed + credit wallet balance
+    // Atomic transaction: mark voucher redeemed + credit wallet balance
     const now = new Date()
-    await db.batch([
-      db.update(vouchers)
+    await db.transaction(async (tx) => {
+      await tx.update(vouchers)
         .set({ redeemedBy: user.id, redeemedAt: now })
-        .where(eq(vouchers.id, row.id)),
-      db.update(wallets)
+        .where(eq(vouchers.id, row.id));
+      await tx.update(wallets)
         .set({ balance: wallet.balance + row.amount, updatedAt: now })
-        .where(eq(wallets.userId, user.id)),
-    ])
+        .where(eq(wallets.userId, user.id));
+    })
 
     return NextResponse.json({
       success: true,

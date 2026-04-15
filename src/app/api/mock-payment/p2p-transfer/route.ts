@@ -125,17 +125,17 @@ export async function POST(request: Request) {
 
     const referenceNumber = generateReference();
 
-    // Atomic batch: deduct sender, credit receiver, insert transaction
+    // Atomic transaction: deduct sender, credit receiver, insert transaction
     let txId: string;
     try {
-      const [, , [inserted]] = await db.batch([
-        db.update(wallets)
+      txId = await db.transaction(async (tx) => {
+        await tx.update(wallets)
           .set({ balance: senderWallet.balance - totalDeducted, updatedAt: new Date() })
-          .where(eq(wallets.id, senderWallet.id)),
-        db.update(wallets)
+          .where(eq(wallets.id, senderWallet.id));
+        await tx.update(wallets)
           .set({ balance: receiverWallet.balance + amount, updatedAt: new Date() })
-          .where(eq(wallets.id, receiverWallet.id)),
-        db.insert(transactions)
+          .where(eq(wallets.id, receiverWallet.id));
+        const [inserted] = await tx.insert(transactions)
           .values({
             userId: user.id,
             type: "transfer",
@@ -148,9 +148,9 @@ export async function POST(request: Request) {
             description: `P2P transfer to wallet ${receiver_wallet_id}`,
             metadata: null,
           })
-          .returning({ id: transactions.id }),
-      ] as const);
-      txId = inserted.id;
+          .returning({ id: transactions.id });
+        return inserted.id;
+      });
     } catch {
       return NextResponse.json(
         { error: "Failed to process P2P transfer" },

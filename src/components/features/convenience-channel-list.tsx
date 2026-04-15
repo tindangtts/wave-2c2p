@@ -47,7 +47,7 @@ export function ConvenienceChannelList({ onSelect }: ConvenienceChannelListProps
             </div>
             <span className="text-sm font-medium text-foreground">{channel.label}</span>
           </div>
-          <ChevronRight className="w-5 h-5 text-[#595959] flex-shrink-0" />
+          <ChevronRight className="w-5 h-5 text-muted-foreground flex-shrink-0" />
         </button>
       ))}
     </div>

@@ -129,7 +129,7 @@ export default function CardPage() {
         <div className="mt-6 bg-white rounded-xl p-4 shadow-sm">
           {/* Card Number row */}
           <div className="flex items-center justify-between">
-            <span className="text-xs font-normal text-[#767676]">Card Number</span>
+            <span className="text-xs font-normal text-muted-foreground">Card Number</span>
             <span className="text-xs font-normal text-foreground">{cardInfoNumber}</span>
           </div>
 
@@ -137,7 +137,7 @@ export default function CardPage() {
 
           {/* Expiry row */}
           <div className="flex items-center justify-between">
-            <span className="text-xs font-normal text-[#767676]">Expiry Date</span>
+            <span className="text-xs font-normal text-muted-foreground">Expiry Date</span>
             <span className="text-xs font-normal text-foreground">{expiry}</span>
           </div>
 
@@ -145,18 +145,16 @@ export default function CardPage() {
 
           {/* Card Status row */}
           <div className="flex items-center justify-between">
-            <span className="text-xs font-normal text-[#767676]">Card Status</span>
+            <span className="text-xs font-normal text-muted-foreground">Card Status</span>
             {frozen ? (
               <span
-                className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium"
-                style={{ color: "#0091EA", backgroundColor: "#E3F2FD" }}
+                className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium text-accent bg-brand-blue-light"
               >
                 Frozen
               </span>
             ) : (
               <span
-                className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium"
-                style={{ color: "#00C853", backgroundColor: "#E8F5E9" }}
+                className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium text-wave-success bg-[#E8F5E9]"
               >
                 Active
               </span>
@@ -167,7 +165,7 @@ export default function CardPage() {
         {/* Request Card CTA */}
         <button
           onClick={() => router.push("/profile/card/request")}
-          className="mt-6 w-full h-12 rounded-full bg-[#FFE600] text-foreground font-semibold text-sm hover:bg-[#FFE600]/90 active:bg-[#FFE600]/80 transition-colors"
+          className="mt-6 w-full h-12 rounded-full bg-primary text-foreground font-semibold text-sm hover:bg-primary/90 active:bg-primary/80 transition-colors"
         >
           {t("card.request.cardRequestCta")}
         </button>

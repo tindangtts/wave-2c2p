@@ -151,7 +151,7 @@ export default function NewRecipientPage() {
               >
                 <SelectTrigger
                   id="transfer_type"
-                  className="h-12 w-full rounded-xl border-border focus-visible:border-[#0091EA]"
+                  className="h-12 w-full rounded-xl border-border focus-visible:border-accent"
                   aria-invalid={!!errors.transfer_type}
                 >
                   <SelectValue placeholder="Select type" />
@@ -188,7 +188,7 @@ export default function NewRecipientPage() {
                   <Input
                     id="bank_name"
                     {...form.register("bank_name")}
-                    className="h-12 rounded-xl border-border focus-visible:border-[#0091EA]"
+                    className="h-12 rounded-xl border-border focus-visible:border-accent"
                     aria-invalid={!!errors.bank_name}
                   />
                   <FieldError message={errors.bank_name?.message} />
@@ -204,7 +204,7 @@ export default function NewRecipientPage() {
                   <Input
                     id="account_no"
                     {...form.register("account_no")}
-                    className="h-12 rounded-xl border-border focus-visible:border-[#0091EA]"
+                    className="h-12 rounded-xl border-border focus-visible:border-accent"
                     aria-invalid={!!errors.account_no}
                   />
                   <FieldError message={errors.account_no?.message} />
@@ -229,7 +229,7 @@ export default function NewRecipientPage() {
               <Input
                 id="first_name"
                 {...form.register("first_name")}
-                className="h-12 rounded-xl border-border focus-visible:border-[#0091EA]"
+                className="h-12 rounded-xl border-border focus-visible:border-accent"
                 aria-invalid={!!errors.first_name}
                 autoComplete="given-name"
               />
@@ -248,7 +248,7 @@ export default function NewRecipientPage() {
               <Input
                 id="last_name"
                 {...form.register("last_name")}
-                className="h-12 rounded-xl border-border focus-visible:border-[#0091EA]"
+                className="h-12 rounded-xl border-border focus-visible:border-accent"
                 aria-invalid={!!errors.last_name}
                 autoComplete="family-name"
               />
@@ -262,13 +262,13 @@ export default function NewRecipientPage() {
                 className="text-xs text-foreground mb-1 block"
               >
                 {t("label_nrc")}{" "}
-                <span className="text-xs text-[#767676]">(optional)</span>
+                <span className="text-xs text-muted-foreground">(optional)</span>
               </Label>
               <Input
                 id="nrc"
                 {...form.register("nrc")}
                 placeholder="e.g. 12/DAGANA(N)123456"
-                className="h-12 rounded-xl border-border focus-visible:border-[#0091EA]"
+                className="h-12 rounded-xl border-border focus-visible:border-accent"
                 aria-invalid={!!errors.nrc}
               />
               <FieldError message={errors.nrc?.message} />
@@ -292,7 +292,7 @@ export default function NewRecipientPage() {
                   type="tel"
                   {...form.register("phone")}
                   placeholder="9xxxxxxxxx"
-                  className="h-12 rounded-xl border-border focus-visible:border-[#0091EA] flex-1"
+                  className="h-12 rounded-xl border-border focus-visible:border-accent flex-1"
                   aria-invalid={!!errors.phone}
                   autoComplete="tel"
                 />
@@ -307,7 +307,7 @@ export default function NewRecipientPage() {
                 className="text-xs text-foreground mb-1 block"
               >
                 {t("label_occupation")}{" "}
-                <span className="text-xs text-[#767676]">(optional)</span>
+                <span className="text-xs text-muted-foreground">(optional)</span>
               </Label>
               <Select
                 value={form.watch("occupation") ?? ""}
@@ -327,7 +327,7 @@ export default function NewRecipientPage() {
               >
                 <SelectTrigger
                   id="occupation"
-                  className="h-12 w-full rounded-xl border-border focus-visible:border-[#0091EA]"
+                  className="h-12 w-full rounded-xl border-border focus-visible:border-accent"
                 >
                   <SelectValue placeholder="Select occupation" />
                 </SelectTrigger>
@@ -371,7 +371,7 @@ export default function NewRecipientPage() {
               >
                 <SelectTrigger
                   id="transfer_purpose"
-                  className="h-12 w-full rounded-xl border-border focus-visible:border-[#0091EA]"
+                  className="h-12 w-full rounded-xl border-border focus-visible:border-accent"
                   aria-invalid={!!errors.transfer_purpose}
                 >
                   <SelectValue placeholder="Select purpose" />
@@ -410,7 +410,7 @@ export default function NewRecipientPage() {
               >
                 <SelectTrigger
                   id="relationship"
-                  className="h-12 w-full rounded-xl border-border focus-visible:border-[#0091EA]"
+                  className="h-12 w-full rounded-xl border-border focus-visible:border-accent"
                   aria-invalid={!!errors.relationship}
                 >
                   <SelectValue placeholder="Select relationship" />
@@ -460,7 +460,7 @@ export default function NewRecipientPage() {
                   <Input
                     id="address_line_1"
                     {...form.register("address_line_1")}
-                    className="h-12 rounded-xl border-border focus-visible:border-[#0091EA]"
+                    className="h-12 rounded-xl border-border focus-visible:border-accent"
                     aria-invalid={!!errors.address_line_1}
                   />
                   <FieldError message={errors.address_line_1?.message} />
@@ -473,12 +473,12 @@ export default function NewRecipientPage() {
                     className="text-xs text-foreground mb-1 block"
                   >
                     {t("label_address2")}{" "}
-                    <span className="text-xs text-[#767676]">(optional)</span>
+                    <span className="text-xs text-muted-foreground">(optional)</span>
                   </Label>
                   <Input
                     id="address_line_2"
                     {...form.register("address_line_2")}
-                    className="h-12 rounded-xl border-border focus-visible:border-[#0091EA]"
+                    className="h-12 rounded-xl border-border focus-visible:border-accent"
                   />
                 </div>
 
@@ -493,7 +493,7 @@ export default function NewRecipientPage() {
                   <Input
                     id="city"
                     {...form.register("city")}
-                    className="h-12 rounded-xl border-border focus-visible:border-[#0091EA]"
+                    className="h-12 rounded-xl border-border focus-visible:border-accent"
                     aria-invalid={!!errors.city}
                   />
                   <FieldError message={errors.city?.message} />
@@ -510,7 +510,7 @@ export default function NewRecipientPage() {
                   <Input
                     id="state_region"
                     {...form.register("state_region")}
-                    className="h-12 rounded-xl border-border focus-visible:border-[#0091EA]"
+                    className="h-12 rounded-xl border-border focus-visible:border-accent"
                     aria-invalid={!!errors.state_region}
                   />
                   <FieldError message={errors.state_region?.message} />
@@ -522,12 +522,12 @@ export default function NewRecipientPage() {
       </div>
 
       {/* Sticky bottom CTA */}
-      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] px-4 pb-6 pt-3 bg-white border-t border-[#F5F5F5]">
+      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] px-4 pb-6 pt-3 bg-white border-t border-border">
         <Button
           type="button"
           onClick={form.handleSubmit(onSubmit)}
           disabled={isSubmitting}
-          className="w-full h-14 rounded-full bg-[#FFE600] hover:bg-[#FFD600] text-foreground font-bold text-base"
+          className="w-full h-14 rounded-full bg-primary hover:bg-primary/90 text-foreground font-bold text-base"
         >
           {isSubmitting ? (
             <Loader2 className="w-5 h-5 animate-spin" />

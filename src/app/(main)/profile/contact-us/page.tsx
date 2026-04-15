@@ -18,10 +18,10 @@ function ContactRow({ icon, label, value, href }: ContactRowProps) {
       href={href}
       className="flex items-center h-16 px-4 border-b border-border hover:bg-secondary transition-colors"
     >
-      <span className="text-[#595959] mr-3">{icon}</span>
+      <span className="text-muted-foreground mr-3">{icon}</span>
       <div className="flex flex-col">
-        <span className="text-xs font-normal text-[#767676]">{label}</span>
-        <span className="text-base font-normal text-[#0091EA]">{value}</span>
+        <span className="text-xs font-normal text-muted-foreground">{label}</span>
+        <span className="text-base font-normal text-accent">{value}</span>
       </div>
     </a>
   );
@@ -42,12 +42,12 @@ export default function ContactUsPage() {
           onClick={() => router.push("/chat")}
           className="flex items-center h-16 px-4 border-b border-border hover:bg-secondary transition-colors w-full text-left"
         >
-          <span className="text-[#595959] mr-3">
+          <span className="text-muted-foreground mr-3">
             <MessageCircle className="w-6 h-6" />
           </span>
           <div className="flex flex-col">
-            <span className="text-xs font-normal text-[#767676]">{tHome("chat.title")}</span>
-            <span className="text-base font-normal text-[#0091EA]">{tHome("chat.agentName")}</span>
+            <span className="text-xs font-normal text-muted-foreground">{tHome("chat.title")}</span>
+            <span className="text-base font-normal text-accent">{tHome("chat.agentName")}</span>
           </div>
         </button>
         <ContactRow

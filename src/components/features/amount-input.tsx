@@ -101,10 +101,10 @@ export function AmountInput({ value, onChange, disabled }: AmountInputProps) {
     }
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  })
+  }, [disabled, value])
 
   const keyClass =
-    'flex items-center justify-center rounded-xl bg-secondary text-xl font-bold text-foreground active:bg-[#E0E0E0] transition-colors disabled:opacity-40'
+    'flex items-center justify-center rounded-xl bg-secondary text-xl font-bold text-foreground active:bg-border transition-colors disabled:opacity-40'
 
   return (
     <div className="grid grid-cols-3 gap-2 w-full">

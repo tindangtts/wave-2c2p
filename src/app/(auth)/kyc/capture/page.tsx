@@ -172,17 +172,17 @@ export default function CapturePage() {
             {imageToShow ? (
               <img
                 src={imageToShow}
-                alt="Captured document"
+                alt={captureStep === 'review-selfie' ? 'Captured selfie photo for identity verification' : captureStep === 'review-front' ? 'Captured front side of identity document' : 'Captured back side of identity document'}
                 className="w-full object-cover"
               />
             ) : (
               <div className="w-full aspect-[85.6/54] bg-secondary flex items-center justify-center">
-                <p className="text-[#767676] text-sm">No image</p>
+                <p className="text-muted-foreground text-sm">No image</p>
               </div>
             )}
           </div>
 
-          <p className="text-xs text-[#595959] text-center mt-4">
+          <p className="text-xs text-muted-foreground text-center mt-4">
             {t('review.hint')}
           </p>
 
@@ -196,7 +196,7 @@ export default function CapturePage() {
             </Button>
             <Button
               onClick={handleUsePhoto}
-              className="flex-1 h-12 rounded-full bg-[#FFE600] text-foreground hover:bg-[#FFE600]/90"
+              className="flex-1 h-12 rounded-full bg-primary text-foreground hover:bg-primary/90"
             >
               {t('review.usePhoto')}
             </Button>

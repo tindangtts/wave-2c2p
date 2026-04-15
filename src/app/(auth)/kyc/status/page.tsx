@@ -48,7 +48,7 @@ export default function KYCStatusPage() {
   const isModalState = statusKey === 'rejected' || statusKey === 'expired'
 
   return (
-    <div className={`flex flex-col min-h-screen ${isModalState ? 'bg-gradient-to-b from-[#FFE600]/30 to-white' : ''}`}>
+    <div className={`flex flex-col min-h-screen ${isModalState ? 'bg-gradient-to-b from-primary/30 to-white' : ''}`}>
       {!isModalState && (
         <BackHeader
           title={t(`status.${statusKey}.title`)}
@@ -81,7 +81,7 @@ export default function KYCStatusPage() {
           {kycStatus === 'approved' && (
             <Button
               onClick={() => router.push('/home')}
-              className="w-full h-12 rounded-full bg-[#FFE600] text-foreground hover:bg-[#FFE600]/90"
+              className="w-full h-12 rounded-full bg-primary text-foreground hover:bg-primary/90"
             >
               {t('status.approved.cta')}
             </Button>
@@ -90,7 +90,7 @@ export default function KYCStatusPage() {
           {kycStatus === 'rejected' && (
             <Button
               onClick={() => router.push('/kyc/resubmit')}
-              className="w-full h-12 rounded-full bg-[#FFE600] text-foreground hover:bg-[#FFE600]/90"
+              className="w-full h-12 rounded-full bg-primary text-foreground hover:bg-primary/90"
             >
               {t('status.rejected.cta')}
             </Button>
@@ -105,7 +105,7 @@ export default function KYCStatusPage() {
               >
                 {t('status.pending.cta')}
               </Button>
-              <p className="text-xs text-[#595959] mt-2 text-center">
+              <p className="text-xs text-muted-foreground mt-2 text-center">
                 {t('status.pending.note')}
               </p>
             </div>
@@ -114,7 +114,7 @@ export default function KYCStatusPage() {
           {kycStatus === 'expired' && (
             <Button
               onClick={() => router.push('/kyc/document-type')}
-              className="w-full h-12 rounded-full bg-[#FFE600] text-foreground hover:bg-[#FFE600]/90"
+              className="w-full h-12 rounded-full bg-primary text-foreground hover:bg-primary/90"
             >
               {t('status.expired.cta')}
             </Button>

@@ -16,19 +16,19 @@ interface KYCStatusCardProps {
 const STATUS_CONFIG = {
   pending: {
     icon: Clock,
-    bgColor: 'bg-[#FF9800]',
+    bgColor: 'bg-wave-warning',
   },
   approved: {
     icon: CheckCircle,
-    bgColor: 'bg-[#00C853]',
+    bgColor: 'bg-wave-success',
   },
   rejected: {
     icon: XCircle,
-    bgColor: 'bg-[#F44336]',
+    bgColor: 'bg-destructive',
   },
   expired: {
     icon: Clock,
-    bgColor: 'bg-[#767676]',
+    bgColor: 'bg-muted-foreground',
   },
 } as const
 
@@ -65,7 +65,7 @@ export function KYCStatusCard({
           </h2>
 
           {/* Status description */}
-          <p className="text-sm text-[#595959] text-center mb-4">
+          <p className="text-sm text-muted-foreground text-center mb-4">
             {t(`status.${status}.description`)}
           </p>
 
@@ -105,14 +105,14 @@ export function KYCStatusCard({
       </h2>
 
       {/* Status description */}
-      <p className="text-base text-[#595959] text-center mb-6 max-w-[300px]">
+      <p className="text-base text-muted-foreground text-center mb-6 max-w-[300px]">
         {t(`status.${status}.description`)}
       </p>
 
       {/* Detail card */}
       <Card className="w-full p-4 rounded-xl">
         {submittedAt && (
-          <p className="text-xs text-[#595959]">Submitted {submittedAt}</p>
+          <p className="text-xs text-muted-foreground">Submitted {submittedAt}</p>
         )}
         {documentType && (
           <p className="text-base text-foreground mt-2">
@@ -120,7 +120,7 @@ export function KYCStatusCard({
           </p>
         )}
         {verificationId && (
-          <p className="text-xs text-[#595959] mt-1">Ref: {verificationId}</p>
+          <p className="text-xs text-muted-foreground mt-1">Ref: {verificationId}</p>
         )}
       </Card>
     </div>

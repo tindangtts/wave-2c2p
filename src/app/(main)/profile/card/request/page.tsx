@@ -98,7 +98,7 @@ export default function CardRequestPage() {
               onClick={() => setDeliveryAddress('current')}
               className={`w-full text-left bg-white rounded-xl p-4 border-2 transition-colors ${
                 deliveryAddress === 'current'
-                  ? 'border-[#00C853]'
+                  ? 'border-wave-success'
                   : 'border-border'
               }`}
             >
@@ -107,7 +107,7 @@ export default function CardRequestPage() {
                   {t('card.request.currentAddress')}
                 </span>
                 {deliveryAddress === 'current' && (
-                  <CheckCircle2 className="w-5 h-5 text-[#00C853]" />
+                  <CheckCircle2 className="w-5 h-5 text-wave-success" />
                 )}
               </div>
             </button>
@@ -119,7 +119,7 @@ export default function CardRequestPage() {
                 onClick={() => setDeliveryAddress('mailing')}
                 className={`w-full text-left bg-white rounded-xl p-4 border-2 transition-colors ${
                   deliveryAddress === 'mailing'
-                    ? 'border-[#00C853]'
+                    ? 'border-wave-success'
                     : 'border-border'
                 }`}
               >
@@ -128,7 +128,7 @@ export default function CardRequestPage() {
                     {t('card.request.mailingAddress')}
                   </span>
                   {deliveryAddress === 'mailing' && (
-                    <CheckCircle2 className="w-5 h-5 text-[#00C853]" />
+                    <CheckCircle2 className="w-5 h-5 text-wave-success" />
                   )}
                 </div>
               </button>
@@ -140,7 +140,7 @@ export default function CardRequestPage() {
                   onChange={(e) => setMailingAddressText(e.target.value)}
                   placeholder={t('card.request.addressPlaceholder')}
                   rows={3}
-                  className="mt-2 w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-foreground placeholder:text-[#767676] focus:outline-none focus:ring-2 focus:ring-[#FFE600] resize-none"
+                  className="mt-2 w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary resize-none"
                 />
               )}
             </div>
@@ -150,7 +150,7 @@ export default function CardRequestPage() {
                 type="button"
                 onClick={() => setStep('confirm')}
                 disabled={isCtaDisabled}
-                className="w-full h-12 rounded-full bg-[#FFE600] text-foreground font-semibold text-sm hover:bg-[#FFE600]/90 active:bg-[#FFE600]/80 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                className="w-full h-12 rounded-full bg-primary text-foreground font-semibold text-sm hover:bg-primary/90 active:bg-primary/80 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 {t('card.request.confirmCta')}
               </button>
@@ -172,7 +172,7 @@ export default function CardRequestPage() {
             <div className="bg-white rounded-xl p-4 shadow-sm">
               {/* Card Fee */}
               <div className="flex items-center justify-between">
-                <span className="text-xs text-[#767676]">
+                <span className="text-xs text-muted-foreground">
                   {t('card.request.cardFee')}
                 </span>
                 <span className="text-xs font-medium text-foreground">
@@ -184,7 +184,7 @@ export default function CardRequestPage() {
 
               {/* Processing Fee */}
               <div className="flex items-center justify-between">
-                <span className="text-xs text-[#767676]">
+                <span className="text-xs text-muted-foreground">
                   {t('card.request.fee')}
                 </span>
                 <span className="text-xs font-medium text-foreground">
@@ -208,7 +208,7 @@ export default function CardRequestPage() {
 
               {/* FX Rate */}
               <div className="flex items-center justify-between">
-                <span className="text-xs text-[#767676]">
+                <span className="text-xs text-muted-foreground">
                   {t('card.request.fxRate')}
                 </span>
                 <span className="text-xs font-medium text-foreground">
@@ -220,7 +220,7 @@ export default function CardRequestPage() {
 
               {/* MMK Equivalent */}
               <div className="flex items-center justify-between">
-                <span className="text-xs text-[#767676]">
+                <span className="text-xs text-muted-foreground">
                   {t('card.request.youReceive')}
                 </span>
                 <span className="text-xs font-medium text-foreground">
@@ -232,7 +232,7 @@ export default function CardRequestPage() {
             {/* Delivery address row */}
             <div className="bg-white rounded-xl p-4 shadow-sm">
               <div className="flex items-center justify-between">
-                <span className="text-xs text-[#767676]">Delivery Address</span>
+                <span className="text-xs text-muted-foreground">Delivery Address</span>
                 <span className="text-xs font-medium text-foreground text-right max-w-[60%]">
                   {deliveryAddressLabel}
                 </span>
@@ -244,7 +244,7 @@ export default function CardRequestPage() {
                 type="button"
                 onClick={() => setPasscodeOpen(true)}
                 disabled={isLoading}
-                className="w-full h-12 rounded-full bg-[#FFE600] text-foreground font-semibold text-sm hover:bg-[#FFE600]/90 active:bg-[#FFE600]/80 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                className="w-full h-12 rounded-full bg-primary text-foreground font-semibold text-sm hover:bg-primary/90 active:bg-primary/80 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 {isLoading ? 'Processing...' : t('card.request.confirmCta')}
               </button>
@@ -271,7 +271,7 @@ export default function CardRequestPage() {
           </AlertDialogHeader>
           {resultModal?.cardReference && (
             <div className="px-1 pb-2">
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#E8F5E9] text-[#00C853]">
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#E8F5E9] text-wave-success">
                 {resultModal.cardReference}
               </span>
             </div>
@@ -279,7 +279,7 @@ export default function CardRequestPage() {
           <AlertDialogFooter>
             <AlertDialogAction
               onClick={() => router.push('/profile/card')}
-              className="w-full h-12 rounded-full bg-[#FFE600] text-foreground font-semibold text-sm hover:bg-[#FFE600]/90"
+              className="w-full h-12 rounded-full bg-primary text-foreground font-semibold text-sm hover:bg-primary/90"
             >
               {t('card.request.successCta')}
             </AlertDialogAction>
@@ -299,7 +299,7 @@ export default function CardRequestPage() {
           <AlertDialogFooter>
             <AlertDialogAction
               onClick={() => setResultModal(null)}
-              className="w-full h-12 rounded-full bg-[#FFE600] text-foreground font-semibold text-sm hover:bg-[#FFE600]/90"
+              className="w-full h-12 rounded-full bg-primary text-foreground font-semibold text-sm hover:bg-primary/90"
             >
               {t('card.request.failCta')}
             </AlertDialogAction>

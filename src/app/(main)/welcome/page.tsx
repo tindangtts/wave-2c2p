@@ -40,7 +40,7 @@ export default function WelcomePage() {
       <TopHeader />
       <div className="flex-1 flex flex-col overflow-y-auto">
         {/* Yellow background area — design: extends from header */}
-        <div className="bg-[#FFE512] px-4 pt-3 pb-18">
+        <div className="bg-primary px-4 pt-3 pb-18">
           {/* Rate Card — design: white card with rounded corners */}
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
             {/* Top: amount conversion */}
@@ -48,7 +48,7 @@ export default function WelcomePage() {
               <div className="flex items-start">
                 {/* THB side */}
                 <div className="flex-1">
-                  <p className="text-[0.6875rem] text-[#595959] mb-1.5">Amount</p>
+                  <p className="text-[0.6875rem] text-muted-foreground mb-1.5">Amount</p>
                   <div className="flex items-center gap-1.5 mb-1">
                     <span className="text-base" role="img" aria-label="Thailand">🇹🇭</span>
                     <span className="text-[0.6875rem] font-medium text-foreground">THB</span>
@@ -60,14 +60,14 @@ export default function WelcomePage() {
 
                 {/* Transfer arrow icon */}
                 <div className="flex items-center justify-center pt-6">
-                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" className="text-[#767676]">
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" className="text-muted-foreground" aria-hidden="true">
                     <path d="M6 10h16m0 0l-4-4m4 4l-4 4M22 18H6m0 0l4-4m-4 4l4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </div>
 
                 {/* MMK side */}
                 <div className="flex-1 text-right">
-                  <p className="text-[0.6875rem] text-[#595959] mb-1.5">Converted Amount</p>
+                  <p className="text-[0.6875rem] text-muted-foreground mb-1.5">Converted Amount</p>
                   <div className="flex items-center gap-1.5 justify-end mb-1">
                     <span className="text-base" role="img" aria-label="Myanmar">🇲🇲</span>
                     <span className="text-[0.6875rem] font-medium text-foreground">MMK</span>
@@ -80,7 +80,7 @@ export default function WelcomePage() {
             </div>
 
             {/* Blue bottom: rate info — design: blue bar */}
-            <div className="bg-[#0091EA] px-4 py-3">
+            <div className="bg-accent px-4 py-3">
               <div className="flex items-center justify-between">
                 <span className="text-sm text-white font-medium">Rate</span>
                 <span className="text-sm text-white">
@@ -113,10 +113,10 @@ export default function WelcomePage() {
           >
             <div className="flex items-center justify-between px-4 py-3 border-b border-[#F0F0F0]">
               <span className="text-base font-medium text-foreground">Wave Agent</span>
-              <ChevronRight className="w-5 h-5 text-[#767676]" />
+              <ChevronRight className="w-5 h-5 text-muted-foreground" />
             </div>
             <div className="flex items-center gap-3 px-4 py-3">
-              <div className="w-11 h-11 rounded-lg bg-[#0091EA] border border-border flex items-center justify-center flex-shrink-0">
+              <div className="w-11 h-11 rounded-lg bg-accent border border-border flex items-center justify-center flex-shrink-0">
                 <span className="text-white text-sm font-bold">W</span>
               </div>
               <div className="flex-1" />
@@ -124,7 +124,7 @@ export default function WelcomePage() {
                 <p className="text-base font-bold text-foreground tabular-nums">
                   {formatCurrency(convertedPya, 'MMK')}
                 </p>
-                <p className="text-xs text-[#767676]">Fees: 10.00 THB</p>
+                <p className="text-xs text-muted-foreground">Fees: 10.00 THB</p>
               </div>
             </div>
           </button>
@@ -136,10 +136,10 @@ export default function WelcomePage() {
           >
             <div className="flex items-center justify-between px-4 py-3 border-b border-[#F0F0F0]">
               <span className="text-base font-medium text-foreground">Wave App</span>
-              <ChevronRight className="w-5 h-5 text-[#767676]" />
+              <ChevronRight className="w-5 h-5 text-muted-foreground" />
             </div>
             <div className="flex items-center gap-3 px-4 py-3">
-              <div className="w-11 h-11 rounded-lg bg-[#FFE600] border border-border flex items-center justify-center flex-shrink-0">
+              <div className="w-11 h-11 rounded-lg bg-primary border border-border flex items-center justify-center flex-shrink-0">
                 <span className="text-foreground text-sm font-bold">W</span>
               </div>
               <div className="w-11 h-11 rounded-lg bg-white border border-border flex items-center justify-center flex-shrink-0">
@@ -150,7 +150,7 @@ export default function WelcomePage() {
                 <p className="text-base font-bold text-foreground tabular-nums">
                   {formatCurrency(convertedPya, 'MMK')}
                 </p>
-                <p className="text-xs text-[#767676]">Fees: 10.00 THB</p>
+                <p className="text-xs text-muted-foreground">Fees: 10.00 THB</p>
               </div>
             </div>
           </button>

@@ -148,21 +148,21 @@ export default function LoginPage() {
             className="p-1 -ml-1 rounded-full hover:bg-black/5 transition-colors"
             aria-label="Go back"
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M15 19l-7-7 7-7" stroke="#212121" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="text-foreground">
+              <path d="M15 19l-7-7 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>
 
           {/* Language selector — design: rounded pill with blue border */}
           <Select value={currentLocale} onValueChange={handleLocaleChange}>
-            <SelectTrigger className="w-auto h-8 gap-1.5 rounded-full border-[#026fa2] border-[0.5px] bg-white px-3 text-xs shadow-none">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="flex-shrink-0">
-                <circle cx="12" cy="12" r="10" stroke="#026fa2" strokeWidth="2"/>
-                <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" stroke="#026fa2" strokeWidth="2"/>
+            <SelectTrigger className="w-auto h-8 gap-1.5 rounded-full border-accent border-[0.5px] bg-white px-3 text-xs shadow-none">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="flex-shrink-0 text-accent" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
+                <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" stroke="currentColor" strokeWidth="2"/>
               </svg>
               <SelectValue />
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" className="flex-shrink-0">
-                <path d="M6 9l6 6 6-6" stroke="#026fa2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" className="flex-shrink-0 text-accent" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </SelectTrigger>
             <SelectContent>
@@ -177,13 +177,13 @@ export default function LoginPage() {
 
         {/* Heading */}
         <h1 className="text-xl font-bold text-foreground">{t('login.title')}</h1>
-        <p className="text-base text-[#595959] mt-2">{t('login.subtitle')}</p>
+        <p className="text-base text-muted-foreground mt-2">{t('login.subtitle')}</p>
 
         {/* Phone Number field group — card wrapper per design */}
         <div className="mt-8 bg-secondary rounded-2xl p-4">
           <Label
             htmlFor="phone-input"
-            className="text-xs text-[#595959] mb-2 block"
+            className="text-xs text-muted-foreground mb-2 block"
           >
             {t('login.phoneLabel')}
           </Label>
@@ -219,6 +219,7 @@ export default function LoginPage() {
               onChange={handlePhoneChange}
               onBlur={handleBlur}
               aria-label={t('login.phoneLabel')}
+              aria-required="true"
               aria-invalid={error ? true : undefined}
               aria-describedby={error ? 'phone-error' : undefined}
               className="flex-1 h-10 bg-transparent border-none shadow-none text-base"
@@ -227,7 +228,7 @@ export default function LoginPage() {
         </div>
 
         {/* Hint text */}
-        <p className="text-xs text-[#767676] text-center mt-2">
+        <p className="text-xs text-muted-foreground text-center mt-2">
           {countryCode === '+66' ? 'Example +66 9xxx' : 'Example +95 9xxx'}
         </p>
 
@@ -235,6 +236,7 @@ export default function LoginPage() {
           <p
             id="phone-error"
             role="alert"
+            aria-live="polite"
             className="text-xs text-destructive mt-1 text-center"
           >
             {error}
@@ -249,7 +251,7 @@ export default function LoginPage() {
           onClick={handleSubmit}
           disabled={!isCtaEnabled}
           aria-busy={isLoading}
-          className="w-full h-12 rounded-full bg-gradient-to-b from-[#F5F5F5] to-[#E0E0E0] text-[#0091EA] font-semibold text-base shadow-sm hover:from-[#EEEEEE] hover:to-[#D6D6D6] disabled:opacity-50 border border-border"
+          className="w-full h-12 rounded-full bg-gradient-to-b from-secondary to-border text-accent font-semibold text-base shadow-sm hover:from-secondary hover:to-muted-foreground/20 disabled:opacity-50 border border-border"
         >
           {isLoading ? (
             <>
@@ -274,8 +276,8 @@ export default function LoginPage() {
 
         {/* Need Help link — design: yellow icon + blue text */}
         <div className="flex items-center justify-center gap-2 mt-4">
-          <span className="text-lg">💬</span>
-          <span className="text-sm font-medium text-[#0091EA]">
+          <span className="text-lg" aria-hidden="true">💬</span>
+          <span className="text-sm font-medium text-accent">
             {t('login.helpLink')}
           </span>
         </div>
@@ -285,16 +287,16 @@ export default function LoginPage() {
       <AlertDialog open={isRejected}>
         <AlertDialogContent className="bg-white rounded-2xl max-w-sm mx-4 p-6 text-center">
           <div className="flex flex-col items-center">
-            <XCircle className="w-12 h-12 mb-4 mx-auto" style={{ color: '#F44336' }} />
+            <XCircle className="w-12 h-12 mb-4 mx-auto text-destructive" aria-hidden="true" />
             <AlertDialogTitle className="text-xl font-bold text-foreground mb-2">
               Registration is Rejected
             </AlertDialogTitle>
-            <p className="text-xs font-normal text-[#595959] mb-6">
+            <p className="text-xs font-normal text-muted-foreground mb-6">
               Sorry, Your profile is rejected. For more information please contact support.
             </p>
             <AlertDialogAction
               onClick={() => setIsRejected(false)}
-              className="w-full h-12 rounded-full bg-[#FFE600] text-foreground hover:bg-[#FFE600]/90"
+              className="w-full h-12 rounded-full bg-primary text-foreground hover:bg-primary/90"
             >
               Ok
             </AlertDialogAction>

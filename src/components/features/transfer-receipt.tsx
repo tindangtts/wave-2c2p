@@ -147,35 +147,35 @@ export function TransferReceipt({
     <div ref={receiptRef} id="transfer-receipt-export" className="mx-4 mt-4 bg-white rounded-xl border border-border p-4">
       {/* Success area */}
       <div className="flex flex-col items-center pb-4 border-b border-gray-100">
-        <CheckCircle className="w-12 h-12 text-[#00C853] mb-2" />
-        <p className="text-base font-bold text-[#00C853]">Success!</p>
-        <p className="text-sm text-[#595959] mt-1">2c2p WAVE</p>
-        <p className="text-xs text-[#595959] mt-1">{formatReceiptDate(createdAt)}</p>
+        <CheckCircle className="w-12 h-12 text-wave-success mb-2" />
+        <p className="text-base font-bold text-wave-success">Success!</p>
+        <p className="text-sm text-muted-foreground mt-1">2c2p WAVE</p>
+        <p className="text-xs text-muted-foreground mt-1">{formatReceiptDate(createdAt)}</p>
       </div>
 
       {/* Reference number */}
-      <p className="text-xs text-[#595959] text-center mt-3">
+      <p className="text-xs text-muted-foreground text-center mt-3">
         Ref: {transactionId}
       </p>
 
       {/* Transfer section */}
       <div className="mt-4">
-        <p className="text-xs font-bold text-[#595959] uppercase tracking-wide mb-2">
+        <p className="text-xs font-bold text-muted-foreground uppercase tracking-wide mb-2">
           Transfer
         </p>
         <div className="flex justify-between items-baseline">
-          <span className="text-xs text-[#595959]">From</span>
+          <span className="text-xs text-muted-foreground">From</span>
           <span className="text-base font-bold text-foreground text-right">
             {senderName}
             {senderPhone ? ` · ${senderPhone}` : ''}
           </span>
         </div>
         <div className="flex justify-between items-baseline mt-2">
-          <span className="text-xs text-[#595959]">To</span>
+          <span className="text-xs text-muted-foreground">To</span>
           <span className="text-base font-bold text-foreground text-right">
             {recipientName}
             {' '}
-            <span className="text-xs font-normal text-[#595959]">
+            <span className="text-xs font-normal text-muted-foreground">
               · {channelLabel(channel)}
             </span>
           </span>
@@ -185,7 +185,7 @@ export function TransferReceipt({
       {/* Secret code chip — cash_pickup channel only */}
       {channel === 'cash_pickup' && displayCode && (
         <div className="bg-[#FFF9C4] rounded-xl px-4 py-3 mt-4">
-          <p className="text-xs font-bold text-[#595959] uppercase tracking-wide mb-2">SECRET CODE</p>
+          <p className="text-xs font-bold text-muted-foreground uppercase tracking-wide mb-2">SECRET CODE</p>
           <div className="flex items-center justify-between">
             <span
               aria-live="polite"
@@ -200,7 +200,7 @@ export function TransferReceipt({
                 onClick={() => {
                   navigator.clipboard.writeText(displayCode).then(() => toast.success('Code copied'))
                 }}
-                className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[#0091EA]"
+                className="min-h-[44px] min-w-[44px] flex items-center justify-center text-accent"
               >
                 <Copy className="w-5 h-5" />
               </button>
@@ -209,7 +209,7 @@ export function TransferReceipt({
                 aria-label="Refresh secret code"
                 onClick={handleRefreshCode}
                 disabled={isRefreshing}
-                className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[#595959]"
+                className="min-h-[44px] min-w-[44px] flex items-center justify-center text-muted-foreground"
               >
                 <RefreshCw className="w-5 h-5" />
               </button>
@@ -224,14 +224,14 @@ export function TransferReceipt({
       {/* Amount breakdown */}
       <div className="space-y-2">
         <div className="flex justify-between items-baseline">
-          <span className="text-base text-[#595959]">Amount</span>
+          <span className="text-base text-muted-foreground">Amount</span>
           <span className="text-base font-bold text-foreground">
             {formatCurrency(amount, 'THB')}
           </span>
         </div>
 
         <div className="flex justify-between items-baseline">
-          <span className="text-base text-[#595959]">Fee</span>
+          <span className="text-base text-muted-foreground">Fee</span>
           <span className="text-base font-bold text-destructive">
             {formatCurrency(fee, 'THB')}
           </span>
@@ -240,8 +240,8 @@ export function TransferReceipt({
         {/* Converted row — hidden for P2P */}
         {channel !== 'p2p' && (
           <div className="flex justify-between items-baseline">
-            <span className="text-base text-[#595959]">Converted</span>
-            <span className="text-base text-[#595959]">
+            <span className="text-base text-muted-foreground">Converted</span>
+            <span className="text-base text-muted-foreground">
               {formatCurrency(convertedPya, 'MMK')}
             </span>
           </div>
@@ -260,7 +260,7 @@ export function TransferReceipt({
       {/* Note section */}
       {note && (
         <div className="mt-4">
-          <p className="text-xs text-[#595959]">Note</p>
+          <p className="text-xs text-muted-foreground">Note</p>
           <p className="text-base text-foreground mt-1">{note}</p>
         </div>
       )}
@@ -271,7 +271,7 @@ export function TransferReceipt({
           type="button"
           onClick={handleShare}
           aria-label="Share receipt"
-          className="flex items-center gap-2 text-[#0091EA] text-base min-h-[44px] min-w-[44px] px-4"
+          className="flex items-center gap-2 text-accent text-base min-h-[44px] min-w-[44px] px-4"
         >
           <Share2 className="w-5 h-5" />
           Share
@@ -281,7 +281,7 @@ export function TransferReceipt({
           onClick={handleSaveImage}
           disabled={isSavingImage}
           aria-label="Save receipt as image"
-          className="flex items-center gap-2 text-[#0091EA] text-base min-h-[44px] min-w-[44px] px-4 disabled:opacity-50"
+          className="flex items-center gap-2 text-accent text-base min-h-[44px] min-w-[44px] px-4 disabled:opacity-50"
         >
           {isSavingImage ? <Loader2 className="w-5 h-5 animate-spin" /> : <Download className="w-5 h-5" />}
           Save as Image

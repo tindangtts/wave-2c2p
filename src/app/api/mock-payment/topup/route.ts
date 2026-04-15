@@ -88,15 +88,15 @@ export async function POST(request: Request) {
     // Atomic batch: update wallet balance + insert transaction (immediate, no deferred setTimeout)
     let txId: string
     try {
-      const [, [inserted]] = await db.batch([
-        db.update(wallets)
+      txId = await db.transaction(async (tx) => {
+        await tx.update(wallets)
           .set({ balance: wallet.balance + amount, updatedAt: new Date() })
-          .where(eq(wallets.id, wallet.id)),
-        db.insert(transactions)
+          .where(eq(wallets.id, wallet.id));
+        const [inserted] = await tx.insert(transactions)
           .values({
             userId: user.id,
             type: 'add_money',
-            status: 'success',   // Immediate success — atomic write, no deferred update needed
+            status: 'success',
             amount,
             fee: 0,
             currency: 'THB',
@@ -105,9 +105,9 @@ export async function POST(request: Request) {
             description: `Top-up via ${channel.toUpperCase()}`,
             metadata: null,
           })
-          .returning({ id: transactions.id }),
-      ] as const)
-      txId = inserted.id
+          .returning({ id: transactions.id });
+        return inserted.id;
+      })
     } catch {
       return NextResponse.json(
         { error: 'Failed to process top-up' },

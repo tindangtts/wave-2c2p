@@ -134,13 +134,13 @@ export default function PersonalInfoPage() {
       <StepIndicator currentStep={1} />
 
       <div className="flex-1 flex flex-col px-4 pt-6 pb-8">
-        <p className="text-base text-[#595959] mb-6">{t('register.step1Subtitle')}</p>
+        <p className="text-base text-muted-foreground mb-6">{t('register.step1Subtitle')}</p>
 
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col flex-1" noValidate>
           <div className="flex flex-col gap-5">
             {/* Title (Salutation) */}
             <div>
-              <Label htmlFor="title" className="text-xs text-[#595959] mb-1 block">
+              <Label htmlFor="title" className="text-xs text-muted-foreground mb-1 block">
                 {t('fields.title')} <span className="text-destructive">*</span>
               </Label>
               <Select
@@ -150,7 +150,7 @@ export default function PersonalInfoPage() {
                 }}
                 value={form.watch('title')}
               >
-                <SelectTrigger id="title" className="h-12">
+                <SelectTrigger id="title" className="h-12" aria-required="true">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -163,19 +163,20 @@ export default function PersonalInfoPage() {
 
             {/* First Name */}
             <div>
-              <Label htmlFor="firstName" className="text-xs text-[#595959] mb-1 block">
+              <Label htmlFor="firstName" className="text-xs text-muted-foreground mb-1 block">
                 {t('fields.firstName')} <span className="text-destructive">*</span>
               </Label>
               <Input
                 id="firstName"
                 {...form.register('firstName')}
                 className="h-12"
+                aria-required="true"
                 aria-invalid={!!errors.firstName}
                 aria-describedby={errors.firstName ? 'firstName-error' : undefined}
                 autoComplete="given-name"
               />
               {errors.firstName && (
-                <p id="firstName-error" role="alert" className="text-xs text-destructive mt-1">
+                <p id="firstName-error" role="alert" aria-live="polite" className="text-xs text-destructive mt-1">
                   {errors.firstName.message}
                 </p>
               )}
@@ -183,19 +184,20 @@ export default function PersonalInfoPage() {
 
             {/* Last Name */}
             <div>
-              <Label htmlFor="lastName" className="text-xs text-[#595959] mb-1 block">
+              <Label htmlFor="lastName" className="text-xs text-muted-foreground mb-1 block">
                 {t('fields.lastName')} <span className="text-destructive">*</span>
               </Label>
               <Input
                 id="lastName"
                 {...form.register('lastName')}
                 className="h-12"
+                aria-required="true"
                 aria-invalid={!!errors.lastName}
                 aria-describedby={errors.lastName ? 'lastName-error' : undefined}
                 autoComplete="family-name"
               />
               {errors.lastName && (
-                <p id="lastName-error" role="alert" className="text-xs text-destructive mt-1">
+                <p id="lastName-error" role="alert" aria-live="polite" className="text-xs text-destructive mt-1">
                   {errors.lastName.message}
                 </p>
               )}
@@ -203,7 +205,7 @@ export default function PersonalInfoPage() {
 
             {/* Gender */}
             <div>
-              <Label htmlFor="gender" className="text-xs text-[#595959] mb-1 block">
+              <Label htmlFor="gender" className="text-xs text-muted-foreground mb-1 block">
                 {t('fields.gender')} <span className="text-destructive">*</span>
               </Label>
               <Select
@@ -213,7 +215,7 @@ export default function PersonalInfoPage() {
                 }}
                 value={form.watch('gender')}
               >
-                <SelectTrigger id="gender" className="h-12">
+                <SelectTrigger id="gender" className="h-12" aria-required="true">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -225,7 +227,7 @@ export default function PersonalInfoPage() {
 
             {/* Date of Birth */}
             <div>
-              <Label htmlFor="dateOfBirth" className="text-xs text-[#595959] mb-1 block">
+              <Label htmlFor="dateOfBirth" className="text-xs text-muted-foreground mb-1 block">
                 {t('fields.dateOfBirth')} <span className="text-destructive">*</span>
               </Label>
               <Input
@@ -233,13 +235,14 @@ export default function PersonalInfoPage() {
                 {...form.register('dateOfBirth')}
                 placeholder={t('fields.dobPlaceholder')}
                 className="h-12"
+                aria-required="true"
                 aria-invalid={!!errors.dateOfBirth}
                 aria-describedby={errors.dateOfBirth ? 'dateOfBirth-error' : undefined}
                 autoComplete="bday"
                 inputMode="numeric"
               />
               {errors.dateOfBirth && (
-                <p id="dateOfBirth-error" role="alert" className="text-xs text-destructive mt-1">
+                <p id="dateOfBirth-error" role="alert" aria-live="polite" className="text-xs text-destructive mt-1">
                   {errors.dateOfBirth.message}
                 </p>
               )}
@@ -247,19 +250,19 @@ export default function PersonalInfoPage() {
 
             {/* Mobile No. (read-only, from registration store) */}
             <div>
-              <Label className="text-xs text-[#595959] mb-1 block">
+              <Label className="text-xs text-muted-foreground mb-1 block">
                 {t('fields.mobileNo')}
               </Label>
               <div className="h-12 border rounded-md px-3 flex items-center bg-secondary text-foreground">
                 <span className="text-base">
-                  {countryCode ? `${countryCode === '+66' ? '🇹🇭 TH(+66)' : '🇲🇲 MM(+95)'} ▼ ${phone || ''}` : ''}
+                  {countryCode ? <><span aria-hidden="true">{countryCode === '+66' ? '🇹🇭' : '🇲🇲'}</span>{` ${countryCode === '+66' ? 'TH(+66)' : 'MM(+95)'} ▼ ${phone || ''}`}</> : ''}
                 </span>
               </div>
             </div>
 
             {/* Email Address */}
             <div>
-              <Label htmlFor="email" className="text-xs text-[#595959] mb-1 block">
+              <Label htmlFor="email" className="text-xs text-muted-foreground mb-1 block">
                 {t('fields.email')} <span className="text-destructive">*</span>
               </Label>
               <Input
@@ -268,12 +271,13 @@ export default function PersonalInfoPage() {
                 {...form.register('email')}
                 placeholder={t('fields.emailPlaceholder')}
                 className="h-12"
+                aria-required="true"
                 aria-invalid={!!errors.email}
                 aria-describedby={errors.email ? 'email-error' : undefined}
                 autoComplete="email"
               />
               {errors.email && (
-                <p id="email-error" role="alert" className="text-xs text-destructive mt-1">
+                <p id="email-error" role="alert" aria-live="polite" className="text-xs text-destructive mt-1">
                   {errors.email.message}
                 </p>
               )}
@@ -281,7 +285,7 @@ export default function PersonalInfoPage() {
           </div>
 
           {/* Disclaimer text — per Pencil design */}
-          <p className="text-xs text-[#595959] text-center mt-6 mb-4">
+          <p className="text-xs text-muted-foreground text-center mt-6 mb-4">
             {t('fields.checkInfoDisclaimer')}
           </p>
 
@@ -291,7 +295,7 @@ export default function PersonalInfoPage() {
             type="submit"
             disabled={isLoading}
             aria-busy={isLoading}
-            className="w-full h-12 rounded-full bg-[#FFE600] text-foreground font-semibold text-base hover:bg-[#FFE600]/90 disabled:opacity-50"
+            className="w-full h-12 rounded-full bg-primary text-foreground font-semibold text-base hover:bg-primary/90 disabled:opacity-50"
           >
             {isLoading ? (
               <>
@@ -315,13 +319,13 @@ export default function PersonalInfoPage() {
           <AlertDialogFooter>
             <AlertDialogCancel
               onClick={() => setShowSaveDialog(false)}
-              className="border-[#212121] text-foreground"
+              className="border-foreground text-foreground"
             >
               {t('register.saveDialogCancel')}
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={handleSaveAndExit}
-              className="bg-[#FFE600] text-foreground hover:bg-[#FFE600]/90"
+              className="bg-primary text-foreground hover:bg-primary/90"
             >
               {t('register.saveDialogConfirm')}
             </AlertDialogAction>

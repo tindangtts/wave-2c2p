@@ -44,7 +44,7 @@ export function RecipientRow({
     <div
       className={[
         "flex items-center gap-3 px-4 py-3 min-h-[64px] border-b border-gray-100 last:border-b-0 active:bg-gray-50 transition-colors cursor-pointer",
-        isSelected ? "border-l-[3px] border-l-[#FFE600] bg-[#FFFDE7]" : "",
+        isSelected ? "border-l-[3px] border-l-primary bg-primary/10" : "",
       ]
         .filter(Boolean)
         .join(" ")}
@@ -61,8 +61,7 @@ export function RecipientRow({
     >
       {/* Yellow avatar circle */}
       <div
-        className="w-12 h-12 rounded-full bg-[#FFE600] flex items-center justify-center shrink-0"
-        aria-hidden="true"
+        className="w-12 h-12 rounded-full bg-primary flex items-center justify-center shrink-0"
       >
         <span className="text-xl font-bold text-foreground">{initial}</span>
       </div>
@@ -85,15 +84,15 @@ export function RecipientRow({
           >
             <Star
               className="w-4 h-4"
-              fill={recipient.is_favorite ? "#0091EA" : "none"}
-              stroke={recipient.is_favorite ? "#0091EA" : "#C0C0C0"}
+              fill={recipient.is_favorite ? "var(--color-accent)" : "none"}
+              stroke={recipient.is_favorite ? "var(--color-accent)" : "#C0C0C0"}
             />
           </button>
           <p className="text-base font-bold text-foreground truncate">
             {recipient.full_name}
           </p>
         </div>
-        <p className="text-xs text-[#595959] mt-0.5">{transferTypeLabel}</p>
+        <p className="text-xs text-muted-foreground mt-0.5">{transferTypeLabel}</p>
       </div>
 
       {/* Kebab menu */}
@@ -103,7 +102,7 @@ export function RecipientRow({
           className="flex items-center justify-center w-11 h-11 shrink-0 rounded-full hover:bg-gray-100 transition-colors"
           aria-label={`More options for ${recipient.full_name}`}
         >
-          <MoreVertical className="w-6 h-6 text-[#595959]" />
+          <MoreVertical className="w-6 h-6 text-muted-foreground" />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem

@@ -43,7 +43,7 @@ export default function FAQPage() {
             <h2 className="text-base font-bold text-foreground mb-2">
               {item.question}
             </h2>
-            <p className="text-base font-normal text-[#595959] leading-relaxed">
+            <p className="text-base font-normal text-muted-foreground leading-relaxed">
               {item.answer}
             </p>
           </div>
