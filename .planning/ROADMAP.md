@@ -266,7 +266,11 @@ Plans:
   2. Setting `min_version` in `system_config` to a value higher than the current app version forces a hard-update modal that blocks all navigation; a `recommended_version` mismatch shows a dismissible soft-update banner
   3. A user whose `user_profiles` record has `kyc_status = 'permanently_rejected'` (or equivalent flag) sees a rejection modal at the phone-entry step and cannot proceed to OTP
   4. Logging in on a second device invalidates the previous session token; the first device is redirected to the login screen on the next authenticated API call
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 21-01-PLAN.md — system_config schema + SQL migration + /api/system-status DB rewrite + soft/hard update distinction
+- [ ] 21-02-PLAN.md — permanently_rejected column + rejection gate in OTP send + RejectionModal in login + single session invalidation
 
 ### Phase 22: Demo Mode Removal
 **Goal**: The codebase contains no DEMO_MODE conditional branches — every API route reads from and writes to Supabase exclusively
@@ -303,5 +307,5 @@ Plans:
 | 18. Core Data Layer | v1.3 | 3/3 | Complete    | 2026-04-15 |
 | 19. Payment Write-Back | v1.3 | 2/2 | Complete    | 2026-04-15 |
 | 20. New Tables & Seed | v1.3 | 3/3 | Complete    | 2026-04-15 |
-| 21. System Config & Auth Gates | v1.3 | 0/TBD | Not started | - |
+| 21. System Config & Auth Gates | v1.3 | 0/2 | Not started | - |
 | 22. Demo Mode Removal | v1.3 | 0/TBD | Not started | - |
