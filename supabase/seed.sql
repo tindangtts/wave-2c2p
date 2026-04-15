@@ -432,3 +432,10 @@ values
     '2024-06-01T00:00:00Z'
   )
 on conflict do nothing;
+
+-- system_config (Phase 21) — safe defaults
+insert into public.system_config (key, value) values
+  ('maintenance_mode', 'false'),
+  ('min_version', '"0.1.0"'),
+  ('recommended_version', '"0.1.0"')
+on conflict (key) do nothing;
