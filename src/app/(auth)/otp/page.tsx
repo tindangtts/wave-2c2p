@@ -133,9 +133,7 @@ function OTPPageContent() {
     }
   }
 
-  const isDev =
-    process.env.NEXT_PUBLIC_MOCK_OTP === 'true' ||
-    process.env.NODE_ENV === 'development'
+  const isDemoMode = process.env.NEXT_PUBLIC_DEMO_MODE === 'true'
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -207,14 +205,14 @@ function OTPPageContent() {
           )}
         </div>
 
-        {/* Dev bypass — auto-fill 000000 and submit */}
-        {isDev && (
+        {/* Test OTP hint — only shown when DEMO_MODE is on */}
+        {isDemoMode && (
           <button
             type="button"
-            onClick={() => { setOtp('000000'); setTimeout(() => handleVerify('000000'), 100) }}
+            onClick={() => { setOtp('987654'); setTimeout(() => handleVerify('987654'), 100) }}
             className="mt-3 mx-auto px-3 py-1.5 rounded-lg bg-amber-50 border border-amber-200 text-xs text-amber-700"
           >
-            Dev: use 000000
+            Test OTP: 987654
           </button>
         )}
 

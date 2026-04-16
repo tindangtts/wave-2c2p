@@ -264,14 +264,14 @@ export default function LoginPage() {
           )}
         </Button>
 
-        {/* Sample account info */}
-        {process.env.NODE_ENV === 'development' && (
+        {/* Test phone hint — only shown when DEMO_MODE is on */}
+        {process.env.NEXT_PUBLIC_DEMO_MODE === 'true' && (
           <button
             type="button"
-            onClick={() => { setCountryCode('+66'); setPhone('992345678'); setTouched(true) }}
+            onClick={() => { setCountryCode('+66'); setPhone('123456789'); setTouched(true) }}
             className="mt-3 mx-auto px-3 py-1.5 rounded-lg bg-amber-50 border border-amber-200 text-xs text-amber-700"
           >
-            Demo: +66 992345678
+            Test: +66 123456789
           </button>
         )}
 
