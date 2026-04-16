@@ -37,8 +37,9 @@ export async function updateSession(request: NextRequest) {
     // Supabase unreachable — treat as unauthenticated
   }
 
-  // Auth pages: unauthenticated users are allowed here
+  // Pages accessible without authentication
   const isAuthPage =
+    request.nextUrl.pathname === "/" ||
     request.nextUrl.pathname.startsWith("/login") ||
     request.nextUrl.pathname.startsWith("/otp") ||
     request.nextUrl.pathname.startsWith("/register") ||
@@ -46,12 +47,10 @@ export async function updateSession(request: NextRequest) {
     request.nextUrl.pathname.startsWith("/passcode") ||
     request.nextUrl.pathname.startsWith("/welcome");
 
-  const isApiRoute = request.nextUrl.pathname.startsWith("/api");
-
-  // Redirect unauthenticated users to login (except auth pages and API routes)
-  if (!user && !isAuthPage && !isApiRoute) {
+  // Redirect unauthenticated users to welcome page (except public pages)
+  if (!user && !isAuthPage) {
     const url = request.nextUrl.clone();
-    url.pathname = "/login";
+    url.pathname = "/welcome";
     return NextResponse.redirect(url);
   }
 

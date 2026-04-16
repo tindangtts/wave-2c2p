@@ -44,7 +44,8 @@ export async function GET() {
       wallet,
       profile,
     });
-  } catch {
+  } catch (err) {
+    console.error("[wallet] Error:", err);
     return NextResponse.json(
       { error: "Failed to fetch wallet" },
       { status: 500 }

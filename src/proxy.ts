@@ -3,11 +3,6 @@ import { updateSession } from '@/lib/supabase/middleware'
 
 export async function proxy(request: NextRequest) {
   try {
-    // Skip proxy for API routes — they don't need session refresh
-    if (request.nextUrl.pathname.startsWith('/api')) {
-      return NextResponse.next()
-    }
-
     // Refresh Supabase session (auth guards + session refresh)
     // Locale is read from cookie by getRequestConfig in i18n/request.ts — no
     // intl middleware needed. Running createIntlMiddleware here rewrites the
@@ -21,6 +16,8 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|manifest.json|icons/|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    // Exclude API routes (handled directly by route handlers), static files,
+    // and image/asset files from proxy processing.
+    "/((?!api|_next/static|_next/image|favicon.ico|manifest.json|icons/|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 }
