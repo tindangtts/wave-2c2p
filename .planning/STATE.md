@@ -5,7 +5,7 @@ milestone_name: Supabase Migration & Auth Hardening
 status: verifying
 stopped_at: Completed 22-03-PLAN.md
 last_updated: "2026-04-15T12:33:30.525Z"
-last_activity: 2026-04-15
+last_activity: 2026-04-16
 progress:
   total_phases: 14
   completed_phases: 13
@@ -129,6 +129,12 @@ None yet.
 - DB-01/DB-02: WebAuthn SQL migration requires a deployed HTTPS domain — local dev cannot fully verify biometric enrollment
 - Phase 16 E2E tests (TEST-04, TEST-05) require a running dev server; CI pipeline setup may be needed
 - Phase 21 AUTH-05 (single active session): Supabase `auth.admin.signOut(userId, 'others')` requires service role key — confirm env var is set
+
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 260416-cr3 | Migrate Register demo data to Supabase - update schema and seed for Pencil design fields | 2026-04-16 | fac607e | [260416-cr3-migrate-register-demo-data-to-supabase-u](./quick/260416-cr3-migrate-register-demo-data-to-supabase-u/) |
 
 ## Session Continuity
 
