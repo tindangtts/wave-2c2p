@@ -31,14 +31,7 @@ export async function GET() {
     ]);
 
     const wallet = walletRows[0] ?? null;
-    const profile = profileRows[0];
-
-    if (!profile) {
-      return NextResponse.json(
-        { error: "Failed to fetch wallet" },
-        { status: 500 }
-      );
-    }
+    const profile = profileRows[0] ?? null;
 
     return NextResponse.json({
       wallet,

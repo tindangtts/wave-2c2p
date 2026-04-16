@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { BackHeader } from "@/components/layout/back-header";
-import { createClient } from "@/lib/supabase/client";
 
 interface UserProfile {
   first_name: string | null;
@@ -29,17 +28,13 @@ export default function InformationPage() {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const supabase = createClient();
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (user) {
-        const { data } = await supabase
-          .from("user_profiles")
-          .select("first_name, last_name, phone, date_of_birth")
-          .eq("id", user.id)
-          .single();
+      try {
+        const res = await fetch("/api/profile");
+        if (!res.ok) return;
+        const { profile: data } = await res.json();
         if (data) setProfile(data);
+      } catch {
+        // Keep null on error
       }
     };
     fetchProfile();

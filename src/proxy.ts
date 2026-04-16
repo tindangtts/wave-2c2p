@@ -18,6 +18,6 @@ export const config = {
   matcher: [
     // Exclude API routes (handled directly by route handlers), static files,
     // and image/asset files from proxy processing.
-    "/((?!api|_next/static|_next/image|favicon.ico|manifest.json|icons/|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|manifest\\.(?:json|webmanifest)|icons/|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 }

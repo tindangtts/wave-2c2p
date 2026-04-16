@@ -33,21 +33,12 @@ export default function PasscodePage() {
   useEffect(() => {
     async function fetchUserName() {
       try {
-        const supabase = createClient()
-        const {
-          data: { user },
-        } = await supabase.auth.getUser()
-
-        if (!user) {
-          router.push('/login')
+        const res = await fetch('/api/profile')
+        if (!res.ok) {
+          if (res.status === 401) router.push('/login')
           return
         }
-
-        const { data: profile } = await supabase
-          .from('user_profiles')
-          .select('first_name, webauthn_credential_id')
-          .eq('id', user.id)
-          .single()
+        const { profile } = await res.json()
 
         if (profile?.first_name) {
           setUserName(profile.first_name)

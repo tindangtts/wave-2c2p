@@ -42,14 +42,10 @@ export default function ProfilePage() {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const supabase = createClient();
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        const { data: profile } = await supabase
-          .from("user_profiles")
-          .select("first_name, last_name, kyc_status, webauthn_credential_id")
-          .eq("id", user.id)
-          .single();
+      try {
+        const res = await fetch("/api/profile");
+        if (!res.ok) return;
+        const { profile } = await res.json();
         if (profile) {
           const fullName = [profile.first_name, profile.last_name]
             .filter(Boolean)
@@ -58,6 +54,8 @@ export default function ProfilePage() {
           setKycStatus(profile.kyc_status ?? null);
           setBiometricsEnabled(!!profile.webauthn_credential_id);
         }
+      } catch {
+        // Keep defaults on error
       }
     };
     fetchUser();
