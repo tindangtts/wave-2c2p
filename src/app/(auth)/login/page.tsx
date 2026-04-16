@@ -52,7 +52,8 @@ export default function LoginPage() {
     if (!code) return
     setCurrentLocale(code)
     document.cookie = `locale=${code}; path=/; max-age=${60 * 60 * 24 * 365}; samesite=lax`
-    router.refresh()
+    // Full reload required — root layout reads locale at build time via getLocale()
+    window.location.reload()
   }
 
   // Minimum digit thresholds per country code

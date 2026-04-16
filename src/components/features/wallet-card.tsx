@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useWallet } from "@/hooks/use-wallet";
 import { formatCurrency } from "@/lib/currency";
@@ -43,7 +42,6 @@ function ChevronDownIcon() {
 }
 
 function LanguagePill() {
-  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [currentLocale, setCurrentLocale] = useState("en");
 
@@ -62,7 +60,8 @@ function LanguagePill() {
     document.cookie = `locale=${code}; path=/; max-age=${60 * 60 * 24 * 365}; samesite=lax`;
     setCurrentLocale(code);
     setOpen(false);
-    router.refresh();
+    // Full reload required — root layout reads locale at build time via getLocale()
+    window.location.reload();
   }
 
   return (

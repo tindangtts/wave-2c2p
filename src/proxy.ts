@@ -20,8 +20,19 @@ export async function proxy(request: NextRequest) {
       return sessionResponse
     }
 
-    // 2. Pass through with session cookies
-    // next-intl reads locale from requestLocale() which uses the cookie directly
+    // 2. Run intl middleware to resolve locale from cookie and set x-next-intl-locale header
+    //    Without this, requestLocale in getRequestConfig always resolves to undefined → 'en'
+    const intlResponse = intlMiddleware(request)
+
+    // 3. Merge intl headers into session response (preserves auth cookies)
+    intlResponse.headers.forEach((value, key) => {
+      if (key.toLowerCase() === 'set-cookie') {
+        sessionResponse.headers.append(key, value)
+      } else {
+        sessionResponse.headers.set(key, value)
+      }
+    })
+
     return sessionResponse
   } catch (err) {
     console.error('[proxy] Error:', err)
