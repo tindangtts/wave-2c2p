@@ -199,6 +199,19 @@ export async function POST(request: NextRequest) {
     .eq('id', userId)
     .single()
 
+  // Create user_profiles row for new users (matches mock-mode behavior)
+  if (!profile && userId) {
+    const fullPhone = countryCode + phone
+    await admin.from('user_profiles').insert({
+      id: userId,
+      full_name: '',
+      phone,
+      country_code: countryCode,
+      registration_complete: false,
+      registration_step: 1,
+    }).then(() => {})
+  }
+
   // AUTH-05: Invalidate all other sessions for this user
   if (userId) {
     try {

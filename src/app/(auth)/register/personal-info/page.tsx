@@ -1,17 +1,24 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
-import { Loader2 } from 'lucide-react'
+import { Loader2, CalendarIcon } from 'lucide-react'
+import { format, parse, isValid } from 'date-fns'
 
 import { BackHeader } from '@/components/layout/back-header'
 import { StepIndicator } from '@/components/features/step-indicator'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
+import { Calendar } from '@/components/ui/calendar'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
 import {
   Select,
   SelectContent,
@@ -32,6 +39,18 @@ import {
 
 import { personalInfoSchema, type PersonalInfoInput } from '@/lib/auth/schemas'
 import { useRegistrationStore } from '@/stores/registration-store'
+
+/** Auto-format date input as DD/MM/YYYY */
+function formatDateInput(raw: string, prev: string): string {
+  // If user is deleting a slash, remove it and the digit before it
+  if (prev.length - raw.length === 1 && prev.endsWith('/') && !raw.endsWith('/')) {
+    return raw.slice(0, -1)
+  }
+  const digits = raw.replace(/\D/g, '').slice(0, 8)
+  if (digits.length <= 2) return digits
+  if (digits.length <= 4) return `${digits.slice(0, 2)}/${digits.slice(2)}`
+  return `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4)}`
+}
 
 export default function PersonalInfoPage() {
   const t = useTranslations('auth')
@@ -125,6 +144,42 @@ export default function PersonalInfoPage() {
     router.push('/login')
   }
 
+  const titleLabels: Record<string, string> = {
+    ms: t('fields.titleMs'),
+    mr: t('fields.titleMr'),
+    mrs: t('fields.titleMrs'),
+  }
+  const genderLabels: Record<string, string> = {
+    male: t('fields.genderMale'),
+    female: t('fields.genderFemale'),
+  }
+
+  const [calendarOpen, setCalendarOpen] = useState(false)
+
+  const handleDateInput = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const prev = form.getValues('dateOfBirth') || ''
+      const formatted = formatDateInput(e.target.value, prev)
+      form.setValue('dateOfBirth', formatted, { shouldValidate: false })
+    },
+    [form]
+  )
+
+  const handleCalendarSelect = useCallback(
+    (date: Date | undefined) => {
+      if (date) {
+        form.setValue('dateOfBirth', format(date, 'dd/MM/yyyy'), { shouldValidate: true })
+        setCalendarOpen(false)
+      }
+    },
+    [form]
+  )
+
+  // Parse current DOB string to Date for calendar default month
+  const dobValue = form.watch('dateOfBirth') || ''
+  const parsedDob = dobValue.length === 10 ? parse(dobValue, 'dd/MM/yyyy', new Date()) : undefined
+  const calendarDate = parsedDob && isValid(parsedDob) ? parsedDob : undefined
+
   const errors = form.formState.errors
 
   return (
@@ -151,7 +206,7 @@ export default function PersonalInfoPage() {
                 value={form.watch('title')}
               >
                 <SelectTrigger id="title" className="h-12" aria-required="true">
-                  <SelectValue />
+                  <span className="flex flex-1 text-left">{titleLabels[form.watch('title')] ?? form.watch('title')}</span>
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="ms">{t('fields.titleMs')}</SelectItem>
@@ -216,7 +271,7 @@ export default function PersonalInfoPage() {
                 value={form.watch('gender')}
               >
                 <SelectTrigger id="gender" className="h-12" aria-required="true">
-                  <SelectValue />
+                  <span className="flex flex-1 text-left">{genderLabels[form.watch('gender')] ?? form.watch('gender')}</span>
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="male">{t('fields.genderMale')}</SelectItem>
@@ -230,17 +285,40 @@ export default function PersonalInfoPage() {
               <Label htmlFor="dateOfBirth" className="text-xs text-muted-foreground mb-1 block">
                 {t('fields.dateOfBirth')} <span className="text-destructive">*</span>
               </Label>
-              <Input
-                id="dateOfBirth"
-                {...form.register('dateOfBirth')}
-                placeholder={t('fields.dobPlaceholder')}
-                className="h-12"
-                aria-required="true"
-                aria-invalid={!!errors.dateOfBirth}
-                aria-describedby={errors.dateOfBirth ? 'dateOfBirth-error' : undefined}
-                autoComplete="bday"
-                inputMode="numeric"
-              />
+              <div className="relative">
+                <Input
+                  id="dateOfBirth"
+                  value={form.watch('dateOfBirth') || ''}
+                  onChange={handleDateInput}
+                  placeholder={t('fields.dobPlaceholder')}
+                  className="h-12 pr-12"
+                  aria-required="true"
+                  aria-invalid={!!errors.dateOfBirth}
+                  aria-describedby={errors.dateOfBirth ? 'dateOfBirth-error' : undefined}
+                  autoComplete="bday"
+                  inputMode="numeric"
+                  maxLength={10}
+                />
+                <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
+                  <PopoverTrigger
+                    className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-muted-foreground hover:text-foreground"
+                    aria-label="Open date picker"
+                  >
+                    <CalendarIcon className="w-5 h-5" />
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="end">
+                    <Calendar
+                      mode="single"
+                      selected={calendarDate}
+                      onSelect={handleCalendarSelect}
+                      defaultMonth={calendarDate ?? new Date(2000, 0)}
+                      captionLayout="dropdown"
+                      fromYear={1940}
+                      toYear={new Date().getFullYear()}
+                    />
+                  </PopoverContent>
+                </Popover>
+              </div>
               {errors.dateOfBirth && (
                 <p id="dateOfBirth-error" role="alert" aria-live="polite" className="text-xs text-destructive mt-1">
                   {errors.dateOfBirth.message}

@@ -25,6 +25,7 @@ export async function POST(request: NextRequest) {
       .eq('id', user.id)
 
     if (updateError) {
+      console.error('[register/consent] updateError:', updateError)
       return NextResponse.json({ error: 'Failed to save consent' }, { status: 500 })
     }
 

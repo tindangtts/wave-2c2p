@@ -54,18 +54,34 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  // Redirect authenticated users away from login/otp/register pages only.
+  // Redirect authenticated users away from login/otp pages.
   // /passcode is intentionally excluded — authenticated users need /passcode
   // for the lock screen (re-authentication after inactivity).
   const isLoginOnlyPage =
     request.nextUrl.pathname.startsWith("/login") ||
-    request.nextUrl.pathname.startsWith("/otp") ||
-    request.nextUrl.pathname.startsWith("/register");
+    request.nextUrl.pathname.startsWith("/otp");
 
   if (user && isLoginOnlyPage) {
     const url = request.nextUrl.clone();
     url.pathname = "/home";
     return NextResponse.redirect(url);
+  }
+
+  // Allow authenticated users to access /register pages if registration is
+  // incomplete. Only redirect to /home when registration is already done.
+  const isRegisterPage = request.nextUrl.pathname.startsWith("/register");
+  if (user && isRegisterPage) {
+    const { data: profile } = await supabase
+      .from("user_profiles")
+      .select("registration_complete")
+      .eq("id", user.id)
+      .single();
+
+    if (profile?.registration_complete) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/home";
+      return NextResponse.redirect(url);
+    }
   }
 
   return supabaseResponse;

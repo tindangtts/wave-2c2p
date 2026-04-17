@@ -298,6 +298,13 @@ create policy "Users can view active vouchers" on public.vouchers
 create index if not exists idx_vouchers_code on public.vouchers(code);
 
 -- =============================================================================
+-- Phase 9: T&C Consent columns (COMP-02)
+-- =============================================================================
+ALTER TABLE public.user_profiles
+  ADD COLUMN IF NOT EXISTS tc_accepted_at timestamptz,
+  ADD COLUMN IF NOT EXISTS tc_version text;
+
+-- =============================================================================
 -- Phase 21: Auth Gates — permanently_rejected column
 -- =============================================================================
 ALTER TABLE public.user_profiles

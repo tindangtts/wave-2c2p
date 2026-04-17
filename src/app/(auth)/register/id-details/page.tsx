@@ -1,27 +1,44 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
-import { Loader2 } from 'lucide-react'
+import { Loader2, CalendarIcon } from 'lucide-react'
+import { format, parse, isValid } from 'date-fns'
 
 import { BackHeader } from '@/components/layout/back-header'
 import { StepIndicator } from '@/components/features/step-indicator'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
+import { Calendar } from '@/components/ui/calendar'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
 } from '@/components/ui/select'
 
 import { idDetailsSchema, type IdDetailsInput } from '@/lib/auth/schemas'
 import { useRegistrationStore } from '@/stores/registration-store'
+
+/** Auto-format date input as DD/MM/YYYY */
+function formatDateInput(raw: string, prev: string): string {
+  if (prev.length - raw.length === 1 && prev.endsWith('/') && !raw.endsWith('/')) {
+    return raw.slice(0, -1)
+  }
+  const digits = raw.replace(/\D/g, '').slice(0, 8)
+  if (digits.length <= 2) return digits
+  if (digits.length <= 4) return `${digits.slice(0, 2)}/${digits.slice(2)}`
+  return `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4)}`
+}
 
 export default function IdDetailsPage() {
   const t = useTranslations('auth')
@@ -92,6 +109,38 @@ export default function IdDetailsPage() {
     router.push('/register/personal-info')
   }
 
+  const idTypeLabels: Record<string, string> = {
+    national_id: t('fields.idTypeNationalId'),
+    passport: t('fields.idTypePassport'),
+    work_permit: t('fields.idTypeWorkPermit'),
+    other: t('fields.idTypeOther'),
+  }
+
+  const [calendarOpen, setCalendarOpen] = useState(false)
+
+  const handleExpiryInput = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const prev = form.getValues('idExpiry') || ''
+      const formatted = formatDateInput(e.target.value, prev)
+      form.setValue('idExpiry', formatted, { shouldValidate: false })
+    },
+    [form]
+  )
+
+  const handleCalendarSelect = useCallback(
+    (date: Date | undefined) => {
+      if (date) {
+        form.setValue('idExpiry', format(date, 'dd/MM/yyyy'), { shouldValidate: true })
+        setCalendarOpen(false)
+      }
+    },
+    [form]
+  )
+
+  const expiryValue = form.watch('idExpiry') || ''
+  const parsedExpiry = expiryValue.length === 10 ? parse(expiryValue, 'dd/MM/yyyy', new Date()) : undefined
+  const calendarDate = parsedExpiry && isValid(parsedExpiry) ? parsedExpiry : undefined
+
   const errors = form.formState.errors
 
   return (
@@ -129,7 +178,7 @@ export default function IdDetailsPage() {
                   aria-invalid={!!errors.idType}
                   aria-describedby={errors.idType ? 'idType-error' : undefined}
                 >
-                  <SelectValue placeholder={t('fields.idType')} />
+                  <span className="flex flex-1 text-left">{idTypeLabels[form.watch('idType')] ?? form.watch('idType')}</span>
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="national_id">{t('fields.idTypeNationalId')}</SelectItem>
@@ -187,17 +236,40 @@ export default function IdDetailsPage() {
               >
                 {t('fields.idExpiry')}
               </Label>
-              <Input
-                id="idExpiry"
-                {...form.register('idExpiry')}
-                placeholder={t('fields.dobPlaceholder')}
-                className="h-12"
-                aria-required="true"
-                aria-invalid={!!errors.idExpiry}
-                aria-describedby={errors.idExpiry ? 'idExpiry-error' : undefined}
-                autoComplete="off"
-                inputMode="numeric"
-              />
+              <div className="relative">
+                <Input
+                  id="idExpiry"
+                  value={form.watch('idExpiry') || ''}
+                  onChange={handleExpiryInput}
+                  placeholder={t('fields.dobPlaceholder')}
+                  className="h-12 pr-12"
+                  aria-required="true"
+                  aria-invalid={!!errors.idExpiry}
+                  aria-describedby={errors.idExpiry ? 'idExpiry-error' : undefined}
+                  autoComplete="off"
+                  inputMode="numeric"
+                  maxLength={10}
+                />
+                <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
+                  <PopoverTrigger
+                    className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-muted-foreground hover:text-foreground"
+                    aria-label="Open date picker"
+                  >
+                    <CalendarIcon className="w-5 h-5" />
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="end">
+                    <Calendar
+                      mode="single"
+                      selected={calendarDate}
+                      onSelect={handleCalendarSelect}
+                      defaultMonth={calendarDate ?? new Date()}
+                      captionLayout="dropdown"
+                      fromYear={new Date().getFullYear()}
+                      toYear={new Date().getFullYear() + 20}
+                    />
+                  </PopoverContent>
+                </Popover>
+              </div>
               {errors.idExpiry && (
                 <p
                   id="idExpiry-error"
